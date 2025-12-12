@@ -53,7 +53,7 @@ export default function ParentLayout({
       >
         <div className={`flex items-center gap-2 pt-8 pb-7 ${sidebarOpen ? "justify-between" : "justify-center"}`}>
           <Link href="/" className="text-2xl font-bold text-primary">
-            <span className={`${sidebarOpen ? "block" : "hidden"}`}>EduLMS</span>
+            <span className={`${sidebarOpen ? "block" : "hidden"}`}>Panama</span>
             <span className={`${sidebarOpen ? "hidden" : "block"}`}>📚</span>
           </Link>
         </div>
@@ -109,7 +109,7 @@ export default function ParentLayout({
                 </svg>
               </button>
               <Link href="/" className="text-xl font-bold text-primary">
-                <span className="hidden sm:block">EduLMS</span>
+                <span className="hidden sm:block">Panama</span>
                 <span className="sm:hidden">📚</span>
               </Link>
             </div>

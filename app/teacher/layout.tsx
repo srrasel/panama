@@ -134,7 +134,7 @@ export default function TeacherLayout({
                 </svg>
               </button>
               <Link href="/" className="text-xl font-bold text-primary">
-                <span className="hidden sm:block">Thornhill </span>
+                <span className="hidden sm:block">Panama </span>
                 <span className="sm:hidden">📚</span>
               </Link>
             </div>
