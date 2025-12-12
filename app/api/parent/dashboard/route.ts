@@ -3,14 +3,11 @@ import { getSession } from "@/lib/auth"
 import { getUserById, getChildForParent } from "@/lib/db"
 
 export async function GET() {
-  const sid = cookies().get("session")?.value
+  const sid = (await cookies()).get("session")?.value
   const session = getSession(sid)
   let child = undefined
-  if (session?.role === "parent") {
-    child = getChildForParent(session.userId)
-  } else if (session?.role === "student") {
-    child = getUserById(session.userId)
-  }
+  if (session?.role === "parent") child = getChildForParent(session.userId)
+  else if (session?.role === "student") child = getUserById(session.userId)
   const childName = child?.name || "Student"
   const childInfo = { name: childName, grade: "10th Grade", school: "Central High School", avatar: childName.slice(0, 1).toUpperCase() }
   const childPerformance = [

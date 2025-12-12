@@ -3,7 +3,7 @@ import { getSession } from "@/lib/auth"
 import { getUserById, getChildForParent } from "@/lib/db"
 
 export async function GET() {
-  const sid = cookies().get("session")?.value
+  const sid = (await cookies()).get("session")?.value
   const session = getSession(sid)
   let child = undefined
   if (session?.role === "parent") child = getChildForParent(session.userId)
