@@ -1,149 +1,102 @@
 "use client"
 
-
+import Link from "next/link"
  import Image from "next/image"
 
-import { useState,useEffect } from "react"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Menu, X } from "lucide-react"
 
-export default function Navigation({ accentColor = "#7f1d1d" }: { accentColor?: string }) {
-
-
+export default function Navigation() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
   const [isScrolled, setIsScrolled] = useState(false)
+  const[navclass,setNavClass]=useState("relative")
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      const scrolled = window.scrollY > 50
+      setIsScrolled(scrolled)
+      setNavClass(scrolled ? "fixed top-0 w-full z-50 backdrop-blur-sm border-b border-stone-100 transition-all duration-300 bg-white/95 shadow-sm" : "relative w-full z-50 backdrop-blur-sm border-b border-stone-100 transition-all duration-300 bg-white/80")
     }
-
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
-   <header
-        id="site-header"
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300`}
-        style={{ backgroundColor: isScrolled ? accentColor : "transparent" }}
-      >
-        <nav className="mx-auto max-w-7xl flex items-center justify-between px-5 py-4 lg:px-6 lg:py-4">
-          {/* Mobile: Hamburger */}
-          <button
-            id="mobile-open"
-            onClick={() => setMobileMenuOpen(true)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-white/90 lg:hidden"
-            aria-label="Open menu"
-          >
-            <Menu className="h-7 w-7" />
-          </button>
+    <nav className={`${navclass}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center h-20">
+          <div className="flex-shrink-0 flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md bg-[rgb(127,29,29)]">A</div>
+            <Link href="/" className="font-bold text-xl tracking-tight text-stone-900">
+              Panama<span className="text-amber-600">School</span>
+            </Link>
+          </div>
 
-          {/* Logo */}
-          <a href="/" className="shrink-0">
-            <div className="h-16 w-auto lg:h-16 bg-white/10 rounded-lg flex items-center justify-center px-3">
-              <Image
-                src="/logo.png"
-                alt="Thornhill University Logo"
-                width={150}
-                height={40}
-                className="h-10 w-auto"
-              />
-            </div>
-          </a>
-
-          {/* Desktop: Right links */}
-          <ul className="hidden items-center gap-8 lg:flex">
-            <li>
-              <a href="/" className="px-2 py-1 text-lg md:text-xl font-medium text-white/90 transition hover:text-white">Home</a>
-            </li>
-            <li>
-              <a href="/courses" className="px-2 py-1 text-lg md:text-xl font-medium text-white/90 transition hover:text-white">Courses</a>
-            </li>
-            <li>
-              <a href="/admission" className="px-2 py-1 text-lg md:text-xl font-medium text-white/90 transition hover:text-white">Admission</a>
-            </li>
-            <li>
-              <a href="/academic" className="px-2 py-1 text-lg md:text-xl font-medium text-white/90 transition hover:text-white">Academic</a>
-            </li>
-          
-            
-
-            <li>
-              <a
-                href="/contact"
-                className="px-2 py-1 text-lg md:text-xl font-medium text-white/90 transition hover:text-white"
-              >
-                Contact
-              </a>
-            </li>
-            <li>
-              <a className="rounded-full px-5 py-2 text-base md:text-lg font-semibold text-white shadow-sm transition hover:opacity-90" href="/login" style={{ backgroundColor: accentColor }}>
-                Portal
-              </a>
-            </li>
-          </ul>
-
-          {/* Mobile: placeholder removed; layout is logo left, menu right */}
-        </nav>
-
-        {/* Mobile Menu */}
-        <div
-          className={`fixed inset-x-0 top-0 z-40 h-screen backdrop-blur-md transition duration-300 lg:hidden ${
-            mobileMenuOpen ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"
-          }`}
-          style={{ backgroundColor: accentColor }}
-        >
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-            <div className=" bg-white/10 rounded px-2 flex items-center">
-             <Image
-                src="/logo.png"
-                alt="Thornhill University Logo"
-                width={120}
-                height={60}
-                className="h-10 w-auto"
-              />
-            </div>
+          <div className="md:hidden flex items-center ml-auto">
             <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg p-2 text-white/90"
-              aria-label="Close menu"
+              aria-label="Toggle navigation"
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              className="text-stone-700 hover:text-stone-900 focus:outline-none"
             >
-              <X className="h-7 w-7" />
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
-          <ul className="mx-auto mt-6 max-w-7xl space-y-2 px-6 text-lg">
-            <li>
-              <a href="#about" className="block rounded-lg px-3 py-2 text-yellow-400">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="#admissions" className="block rounded-lg px-3 py-2 text-white">
-                Admissions
-              </a>
-            </li>
-            <li>
-              <a href="#academics" className="block rounded-lg px-3 py-2 text-white">
-                Academics
-              </a>
-            </li>
-          
-          
-            <li>
-              <a href="#contact" className="block rounded-lg px-3 py-2 text-white">
-                Contact
-              </a>
-            </li>
-            <li>
-              <a className="mt-2 block rounded-full px-4 py-2 text-center font-semibold text-white hover:opacity-90" href="#portal" style={{ backgroundColor: accentColor }}>
-                Portal
-              </a>
-            </li>
-          </ul>
-        </div>
-      </header>
 
+          <div className="hidden md:flex items-center gap-8 ml-auto">
+            <Link href="/" className="text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors">
+              Home
+            </Link>
+            <Link href="/courses" className="text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors">
+              Courses
+            </Link>
+            <Link href="/admission" className="text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors">
+              Admission
+            </Link>
+            <Link href="/academic" className="text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors">
+              Academic
+            </Link>
+            <Link href="/contact" className="text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors">
+              Contact
+            </Link>
+            <Link
+              href="/admission"
+              className="px-5 py-2.5 bg-[rgb(127,29,29)] text-white font-medium rounded-lg hover:bg-[rgb(107,24,24)] transition-all shadow-lg"
+            >
+              Apply Now
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className={`${mobileMenuOpen ? "block" : "hidden"} md:hidden bg-white border-t border-stone-100`}>
+        <div className="px-4 pt-2 pb-6 space-y-2">
+          <Link href="/" className="block py-3 text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors border-b border-stone-100">
+            Home
+          </Link>
+          <Link href="/courses" className="block py-3 text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors border-b border-stone-100">
+            Courses
+          </Link>
+          <Link href="/admission" className="block py-3 text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors border-b border-stone-100">
+            Admission
+          </Link>
+          <Link href="/academic" className="block py-3 text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors border-b border-stone-100">
+            Academic
+          </Link>
+          <Link href="/contact" className="block py-3 text-stone-700 hover:text-[rgb(127,29,29)] font-medium transition-colors border-b border-stone-100">
+            Contact
+          </Link>
+          <div className="pt-4">
+            <Link
+              href="/admission"
+              className="block w-full text-center px-5 py-3 bg-[rgb(127,29,29)] text-white font-medium rounded-lg hover:bg-[rgb(107,24,24)] transition-all shadow-lg"
+            >
+              Apply Now
+            </Link>
+          </div>
+        </div>
+      </div>
+    </nav>
   )
 }

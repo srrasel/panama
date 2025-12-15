@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  student
+  teacher
+  admin
+  parent
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  role         Role
+  passwordHash String
+  passwordSalt String
+  createdAt    DateTime @default(now())
+  imageUrl     String?
+  bio          String?
+  sessions     Session[]
+  parents      ParentChild[] @relation("ParentChildren_parent")
+  children     ParentChild[] @relation("ParentChildren_child")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  role      Role
+  createdAt DateTime @default(now())
+}
+
+model ParentChild {
+  id       String @id @default(cuid())
+  parent   User   @relation("ParentChildren_parent", fields: [parentId], references: [id])
+  parentId String
+  child    User   @relation("ParentChildren_child", fields: [childId], references: [id])
+  childId  String
+
+  @@unique([parentId, childId])
+}
