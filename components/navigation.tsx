@@ -61,10 +61,10 @@ export default function Navigation() {
               Contact
             </Link>
             <Link
-              href="/admission"
+              href="/login"
               className="px-5 py-2.5 bg-[rgb(127,29,29)] text-white font-medium rounded-lg hover:bg-[rgb(107,24,24)] transition-all shadow-lg"
             >
-              Apply Now
+              Login Now
             </Link>
           </div>
         </div>
@@ -89,10 +89,10 @@ export default function Navigation() {
           </Link>
           <div className="pt-4">
             <Link
-              href="/admission"
+              href="/login"
               className="block w-full text-center px-5 py-3 bg-[rgb(127,29,29)] text-white font-medium rounded-lg hover:bg-[rgb(107,24,24)] transition-all shadow-lg"
             >
-              Apply Now
+              Login Now
             </Link>
           </div>
         </div>
