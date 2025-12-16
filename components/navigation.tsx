@@ -30,7 +30,7 @@ export default function Navigation() {
           <div className="flex-shrink-0 flex items-center gap-3">
             
             <Link href="/" className="font-bold text-xl tracking-tight text-stone-900">
-           <Image src="/logo.svg" alt="logo" width={100} height={100} />
+           <Image src="/logo.svg" alt="logo" width={80} height={80} />
             </Link>
           </div>
 
