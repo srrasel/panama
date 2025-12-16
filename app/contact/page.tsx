@@ -55,8 +55,9 @@ export default function ContactPage() {
       <Navigation />
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="relative px-4  pt-[200px] pb-[100px] bg-[rgb(127,29,29)] border-b border-border">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="relative px-4  pt-[100px] pb-[100px] bg-[rgb(127,29,29)] border-b border-border overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1758612898475-6046681acea8?q=80')] bg-cover bg-center bg-no-repeat bg-fixed opacity-5"></div>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 reveal-on-scroll is-visible">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 text-balance">Get In Touch</h1>
               <p className="text-lg md:text-xl text-white/60 text-balance">

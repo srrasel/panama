@@ -46,7 +46,8 @@ export default function LoginPage() {
     <>
       <Navigation />
       <main className="min-h-screen bg-background">
-        <section className="px-4 py-20 md:py-28 bg-[rgb(127,29,29)]">
+        <section className="px-4 py-20 md:py-28 bg-[rgb(127,29,29)] relative overflow-hidden reveal-on-scroll is-visible">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center bg-no-repeat opacity-20"></div>
           <div className="mx-auto max-w-7xl text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">Sign In</h1>
             <p className="text-lg text-white/80 max-w-3xl mx-auto">Access your account to continue learning</p>

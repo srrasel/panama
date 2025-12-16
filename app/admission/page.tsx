@@ -35,7 +35,8 @@ export default function AdmissionPage() {
     <>
       <Navigation />
       <main className="min-h-screen bg-background">
-        <section className="px-4 py-20 md:py-28 bg-[rgb(127,29,29)]">
+        <section className="px-4 py-20 md:py-28 bg-[rgb(127,29,29)] relative overflow-hidden reveal-on-scroll is-visible">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1610962381137-50ef93055125?q=80')] bg-cover bg-center bg-no-repeat opacity-5"></div>
           <div className="mx-auto max-w-7xl text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 text-balance">Join Our Learning Community</h1>
             <p className="text-lg text-white/80 max-w-3xl mx-auto text-balance">Take the first step toward your educational goals. Our comprehensive admission process ensures we find the right fit for every student.</p>
@@ -75,8 +76,13 @@ export default function AdmissionPage() {
       
 
         {/* Application Form */}
-        <section className="py-16 md:py-24">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <section className="py-16 md:py-24" id="admission-form">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 text-center">
+              <h3 className="text-3xl md:text-4xl font-bold text-stone-900 mb-6">Apply Online Admission</h3>
+              <p className="text-stone-600 text-lg leading-relaxed max-w-3xl mx-auto">Complete the form below to start your application</p>
+            </div>
+            
             <div className="rounded-xl border border-border bg-card p-8 md:p-12">
               <h2 className="text-3xl font-bold text-foreground mb-2">Application Form</h2>
               <p className="text-foreground/60 mb-8">Complete this form to begin your admission journey</p>

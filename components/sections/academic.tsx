@@ -171,7 +171,7 @@ export default function AcademicSection(): React.ReactElement {
         </div>
 
         <div className="text-center mt-16 reveal-on-scroll is-visible" style={{ transitionDelay: "600ms" }}>
-          <a href="#" className="inline-flex items-center gap-2 px-8 py-3 bg-brand-900 text-white font-semibold rounded-lg hover:bg-brand-800 transition-all shadow-lg hover:shadow-brand-900/20">
+          <a href="/academic" className="inline-flex items-center gap-2 px-8 py-3 bg-brand-900 text-white font-semibold rounded-lg hover:bg-brand-800 transition-all shadow-lg hover:shadow-brand-900/20">
             View Complete Curriculum Guide
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />

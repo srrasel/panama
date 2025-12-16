@@ -8,9 +8,9 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Panama - Modern Learning Platform",
+  title: "Pamavambo - Modern Learning Platform",
   description: "Transform your education with our modern learning management system",
-  generator: "Panama",
+  generator: "Pamavambo",
   icons: {
     icon: [
       {

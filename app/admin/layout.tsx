@@ -74,7 +74,7 @@ export default function AdminLayout({
       >
         <div className={`flex items-center gap-2 pt-8 pb-7 ${sidebarOpen ? "justify-between" : "justify-center"}`}>
           <Link href="/" className="text-2xl font-bold text-primary">
-            <span className={`${sidebarOpen ? "block" : "hidden"}`}>Panama</span>
+            <span className={`${sidebarOpen ? "block" : "hidden"}`}>Pamavambo</span>
             <span className={`${sidebarOpen ? "hidden" : "block"}`}>📚</span>
           </Link>
         </div>
@@ -132,7 +132,7 @@ export default function AdminLayout({
                 </svg>
               </button>
               <Link href="/" className="text-xl font-bold text-primary">
-                <span className="hidden sm:block">Panama</span>
+                <span className="hidden sm:block">Pamavambo</span>
                 <span className="sm:hidden">📚</span>
               </Link>
             </div>

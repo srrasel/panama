@@ -11,8 +11,8 @@ export default function Footer({ accentColor = "#282423" }: { accentColor?: stri
                 <div className="reveal-on-scroll is-visible">
                     <div className="flex items-center gap-2 mb-6">
                         <div className="w-8 h-8 bg-brand-900 rounded-md flex items-center justify-center text-white font-bold shadow-md">
-                            A</div>
-                        <span className="font-bold text-xl text-white">Panama<span className="text-brand-700">School</span></span>
+                            P</div>
+                        <span className="font-bold text-xl text-white">Pamavambo<span className="text-brand-700">Schools</span></span>
                     </div>
                     <p className="text-stone-400 text-sm leading-relaxed mb-5">
                         Empowering students with knowledge, integrity, and the skills to succeed in a global society.

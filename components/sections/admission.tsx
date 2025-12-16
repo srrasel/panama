@@ -117,7 +117,7 @@ export default function AdmissionSection(): React.ReactElement {
               </ul>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a href="#" className="inline-flex items-center gap-2 px-6 py-3 bg-brand-900 text-white font-semibold rounded-lg hover:bg-brand-800 transition-colors shadow">
+                <a href="/admission" className="inline-flex items-center gap-2 px-6 py-3 bg-brand-900 text-white font-semibold rounded-lg hover:bg-brand-800 transition-colors shadow">
                   Apply Online
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                 </a>
