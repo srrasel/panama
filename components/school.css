@@ -162,13 +162,16 @@
 }
 
 /* Panama Girls Card - Purple overlay */
+/* Panama Girls Card - Modern Green Overlay */
 .school-card.girls::before {
-    background: linear-gradient(135deg, rgba(126, 34, 206, 0.8), rgba(88, 28, 135, 0.7));
+   
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.8), rgba(4, 174, 103, 0.7));
 }
 
 .school-card.girls:hover::before {
-    background: linear-gradient(135deg, rgba(126, 34, 206, 0.9), rgba(88, 28, 135, 0.8));
+ background: linear-gradient(135deg, rgba(30, 58, 138, 0.8), rgba(4, 174, 103, 0.8));
 }
+
 
 /* Animation for card entrance */
 @keyframes fadeInUp {

@@ -35,7 +35,7 @@ export default function School() {
               <h3 className="text-3xl font-serif font-bold text-white uppercase leading-tight tracking-wide">
                 Teacher<br />Portal
               </h3>
-              <Link href="/login" className="bg-purple-600 text-white px-6 py-3 text-xs font-bold tracking-widest uppercase hover:bg-purple-700 transition-colors inline-block">
+              <Link href="/login" className="bg-green-600 text-white px-6 py-3 text-xs font-bold tracking-widest uppercase hover:bg-green-700 transition-colors inline-block">
                 Learn More
               </Link>
             </div>

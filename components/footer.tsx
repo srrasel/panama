@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Mail, Phone, MapPin, Linkedin, Facebook, Twitter } from "lucide-react"
 export default function Footer({ accentColor = "#282423" }: { accentColor?: string }) {
   const currentYear = new Date().getFullYear()
@@ -10,9 +11,7 @@ export default function Footer({ accentColor = "#282423" }: { accentColor?: stri
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <div className="reveal-on-scroll is-visible">
                     <div className="flex items-center gap-2 mb-6">
-                        <div className="w-8 h-8 bg-brand-900 rounded-md flex items-center justify-center text-white font-bold shadow-md">
-                            P</div>
-                        <span className="font-bold text-xl text-white">Pamavambo<span className="text-brand-700">Schools</span></span>
+                        <Image src="/logo.svg" alt="logo" width={100} height={80} />
                     </div>
                     <p className="text-stone-400 text-sm leading-relaxed mb-5">
                         Empowering students with knowledge, integrity, and the skills to succeed in a global society.

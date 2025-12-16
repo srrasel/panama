@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { LayoutDashboard, Users, BookOpen, CalendarDays, BarChart3, Settings, LogOut } from "lucide-react"
 
@@ -74,8 +75,8 @@ export default function AdminLayout({
       >
         <div className={`flex items-center gap-2 pt-8 pb-7 ${sidebarOpen ? "justify-between" : "justify-center"}`}>
           <Link href="/" className="text-2xl font-bold text-primary">
-            <span className={`${sidebarOpen ? "block" : "hidden"}`}>Pamavambo</span>
-            <span className={`${sidebarOpen ? "hidden" : "block"}`}>📚</span>
+            <span className={`${sidebarOpen ? "block" : "hidden"}`}><Image src="/logo.svg" alt="logo" width={100} height={80} /></span>
+            <span className={`${sidebarOpen ? "hidden" : "block"}`}>🎓</span>
           </Link>
         </div>
         <nav className="space-y-6 flex-1">
