@@ -1,22 +1,51 @@
 import { cookies } from "next/headers"
 import { getSession } from "@/lib/auth"
-import { getUserById, getChildForParent } from "@/lib/db"
+import { getSelectedChild } from "@/lib/parent-utils"
+import { prisma } from "@/lib/prisma"
 
-export async function GET() {
+export const dynamic = "force-dynamic"
+
+export async function GET(req: Request) {
   const sid = (await cookies()).get("session")?.value
-  const session = getSession(sid)
-  let child = undefined
-  if (session?.role === "parent") child = getChildForParent(session.userId)
-  else if (session?.role === "student") child = getUserById(session.userId)
-  const childName = child?.name || "Student"
-  const attendanceStats = { present: 40, absent: 2, leave: 1, total: 43, rate: 95 }
-  const attendanceRecords = [
-    { date: "2025-12-01", status: "Present", day: "Monday" },
-    { date: "2025-11-28", status: "Present", day: "Friday" },
-    { date: "2025-11-27", status: "Absent", day: "Thursday" },
-    { date: "2025-11-26", status: "Present", day: "Wednesday" },
-    { date: "2025-11-25", status: "Leave", day: "Tuesday" },
-    { date: "2025-11-24", status: "Present", day: "Monday" },
-  ]
-  return Response.json({ childName, attendanceStats, attendanceRecords })
+  const session = await getSession(sid)
+  const url = new URL(req.url)
+
+  const child = await getSelectedChild(session, url.searchParams)
+
+  if (!child) {
+     return Response.json({ error: "Student not found" }, { status: 404 })
+  }
+
+  const childName = child.name || "Student"
+
+  // Fetch real attendance records
+  const records = await prisma.attendance.findMany({
+    where: { studentId: child.id },
+    orderBy: { date: "desc" },
+    include: { course: true }
+  })
+
+  // Calculate stats
+  const total = records.length
+  const present = records.filter(r => r.status === "present").length
+  const absent = records.filter(r => r.status === "absent").length
+  const leave = records.filter(r => r.status === "late").length 
+
+  const attendanceStats = {
+    totalClasses: total,
+    present,
+    absent,
+    leave,
+    attendancePercentage: total > 0 ? Math.round((present / total) * 100) : 0
+  }
+
+  const attendanceRecords = records.map(r => ({
+    id: r.id,
+    date: r.date.toISOString().split("T")[0],
+    status: r.status === "late" ? "Leave" : r.status.charAt(0).toUpperCase() + r.status.slice(1), // Map late -> Leave for UI consistency if needed
+    subject: r.course.title,
+    remarks: r.remarks || "-"
+  }))
+
+  return Response.json({ childName, attendanceRecords, attendanceStats })
 }

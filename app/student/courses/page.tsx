@@ -26,12 +26,18 @@ export default function StudentCourses() {
   useEffect(() => {
     fetch("/api/student/courses")
       .then((res) => res.json())
-      .then((data) => setCourses(data.courses))
+      .then((data) => {
+        if (data.courses && Array.isArray(data.courses)) {
+          setCourses(data.courses)
+        } else {
+          setCourses([])
+        }
+      })
       .catch(() => setCourses([]))
   }, [])
 
-  const inProgress = courses.filter((c) => c.status === "in_progress")
-  const filtered = courses.filter((c) => (filter === "All" ? true : filter === "In Progress" ? c.status === "in_progress" : filter === "Completed" ? c.status === "completed" : c.status === "not_started"))
+  const inProgress = (courses || []).filter((c) => c.status === "in_progress")
+  const filtered = (courses || []).filter((c) => (filter === "All" ? true : filter === "In Progress" ? c.status === "in_progress" : filter === "Completed" ? c.status === "completed" : c.status === "not_started"))
 
   return (
     <div className="space-y-8">
@@ -54,6 +60,16 @@ export default function StudentCourses() {
           </div>
         </div>
       </section>
+
+      {inProgress.length === 0 && filtered.length === 0 && (
+        <div className="text-center py-20 bg-muted/30 rounded-2xl border border-dashed border-muted-foreground/20">
+          <h3 className="text-xl font-semibold mb-2">No courses found</h3>
+          <p className="text-muted-foreground mb-6">You haven't enrolled in any courses yet.</p>
+          <Link href="/student/browse" className="px-6 py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors">
+            Browse Course Catalog
+          </Link>
+        </div>
+      )}
 
       {inProgress.length > 0 && (
         <div className="space-y-4">
@@ -101,7 +117,7 @@ export default function StudentCourses() {
                 </div>
                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${course.status === "completed" ? "bg-green-100 text-green-700" : course.status === "in_progress" ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>{course.status.replace("_", " ")}</span>
               </div>
-              <p className="text-sm text-foreground mb-4">{course.description}</p>
+              <p className="text-sm text-foreground mb-4 line-clamp-3">{course.description?.replace(/<[^>]*>?/gm, '') || ""}</p>
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">

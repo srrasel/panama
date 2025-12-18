@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useParent } from "../ParentContext"
 
 export default function ParentDashboard() {
+  const { selectedChild } = useParent()
   const [childInfo, setChildInfo] = useState<any>(null)
   const [childPerformance, setChildPerformance] = useState<any[]>([])
   const [attendance, setAttendance] = useState<any>({})
@@ -10,12 +12,14 @@ export default function ParentDashboard() {
   const [recentActivities, setRecentActivities] = useState<any[]>([])
 
   useEffect(() => {
+    if (!selectedChild) return
+
     Promise.all([
-      fetch("/api/parent/dashboard").then((r) => r.json()),
-      fetch("/api/parent/performance").then((r) => r.json()),
-      fetch("/api/parent/attendance").then((r) => r.json()),
-      fetch("/api/parent/upcoming-events").then((r) => r.json()),
-      fetch("/api/parent/recent-activities").then((r) => r.json()),
+      fetch(`/api/parent/dashboard?childId=${selectedChild.id}`).then((r) => r.json()),
+      fetch(`/api/parent/performance?childId=${selectedChild.id}`).then((r) => r.json()),
+      fetch(`/api/parent/attendance?childId=${selectedChild.id}`).then((r) => r.json()),
+      fetch(`/api/parent/upcoming-events?childId=${selectedChild.id}`).then((r) => r.json()),
+      fetch(`/api/parent/recent-activities?childId=${selectedChild.id}`).then((r) => r.json()),
     ])
       .then(([dash, perf, att, events, recent]) => {
         setChildInfo(dash.childInfo)
@@ -31,7 +35,19 @@ export default function ParentDashboard() {
         setUpcomingEvents([])
         setRecentActivities([])
       })
-  }, [])
+  }, [selectedChild])
+
+  const averageGrade = childPerformance.length > 0 
+    ? Math.round(childPerformance.reduce((sum, p) => sum + p.percentage, 0) / childPerformance.length)
+    : 0
+
+  const getGradeLetter = (pct: number) => {
+    if (pct >= 90) return "A"
+    if (pct >= 80) return "B"
+    if (pct >= 70) return "C"
+    if (pct >= 60) return "D"
+    return "F"
+  }
 
   return (
     <div className="space-y-8">
@@ -58,41 +74,41 @@ export default function ParentDashboard() {
           <div className="flex items-center justify-between gap-4 mb-4">
             <div>
               <p className="text-xs text-muted-foreground mb-1">Attendance</p>
-              <p className="text-xl font-semibold text-foreground">{attendance.presentagePercentage}%</p>
+              <p className="text-xl font-semibold text-foreground">{attendance.presentagePercentage || 0}%</p>
             </div>
             <div className="w-11 h-11 bg-emerald-600 rounded-full text-white flex items-center justify-center">✓</div>
           </div>
-          <span className="text-xs font-medium text-primary">{attendance.presentDays} present, {attendance.absentDays} absent</span>
+          <span className="text-xs font-medium text-primary">{attendance.presentDays || 0} present, {attendance.absentDays || 0} absent</span>
         </div>
         <div className="bg-white px-5 py-5 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between gap-4 mb-4">
             <div>
               <p className="text-xs text-muted-foreground mb-1">Average Grade</p>
-              <p className="text-xl font-semibold text-foreground">A-</p>
+              <p className="text-xl font-semibold text-foreground">{averageGrade > 0 ? getGradeLetter(averageGrade) : "-"}</p>
             </div>
             <div className="w-11 h-11 bg-blue-600 rounded-full text-white flex items-center justify-center">A</div>
           </div>
-          <span className="text-xs font-medium text-primary">Overall performance: Excellent</span>
+          <span className="text-xs font-medium text-primary">Average: {averageGrade}%</span>
         </div>
         <div className="bg-white px-5 py-5 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between gap-4 mb-4">
             <div>
               <p className="text-xs text-muted-foreground mb-1">Courses Enrolled</p>
-              <p className="text-xl font-semibold text-foreground">8</p>
+              <p className="text-xl font-semibold text-foreground">{childPerformance.length}</p>
             </div>
             <div className="w-11 h-11 bg-purple-600 rounded-full text-white flex items-center justify-center">📚</div>
           </div>
-          <span className="text-xs font-medium text-primary">All courses active</span>
+          <span className="text-xs font-medium text-primary">Active subjects</span>
         </div>
         <div className="bg-white px-5 py-5 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between gap-4 mb-4">
             <div>
-              <p className="text-xs text-muted-foreground mb-1">Pending Tasks</p>
-              <p className="text-xl font-semibold text-foreground">3</p>
+              <p className="text-xs text-muted-foreground mb-1">Upcoming Events</p>
+              <p className="text-xl font-semibold text-foreground">{upcomingEvents.length}</p>
             </div>
             <div className="w-11 h-11 bg-amber-600 rounded-full text-white flex items-center justify-center">⚑</div>
           </div>
-          <span className="text-xs font-medium text-primary">Upcoming assignments</span>
+          <span className="text-xs font-medium text-primary">Next: {upcomingEvents[0]?.title || "None"}</span>
         </div>
       </div>
 
