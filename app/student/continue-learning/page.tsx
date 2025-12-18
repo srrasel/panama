@@ -3,79 +3,42 @@
 import Link from "next/link"
 
 export default function ContinueLearning() {
-  const inProgressCourses = [
-    {
-      id: 1,
-      title: "Advanced JavaScript & ES6+",
-      instructor: "Sarah Johnson",
-      progress: 65,
-      completedLessons: 13,
-      totalLessons: 20,
-      nextLesson: "Async/Await Patterns",
-      estimatedTime: "45 mins",
-      image: "/javascript-course.jpg",
-    },
-    {
-      id: 2,
-      title: "Web Development Fundamentals",
-      instructor: "Mike Chen",
-      progress: 48,
-      completedLessons: 9,
-      totalLessons: 19,
-      nextLesson: "CSS Grid & Flexbox",
-      estimatedTime: "50 mins",
-      image: "/web-development-course.jpg",
-    },
-    {
-      id: 3,
-      title: "React Mastery",
-      instructor: "Emily Davis",
-      progress: 82,
-      completedLessons: 16,
-      totalLessons: 20,
-      nextLesson: "Performance Optimization",
-      estimatedTime: "55 mins",
-      image: "/react-course.jpg",
-    },
-  ]
+  const [inProgressCourses, setInProgressCourses] = useState<any[]>([])
+  const [recommendedCourses, setRecommendedCourses] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const recommendedCourses = [
-    {
-      id: 4,
-      title: "TypeScript Advanced",
-      instructor: "Alex Kumar",
-      difficulty: "Intermediate",
-      rating: 4.8,
-      reviews: 2345,
-      students: "15K+",
-      relevance: "92%",
-    },
-    {
-      id: 5,
-      title: "Node.js Backend Development",
-      instructor: "David Wilson",
-      difficulty: "Intermediate",
-      rating: 4.9,
-      reviews: 3120,
-      students: "18K+",
-      relevance: "88%",
-    },
-    {
-      id: 6,
-      title: "Next.js Full Stack",
-      instructor: "Lisa Anderson",
-      difficulty: "Advanced",
-      rating: 4.7,
-      reviews: 1890,
-      students: "12K+",
-      relevance: "95%",
-    },
-  ]
+  useEffect(() => {
+    // Fetch in-progress courses
+    fetch("/api/student/courses")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.courses) {
+          setInProgressCourses(data.courses.filter((c: any) => c.status === "in_progress"))
+        }
+      })
+      .catch((err) => console.error(err))
 
-  const learningStreak = 23
-  const totalHoursLearned = 156
-  const coursesCompleted = 8
-  const certificatesEarned = 5
+    // Fetch recommended courses
+    fetch("/api/student/catalog")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.courses) {
+          setRecommendedCourses(data.courses)
+        }
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const learningStreak = 5 // Placeholder or calculate
+  const totalHoursLearned = inProgressCourses.reduce((acc, curr) => acc + (curr.progress || 0), 0) // Placeholder logic
+  const coursesCompleted = 0 // Need to fetch completed count if needed
+  const certificatesEarned = 0
+
+  if (loading) {
+    return <div className="p-10 text-center">Loading...</div>
+  }
+
 
   return (
     <div className="space-y-8">

@@ -1,45 +1,23 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { FileText, Clock, BookOpen, CheckCircle, AlertCircle } from "lucide-react"
 
 export default function StudentAssignments() {
   const [filter, setFilter] = useState<string>("All")
-  const assignments = [
-    {
-      id: 1,
-      title: "Math Problem Set #5",
-      course: "Advanced Calculus",
-      dueDate: "2025-12-10",
-      status: "Pending",
-      description: "Complete problems 1-20 from chapter 5",
-    },
-    {
-      id: 2,
-      title: "Essay on World History",
-      course: "Modern History",
-      dueDate: "2025-12-12",
-      status: "In Progress",
-      description: "3000 words on the impact of technology",
-    },
-    {
-      id: 3,
-      title: "Programming Project",
-      course: "Web Development",
-      dueDate: "2025-12-15",
-      status: "Pending",
-      description: "Build a full-stack todo application",
-    },
-    {
-      id: 4,
-      title: "Book Report",
-      course: "Literature & Composition",
-      dueDate: "2025-12-08",
-      status: "Submitted",
-      description: 'Analysis of "1984" by George Orwell',
-    },
-  ]
+  const [assignments, setAssignments] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch("/api/student/assignments")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.assignments) setAssignments(data.assignments)
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
 
   const getStatusColor = (status: string) => {
     switch (status) {

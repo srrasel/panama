@@ -1,119 +1,62 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 
 export default function AssignmentDetails() {
   const params = useParams()
   const assignmentId = params.assignmentId as string
-
-  const assignments = {
-    "1": {
-      id: 1,
-      title: "Math Problem Set #5",
-      course: "Advanced Calculus",
-      dueDate: "2025-12-10",
-      status: "Pending",
-      description: "Complete problems 1-20 from chapter 5",
-      instructions:
-        "Work through all the problems in this assignment. Show your work for each step. Submit your answers as a PDF file.",
-      points: 100,
-      rubric: [
-        { criteria: "Problem Accuracy", points: 60 },
-        { criteria: "Work Shown", points: 25 },
-        { criteria: "Presentation", points: 15 },
-      ],
-      files: ["Chapter5-Problems.pdf"],
-    },
-    "2": {
-      id: 2,
-      title: "Essay on World History",
-      course: "Modern History",
-      dueDate: "2025-12-12",
-      status: "In Progress",
-      description: "3000 words on the impact of technology",
-      instructions:
-        "Write a comprehensive essay analyzing the impact of technology on modern society. Include at least 5 scholarly sources. Use APA format.",
-      points: 100,
-      rubric: [
-        { criteria: "Research & Sources", points: 25 },
-        { criteria: "Argument Quality", points: 35 },
-        { criteria: "Writing & Grammar", points: 25 },
-        { criteria: "Format & Citations", points: 15 },
-      ],
-      files: ["Essay-Guidelines.docx"],
-    },
-    "3": {
-      id: 3,
-      title: "Programming Project",
-      course: "Web Development",
-      dueDate: "2025-12-15",
-      status: "Pending",
-      description: "Build a full-stack todo application",
-      instructions:
-        "Create a full-stack todo application using React and Node.js. Include features for creating, editing, deleting, and marking tasks complete.",
-      points: 150,
-      rubric: [
-        { criteria: "Functionality", points: 60 },
-        { criteria: "Code Quality", points: 40 },
-        { criteria: "UI/UX", points: 30 },
-        { criteria: "Documentation", points: 20 },
-      ],
-      files: ["Project-Requirements.md", "Starter-Code.zip"],
-    },
-    "4": {
-      id: 4,
-      title: "Book Report",
-      course: "Literature & Composition",
-      dueDate: "2025-12-08",
-      status: "Submitted",
-      description: 'Analysis of "1984" by George Orwell',
-      instructions: "Write a detailed analysis of the book including themes, characters, and your personal critique.",
-      points: 75,
-      rubric: [
-        { criteria: "Analysis Depth", points: 30 },
-        { criteria: "Character Understanding", points: 25 },
-        { criteria: "Writing Quality", points: 20 },
-      ],
-      files: ["1984-by-George-Orwell.pdf"],
-      submittedDate: "2025-12-07",
-      submittedFiles: ["Book-Report.docx"],
-      grade: 92,
-      feedback: "Excellent analysis! Your insights into the dystopian themes were particularly insightful.",
-    },
-  }
-
-  const assignment = assignments[assignmentId as keyof typeof assignments]
+  const [assignment, setAssignment] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState({
     submissionText: "",
     files: null as FileList | null,
   })
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState("")
 
-  if (!assignment) {
-    return (
-      <div className="space-y-6">
-        <Link href="/student/assignments" className="text-primary hover:underline">
-          ← Back to Assignments
-        </Link>
-        <div className="bg-card rounded-lg border border-border p-8 text-center">
-          <p className="text-foreground text-lg">Assignment not found</p>
-        </div>
-      </div>
-    )
-  }
+  useEffect(() => {
+    fetch(`/api/student/assignments/${assignmentId}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.assignment) setAssignment(data.assignment)
+        else setError("Assignment not found")
+      })
+      .catch(() => setError("Failed to load assignment"))
+      .finally(() => setLoading(false))
+  }, [assignmentId])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (formData.submissionText.trim() || formData.files?.length) {
-      setSubmitted(true)
-      setTimeout(() => {
-        setSubmitted(false)
+    if (!formData.submissionText.trim() && !formData.files?.length) return
+
+    const fd = new FormData()
+    fd.append("submissionText", formData.submissionText)
+    if (formData.files) {
+      Array.from(formData.files).forEach((file) => {
+        fd.append("files", file)
+      })
+    }
+
+    try {
+      const res = await fetch(`/api/student/assignments/${assignmentId}/submit`, {
+        method: "POST",
+        body: fd
+      })
+      
+      if (res.ok) {
+        setSubmitted(true)
+        // Refresh
+        const data = await fetch(`/api/student/assignments/${assignmentId}`).then(res => res.json())
+        if (data.assignment) setAssignment(data.assignment)
         setFormData({ submissionText: "", files: null })
-      }, 3000)
+      } else {
+        alert("Submission failed")
+      }
+    } catch (e) {
+      alert("Error submitting")
     }
   }
 
@@ -121,9 +64,23 @@ export default function AssignmentDetails() {
     setFormData({ ...formData, files: e.target.files })
   }
 
-  const daysUntilDue = Math.ceil(
+  if (loading) return <div className="p-8">Loading...</div>
+  if (error || !assignment) {
+    return (
+      <div className="space-y-6">
+        <Link href="/student/assignments" className="text-primary hover:underline">
+          ← Back to Assignments
+        </Link>
+        <div className="bg-card rounded-lg border border-border p-8 text-center">
+          <p className="text-foreground text-lg">{error || "Assignment not found"}</p>
+        </div>
+      </div>
+    )
+  }
+
+  const daysUntilDue = assignment.dueDate ? Math.ceil(
     (new Date(assignment.dueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24),
-  )
+  ) : 0
 
   return (
     <div className="space-y-6">
@@ -142,8 +99,8 @@ export default function AssignmentDetails() {
             className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap ${
               assignment.status === "Submitted"
                 ? "bg-green-100 text-green-700"
-                : assignment.status === "In Progress"
-                  ? "bg-blue-100 text-blue-700"
+                : assignment.status === "Overdue"
+                  ? "bg-red-100 text-red-700"
                   : "bg-amber-100 text-amber-700"
             }`}
           >
@@ -156,7 +113,7 @@ export default function AssignmentDetails() {
             <p className="text-sm text-muted-foreground mb-1">Due Date</p>
             <p className="font-semibold text-foreground">{assignment.dueDate}</p>
             <p className="text-xs text-muted-foreground mt-1">
-              {daysUntilDue > 0 ? `${daysUntilDue} days left` : "Overdue"}
+              {daysUntilDue > 0 ? `${daysUntilDue} days left` : daysUntilDue === 0 ? "Due today" : "Overdue"}
             </p>
           </div>
           <div>
@@ -176,66 +133,32 @@ export default function AssignmentDetails() {
           {/* Instructions */}
           <div className="bg-card rounded-lg border border-border p-6">
             <h2 className="text-xl font-bold text-foreground mb-4">Instructions</h2>
-            <p className="text-foreground leading-relaxed">{assignment.instructions}</p>
-          </div>
-
-          {/* Rubric */}
-          <div className="bg-card rounded-lg border border-border p-6">
-            <h2 className="text-xl font-bold text-foreground mb-4">Grading Rubric</h2>
-            <div className="space-y-3">
-              {assignment.rubric.map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between pb-3 border-b border-border last:border-0">
-                  <span className="text-foreground">{item.criteria}</span>
-                  <span className="font-semibold text-primary">{item.points} pts</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Required Files */}
-          <div className="bg-card rounded-lg border border-border p-6">
-            <h2 className="text-xl font-bold text-foreground mb-4">Required Files</h2>
-            <div className="space-y-2">
-              {assignment.files.map((file, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center gap-3 p-3 bg-muted rounded-lg cursor-pointer hover:bg-muted/80"
-                >
-                  <span className="text-lg">📎</span>
-                  <span className="text-foreground">{file}</span>
-                </div>
-              ))}
-            </div>
+            <p className="text-foreground leading-relaxed whitespace-pre-wrap">{assignment.description || "No instructions provided."}</p>
           </div>
 
           {/* Previous Submission */}
-          {assignment.status === "Submitted" && (
+          {assignment.submission && (
             <div className="bg-green-50 rounded-lg border border-green-200 p-6">
-              <h2 className="text-xl font-bold text-green-900 mb-4">Submitted Submission</h2>
+              <h2 className="text-xl font-bold text-green-900 mb-4">Your Submission</h2>
               <div className="space-y-4">
                 <div>
                   <p className="text-sm text-green-700 mb-1">Submitted on</p>
-                  <p className="font-semibold text-green-900">{assignment.submittedDate}</p>
+                  <p className="font-semibold text-green-900">{new Date(assignment.submission.submittedAt).toLocaleString()}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-green-700 mb-2">Submitted Files</p>
-                  {assignment.submittedFiles?.map((file, idx) => (
-                    <div key={idx} className="flex items-center gap-3 p-3 bg-white rounded-lg">
-                      <span className="text-lg">📎</span>
-                      <span className="text-green-900">{file}</span>
-                    </div>
-                  ))}
+                  <p className="text-sm text-green-700 mb-2">Content</p>
+                  <pre className="text-green-900 whitespace-pre-wrap font-sans">{assignment.submission.content}</pre>
                 </div>
-                {assignment.grade && (
+                {assignment.submission.grade !== null && (
                   <div className="pt-4 border-t border-green-200">
                     <p className="text-sm text-green-700 mb-1">Grade</p>
-                    <p className="text-2xl font-bold text-green-900">{assignment.grade}/100</p>
+                    <p className="text-2xl font-bold text-green-900">{assignment.submission.grade}/{assignment.points}</p>
                   </div>
                 )}
-                {assignment.feedback && (
+                {assignment.submission.feedback && (
                   <div className="pt-4 border-t border-green-200">
                     <p className="text-sm text-green-700 mb-2">Instructor Feedback</p>
-                    <p className="text-green-900">{assignment.feedback}</p>
+                    <p className="text-green-900">{assignment.submission.feedback}</p>
                   </div>
                 )}
               </div>
@@ -245,7 +168,7 @@ export default function AssignmentDetails() {
 
         {/* Submission Form */}
         <div className="col-span-1">
-          {assignment.status !== "Submitted" ? (
+          {!assignment.submission ? (
             <form
               onSubmit={handleSubmit}
               className="bg-card rounded-lg border border-border p-6 sticky top-8 space-y-4"
@@ -298,7 +221,6 @@ export default function AssignmentDetails() {
               <div className="text-center py-6">
                 <div className="text-4xl mb-3">✓</div>
                 <h3 className="text-lg font-bold text-green-700 mb-2">Already Submitted</h3>
-                <p className="text-sm text-muted-foreground">This assignment has been submitted and graded.</p>
               </div>
             </div>
           )}

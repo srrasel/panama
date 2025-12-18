@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Users, BookOpen, CalendarDays, BarChart3, Settings, LogOut } from "lucide-react"
+import { LayoutDashboard, Users, BookOpen, CalendarDays, BarChart3, Settings, LogOut, User } from "lucide-react"
 
 export default function AdminLayout({
   children,
@@ -43,6 +43,7 @@ export default function AdminLayout({
     {
       title: "Settings",
       items: [
+        { href: "/admin/profile", label: "My Profile", Icon: User },
         { href: "/admin/system-settings", label: "System Settings", Icon: Settings },
       ],
     },

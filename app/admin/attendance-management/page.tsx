@@ -1,53 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function AttendanceManagement() {
   const [selectedCourse, setSelectedCourse] = useState("all")
-  const [attendanceData] = useState([
-    {
-      id: 1,
-      studentName: "Sarah Johnson",
-      course: "Web Development",
-      date: "2024-03-15",
-      status: "present",
-      percentage: 94,
-    },
-    {
-      id: 2,
-      studentName: "John Doe",
-      course: "Web Development",
-      date: "2024-03-15",
-      status: "late",
-      percentage: 87,
-    },
-    {
-      id: 3,
-      studentName: "Emma Smith",
-      course: "Data Science",
-      date: "2024-03-15",
-      status: "absent",
-      percentage: 76,
-    },
-    {
-      id: 4,
-      studentName: "Alex Chen",
-      course: "Data Science",
-      date: "2024-03-15",
-      status: "present",
-      percentage: 91,
-    },
-    {
-      id: 5,
-      studentName: "Lisa Brown",
-      course: "Mobile Apps",
-      date: "2024-03-15",
-      status: "present",
-      percentage: 96,
-    },
-  ])
+  const [attendanceData, setAttendanceData] = useState<any[]>([])
+  const [courses, setCourses] = useState<string[]>(["all"])
 
-  const courses = ["all", "Web Development", "Data Science", "Mobile Apps", "AI & Machine Learning"]
+  useEffect(() => {
+    fetch("/api/admin/attendance")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.records) setAttendanceData(data.records)
+        if (data.courses) setCourses(["all", ...data.courses])
+      })
+      .catch((err) => console.error(err))
+  }, [])
 
   const filteredData =
     selectedCourse === "all" ? attendanceData : attendanceData.filter((d) => d.course === selectedCourse)

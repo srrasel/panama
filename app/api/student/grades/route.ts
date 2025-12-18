@@ -1,19 +1,74 @@
+import { NextResponse } from "next/server"
+import { cookies } from "next/headers"
+import { prisma } from "@/lib/prisma"
+import { getSession } from "@/lib/auth"
+
 export async function GET() {
-  const gradesData = {
-    term1: [
-      { subject: "Mathematics", grade: "A-", percentage: 92, marks: 92, outOf: 100, performance: "Excellent", comments: "Excellent grasp of concepts. Keep up the good work!", trend: "+5" },
-      { subject: "English", grade: "A", percentage: 95, marks: 95, outOf: 100, performance: "Outstanding", comments: "Outstanding essay writing skills and comprehension.", trend: "+2" },
-      { subject: "Science", grade: "B+", percentage: 87, marks: 87, outOf: 100, performance: "Good", comments: "Good understanding of core concepts. Improve lab work.", trend: "-1" },
-      { subject: "History", grade: "A-", percentage: 90, marks: 90, outOf: 100, performance: "Excellent", comments: "Excellent historical knowledge and analysis.", trend: "+3" },
-      { subject: "Physical Education", grade: "A", percentage: 94, marks: 94, outOf: 100, performance: "Excellent", comments: "Excellent participation and physical fitness.", trend: "+4" },
-    ],
-    term2: [
-      { subject: "Mathematics", grade: "A", percentage: 94, marks: 94, outOf: 100, performance: "Outstanding", comments: "Improved performance. Excellent problem-solving skills.", trend: "+2" },
-      { subject: "English", grade: "A-", percentage: 93, marks: 93, outOf: 100, performance: "Excellent", comments: "Strong writing skills. Minor improvements needed in poetry analysis.", trend: "-2" },
-      { subject: "Science", grade: "A-", percentage: 91, marks: 91, outOf: 100, performance: "Excellent", comments: "Great improvement in lab work. Excellent practical understanding.", trend: "+4" },
-      { subject: "History", grade: "A", percentage: 92, marks: 92, outOf: 100, performance: "Excellent", comments: "Consistent performance. Excellent class participation.", trend: "+1" },
-      { subject: "Physical Education", grade: "A", percentage: 94, marks: 94, outOf: 100, performance: "Outstanding", comments: "Outstanding athletic performance and sportsmanship.", trend: "+3" },
-    ],
+  const sid = (await cookies()).get("session")?.value
+  const session = await getSession(sid)
+
+  if (!session || session.role !== "student") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
-  return Response.json({ gradesData })
+
+  try {
+    const studentId = session.userId
+
+    // Fetch Quiz Results
+    const quizResults = await prisma.quizResult.findMany({
+      where: { studentId },
+      include: { quiz: true }
+    })
+
+    // Fetch Assignment Submissions
+    const assignmentSubmissions = await prisma.assignmentSubmission.findMany({
+      where: { studentId, grade: { not: null } },
+      include: { assignment: true }
+    })
+
+    // Combine into a unified structure
+    const grades = [
+      ...quizResults.map(q => {
+        const percentage = q.total > 0 ? (q.score / q.total) * 100 : 0
+        return {
+          subject: q.quiz.title,
+          grade: percentage >= 90 ? "A" : percentage >= 80 ? "B" : percentage >= 70 ? "C" : percentage >= 60 ? "D" : "F",
+          percentage: Math.round(percentage),
+          marks: q.score,
+          outOf: q.total,
+          performance: percentage >= 90 ? "Outstanding" : percentage >= 80 ? "Excellent" : percentage >= 70 ? "Good" : "Needs Improvement",
+          comments: "Automated grading",
+          trend: "+0", // Placeholder
+          date: q.completedAt
+        }
+      }),
+      ...assignmentSubmissions.map(a => {
+        const gradeVal = a.grade || 0
+        const total = a.assignment.totalPoints || 100
+        const percentage = total > 0 ? (gradeVal / total) * 100 : 0
+        
+        return {
+          subject: a.assignment.title,
+          grade: percentage >= 90 ? "A" : percentage >= 80 ? "B" : percentage >= 70 ? "C" : percentage >= 60 ? "D" : "F",
+          percentage: Math.round(percentage),
+          marks: gradeVal,
+          outOf: total,
+          performance: percentage >= 90 ? "Outstanding" : percentage >= 80 ? "Excellent" : percentage >= 70 ? "Good" : "Needs Improvement",
+          comments: a.feedback || "Graded assignment",
+          trend: "+0",
+          date: a.submittedAt
+        }
+      })
+    ]
+
+    return NextResponse.json({
+      gradesData: {
+        term1: grades
+      }
+    })
+
+  } catch (error) {
+    console.error("Error fetching grades:", error)
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
+  }
 }

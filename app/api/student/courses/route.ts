@@ -1,76 +1,94 @@
-export async function GET() {
-  const courses = [
-    {
-      id: 1,
-      title: "Advanced JavaScript & ES6+",
-      instructor: "Sarah Johnson",
-      progress: 65,
-      students: 134,
-      description: "Master modern JavaScript with ES6+ features and async patterns.",
-      status: "in_progress",
-      completedLessons: 13,
-      totalLessons: 20,
-      nextLesson: "Async/Await Patterns",
-      estimatedTime: "45 mins",
-      image: "/javascript-course.jpg",
-    },
-    {
-      id: 2,
-      title: "Web Development Fundamentals",
-      instructor: "Mike Chen",
-      progress: 48,
-      students: 98,
-      description: "Complete guide to HTML, CSS, JavaScript, and responsive design.",
-      status: "in_progress",
-      completedLessons: 9,
-      totalLessons: 19,
-      nextLesson: "CSS Grid & Flexbox",
-      estimatedTime: "50 mins",
-      image: "/web-development-course.jpg",
-    },
-    {
-      id: 3,
-      title: "React Mastery",
-      instructor: "Emily Davis",
-      progress: 82,
-      students: 210,
-      description: "Advanced React patterns, state management, and performance.",
-      status: "in_progress",
-      completedLessons: 16,
-      totalLessons: 20,
-      nextLesson: "Performance Optimization",
-      estimatedTime: "55 mins",
-      image: "/react-course.jpg",
-    },
-    {
-      id: 4,
-      title: "Modern History",
-      instructor: "Michael Brown",
-      progress: 100,
-      students: 156,
-      description: "Study of 20th and 21st century history.",
-      status: "completed",
-      completedLessons: 24,
-      totalLessons: 24,
-      nextLesson: "",
-      estimatedTime: "",
-      image: "/history-course.jpg",
-    },
-    {
-      id: 5,
-      title: "Literature & Composition",
-      instructor: "James Miller",
-      progress: 0,
-      students: 75,
-      description: "Contemporary literature analysis and writing.",
-      status: "not_started",
-      completedLessons: 0,
-      totalLessons: 18,
-      nextLesson: "Introduction",
-      estimatedTime: "30 mins",
-      image: "/literature-course.jpg",
-    },
-  ]
+import { NextResponse } from "next/server"
+import { cookies } from "next/headers"
+import { getSession } from "@/lib/auth"
+import { prisma } from "@/lib/prisma"
 
-  return Response.json({ courses })
+export async function GET() {
+  const sid = (await cookies()).get("session")?.value
+  const session = await getSession(sid)
+  if (!session || session.role !== "student") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  const enrollments = await prisma.enrollment.findMany({
+    where: { studentId: session.userId },
+    include: {
+      course: {
+        include: {
+          teacher: true,
+          lessons: {
+            orderBy: { order: "asc" }
+          },
+          enrollments: true
+        }
+      }
+    }
+  })
+
+  const courses = enrollments.map(e => {
+    const c = e.course
+    const totalLessons = c.lessons.length
+    // Estimate completed based on progress % (mock logic)
+    const completedLessons = Math.round((e.progress / 100) * totalLessons)
+    const nextLesson = c.lessons[completedLessons]?.title || "Completed"
+    
+    return {
+      id: c.id,
+      title: c.title,
+      instructor: c.teacher.name,
+      progress: e.progress,
+      students: c.enrollments.length,
+      description: c.description,
+      status: e.progress >= 100 ? "completed" : e.progress > 0 ? "in_progress" : "not_started",
+      completedLessons,
+      totalLessons,
+      nextLesson,
+      estimatedTime: "45 mins", // Placeholder
+      image: c.imageUrl,
+    }
+  })
+
+  return NextResponse.json({ courses })
+}
+
+export async function POST(req: Request) {
+  const sid = (await cookies()).get("session")?.value
+  const session = await getSession(sid)
+  if (!session || session.role !== "student") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  const body = await req.json().catch(() => ({}))
+  const { courseId } = body
+
+  if (!courseId) {
+    return NextResponse.json({ error: "Course ID required" }, { status: 400 })
+  }
+
+  try {
+    const existing = await prisma.enrollment.findUnique({
+      where: {
+        studentId_courseId: {
+          studentId: session.userId,
+          courseId
+        }
+      }
+    })
+
+    if (existing) {
+      return NextResponse.json({ message: "Already enrolled" }, { status: 200 })
+    }
+
+    await prisma.enrollment.create({
+      data: {
+        studentId: session.userId,
+        courseId
+      }
+    })
+
+    return NextResponse.json({ ok: true })
+  } catch (error) {
+    console.error("Enrollment error:", error)
+    return NextResponse.json({ error: "Enrollment failed" }, { status: 500 })
+  }
 }

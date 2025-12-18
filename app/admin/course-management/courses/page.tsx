@@ -8,7 +8,7 @@ export default function AdminCourses() {
   const [filter, setFilter] = useState("All")
   const [query, setQuery] = useState("")
   const [courses, setCourses] = useState<any[]>([])
-  const [editingId, setEditingId] = useState<number | null>(null)
+  const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState<any>({})
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function AdminCourses() {
     setEditData({})
   }
 
-  const handleDeleteCourse = async (id: number) => {
+  const handleDeleteCourse = async (id: string) => {
     const res = await fetch("/api/teacher/course-management/courses", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
@@ -143,7 +143,7 @@ export default function AdminCourses() {
                   <button onClick={cancelEdit} className="px-3 py-2 text-sm rounded-lg border hover:bg-muted">Cancel</button>
                 </>
               ) : (
-                <Link href={`/admin/course-management/courses/${c.id}/edit`} className="px-3 py-2 text-sm rounded-lg border hover:bg-muted">Edit</Link>
+                <Link href={`/admin/course-management/courses/${c.slug || c.id}/edit`} className="px-3 py-2 text-sm rounded-lg border hover:bg-muted">Edit</Link>
               )}
               <button onClick={() => handleDeleteCourse(c.id)} className="px-3 py-2 text-sm rounded-lg border hover:bg-muted">Delete</button>
             </div>

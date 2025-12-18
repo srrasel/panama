@@ -10,8 +10,9 @@ export default function AssignmentsGrading() {
   const [courseFilter, setCourseFilter] = useState("All")
   const [statusFilter, setStatusFilter] = useState("All")
   const [items, setItems] = useState<any[]>([])
+  const [teacherCourses, setTeacherCourses] = useState<any[]>([])
   const [newTitle, setNewTitle] = useState("")
-  const [newCourse, setNewCourse] = useState("Advanced Mathematics 101")
+  const [newCourseId, setNewCourseId] = useState("")
   const [newDescription, setNewDescription] = useState("")
   const [newDueDate, setNewDueDate] = useState("")
   const [newTotal, setNewTotal] = useState<number | "">("")
@@ -20,13 +21,24 @@ export default function AssignmentsGrading() {
 
   useEffect(() => {
     ;(async () => {
+      // Fetch assignments
       const res = await fetch("/api/teacher/assignments").catch(() => null)
       const data = await res?.json().catch(() => null)
       if (data?.assignments) setItems(data.assignments)
+
+      // Fetch courses for dropdown
+      const resCourses = await fetch("/api/teacher/course-management/courses").catch(() => null)
+      const dataCourses = await resCourses?.json().catch(() => null)
+      if (dataCourses?.courses) {
+        setTeacherCourses(dataCourses.courses)
+        if (dataCourses.courses.length > 0) {
+          setNewCourseId(dataCourses.courses[0].id)
+        }
+      }
     })()
   }, [])
 
-  const courses = ["All", "Advanced Mathematics 101", "Physics Lab", "Computer Science"]
+  const courses = ["All", ...teacherCourses.map(c => c.title)]
   const pendingAssignments = items.filter((a) => a.status === "Pending")
   const gradedAssignments = items.filter((a) => a.status === "Graded")
 
@@ -45,7 +57,7 @@ export default function AssignmentsGrading() {
     e.preventDefault()
     const payload = {
       title: newTitle,
-      course: newCourse,
+      courseId: newCourseId,
       description: newDescription,
       dueDate: newDueDate,
       total: newTotal === "" ? 100 : Number(newTotal),
@@ -120,8 +132,8 @@ export default function AssignmentsGrading() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">Select Course</label>
-                <select value={newCourse} onChange={(e) => setNewCourse(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-border bg-input text-foreground">
-                  {courses.filter((c) => c !== "All").map((c) => (<option key={c}>{c}</option>))}
+                <select value={newCourseId} onChange={(e) => setNewCourseId(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-border bg-input text-foreground">
+                  {teacherCourses.map((c) => (<option key={c.id} value={c.id}>{c.title}</option>))}
                 </select>
               </div>
             </div>

@@ -22,6 +22,23 @@ export default function AdminEditUserPage() {
   const [selectedStudents, setSelectedStudents] = useState<{ id: string; name: string }[]>([])
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [roles, setRoles] = useState<{ id: string; name: string }[]>([])
+  const [loadingRoles, setLoadingRoles] = useState(false)
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      setLoadingRoles(true)
+      const res = await fetch("/api/admin/roles").catch(() => null)
+      if (res && res.ok) {
+        const data = await res.json()
+        // Filter roles to only show student, teacher, parent
+        const allowedRoles = ["student", "teacher", "parent"]
+        setRoles(data.filter((r: any) => allowedRoles.includes(r.name)))
+      }
+      setLoadingRoles(false)
+    }
+    fetchRoles()
+  }, [])
 
   useEffect(() => {
     ;(async () => {
@@ -119,11 +136,16 @@ export default function AdminEditUserPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">Role</label>
-              <select value={role} onChange={(e) => setRole(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-border bg-input">
-                <option value="student">Student</option>
-                <option value="teacher">Teacher</option>
-                <option value="parent">Parent</option>
-                <option value="admin">Admin</option>
+              <select value={role} onChange={(e) => setRole(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-border bg-input" disabled={loadingRoles}>
+                {loadingRoles ? (
+                  <option>Loading roles...</option>
+                ) : (
+                  roles.map((r) => (
+                    <option key={r.id} value={r.name}>
+                      {r.name.charAt(0).toUpperCase() + r.name.slice(1)}
+                    </option>
+                  ))
+                )}
               </select>
             </div>
             <div>

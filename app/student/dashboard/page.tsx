@@ -4,23 +4,39 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 
 export default function StudentDashboard() {
-  const upcomingAssignments = [
-    { id: 1, title: "Math Problem Set #5", course: "Advanced Calculus", dueDate: "2025-12-10", priority: "High" },
-    { id: 2, title: "Essay on World History", course: "Modern History", dueDate: "2025-12-12", priority: "Medium" },
-    { id: 3, title: "Programming Project", course: "Web Development", dueDate: "2025-12-15", priority: "High" },
-  ]
+  const [stats, setStats] = useState([
+    { label: "All Courses", value: 0, color: "bg-indigo-600", iconBg: "bg-indigo-600" },
+    { label: "Enrolled Courses", value: 0, color: "bg-emerald-600", iconBg: "bg-emerald-600" },
+    { label: "Active Courses", value: 0, color: "bg-amber-600", iconBg: "bg-amber-600" },
+    { label: "Completed Courses", value: 0, color: "bg-neutral-900", iconBg: "bg-neutral-900" },
+  ])
+  const [upcomingAssignments, setUpcomingAssignments] = useState<any[]>([])
+  const [recentGrades, setRecentGrades] = useState<any[]>([])
+  const [courses, setCourses] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const recentGrades = [
-    { subject: "Mathematics", grade: "A-", percentage: 92 },
-    { subject: "English", grade: "A", percentage: 95 },
-    { subject: "Science", grade: "B+", percentage: 87 },
-  ]
+  useEffect(() => {
+    // Fetch dashboard stats and assignments/grades
+    fetch("/api/student/dashboard")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.stats) setStats(data.stats)
+        if (data.upcomingAssignments) setUpcomingAssignments(data.upcomingAssignments)
+        if (data.recentGrades) setRecentGrades(data.recentGrades)
+      })
+      .catch((err) => console.error("Error fetching dashboard data:", err))
 
-  const announcements = [
-    { id: 1, title: "Semester Break Starts Next Week", date: "2025-12-01" },
-    { id: 2, title: "Updated Course Materials Available", date: "2025-11-28" },
-    { id: 3, title: "Reminder: Final Exams Schedule Released", date: "2025-11-25" },
-  ]
+    // Fetch courses (keeping existing logic for now, or could be merged)
+    fetch("/api/student/courses")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.courses) setCourses(data.courses)
+      })
+      .catch((err) => console.error("Error fetching courses:", err))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const inProgressCourses = courses.filter((c) => c.status === "in_progress")
 
   const heroBreadcrumbs = [
     { label: "Home", href: "/" },
@@ -28,21 +44,10 @@ export default function StudentDashboard() {
     { label: "Student Dashboard" },
   ]
 
-  const stats = [
-    { label: "All Courses", value: 35, color: "bg-indigo-600", iconBg: "bg-indigo-600" },
-    { label: "Enrolled Courses", value: 15, color: "bg-emerald-600", iconBg: "bg-emerald-600" },
-    { label: "Active Courses", value: 11, color: "bg-amber-600", iconBg: "bg-amber-600" },
-    { label: "Completed Courses", value: 4, color: "bg-neutral-900", iconBg: "bg-neutral-900" },
-  ]
+  if (loading) {
+    return <div className="p-10 text-center">Loading dashboard...</div>
+  }
 
-  const [courses, setCourses] = useState<any[]>([])
-  useEffect(() => {
-    fetch("/api/student/courses")
-      .then((res) => res.json())
-      .then((data) => setCourses(data.courses))
-      .catch(() => setCourses([]))
-  }, [])
-  const inProgressCourses = courses.filter((c) => c.status === "in_progress")
 
   return (
     <div className="space-y-8">
@@ -63,9 +68,21 @@ export default function StudentDashboard() {
               ))}
             </ul>
           </div>
-          <a href="#" className="px-4 py-2 rounded-full border border-amber-400 text-amber-400 hover:bg-amber-500 hover:text-black transition text-sm">Become an Instructor</a>
+          <Link href="/student/browse" className="px-4 py-2 rounded-full border border-amber-400 text-amber-400 hover:bg-amber-500 hover:text-black transition text-sm">
+            Browse All Courses
+          </Link>
         </div>
       </section>
+
+      {courses.length === 0 && (
+         <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800 text-center">
+            <h3 className="text-xl font-bold text-blue-800 dark:text-blue-300 mb-2">Start Your Learning Journey</h3>
+            <p className="text-blue-600 dark:text-blue-400 mb-6">You haven't enrolled in any courses yet. Explore our catalog to find courses that interest you.</p>
+            <Link href="/student/browse" className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+              Browse Course Catalog
+            </Link>
+         </div>
+      )}
 
       <div className="grid md:grid-cols-4 gap-6">
         {stats.map((s, i) => (
@@ -80,6 +97,59 @@ export default function StudentDashboard() {
             <a href="#" className="text-xs font-medium text-primary underline">View all</a>
           </div>
         ))}
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Upcoming Assignments */}
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <h5 className="text-lg font-semibold mb-4 text-foreground">Upcoming Assignments</h5>
+          <div className="space-y-4">
+            {upcomingAssignments.length > 0 ? (
+              upcomingAssignments.map((assignment) => (
+                <div key={assignment.id} className="flex items-start justify-between border-b border-slate-100 pb-3 last:border-0 last:pb-0">
+                  <div>
+                    <h6 className="font-medium text-foreground">{assignment.title}</h6>
+                    <p className="text-sm text-muted-foreground">{assignment.course}</p>
+                  </div>
+                  <div className="text-right">
+                    <span className={`inline-block px-2 py-1 text-xs rounded-full ${
+                      assignment.priority === 'High' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'
+                    }`}>
+                      {assignment.priority}
+                    </span>
+                    <p className="text-xs text-muted-foreground mt-1">Due: {assignment.dueDate}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-muted-foreground text-sm">No upcoming assignments.</p>
+            )}
+          </div>
+          <Link href="/student/assignments" className="block text-center text-sm text-primary mt-4 hover:underline">View all assignments</Link>
+        </div>
+
+        {/* Recent Grades */}
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <h5 className="text-lg font-semibold mb-4 text-foreground">Recent Grades</h5>
+          <div className="space-y-4">
+            {recentGrades.length > 0 ? (
+              recentGrades.map((grade, idx) => (
+                <div key={idx} className="flex items-center justify-between border-b border-slate-100 pb-3 last:border-0 last:pb-0">
+                  <div>
+                    <h6 className="font-medium text-foreground">{grade.subject}</h6>
+                    <p className="text-xs text-muted-foreground">{new Date(grade.date).toLocaleDateString()}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg font-bold text-foreground">{grade.grade}</span>
+                    <span className="text-sm text-muted-foreground">({grade.percentage}%)</span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-muted-foreground text-sm">No grades available yet.</p>
+            )}
+          </div>
+        </div>
       </div>
 
       <h5 className="text-muted-foreground">In progress Courses</h5>

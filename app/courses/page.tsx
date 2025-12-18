@@ -26,7 +26,7 @@ export default function CoursesPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/student/courses")
+    fetch("/api/courses")
       .then((r) => r.json())
       .then((data) => {
         setCourses(Array.isArray(data?.courses) ? data.courses : [])
