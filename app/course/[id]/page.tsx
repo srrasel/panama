@@ -1,11 +1,13 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { Star, Users, Clock, Award } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export default function CoursePage({ params }: { params: { id: string } }) {
+  const router = useRouter()
   const [isEnrolled, setIsEnrolled] = useState(false)
   const [course, setCourse] = useState<any>(null)
 
@@ -14,7 +16,40 @@ export default function CoursePage({ params }: { params: { id: string } }) {
       .then((res) => res.json())
       .then((data) => setCourse(data.course))
       .catch(() => setCourse(null))
+
+    // Check enrollment status
+    fetch("/api/student/courses")
+      .then((res) => {
+        if (res.ok) return res.json()
+        return { courses: [] }
+      })
+      .then((data) => {
+        if (data.courses && data.courses.find((c: any) => c.id === params.id)) {
+          setIsEnrolled(true)
+        }
+      })
+      .catch(() => {})
   }, [params.id])
+
+  const handleEnroll = async () => {
+    if (isEnrolled) return
+
+    const res = await fetch("/api/student/courses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ courseId: params.id })
+    })
+
+    if (res.ok) {
+      setIsEnrolled(true)
+    } else {
+      if (res.status === 401) {
+        router.push("/login")
+      } else {
+        alert("Enrollment failed. Please try again.")
+      }
+    }
+  }
 
   return (
     <main>
@@ -30,7 +65,10 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                 </span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 text-balance">{course?.title || "Course"}</h1>
-              <p className="text-lg text-white/80 mb-6 text-balance">{course?.description || "Loading description"}</p>
+              <div 
+                className="text-lg text-white/80 mb-6 text-balance [&_p]:mb-4 [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:text-2xl [&_h2]:font-bold [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+                dangerouslySetInnerHTML={{ __html: course?.description || "Loading description" }}
+              />
 
               <div className="flex flex-wrap gap-6 mb-8">
                 <div className="flex items-center gap-2">
@@ -64,12 +102,13 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                 <div className="text-3xl font-bold text-primary mb-6">{course?.price}</div>
 
                 <button
-                  onClick={() => setIsEnrolled(!isEnrolled)}
+                  onClick={handleEnroll}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition mb-4 ${
                     isEnrolled
-                      ? "bg-primary/20 text-primary border border-primary"
+                      ? "bg-primary/20 text-primary border border-primary cursor-default"
                       : "bg-primary text-primary-foreground hover:bg-primary/90"
                   }`}
+                  disabled={isEnrolled}
                 >
                   {isEnrolled ? "Enrolled ✓" : "Enroll Now"}
                 </button>

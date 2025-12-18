@@ -1,17 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { ProfileImageUpload } from "@/components/profile-image-upload"
 
 export default function StudentProfile() {
   const [editMode, setEditMode] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "student@demo.com",
-    phone: "+1 (555) 123-4567",
-    dateOfBirth: "2005-03-15",
-    studentID: "STU-2025-001",
-    major: "Computer Science",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    dateOfBirth: "",
+    studentID: "",
+    major: "",
+    imageUrl: "",
     notifications: {
       assignments: true,
       grades: true,
@@ -19,6 +22,38 @@ export default function StudentProfile() {
       messages: true,
     },
   })
+
+  useEffect(() => {
+    fetch("/api/student/profile")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.profile) {
+          setProfile(data.profile)
+        }
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const handleSave = async () => {
+    try {
+      const res = await fetch("/api/student/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(profile),
+      })
+      
+      if (res.ok) {
+        setEditMode(false)
+      } else {
+        console.error("Failed to save profile")
+      }
+    } catch (error) {
+      console.error("Error saving profile:", error)
+    }
+  }
 
   const handleChange = (field: string, value: string | boolean) => {
     setProfile((prev) => ({
@@ -37,6 +72,11 @@ export default function StudentProfile() {
     }))
   }
 
+  if (loading) {
+    return <div className="p-8">Loading profile...</div>
+  }
+
+
   return (
     <div className="space-y-8">
       <div>
@@ -48,10 +88,18 @@ export default function StudentProfile() {
       <div className="bg-card rounded-lg border border-border p-8">
         <div className="flex items-start justify-between mb-8">
           <div className="flex items-center gap-6">
-            <div className="w-20 h-20 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-3xl font-bold">
-              {profile.firstName.charAt(0)}
-              {profile.lastName.charAt(0)}
-            </div>
+            <ProfileImageUpload 
+              currentImageUrl={profile.imageUrl}
+              onImageUploaded={(url) => {
+                setProfile(prev => ({ ...prev, imageUrl: url }))
+                // Auto save the image update
+                fetch("/api/student/profile", {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ ...profile, imageUrl: url })
+                })
+              }}
+            />
             <div>
               <h2 className="text-2xl font-bold text-foreground">
                 {profile.firstName} {profile.lastName}
@@ -61,7 +109,13 @@ export default function StudentProfile() {
             </div>
           </div>
           <button
-            onClick={() => setEditMode(!editMode)}
+            onClick={() => {
+              if (editMode) {
+                handleSave()
+              } else {
+                setEditMode(true)
+              }
+            }}
             className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
           >
             {editMode ? "Save Changes" : "Edit Profile"}

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 
-type UserRole = "student" | "instructor" | "parent"
+type UserRole = "student" | "teacher" | "parent"
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -103,13 +103,13 @@ export default function RegisterPage() {
                 <p className="text-muted-foreground text-sm">Access courses, assignments, and track your progress</p>
               </button>
 
-              {/* Instructor Card */}
+              {/* Teacher Card */}
               <button
-                onClick={() => handleRoleSelect("instructor")}
+                onClick={() => handleRoleSelect("teacher")}
                 className="bg-card border-2 border-border rounded-2xl p-8 hover:border-primary/50 hover:shadow-lg transition-all group"
               >
                 <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform">👨‍🏫</div>
-                <h3 className="text-xl font-bold text-foreground mb-2">Instructor</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Teacher</h3>
                 <p className="text-muted-foreground text-sm">Create courses, manage students, and track performance</p>
               </button>
 

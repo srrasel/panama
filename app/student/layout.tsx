@@ -7,7 +7,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, BookOpen, ClipboardList, Award, CalendarDays, User2, LogOut, Rocket, Settings } from "lucide-react"
+import { LayoutDashboard, BookOpen, ClipboardList, Award, CalendarDays, User2, LogOut, Rocket, Settings, MessageCircle } from "lucide-react"
 
 export default function StudentLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -24,11 +24,12 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
     {
       title: "Learning",
       items: [
-    
-        { href: "/student/courses", label: "Courses", Icon: BookOpen },
+        { href: "/student/browse", label: "Browse Courses", Icon: Rocket },
+        { href: "/student/courses", label: "My Courses", Icon: BookOpen },
         { href: "/student/assignments", label: "Assignments", Icon: ClipboardList },
         { href: "/student/grades", label: "Grades & Reports", Icon: Award },
         { href: "/student/schedule", label: "Schedule", Icon: CalendarDays },
+        { href: "/student/communication", label: "Communication", Icon: MessageCircle },
       ],
     },
     {

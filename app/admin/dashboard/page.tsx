@@ -9,12 +9,29 @@ export default function AdminDashboard() {
   const [query, setQuery] = useState("")
   const [tab, setTab] = useState("Overview")
   const [courses, setCourses] = useState<any[]>([])
+  const [stats, setStats] = useState<any[]>([])
+  const [recentStudents, setRecentStudents] = useState<any[]>([])
+  const [teachers, setTeachers] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     ;(async () => {
-      const cRes = await fetch("/api/teacher/course-management/courses").catch(() => null)
+      setLoading(true)
+      const [cRes, sRes] = await Promise.all([
+        fetch("/api/teacher/course-management/courses").catch(() => null),
+        fetch("/api/admin/stats").catch(() => null)
+      ])
+      
       const cData = await cRes?.json().catch(() => null)
+      const sData = await sRes?.json().catch(() => null)
+      
       if (cData?.courses) setCourses(cData.courses)
+      if (sData) {
+        if (sData.stats) setStats(sData.stats)
+        if (sData.recentStudents) setRecentStudents(sData.recentStudents)
+        if (sData.teachers) setTeachers(sData.teachers)
+      }
+      setLoading(false)
     })()
   }, [])
 
@@ -22,11 +39,11 @@ export default function AdminDashboard() {
     (c) => query === "" || String(c.title).toLowerCase().includes(query.toLowerCase())
   )
 
-  const statCards = [
-    { label: "Students", value: "932", icon: "🎓", color: "bg-blue-100 text-blue-600" },
-    { label: "Teachers", value: "754", icon: "👩‍🏫", color: "bg-orange-100 text-orange-600" },
-    { label: "Events", value: "40", icon: "📅", color: "bg-purple-100 text-purple-600" },
-    { label: "Foods", value: "32k", icon: "🍽️", color: "bg-rose-100 text-rose-600" },
+  const statCards = stats.length > 0 ? stats : [
+    { label: "Students", value: "0", icon: "🎓", color: "bg-blue-100 text-blue-600" },
+    { label: "Teachers", value: "0", icon: "👩‍🏫", color: "bg-orange-100 text-orange-600" },
+    { label: "Courses", value: "0", icon: "📚", color: "bg-purple-100 text-purple-600" },
+    { label: "Revenue", value: "$0", icon: "💰", color: "bg-green-100 text-green-600" },
   ]
 
   const performanceData = [
@@ -50,21 +67,6 @@ export default function AdminDashboard() {
     { month: "Oct", projects: 7, revenue: 28, active: 5 },
     { month: "Nov", projects: 14, revenue: 50, active: 11 },
     { month: "Dec", projects: 18, revenue: 60, active: 14 },
-  ]
-
-  const teacherRows = [
-    { name: "Hanu", qualification: "B.Tech", fees: "$217.70", performance: "Good" },
-    { name: "Hardy", qualification: "B.Tech", fees: "$177.70", performance: "Good" },
-    { name: "Harry", qualification: "Algorithm", fees: "$171.70", performance: "Fair" },
-    { name: "Harry john", qualification: "B.Tech", fees: "$182.70", performance: "Good" },
-  ]
-
-  const recentStudents = [
-    { name: "Samantha William", subtitle: "Class VII A" },
-    { name: "Tony Soop", subtitle: "Class VII B" },
-    { name: "Karen Hope", subtitle: "Web Developer" },
-    { name: "Jordan Nico", subtitle: "Class VII A" },
-    { name: "Nadila Adja", subtitle: "Class VII B" },
   ]
 
   const messages = [
@@ -194,7 +196,7 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {teacherRows.map((r, i) => (
+                  {teachers.length > 0 ? teachers.map((r, i) => (
                     <tr key={i} className="border-t border-border">
                       <td className="py-3 pr-4 text-foreground">{r.name}</td>
                       <td className="py-3 pr-4 text-foreground">{r.qualification}</td>
@@ -203,7 +205,11 @@ export default function AdminDashboard() {
                         <span className={`px-2 py-1 rounded text-xs ${r.performance === 'Good' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{r.performance}</span>
                       </td>
                     </tr>
-                  ))}
+                  )) : (
+                    <tr>
+                      <td colSpan={4} className="py-4 text-center text-muted-foreground">No teachers found</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -217,24 +223,26 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between mb-2">
             <div>
               <h2 className="text-lg font-bold text-foreground">Recent Students</h2>
-              <p className="text-xs text-muted-foreground">You have 468 Students</p>
+              <p className="text-xs text-muted-foreground">Total {stats.find(s => s.label === "Students")?.value || 0} Students</p>
             </div>
-            <button className="w-9 h-9 rounded-full bg-primary text-primary-foreground">+</button>
+            <Link href="/admin/user-management/create" className="w-9 h-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center">+</Link>
           </div>
           <div className="space-y-4">
-            {recentStudents.map((s, i) => (
+            {recentStudents.length > 0 ? recentStudents.map((s, i) => (
               <div key={i} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center">{s.name.charAt(0)}</div>
+                  <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center">{s.name ? s.name.charAt(0) : "S"}</div>
                   <div>
                     <div className="text-sm font-medium text-foreground">{s.name}</div>
                     <div className="text-xs text-muted-foreground">{s.subtitle}</div>
                   </div>
                 </div>
-                <button className="text-xs text-primary">View</button>
+                <Link href="/admin/user-management" className="text-xs text-primary">View</Link>
               </div>
-            ))}
-            <button className="mt-2 w-full px-4 py-2 rounded-md bg-muted text-foreground">View More</button>
+            )) : (
+                <div className="text-sm text-muted-foreground text-center py-4">No recent students</div>
+            )}
+            <Link href="/admin/user-management" className="block text-center mt-2 w-full px-4 py-2 rounded-md bg-muted text-foreground hover:bg-muted/80">View More</Link>
           </div>
         </div>
 

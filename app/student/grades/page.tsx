@@ -5,40 +5,33 @@ import { Download, Mail, CalendarDays } from "lucide-react"
 export default function StudentGrades() {
   const [selectedTerm, setSelectedTerm] = useState("term1")
   const [gradesData, setGradesData] = useState<Record<string, any[]>>({ term1: [], term2: [] })
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch("/api/student/grades")
       .then((res) => res.json())
       .then((data) => {
-        setGradesData(data.gradesData || { term1: [], term2: [] })
+        if (data.gradesData) {
+          setGradesData(data.gradesData)
+        }
       })
-      .catch(() => {
-        setGradesData({
-          term1: [
-            { subject: "Mathematics", grade: "A-", percentage: 92, marks: 92, outOf: 100, performance: "Excellent", comments: "Excellent grasp of concepts. Keep up the good work!", trend: "+5" },
-            { subject: "English", grade: "A", percentage: 95, marks: 95, outOf: 100, performance: "Outstanding", comments: "Outstanding essay writing skills and comprehension.", trend: "+2" },
-            { subject: "Science", grade: "B+", percentage: 87, marks: 87, outOf: 100, performance: "Good", comments: "Good understanding of core concepts. Improve lab work.", trend: "-1" },
-            { subject: "History", grade: "A-", percentage: 90, marks: 90, outOf: 100, performance: "Excellent", comments: "Excellent historical knowledge and analysis.", trend: "+3" },
-            { subject: "Physical Education", grade: "A", percentage: 94, marks: 94, outOf: 100, performance: "Excellent", comments: "Excellent participation and physical fitness.", trend: "+4" },
-          ],
-          term2: [
-            { subject: "Mathematics", grade: "A", percentage: 94, marks: 94, outOf: 100, performance: "Outstanding", comments: "Improved performance. Excellent problem-solving skills.", trend: "+2" },
-            { subject: "English", grade: "A-", percentage: 93, marks: 93, outOf: 100, performance: "Excellent", comments: "Strong writing skills. Minor improvements needed in poetry analysis.", trend: "-2" },
-            { subject: "Science", grade: "A-", percentage: 91, marks: 91, outOf: 100, performance: "Excellent", comments: "Great improvement in lab work. Excellent practical understanding.", trend: "+4" },
-            { subject: "History", grade: "A", percentage: 92, marks: 92, outOf: 100, performance: "Excellent", comments: "Consistent performance. Excellent class participation.", trend: "+1" },
-            { subject: "Physical Education", grade: "A", percentage: 94, marks: 94, outOf: 100, performance: "Outstanding", comments: "Outstanding athletic performance and sportsmanship.", trend: "+3" },
-          ],
-        })
-      })
+      .catch((err) => console.error("Error fetching grades:", err))
+      .finally(() => setLoading(false))
   }, [])
 
-  const currentTermGrades = gradesData[selectedTerm as keyof typeof gradesData]
-  const avgPercentage = Math.round(currentTermGrades.reduce((sum, g) => sum + g.percentage, 0) / currentTermGrades.length)
+  const currentTermGrades = gradesData[selectedTerm as keyof typeof gradesData] || []
+  const avgPercentage = currentTermGrades.length > 0 
+    ? Math.round(currentTermGrades.reduce((sum, g) => sum + g.percentage, 0) / currentTermGrades.length)
+    : 0
 
   const getGradeColor = (grade: string) => {
     if (grade.startsWith("A")) return "border-green-300 text-green-700 bg-green-50"
     if (grade.startsWith("B")) return "border-amber-300 text-amber-700 bg-amber-50"
     return "border-slate-200 text-slate-700 bg-slate-50"
+  }
+
+  if (loading) {
+    return <div className="p-10 text-center">Loading grades...</div>
   }
 
   return (

@@ -1,15 +1,18 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useParent } from "../ParentContext"
 
 export default function ParentGrades() {
+  const { selectedChild } = useParent()
   const [selectedTerm, setSelectedTerm] = useState("term1")
 
   const [gradesData, setGradesData] = useState<Record<string, any[]>>({ term1: [], term2: [] })
   const [childName, setChildName] = useState<string>("")
 
   useEffect(() => {
-    fetch("/api/parent/grades")
+    if (!selectedChild) return
+    fetch(`/api/parent/grades?childId=${selectedChild.id}`)
       .then((res) => res.json())
       .then((data) => {
         setGradesData(data.gradesData || { term1: [], term2: [] })
@@ -19,12 +22,12 @@ export default function ParentGrades() {
         setGradesData({ term1: [], term2: [] })
         setChildName("")
       })
-  }, [])
+  }, [selectedChild])
 
-  const currentTermGrades = gradesData[selectedTerm as keyof typeof gradesData]
-  const avgPercentage = Math.round(
-    currentTermGrades.reduce((sum, g) => sum + g.percentage, 0) / currentTermGrades.length,
-  )
+  const currentTermGrades = gradesData[selectedTerm as keyof typeof gradesData] || []
+  const avgPercentage = currentTermGrades.length > 0 
+    ? Math.round(currentTermGrades.reduce((sum, g) => sum + g.percentage, 0) / currentTermGrades.length) 
+    : 0
 
   const getGradeColor = (grade: string) => {
     if (grade.startsWith("A")) return "bg-green-100 text-green-700 border-green-200"

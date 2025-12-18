@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { z } from "zod"
-import { getUserByEmail } from "@/lib/db"
-import { verifyPassword, createSession } from "@/lib/auth"
+import { prisma } from "@/lib/prisma"
+import { verifyPassword, createSession, Role } from "@/lib/auth"
 
 const schema = z.object({ email: z.string().email(), password: z.string().min(6) })
 
@@ -11,7 +11,10 @@ export async function POST(req: Request) {
   if (!parsed.success) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 })
   }
-  const user = getUserByEmail(parsed.data.email)
+  const user = await prisma.user.findUnique({
+    where: { email: parsed.data.email }
+  })
+  
   if (!user) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
   }
@@ -19,7 +22,7 @@ export async function POST(req: Request) {
   if (!ok) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
   }
-  const sid = createSession(user.id, user.role)
+  const sid = await createSession(user.id, user.role as Role)
   const res = NextResponse.json({ id: user.id, name: user.name, email: user.email, role: user.role })
   res.cookies.set("session", sid, {
     httpOnly: true,

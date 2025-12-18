@@ -4,19 +4,31 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 
 export default function TeacherAttendance() {
-  const [selectedClass, setSelectedClass] = useState("class1")
+  const [selectedClass, setSelectedClass] = useState("")
   const [attendanceDate, setAttendanceDate] = useState(new Date().toISOString().slice(0, 10))
   const [submitted, setSubmitted] = useState(false)
   const [query, setQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("All")
   const [classes, setClasses] = useState<{ id: string; name: string; students: number; period: string }[]>([])
-  const [students, setStudents] = useState<{ id: number; name: string; roll: string; status: string }[]>([])
+  const [students, setStudents] = useState<{ id: string; name: string; roll: string; status: string }[]>([])
 
   useEffect(() => {
     ;(async () => {
-      const res = await fetch(`/api/teacher/attendance?classId=${selectedClass}&date=${attendanceDate}`).catch(() => null)
+      // Build query string
+      const params = new URLSearchParams()
+      if (selectedClass) params.set("classId", selectedClass)
+      params.set("date", attendanceDate)
+      
+      const res = await fetch(`/api/teacher/attendance?${params.toString()}`).catch(() => null)
       const data = await res?.json().catch(() => null)
-      if (data?.classes) setClasses(data.classes)
+      
+      if (data?.classes) {
+        setClasses(data.classes)
+        // If no class selected yet, select the first one
+        if (!selectedClass && data.classes.length > 0) {
+          setSelectedClass(data.classes[0].id)
+        }
+      }
       if (data?.students) setStudents(data.students)
     })()
   }, [selectedClass, attendanceDate])
@@ -26,7 +38,7 @@ export default function TeacherAttendance() {
   const absentCount = students.filter((s) => s.status === "absent").length
   const lateCount = students.filter((s) => s.status === "late").length
 
-  const toggleAttendance = (studentId: number, newStatus: string) => {
+  const toggleAttendance = (studentId: string, newStatus: string) => {
     setStudents(students.map((s) => (s.id === studentId ? { ...s, status: newStatus } : s)))
   }
 

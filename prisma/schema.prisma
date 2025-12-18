@@ -3,36 +3,71 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-}
-
-enum Role {
-  student
-  teacher
-  admin
-  parent
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id           String   @id @default(cuid())
   name         String
   email        String   @unique
-  role         Role
+  role         String
   passwordHash String
   passwordSalt String
   createdAt    DateTime @default(now())
   imageUrl     String?
   bio          String?
+  phone        String?
+  dateOfBirth  String?
+  studentId    String?
+  major        String?
+  notifications String? // JSON string
   sessions     Session[]
   parents      ParentChild[] @relation("ParentChildren_parent")
   children     ParentChild[] @relation("ParentChildren_child")
+  
+  // Relations as teacher
+  courses      Course[]
+  
+  // Relations as student
+  enrollments  Enrollment[]
+  assignmentSubmissions AssignmentSubmission[]
+  quizResults  QuizResult[]
+  attendance   Attendance[]
+  lessonCompletions LessonCompletion[]
+  schedules    Schedule[]
+  
+  // Messaging
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+}
+
+model Role {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  permissions String   // JSON string
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Integration {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  key         String   @unique // e.g. "email_service", "payment_gateway"
+  provider    String?  // e.g. "smtp", "stripe"
+  config      String?  // JSON string
+  status      String   @default("Disconnected")
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Session {
   id        String   @id @default(cuid())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  role      Role
+  role      String
   createdAt DateTime @default(now())
 }
 
@@ -44,4 +79,182 @@ model ParentChild {
   childId  String
 
   @@unique([parentId, childId])
+}
+
+model Course {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String?  @unique
+  description  String?
+  imageUrl     String?
+  status       String   @default("Draft") // Draft, Active, Archived
+  price        Float    @default(0)
+  isFree       Boolean  @default(true)
+  requirements String?  // JSON string
+  teacher      User     @relation(fields: [teacherId], references: [id])
+  teacherId    String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  lessons      Lesson[]
+  quizzes      Quiz[]
+  assignments  Assignment[]
+  enrollments  Enrollment[]
+  questions    Question[]
+  attendance   Attendance[]
+  schedules    Schedule[]
+}
+
+model Lesson {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  duration  String?
+  videoUrl  String?
+  imageUrls String? // JSON string
+  status    String   @default("Draft")
+  order     Int      @default(0)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  completions LessonCompletion[]
+}
+
+model Quiz {
+  id        String   @id @default(cuid())
+  title     String
+  status    String   @default("Draft")
+  questions String?  // JSON string of MCQ items
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  results   QuizResult[]
+}
+
+model Assignment {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  dueDate     DateTime?
+  totalPoints Int      @default(100)
+  status      String   @default("Pending")
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  submissions AssignmentSubmission[]
+}
+
+model Enrollment {
+  id         String   @id @default(cuid())
+  student    User     @relation(fields: [studentId], references: [id])
+  studentId  String
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId   String
+  progress   Float    @default(0)
+  enrolledAt DateTime @default(now())
+
+  @@unique([studentId, courseId])
+}
+
+model Question {
+  id         String   @id @default(cuid())
+  text       String
+  type       String   // MCQ, Short Answer, Coding
+  difficulty String   // Easy, Medium, Hard
+  marks      Int      @default(1)
+  options    String?  // JSON string for MCQ options
+  answer     String?  // Correct answer
+  course     Course?  @relation(fields: [courseId], references: [id])
+  courseId   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model AssignmentSubmission {
+  id           String     @id @default(cuid())
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+  assignmentId String
+  student      User       @relation(fields: [studentId], references: [id])
+  studentId    String
+  content      String?    // Link or text
+  grade        Float?
+  feedback     String?
+  status       String     @default("Submitted") // Submitted, Graded
+  submittedAt  DateTime   @default(now())
+  gradedAt     DateTime?
+
+  @@unique([studentId, assignmentId])
+}
+
+model QuizResult {
+  id        String   @id @default(cuid())
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  quizId    String
+  student   User     @relation(fields: [studentId], references: [id])
+  studentId String
+  score     Float
+  total     Float
+  answers   String?  // JSON string of student answers
+  completedAt DateTime @default(now())
+
+  @@unique([studentId, quizId])
+}
+
+model Attendance {
+  id        String   @id @default(cuid())
+  date      String   // YYYY-MM-DD
+  status    String   // present, absent, late
+  student   User     @relation(fields: [studentId], references: [id])
+  studentId String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, courseId, date])
+}
+
+model LessonCompletion {
+  id        String   @id @default(cuid())
+  student   User     @relation(fields: [studentId], references: [id])
+  studentId String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  lessonId  String
+  completedAt DateTime @default(now())
+
+  @@unique([studentId, lessonId])
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  title     String
+  description String?
+  startTime DateTime
+  endTime   DateTime
+  type      String   // "Class", "Exam", "OfficeHours", "Event", "Deadline"
+  location  String?
+  
+  course    Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId  String?
+  
+  teacher   User     @relation(fields: [teacherId], references: [id])
+  teacherId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  sender    User     @relation("SentMessages", fields: [senderId], references: [id])
+  senderId  String
+  receiver  User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  receiverId String
+  subject   String
+  content   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
 }

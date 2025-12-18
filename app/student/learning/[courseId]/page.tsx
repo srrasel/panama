@@ -1,176 +1,52 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ChevronLeft, FileText, Code, Download, CheckCircle, Circle } from "lucide-react"
 
 export default function CourseLearning({ params }: { params: { courseId: string } }) {
   const [activeLesson, setActiveLesson] = useState(0)
-  const [completedLessons, setCompletedLessons] = useState([0, 1, 3])
+  const [completedLessons, setCompletedLessons] = useState<string[]>([])
+  const [course, setCourse] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
-  // Demo course data based on course ID
-  const courses: Record<string, any> = {
-    "1": {
-      title: "Advanced JavaScript & ES6+",
-      instructor: "Sarah Johnson",
-      progress: 65,
-      rating: 4.9,
-      reviews: 1230,
-      description: "Master modern JavaScript with ES6+ features, async programming, and advanced patterns.",
-      modules: [
-        {
-          id: 1,
-          title: "Module 1: ES6 Fundamentals",
-          lessons: [
-            {
-              id: 1,
-              title: "Introduction to ES6",
-              duration: "15 mins",
-              content: "Learn the basics of ES6 and why it changed JavaScript forever.",
-              videoUrl: "/javascript-course.jpg",
-            },
-            {
-              id: 2,
-              title: "Arrow Functions & This Binding",
-              duration: "20 mins",
-              content: "Understand arrow functions and how they handle the 'this' keyword differently.",
-              videoUrl: "/arrow-functions.jpg",
-            },
-            {
-              id: 3,
-              title: "Destructuring Assignment",
-              duration: "18 mins",
-              content: "Master destructuring patterns for arrays and objects.",
-              videoUrl: "/destructuring.jpg",
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: "Module 2: Async Programming",
-          lessons: [
-            {
-              id: 4,
-              title: "Promises Deep Dive",
-              duration: "22 mins",
-              content: "Understanding promises and promise chaining.",
-              videoUrl: "/promises.jpg",
-            },
-            {
-              id: 5,
-              title: "Async/Await Patterns",
-              duration: "25 mins",
-              content: "Master async/await syntax and error handling.",
-              videoUrl: "/async-await.jpg",
-            },
-          ],
-        },
-      ],
-    },
-    "2": {
-      title: "Web Development Fundamentals",
-      instructor: "Mike Chen",
-      progress: 48,
-      rating: 4.8,
-      reviews: 950,
-      description: "Complete guide to web development covering HTML, CSS, JavaScript, and responsive design.",
-      modules: [
-        {
-          id: 1,
-          title: "Module 1: HTML Essentials",
-          lessons: [
-            {
-              id: 1,
-              title: "HTML5 Structure",
-              duration: "20 mins",
-              content: "Learn semantic HTML5 elements and document structure.",
-              videoUrl: "/html5.jpg",
-            },
-            {
-              id: 2,
-              title: "Forms & Validation",
-              duration: "18 mins",
-              content: "Master HTML forms and built-in validation.",
-              videoUrl: "/forms.jpg",
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: "Module 2: CSS & Layout",
-          lessons: [
-            {
-              id: 3,
-              title: "CSS Grid & Flexbox",
-              duration: "30 mins",
-              content: "Advanced layout techniques with Grid and Flexbox.",
-              videoUrl: "/css-layout.jpg",
-            },
-          ],
-        },
-      ],
-    },
-    "3": {
-      title: "React Mastery",
-      instructor: "Emily Davis",
-      progress: 82,
-      rating: 4.9,
-      reviews: 2100,
-      description: "Become a React expert with hooks, state management, and performance optimization.",
-      modules: [
-        {
-          id: 1,
-          title: "Module 1: React Fundamentals",
-          lessons: [
-            {
-              id: 1,
-              title: "JSX & Components",
-              duration: "25 mins",
-              content: "Understanding JSX syntax and functional components.",
-              videoUrl: "/react-jsx.jpg",
-            },
-            {
-              id: 2,
-              title: "Hooks Introduction",
-              duration: "28 mins",
-              content: "Master useState, useEffect, and custom hooks.",
-              videoUrl: "/react-hooks.jpg",
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: "Module 2: Advanced React",
-          lessons: [
-            {
-              id: 3,
-              title: "State Management",
-              duration: "32 mins",
-              content: "Context API and state management patterns.",
-              videoUrl: "/state-management-concept.png",
-            },
-            {
-              id: 4,
-              title: "Performance Optimization",
-              duration: "35 mins",
-              content: "Code splitting, lazy loading, and memoization.",
-              videoUrl: "/react-performance.jpg",
-            },
-          ],
-        },
-      ],
-    },
-  }
+  useEffect(() => {
+    fetch(`/api/student/learning/${params.courseId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.course) {
+          setCourse(data.course)
+          setCompletedLessons(data.course.completedLessonIds || [])
+        }
+      })
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false))
+  }, [params.courseId])
 
-  const course = courses[params.courseId] || courses["1"]
+  if (loading) return <div className="p-8 text-center">Loading...</div>
+  if (!course) return <div className="p-8 text-center">Course not found</div>
+
   const allLessons = course.modules.flatMap((m: any) => m.lessons)
   const currentLesson = allLessons[activeLesson]
-  const isLessonCompleted = completedLessons.includes(activeLesson)
+  const isLessonCompleted = currentLesson ? completedLessons.includes(currentLesson.id) : false
 
-  const handleCompleteLesson = () => {
-    if (!completedLessons.includes(activeLesson)) {
-      setCompletedLessons([...completedLessons, activeLesson])
+  const handleCompleteLesson = async () => {
+    if (!currentLesson) return
+
+    if (!isLessonCompleted) {
+      // Optimistic update
+      setCompletedLessons([...completedLessons, currentLesson.id])
+      
+      try {
+        await fetch(`/api/student/learning/${params.courseId}/complete`, {
+            method: "POST",
+            body: JSON.stringify({ lessonId: currentLesson.id })
+        })
+      } catch (error) {
+        console.error("Error marking complete:", error)
+      }
     }
+    
     if (activeLesson < allLessons.length - 1) {
       setActiveLesson(activeLesson + 1)
     }
@@ -182,7 +58,7 @@ export default function CourseLearning({ params }: { params: { courseId: string 
       <div className="bg-card border-b border-border sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-4">
-            <Link href="/student/continue-learning">
+            <Link href="/student/courses">
               <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
                 <ChevronLeft size={20} />
                 Back to Courses
@@ -199,7 +75,7 @@ export default function CourseLearning({ params }: { params: { courseId: string 
               <div className="w-32 bg-muted rounded-full h-2 mt-2">
                 <div
                   className="bg-primary h-2 rounded-full transition-all"
-                  style={{ width: `${(completedLessons.length / allLessons.length) * 100}%` }}
+                  style={{ width: `${allLessons.length > 0 ? (completedLessons.length / allLessons.length) * 100 : 0}%` }}
                 ></div>
               </div>
             </div>
@@ -214,7 +90,7 @@ export default function CourseLearning({ params }: { params: { courseId: string 
             {/* Video Player */}
             <div className="bg-black rounded-lg overflow-hidden mb-8">
               <img
-                src={currentLesson.videoUrl || "/placeholder.svg"}
+                src={currentLesson?.videoUrl || "/placeholder.svg"}
                 alt="Video"
                 className="w-full aspect-video object-cover"
               />
@@ -225,8 +101,8 @@ export default function CourseLearning({ params }: { params: { courseId: string 
               <div>
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h2 className="text-3xl font-bold text-foreground">{currentLesson.title}</h2>
-                    <p className="text-muted-foreground mt-2">{currentLesson.duration}</p>
+                    <h2 className="text-3xl font-bold text-foreground">{currentLesson?.title}</h2>
+                    <p className="text-muted-foreground mt-2">{currentLesson?.duration}</p>
                   </div>
                   {isLessonCompleted && (
                     <span className="bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-100 px-4 py-2 rounded-lg font-semibold flex items-center gap-2">
@@ -235,7 +111,10 @@ export default function CourseLearning({ params }: { params: { courseId: string 
                     </span>
                   )}
                 </div>
-                <p className="text-foreground leading-relaxed">{currentLesson.content}</p>
+                <div 
+                  className="text-foreground leading-relaxed [&_p]:mb-4 [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:text-2xl [&_h2]:font-bold [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_img]:max-w-full [&_img]:rounded-lg"
+                  dangerouslySetInnerHTML={{ __html: currentLesson?.content || "" }}
+                />
               </div>
 
               {/* Action Buttons */}
@@ -244,7 +123,7 @@ export default function CourseLearning({ params }: { params: { courseId: string 
                   onClick={handleCompleteLesson}
                   className="flex-1 bg-primary text-primary-foreground font-semibold py-3 rounded-lg hover:bg-primary/90 transition-colors"
                 >
-                  {isLessonCompleted ? "Mark Complete & Next Lesson" : "Mark as Complete"}
+                  {isLessonCompleted ? "Next Lesson" : "Mark as Complete"}
                 </button>
                 <button className="flex-1 border border-border text-foreground font-semibold py-3 rounded-lg hover:bg-muted transition-colors flex items-center justify-center gap-2">
                   <Download size={18} />
@@ -281,7 +160,7 @@ export default function CourseLearning({ params }: { params: { courseId: string 
               <h3 className="text-lg font-bold text-foreground mb-6">Course Outline</h3>
               <div className="space-y-6">
                 {course.modules.map((module: any, mIdx: number) => (
-                  <div key={module.id}>
+                  <div key={module.id || mIdx}>
                     <h4 className="font-semibold text-foreground text-sm mb-3">{module.title}</h4>
                     <div className="space-y-2">
                       {module.lessons.map((lesson: any, lIdx: number) => {
@@ -289,7 +168,7 @@ export default function CourseLearning({ params }: { params: { courseId: string 
                           course.modules.slice(0, mIdx).reduce((acc: number, m: any) => acc + m.lessons.length, 0) +
                           lIdx
                         const isActive = activeLesson === globalLessonIdx
-                        const isCompleted = completedLessons.includes(globalLessonIdx)
+                        const isCompleted = completedLessons.includes(lesson.id)
 
                         return (
                           <button
@@ -324,11 +203,11 @@ export default function CourseLearning({ params }: { params: { courseId: string 
               <div className="mt-8 pt-6 border-t border-border space-y-3">
                 <div className="flex justify-between items-center text-sm">
                   <p className="text-muted-foreground">Instructor Rating</p>
-                  <p className="font-semibold text-foreground">⭐ {course.rating}</p>
+                  <p className="font-semibold text-foreground">⭐ 4.9</p>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                   <p className="text-muted-foreground">Reviews</p>
-                  <p className="font-semibold text-foreground">{course.reviews}</p>
+                  <p className="font-semibold text-foreground">120</p>
                 </div>
               </div>
             </div>

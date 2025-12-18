@@ -8,11 +8,24 @@ import Link from "next/link"
 export default function UserManagement() {
   const [activeTab, setActiveTab] = useState("all")
   const [users, setUsers] = useState<any[]>([])
+  const [roles, setRoles] = useState<{ id: string; name: string }[]>([])
+
   useEffect(() => {
     ;(async () => {
-      const res = await fetch("/api/admin/users").catch(() => null)
-      const data = await res?.json().catch(() => null)
-      setUsers(Array.isArray(data?.users) ? data.users : [])
+      const [resUsers, resRoles] = await Promise.all([
+        fetch("/api/admin/users").catch(() => null),
+        fetch("/api/admin/roles").catch(() => null)
+      ])
+      
+      const dataUsers = await resUsers?.json().catch(() => null)
+      setUsers(Array.isArray(dataUsers?.users) ? dataUsers.users : [])
+      
+      const dataRoles = await resRoles?.json().catch(() => null)
+      if (Array.isArray(dataRoles)) {
+        // Filter roles for tabs
+        const allowedRoles = ["student", "teacher", "parent"]
+        setRoles(dataRoles.filter((r: any) => allowedRoles.includes(r.name)))
+      }
     })()
   }, [])
 
@@ -59,18 +72,28 @@ export default function UserManagement() {
       {/* Add User Form moved to /admin/user-management/create */}
 
       {/* Filter Tabs */}
-      <div className="flex gap-2 border-b border-border">
-        {["all", "student", "teacher", "parent"].map((tab) => (
+      <div className="flex gap-2 border-b border-border overflow-x-auto pb-1">
+        <button
+          onClick={() => setActiveTab("all")}
+          className={`px-4 py-2 font-medium text-sm transition-colors whitespace-nowrap ${
+            activeTab === "all"
+              ? "text-primary border-b-2 border-primary"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          All
+        </button>
+        {roles.map((r) => (
           <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 font-medium text-sm transition-colors ${
-              activeTab === tab
+            key={r.id}
+            onClick={() => setActiveTab(r.name)}
+            className={`px-4 py-2 font-medium text-sm transition-colors whitespace-nowrap ${
+              activeTab === r.name
                 ? "text-primary border-b-2 border-primary"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            {r.name.charAt(0).toUpperCase() + r.name.slice(1)}
           </button>
         ))}
       </div>

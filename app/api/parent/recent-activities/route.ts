@@ -1,18 +1,49 @@
 import { cookies } from "next/headers"
 import { getSession } from "@/lib/auth"
-import { getUserById, getChildForParent } from "@/lib/db"
+import { getSelectedChild } from "@/lib/parent-utils"
+import { prisma } from "@/lib/prisma"
 
-export async function GET() {
+export async function GET(req: Request) {
   const sid = (await cookies()).get("session")?.value
-  const session = getSession(sid)
-  let child = undefined
-  if (session?.role === "parent") child = getChildForParent(session.userId)
-  else if (session?.role === "student") child = getUserById(session.userId)
-  const childName = child?.name || "Student"
-  const recentActivities = [
-    { id: 1, activity: "Submitted Assignment: Essay on Climate Change", date: "2025-12-01", status: "Completed" },
-    { id: 2, activity: "Quiz: Chapter 5 - Photosynthesis", date: "2025-11-30", status: "Passed" },
-    { id: 3, activity: "Joined Study Group: Advanced Math", date: "2025-11-28", status: "Active" },
-  ]
-  return Response.json({ childName, recentActivities })
+  const session = await getSession(sid)
+  const url = new URL(req.url)
+
+  const child = await getSelectedChild(session, url.searchParams)
+  if (!child) return Response.json({ recentActivities: [] })
+
+  const childName = child.name
+
+  // Fetch recent assignments
+  const submissions = await prisma.assignmentSubmission.findMany({
+    where: { studentId: child.id },
+    take: 5,
+    orderBy: { submittedAt: 'desc' },
+    include: { assignment: true }
+  })
+
+  // Fetch recent quiz results
+  const quizResults = await prisma.quizResult.findMany({
+    where: { studentId: child.id },
+    take: 5,
+    orderBy: { completedAt: 'desc' },
+    include: { quiz: true }
+  })
+
+  // Combine and sort
+  const activities = [
+    ...submissions.map(s => ({
+      id: `sub-${s.id}`,
+      activity: `Submitted Assignment: ${s.assignment.title}`,
+      date: s.submittedAt.toISOString().split('T')[0],
+      status: "Completed"
+    })),
+    ...quizResults.map(q => ({
+      id: `quiz-${q.id}`,
+      activity: `Quiz: ${q.quiz.title}`,
+      date: q.completedAt.toISOString().split('T')[0],
+      status: q.score >= 50 ? "Passed" : "Failed"
+    }))
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 5)
+
+  return Response.json({ childName, recentActivities: activities })
 }
