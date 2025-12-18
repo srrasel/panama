@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useParent } from "../ParentContext"
 
 export default function ParentAttendance() {
+  const { selectedChild } = useParent()
   const [attendanceRecords, setAttendanceRecords] = useState<any[]>([])
   const [attendanceStats, setAttendanceStats] = useState<any>({})
   const [childName, setChildName] = useState<string>("")
@@ -10,10 +12,11 @@ export default function ParentAttendance() {
   const [recentActivities, setRecentActivities] = useState<any[]>([])
 
   useEffect(() => {
+    if (!selectedChild) return
     Promise.all([
-      fetch("/api/parent/attendance").then((r) => r.json()),
-      fetch("/api/parent/upcoming-events").then((r) => r.json()),
-      fetch("/api/parent/recent-activities").then((r) => r.json()),
+      fetch(`/api/parent/attendance?childId=${selectedChild.id}`).then((r) => r.json()),
+      fetch(`/api/parent/upcoming-events?childId=${selectedChild.id}`).then((r) => r.json()),
+      fetch(`/api/parent/recent-activities?childId=${selectedChild.id}`).then((r) => r.json()),
     ])
       .then(([att, events, recent]) => {
         setAttendanceRecords(att.attendanceRecords || [])
@@ -29,7 +32,7 @@ export default function ParentAttendance() {
         setUpcomingEvents([])
         setRecentActivities([])
       })
-  }, [])
+  }, [selectedChild])
 
   return (
     <div className="space-y-8">

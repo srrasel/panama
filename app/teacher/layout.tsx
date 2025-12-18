@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, BookOpen, ClipboardList, CalendarDays, Users, User2, LogOut, FileText } from "lucide-react"
+import { LayoutDashboard, BookOpen, ClipboardList, CalendarDays, Users, User2, LogOut, FileText, MessageCircle } from "lucide-react"
 
 export default function TeacherLayout({
   children,
@@ -24,6 +24,7 @@ export default function TeacherLayout({
       title: "Menu",
       items: [
         { href: "/teacher/dashboard", label: "Dashboard", Icon: LayoutDashboard },
+        { href: "/teacher/communication", label: "Communication", Icon: MessageCircle },
       ],
     },
     {

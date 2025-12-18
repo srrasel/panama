@@ -1,110 +1,425 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
+import { toast } from "sonner"
+import { Send, User, MoreVertical, Phone, Video, Search, ArrowLeft } from "lucide-react"
+import { cn } from "@/lib/utils"
+
+type Contact = {
+  id: string
+  name: string
+  role: string
+  imageUrl: string | null
+  email: string
+  lastMessage?: {
+    content: string
+    createdAt: string
+    isMe: boolean
+  } | null
+  unreadCount: number
+}
+
+type Message = {
+  id: string
+  content: string
+  senderId: string
+  senderName: string
+  senderImage: string | null
+  createdAt: string
+  isMe: boolean
+  isRead: boolean
+}
 
 export default function ParentCommunication() {
+  const [contacts, setContacts] = useState<Contact[]>([])
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null)
+  const [messages, setMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState("")
-  const [messages, setMessages] = useState<any[]>([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSending, setIsSending] = useState(false)
+  const [mobileShowChat, setMobileShowChat] = useState(false)
+  
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const pollingInterval = useRef<NodeJS.Timeout | null>(null)
 
+  // Fetch contacts on load
   useEffect(() => {
-    fetch("/api/parent/communication")
-      .then((res) => res.json())
-      .then((data) => setMessages(data.messages || []))
-      .catch(() => setMessages([]))
+    fetchContacts()
+    const interval = setInterval(fetchContacts, 5000)
+    return () => clearInterval(interval)
   }, [])
 
-  const handleSendMessage = () => {
-    if (!newMessage.trim()) return
-    fetch("/api/parent/communication", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: newMessage, subject: "Parent Message" }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.message) setMessages((prev) => [data.message, ...prev])
-        setNewMessage("")
-      })
-      .catch(() => setNewMessage("")
-      )
+  // Poll for messages when contact is selected
+  useEffect(() => {
+    if (selectedContact) {
+      fetchMessages(selectedContact.id)
+      pollingInterval.current = setInterval(() => fetchMessages(selectedContact.id), 1000)
+    } else {
+      setMessages([])
+    }
+    return () => {
+      if (pollingInterval.current) clearInterval(pollingInterval.current)
+    }
+  }, [selectedContact])
+
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
+
+  const fetchContacts = async () => {
+    try {
+      const res = await fetch("/api/parent/communication")
+      const data = await res.json()
+      if (data.contacts) {
+        setContacts(data.contacts)
+      }
+    } catch (error) {
+      console.error("Failed to fetch contacts", error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
+  const fetchMessages = async (contactId: string) => {
+    try {
+      const res = await fetch(`/api/parent/communication?contactId=${contactId}`)
+      const data = await res.json()
+      if (data.messages) {
+        setMessages(data.messages)
+      }
+    } catch (error) {
+      console.error("Failed to fetch messages", error)
+    }
+  }
+
+  const handleSendMessage = async (e?: React.FormEvent) => {
+    e?.preventDefault()
+    if (!newMessage.trim() || !selectedContact) return
+
+    const messageContent = newMessage
+    setNewMessage("")
+    
+    // Optimistic update
+    const optimisticMessage: Message = {
+      id: "optimistic-" + Date.now(),
+      content: messageContent,
+      senderId: "me", 
+      senderName: "Me",
+      senderImage: null,
+      createdAt: new Date().toISOString(),
+      isMe: true,
+      isRead: false
+    }
+    setMessages(prev => [...prev, optimisticMessage])
+
+    try {
+      const res = await fetch("/api/parent/communication", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: messageContent,
+          receiverId: selectedContact.id,
+          subject: "Chat Message"
+        }),
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        if (data.message) {
+          const realMessage = {
+            ...data.message,
+            isMe: true,
+            senderName: "Me",
+            senderImage: null
+          }
+          setMessages(prev => prev.map(m => m.id.startsWith("optimistic") ? realMessage : m))
+        }
+        fetchContacts() // Update last message in sidebar
+      } else {
+        toast.error("Failed to send message")
+        fetchMessages(selectedContact.id)
+      }
+    } catch (error) {
+      toast.error("Error sending message")
+    }
+  }
+
+  const formatTime = (dateStr: string) => {
+    const date = new Date(dateStr)
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  }
+
+  if (isLoading) return <div className="p-8 flex justify-center">Loading chat...</div>
+
   return (
-    <div className="space-y-8">
-      <section className="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div>
-            <h1 className="text-4xl font-semibold mb-2">Communication Center</h1>
-            <p className="text-white/80">Messages from teachers and school administration</p>
-          </div>
-        </div>
-      </section>
-
-      <div className="space-y-4">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`bg-white rounded-xl border ${message.unread ? "border-primary" : "border-slate-200"} p-6 shadow-sm hover:shadow-md transition-shadow`}
-          >
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex-1">
-                <h3 className="text-lg font-bold text-foreground">{message.from}</h3>
-                <p className="text-sm text-muted-foreground">{message.role}</p>
-              </div>
-              {message.unread && (
-                <span className="px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-full">New</span>
-              )}
-            </div>
-            <p className="font-semibold text-foreground mb-2">{message.subject}</p>
-            <p className="text-muted-foreground mb-3">{message.content}</p>
-            <p className="text-xs text-muted-foreground">{message.date}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Send Message to School</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            handleSendMessage()
-          }}
-          className="space-y-4"
-        >
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">Recipient</label>
-            <select className="w-full px-4 py-3 rounded-lg border border-border bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20">
-              <option>Select a teacher or administrator</option>
-              <option>Mr. James Smith - Mathematics</option>
-              <option>Mrs. Sarah Johnson - English</option>
-              <option>Dr. Michael Brown - Principal</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">Subject</label>
-            <input
-              type="text"
-              placeholder="Message subject"
-              className="w-full px-4 py-3 rounded-lg border border-border bg-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+    <div className="h-[calc(100vh-120px)] bg-card border border-border rounded-xl shadow-sm overflow-hidden flex">
+      {/* Sidebar - Contacts */}
+      <div className={cn(
+        "w-full md:w-80 border-r border-border bg-muted/30 flex flex-col transition-all duration-300",
+        mobileShowChat ? "hidden md:flex" : "flex"
+      )}>
+        <div className="p-4 border-b border-border bg-card">
+          <h2 className="text-xl font-bold mb-4">Messages</h2>
+          <div className="relative">
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+            <input 
+              placeholder="Search teachers..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 rounded-lg border border-border bg-muted/50 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">Message</label>
-            <textarea
-              rows={5}
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Write your message here..."
-              className="w-full px-4 py-3 rounded-lg border border-border bg-input text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
-            ></textarea>
+        </div>
+        
+        <div className="flex-1 overflow-y-auto">
+          {/* Active Chats Section */}
+          {contacts.some(c => c.lastMessage) && (
+             <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider bg-muted/20">
+               Recent
+             </div>
+          )}
+
+          {contacts
+            .filter(c => c.lastMessage && (
+               c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+               c.role.toLowerCase().includes(searchTerm.toLowerCase())
+            ))
+            .map(contact => (
+              <div
+                key={contact.id}
+                onClick={() => {
+                  setSelectedContact(contact)
+                  setMobileShowChat(true)
+                }}
+                className={cn(
+                  "p-4 border-b border-border/50 cursor-pointer hover:bg-muted/50 transition-colors flex gap-3 items-start",
+                  selectedContact?.id === contact.id && "bg-primary/5 hover:bg-primary/10"
+                )}
+              >
+                <div className="relative">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                    {contact.imageUrl ? (
+                      <img src={contact.imageUrl} alt={contact.name} className="w-10 h-10 rounded-full object-cover" />
+                    ) : (
+                      contact.name.charAt(0)
+                    )}
+                  </div>
+                  {contact.unreadCount > 0 && (
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-primary-foreground text-xs rounded-full flex items-center justify-center border-2 border-white">
+                      {contact.unreadCount}
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-baseline">
+                    <h3 className="font-semibold text-sm truncate">{contact.name}</h3>
+                    {contact.lastMessage && (
+                      <span className="text-xs text-muted-foreground whitespace-nowrap ml-2">
+                        {formatTime(contact.lastMessage.createdAt)}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground truncate">
+                    {contact.lastMessage 
+                      ? (contact.lastMessage.isMe ? "You: " : "") + contact.lastMessage.content 
+                      : ""}
+                  </p>
+                </div>
+              </div>
+            ))}
+
+          {/* All Contacts Section */}
+          <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider bg-muted/20 mt-2">
+            All Contacts
           </div>
-          <button
-            type="submit"
-            className="px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            Send Message
-          </button>
-        </form>
+
+          {contacts
+            .filter(c => !c.lastMessage && (
+              c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              c.role.toLowerCase().includes(searchTerm.toLowerCase())
+            ))
+            .length === 0 && !contacts.some(c => c.lastMessage) ? (
+            <div className="p-8 text-center text-muted-foreground text-sm">
+              {contacts.length === 0 
+                ? "No teachers found." 
+                : "No matching teachers found."}
+            </div>
+          ) : (
+            contacts
+              .filter(c => !c.lastMessage && (
+                c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                c.role.toLowerCase().includes(searchTerm.toLowerCase())
+              ))
+              .map(contact => (
+              <div
+                key={contact.id}
+                onClick={() => {
+                  setSelectedContact(contact)
+                  setMobileShowChat(true)
+                }}
+                className={cn(
+                  "p-4 border-b border-border/50 cursor-pointer hover:bg-muted/50 transition-colors flex gap-3 items-start",
+                  selectedContact?.id === contact.id && "bg-primary/5 hover:bg-primary/10"
+                )}
+              >
+                <div className="relative">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                    {contact.imageUrl ? (
+                      <img src={contact.imageUrl} alt={contact.name} className="w-10 h-10 rounded-full object-cover" />
+                    ) : (
+                      contact.name.charAt(0)
+                    )}
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-baseline">
+                    <h3 className="font-semibold text-sm truncate">{contact.name}</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground truncate italic">
+                    Click to start conversation
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      {/* Chat Area */}
+      <div className={cn(
+        "flex-1 flex flex-col bg-card transition-all duration-300",
+        !mobileShowChat ? "hidden md:flex" : "flex"
+      )}>
+        {selectedContact ? (
+          <>
+            {/* Header */}
+            <div className="p-4 border-b border-border flex items-center justify-between shadow-sm z-10">
+              <div className="flex items-center gap-3">
+                <button 
+                  onClick={() => setMobileShowChat(false)}
+                  className="md:hidden p-2 hover:bg-muted rounded-full"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                  {selectedContact.imageUrl ? (
+                    <img src={selectedContact.imageUrl} alt={selectedContact.name} className="w-10 h-10 rounded-full object-cover" />
+                  ) : (
+                    selectedContact.name.charAt(0)
+                  )}
+                </div>
+                <div>
+                  <h3 className="font-bold">{selectedContact.name}</h3>
+                  <p className="text-xs text-muted-foreground">{selectedContact.role}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <button className="p-2 hover:bg-muted rounded-full">
+                  <Phone className="w-5 h-5" />
+                </button>
+                <button className="p-2 hover:bg-muted rounded-full">
+                  <Video className="w-5 h-5" />
+                </button>
+                <button className="p-2 hover:bg-muted rounded-full">
+                  <MoreVertical className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted/5">
+              {messages.length === 0 ? (
+                <div className="h-full flex flex-col items-center justify-center text-muted-foreground opacity-50">
+                  <User className="w-16 h-16 mb-4" />
+                  <p>Start a conversation with {selectedContact.name}</p>
+                </div>
+              ) : (
+                messages.map((msg, index) => {
+                  const showAvatar = index === 0 || messages[index - 1].senderId !== msg.senderId
+                  return (
+                    <div
+                      key={msg.id}
+                      className={cn(
+                        "flex gap-3 max-w-[80%]",
+                        msg.isMe ? "ml-auto flex-row-reverse" : ""
+                      )}
+                    >
+                      {/* Avatar placeholder for spacing if needed, or actual avatar */}
+                      {!msg.isMe && (
+                        <div className="w-8 h-8 flex-shrink-0">
+                          {showAvatar && (
+                            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary overflow-hidden">
+                              {msg.senderImage ? (
+                                <img src={msg.senderImage} alt={msg.senderName} className="w-full h-full object-cover" />
+                              ) : (
+                                msg.senderName.charAt(0)
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      
+                      <div className={cn(
+                        "rounded-2xl px-4 py-2 text-sm shadow-sm",
+                        msg.isMe 
+                          ? "bg-primary text-primary-foreground rounded-br-none" 
+                          : "bg-white border border-border rounded-bl-none"
+                      )}>
+                        <p>{msg.content}</p>
+                        <p className={cn(
+                          "text-[10px] mt-1 text-right opacity-70",
+                          msg.isMe ? "text-primary-foreground" : "text-muted-foreground"
+                        )}>
+                          {formatTime(msg.createdAt)}
+                          {msg.isMe && (
+                            <span className="ml-1">
+                              {msg.isRead ? "✓✓" : "✓"}
+                            </span>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                })
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input */}
+            <div className="p-4 border-t border-border bg-card">
+              <form 
+                onSubmit={handleSendMessage}
+                className="flex gap-2 items-center"
+              >
+                <input
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Type a message..."
+                  className="flex-1 py-3 px-4 rounded-full border border-border bg-muted/30 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
+                <button
+                  type="submit"
+                  disabled={!newMessage.trim() || isSending}
+                  className="p-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Send className="w-5 h-5" />
+                </button>
+              </form>
+            </div>
+          </>
+        ) : (
+          <div className="h-full flex flex-col items-center justify-center text-muted-foreground p-8 text-center">
+            <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mb-6">
+              <User className="w-10 h-10 opacity-50" />
+            </div>
+            <h3 className="text-xl font-semibold text-foreground mb-2">Select a Conversation</h3>
+            <p className="max-w-md">
+              Choose a teacher from the sidebar to start chatting or check for new messages.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )

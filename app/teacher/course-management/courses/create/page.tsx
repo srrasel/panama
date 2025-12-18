@@ -3,39 +3,61 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Image as ImageIcon, ListOrdered, Video, FileText, Plus, Trash2, Save } from "lucide-react"
+import { Image as ImageIcon, ListOrdered, Video, FileText, Plus, Trash2, Save, ArrowRight, ArrowLeft, Check, Upload } from "lucide-react"
+import RichTextEditor from "@/components/ui/RichTextEditor"
 
-type LessonForm = { title: string; duration: string; videoFile?: File | null; imageFiles?: File[]; content?: string }
+type LessonForm = { id?: number; title: string; duration: string; videoFile?: File | null; imageFiles?: File[]; content?: string; videoUrl?: string; imageUrls?: string[] }
 type MCQItem = { question: string; options: string[]; answerIndex: number }
-type QuizForm = { title: string; items: MCQItem[] }
+type QuizForm = { id?: string; title: string; items: MCQItem[]; status?: string }
 
 export default function CreateCoursePage() {
   const router = useRouter()
   const [step, setStep] = useState(1)
+  const [courseId, setCourseId] = useState<number | null>(null)
+  
+  // Step 1: Basic Info
   const [title, setTitle] = useState("")
   const [isFree, setIsFree] = useState(true)
   const [price, setPrice] = useState<number | "">("")
-  const [lessonsCount, setLessonsCount] = useState(0)
-  const [studentsCount, setStudentsCount] = useState(0)
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string>("")
   const [requirements, setRequirements] = useState<string[]>([])
   const [requirementInput, setRequirementInput] = useState("")
   const [courseDescription, setCourseDescription] = useState<string>("")
+  
+  // Step 2: Curriculum
+  const [lessons, setLessons] = useState<LessonForm[]>([])
   const [openLessons, setOpenLessons] = useState<boolean[]>([])
+  
+  // Step 3: Quizzes (Simplified for now, usually part of curriculum)
+  const [quizzes, setQuizzes] = useState<QuizForm[]>([])
   const [openQuizzes, setOpenQuizzes] = useState<boolean[]>([])
   const [openQuestionPanels, setOpenQuestionPanels] = useState<boolean[][]>([])
 
-  const [lessons, setLessons] = useState<LessonForm[]>([])
-  const [quizzes, setQuizzes] = useState<QuizForm[]>([])
   const [saving, setSaving] = useState(false)
 
-  const canSave = title.trim().length > 0
+  const canProceedStep1 = title.trim().length > 0
 
   const addLesson = () => {
     setLessons((prev) => [...prev, { title: "", duration: "", videoFile: null, imageFiles: [], content: "" }])
     setOpenLessons((prev) => [...prev, true])
   }
+
+  const deleteLesson = async (idx: number) => {
+    const l = lessons[idx]
+    if (l.id) {
+      if (!confirm("Are you sure you want to delete this lesson?")) return
+      try {
+        await fetch(`/api/teacher/course-management/lessons/${l.id}`, { method: "DELETE" })
+      } catch (e) {
+        console.error("Failed to delete lesson", e)
+        return
+      }
+    }
+    setLessons(prev => prev.filter((_, i) => i !== idx))
+    setOpenLessons(prev => prev.filter((_, i) => i !== idx))
+  }
+
   const addQuiz = () => {
     setQuizzes((prev) => [...prev, { title: "", items: [] }])
     setOpenQuizzes((prev) => [...prev, true])
@@ -62,408 +84,515 @@ export default function CreateCoursePage() {
     setRequirements((prev) => [...prev, v])
     setRequirementInput("")
   }
+
   const removeRequirement = (idx: number) => {
     setRequirements((prev) => prev.filter((_, i) => i !== idx))
   }
 
-  const handleDeleteAll = () => {
-    setTitle("")
-    setLessonsCount(0)
-    setStudentsCount(0)
-    setImageFile(null)
-    setImagePreview("")
-    setLessons([])
-    setQuizzes([])
-  }
-
-  const handleSaveAll = async () => {
-    if (!canSave) return
+  // Auto-save Course Draft
+  const saveCourseDraft = async (status: "Draft" | "Active" = "Draft") => {
     setSaving(true)
     try {
       const fd = new FormData()
       fd.append("title", title)
-      fd.append("status", "Active")
-      fd.append("lessons", String(lessonsCount))
-      fd.append("students", String(studentsCount))
+      fd.append("status", status)
       if (imageFile) fd.append("image", imageFile)
       fd.append("isFree", String(isFree))
       if (!isFree && price !== "") fd.append("price", String(price))
       for (const r of requirements) fd.append("requirements", r)
       fd.append("description", courseDescription || "")
-      const cRes = await fetch("/api/teacher/course-management/courses", { method: "POST", body: fd })
-      const cData = await cRes.json().catch(() => ({}))
-      const courseId = cData?.course?.id || 1
 
-      for (const l of lessons) {
-        const lf = new FormData()
-        lf.append("courseId", String(courseId))
-        lf.append("title", l.title)
-        lf.append("duration", l.duration)
-        lf.append("content", l.content || "")
-        if (l.videoFile) lf.append("video", l.videoFile)
-        for (const img of l.imageFiles || []) lf.append("images", img)
-        await fetch("/api/teacher/course-management/lessons", { method: "POST", body: lf })
+      let res
+      if (courseId) {
+        // Update
+        res = await fetch(`/api/teacher/course-management/courses/${courseId}`, { method: "PUT", body: fd })
+      } else {
+        // Create
+        res = await fetch("/api/teacher/course-management/courses", { method: "POST", body: fd })
       }
 
-      for (const q of quizzes) {
-        const items = q.items
-        await fetch("/api/teacher/course-management/quizzes", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title: q.title, course: title, questions: items.length, items }),
-        })
+      const data = await res.json()
+      if (data.course) {
+        setCourseId(data.course.id)
       }
-
-      router.push("/teacher/course-management/courses")
+      return data.course
+    } catch (err) {
+      console.error(err)
+      return null
     } finally {
       setSaving(false)
     }
   }
 
-  const handleSave = async (_publish: boolean) => {
-    await handleSaveAll()
+  // Save Lessons
+  const saveLessons = async (cId: number) => {
+    setSaving(true)
+    try {
+      // Loop through lessons and save each
+      for (const [idx, l] of lessons.entries()) {
+        const lf = new FormData()
+        lf.append("courseId", String(cId))
+        lf.append("title", l.title)
+        lf.append("duration", l.duration)
+        if (l.videoFile) lf.append("video", l.videoFile)
+        if (l.imageFiles) {
+          l.imageFiles.forEach(f => lf.append("images", f))
+        }
+        lf.append("content", l.content || "")
+        
+        let res
+        if (l.id) {
+             res = await fetch(`/api/teacher/course-management/lessons/${l.id}`, { method: "PUT", body: lf })
+        } else {
+             res = await fetch("/api/teacher/course-management/lessons", { method: "POST", body: lf })
+        }
+        
+        const data = await res.json()
+        if (data.lesson && !l.id) {
+           setLessons(prev => {
+             const newL = [...prev]
+             newL[idx].id = data.lesson.id
+             return newL
+           })
+        }
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const saveQuizzes = async (cId: number) => {
+    setSaving(true)
+    try {
+      for (const [idx, q] of quizzes.entries()) {
+        const payload = {
+          courseId: cId,
+          title: q.title,
+          items: q.items,
+          status: "Active", // Default to active if saving
+          ...(q.id ? { id: q.id } : {})
+        }
+
+        let res
+        if (q.id) {
+           res = await fetch("/api/teacher/course-management/quizzes", { 
+             method: "PUT", 
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify(payload)
+           })
+        } else {
+           res = await fetch("/api/teacher/course-management/quizzes", { 
+             method: "POST", 
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify(payload)
+           })
+        }
+
+        const data = await res.json()
+        if (data.quiz && !q.id) {
+           setQuizzes(prev => {
+             const newQ = [...prev]
+             newQ[idx].id = data.quiz.id
+             return newQ
+           })
+        }
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const deleteQuiz = async (idx: number) => {
+    const q = quizzes[idx]
+    if (q.id) {
+      if (!confirm("Are you sure you want to delete this quiz?")) return
+      try {
+        await fetch(`/api/teacher/course-management/quizzes?id=${q.id}`, { method: "DELETE" })
+      } catch (e) {
+        console.error("Failed to delete quiz", e)
+        return
+      }
+    }
+    setQuizzes(prev => prev.filter((_, i) => i !== idx))
+    setOpenQuizzes(prev => prev.filter((_, i) => i !== idx))
+  }
+
+  const handleNext = async () => {
+    if (step === 1) {
+      if (!canProceedStep1) return
+      const savedCourse = await saveCourseDraft("Draft")
+      if (savedCourse) {
+        setStep(2)
+      }
+    } else if (step === 2) {
+      if (courseId) {
+        await saveLessons(courseId)
+        await saveQuizzes(courseId)
+      }
+      setStep(3)
+    }
+  }
+
+  const handlePublish = async () => {
+    if (courseId) {
+      await saveCourseDraft("Active")
+      router.push("/teacher/course-management/courses")
+    }
   }
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-5xl mx-auto space-y-8">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-semibold text-foreground mb-2">Create New Course</h1>
-          <p className="text-muted-foreground">Multistep creation with modern uploads and quiz builder</p>
+           <h1 className="text-2xl font-bold">Create New Course</h1>
+           <p className="text-muted-foreground">Draft saved automatically</p>
         </div>
-        <Link href="/teacher/course-management/courses" className="px-4 py-2 rounded-lg border">Back to Courses</Link>
+        <div className="flex items-center gap-2">
+           <button onClick={() => saveCourseDraft("Draft")} disabled={saving} className="px-4 py-2 border rounded-lg hover:bg-muted flex items-center gap-2">
+             <Save size={16} /> {saving ? "Saving..." : "Save Draft"}
+           </button>
+           {step === 3 && (
+             <button onClick={handlePublish} disabled={saving} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 flex items-center gap-2">
+               <Check size={16} /> Publish Course
+             </button>
+           )}
+        </div>
       </div>
 
-      
-
-      <div className="grid md:grid-cols-4 gap-4">
-        {[{ i: 1, label: "Course" }, { i: 2, label: "Lessons" }, { i: 3, label: "Quizzes" }, { i: 4, label: "Review" }].map((s) => (
-          <div key={s.i} className={`p-4 border rounded-lg ${step === s.i ? "border-primary" : "border-border"}`}>
-            <div className="flex items-center gap-3">
-              <div className={`w-8 h-8 rounded-full ${step >= s.i ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"} flex items-center justify-center font-bold`}>{s.i}</div>
-              <p className="font-medium">{s.label}</p>
-            </div>
-          </div>
-        ))}
+      {/* Steps */}
+      <div className="flex items-center gap-4 border-b pb-4">
+         {[1, 2, 3].map(s => (
+           <div key={s} className={`flex items-center gap-2 ${step === s ? "text-primary font-semibold" : "text-muted-foreground"}`}>
+             <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${step === s ? "border-primary bg-primary/10" : "border-border"}`}>
+               {s}
+             </div>
+             <span>{s === 1 ? "Basic Info" : s === 2 ? "Curriculum" : "Review"}</span>
+             {s < 3 && <div className="w-8 h-[1px] bg-border" />}
+           </div>
+         ))}
       </div>
 
+      {/* Step 1: Basic Info */}
       {step === 1 && (
-      <div className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">Title</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full px-3 py-3 border rounded-lg" placeholder="Course title" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">Description</label>
-          <RichTextEditor value={courseDescription} onChange={setCourseDescription} minHeight={350} />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2 inline-flex items-center gap-2"><ImageIcon className="h-4 w-4" /> Feature Image</label>
-          <div
-            className="rounded-lg border border-dashed p-6 text-sm text-muted-foreground flex flex-col items-center justify-center gap-3"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={onDropImage}
-          >
-            {imagePreview ? (
-              <img src={imagePreview} alt="Preview" className="max-h-64 rounded-lg" />
-            ) : (
-              <div className="text-center">
-                <p>Drag & drop or browse to upload</p>
-              </div>
-            )}
-            <input type="file" accept="image/*" onChange={(e) => onSelectImage(e.target.files?.[0] || null)} />
-          </div>
-        </div>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">Pricing</label>
-            <select value={isFree ? "Free" : "Paid"} onChange={(e) => setIsFree(e.target.value === "Free")} className="w-full px-3 py-2 border rounded-lg">
-              {["Free","Paid"].map((s) => (<option key={s} value={s}>{s}</option>))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">Price</label>
-            <input type="number" value={isFree ? "" : String(price)} onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))} disabled={isFree} className="w-full px-3 py-2 border rounded-lg" placeholder="0" />
-          </div>
-        </div>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">Planned Lessons</label>
-            <input type="number" value={lessonsCount} onChange={(e) => setLessonsCount(Number(e.target.value))} className="w-full px-3 py-2 border rounded-lg" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">Estimated Students</label>
-            <input type="number" value={studentsCount} onChange={(e) => setStudentsCount(Number(e.target.value))} className="w-full px-3 py-2 border rounded-lg" />
-          </div>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground mb-2">Requirements</label>
-          <div className="flex gap-2">
-            <input value={requirementInput} onChange={(e) => setRequirementInput(e.target.value)} className="flex-1 px-3 py-2 border rounded-lg" placeholder="Add a requirement" />
-            <button type="button" onClick={addRequirement} className="px-4 py-2 rounded-lg border">Add</button>
-          </div>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {requirements.map((r, i) => (
-              <span key={i} className="px-3 py-1 rounded-full bg-muted text-foreground inline-flex items-center gap-2">
-                {r}
-                <button type="button" onClick={() => removeRequirement(i)} className="text-red-600">×</button>
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <button disabled={!canSave} onClick={() => setStep(2)} className={`px-6 py-3 rounded-lg font-semibold ${canSave ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"}`}>Next: Lessons</button>
-        </div>
-      </div>
-      )}
-
-      {step === 2 && (
-      <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center"><ListOrdered className="h-5 w-5" /></div>
-            <p className="font-semibold">Lessons</p>
-          </div>
-          <button onClick={addLesson} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg inline-flex items-center gap-2"><Plus className="h-4 w-4" /> Add Lesson</button>
-        </div>
-        <div className="space-y-3">
-          {lessons.map((l, i) => (
-            <div key={i} className="border rounded-lg">
-              <div className="flex items-center justify-between p-4">
-                <button type="button" className="flex-1 flex items-center justify-between" onClick={() => setOpenLessons((prev) => prev.map((v, idx) => idx === i ? !v : v))}>
-                  <span className="font-medium">Lesson {i + 1}</span>
-                  <span className="text-sm text-muted-foreground">{l.title || "Untitled"}</span>
-                </button>
-                <button
-                  type="button"
-                  className="ml-2 text-red-600 px-2 py-1 rounded border"
-                  onClick={() => {
-                    setLessons((prev) => prev.filter((_, idx) => idx !== i))
-                    setOpenLessons((prev) => prev.filter((_, idx) => idx !== i))
-                  }}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-              {openLessons[i] && (
-                <div className="p-4 border-t space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Lesson Title</label>
-                    <input value={l.title} onChange={(e) => setLessons((prev) => prev.map((p, idx) => idx === i ? { ...p, title: e.target.value } : p))} placeholder="Enter lesson title" className="w-full px-3 py-2 border rounded-lg" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Description</label>
-                    <RichTextEditor
-                      value={l.content || ""}
-                      onChange={(html) => setLessons((prev) => prev.map((p, idx) => idx === i ? { ...p, content: html } : p))}
-                      minHeight={350}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2 inline-flex items-center gap-2"><ImageIcon className="h-4 w-4" /> Images</label>
-                    <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
-                      <input type="file" accept="image/*" multiple onChange={(e) => setLessons((prev) => prev.map((p, idx) => idx === i ? { ...p, imageFiles: Array.from(e.target.files || []) } : p))} />
-                      {!!l.imageFiles?.length && (
-                        <div className="mt-2 grid grid-cols-4 gap-2">
-                          {l.imageFiles.map((f, idx) => (
-                            <img key={idx} src={URL.createObjectURL(f)} alt="" className="h-16 w-full object-cover rounded" />
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2 inline-flex items-center gap-2"><Video className="h-4 w-4" /> Video</label>
-                    <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground flex flex-col items-center justify-center gap-3">
-                      {l.videoFile ? (
-                        <video src={URL.createObjectURL(l.videoFile)} controls className="w-full rounded" />
-                      ) : (
-                        <p>Browse to upload lesson video</p>
-                      )}
-                      <input type="file" accept="video/*" onChange={(e) => setLessons((prev) => prev.map((p, idx) => idx === i ? { ...p, videoFile: e.target.files?.[0] || null } : p))} />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">Duration</label>
-                    <input value={l.duration} onChange={(e) => setLessons((prev) => prev.map((p, idx) => idx === i ? { ...p, duration: e.target.value } : p))} placeholder="e.g. 45 min" className="w-full px-3 py-2 border rounded-lg" />
-                  </div>
-                </div>
-              )}
+        <div className="grid md:grid-cols-2 gap-8 animate-in fade-in">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="font-medium">Course Title</label>
+              <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Advanced Web Development" className="w-full px-4 py-2 border rounded-lg" />
             </div>
-          ))}
+            
+            <div className="space-y-2">
+              <label className="font-medium">Description</label>
+              <textarea value={courseDescription} onChange={(e) => setCourseDescription(e.target.value)} rows={4} className="w-full px-4 py-2 border rounded-lg" />
+            </div>
+
+            <div className="space-y-2">
+              <label className="font-medium">Requirements</label>
+              <div className="flex gap-2">
+                <input value={requirementInput} onChange={(e) => setRequirementInput(e.target.value)} className="flex-1 px-4 py-2 border rounded-lg" placeholder="Add requirement..." />
+                <button onClick={addRequirement} className="px-4 py-2 bg-secondary rounded-lg"><Plus size={16}/></button>
+              </div>
+              <ul className="space-y-1 mt-2">
+                {requirements.map((r, i) => (
+                  <li key={i} className="flex items-center justify-between bg-muted px-3 py-1 rounded text-sm">
+                    {r} <button onClick={() => removeRequirement(i)}><Trash2 size={14}/></button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+               <div className="space-y-2">
+                  <label className="font-medium">Pricing</label>
+                  <select value={String(isFree)} onChange={(e) => setIsFree(e.target.value === "true")} className="w-full px-4 py-2 border rounded-lg">
+                    <option value="true">Free</option>
+                    <option value="false">Paid</option>
+                  </select>
+               </div>
+               {!isFree && (
+                 <div className="space-y-2">
+                   <label className="font-medium">Price ($)</label>
+                   <input type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} className="w-full px-4 py-2 border rounded-lg" />
+                 </div>
+               )}
+            </div>
+          </div>
+
+          <div className="space-y-6">
+             <div className="border-2 border-dashed border-border rounded-xl p-8 text-center" onDrop={onDropImage} onDragOver={e => e.preventDefault()}>
+                {imagePreview ? (
+                  <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+                    <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                    <button onClick={() => { setImageFile(null); setImagePreview("") }} className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full"><Trash2 size={16}/></button>
+                  </div>
+                ) : (
+                  <div className="py-8 text-muted-foreground">
+                    <ImageIcon className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>Drag and drop course image here</p>
+                    <p className="text-sm mt-2">or</p>
+                    <input type="file" id="img-upload" className="hidden" accept="image/*" onChange={(e) => onSelectImage(e.target.files?.[0] || null)} />
+                    <label htmlFor="img-upload" className="mt-4 inline-block px-4 py-2 bg-secondary rounded-lg cursor-pointer">Browse Files</label>
+                  </div>
+                )}
+             </div>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <button onClick={() => setStep(1)} className="px-6 py-3 rounded-lg border">Back</button>
-          <button onClick={() => setStep(3)} className="px-6 py-3 bg-primary text-primary-foreground rounded-lg">Next: Quizzes</button>
-        </div>
-      </div>
       )}
 
-      {step === 3 && (
-      <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center"><FileText className="h-5 w-5" /></div>
-            <p className="font-semibold">Quizzes</p>
-          </div>
-          <button onClick={addQuiz} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg inline-flex items-center gap-2"><Plus className="h-4 w-4" /> Add Quiz</button>
-        </div>
-        <div className="space-y-3">
-          {quizzes.map((q, qi) => (
-            <div key={qi} className="border rounded-lg">
-              <div className="flex items-center justify-between p-4">
-                <button type="button" className="flex-1 flex items-center justify-between" onClick={() => setOpenQuizzes((prev) => prev.map((v, idx) => idx === qi ? !v : v))}>
-                  <span className="font-medium">Quiz {qi + 1}</span>
-                  <span className="text-sm text-muted-foreground">{q.title || "Untitled"}</span>
-                </button>
-                <button
-                  type="button"
-                  className="ml-2 text-red-600 px-2 py-1 rounded border"
-                  onClick={() => {
-                    setQuizzes((prev) => prev.filter((_, i) => i !== qi))
-                    setOpenQuizzes((prev) => prev.filter((_, i) => i !== qi))
-                    setOpenQuestionPanels((prev) => prev.filter((_, i) => i !== qi))
-                  }}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-              {openQuizzes[qi] && (
-                <div className="p-4 border-t space-y-3">
-                  <input value={q.title} onChange={(e) => setQuizzes((prev) => prev.map((p, idx) => idx === qi ? { ...p, title: e.target.value } : p))} placeholder="Quiz title" className="w-full px-3 py-2 border rounded-lg" />
-                  <div className="flex justify-between items-center">
-                    <p className="font-medium">Questions</p>
-                    <button
-                      onClick={() => {
-                        setQuizzes((prev) => prev.map((p, idx) => idx === qi ? { ...p, items: [...p.items, { question: "Enter the question", options: ["Option 1","Option 2","Option 3","Option 4"], answerIndex: 0 }] } : p))
-                        setOpenQuestionPanels((prev) => prev.map((arr, idx) => idx === qi ? [...arr, true] : arr))
-                      }}
-                      className="px-3 py-2 rounded-lg border"
-                    >
-                      Add Question
-                    </button>
+      {/* Step 2: Curriculum */}
+      {step === 2 && (
+        <div className="space-y-6 animate-in fade-in">
+           <div className="flex items-center justify-between">
+             <h2 className="text-xl font-semibold">Course Content</h2>
+             <div className="flex gap-2">
+               <button onClick={addLesson} className="px-4 py-2 bg-secondary rounded-lg flex items-center gap-2"><Plus size={16} /> Add Lesson</button>
+               <button onClick={addQuiz} className="px-4 py-2 bg-secondary rounded-lg flex items-center gap-2"><Plus size={16} /> Add Quiz</button>
+             </div>
+           </div>
+           
+           <div className="space-y-4">
+             {lessons.map((lesson, idx) => (
+               <div key={`lesson-${idx}`} className="border rounded-lg p-4 bg-card">
+                 <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3 cursor-pointer flex-1" onClick={() => setOpenLessons(prev => { const n = [...prev]; n[idx] = !n[idx]; return n })}>
+                    <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs">L{idx + 1}</span>
+                    <span className="font-medium">{lesson.title || "Untitled Lesson"}</span>
+                    <ListOrdered size={16} className="text-muted-foreground ml-2" />
                   </div>
-                  <div className="space-y-3">
-                    {q.items.map((item, ii) => (
-                      <div key={ii} className="border rounded-lg">
-                        <div className="flex items-center justify-between p-3">
-                          <button
-                            type="button"
-                            className="flex-1 flex items-center justify-between"
-                            onClick={() => {
-                              setOpenQuestionPanels((prev) => {
-                                const next = prev.map((arr) => arr.slice())
-                                if (!next[qi]) next[qi] = []
-                                next[qi][ii] = !next[qi][ii]
-                                return next
-                              })
-                            }}
-                          >
-                            <span className="font-medium">Question {ii + 1}</span>
-                            <span className="text-sm text-muted-foreground">{item.question || "Enter the question"}</span>
-                          </button>
-                          <button
-                            type="button"
-                            className="ml-2 text-red-600 px-2 py-1 rounded border"
-                            onClick={() => {
-                              setQuizzes((prev) => prev.map((p, idx) => idx === qi ? { ...p, items: p.items.filter((_, j) => j !== ii) } : p))
-                              setOpenQuestionPanels((prev) => prev.map((arr, idx) => idx === qi ? arr.filter((_, j) => j !== ii) : arr))
-                            }}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
+                  <button onClick={() => deleteLesson(idx)} className="p-2 text-muted-foreground hover:text-red-500"><Trash2 size={16}/></button>
+                </div>
+                 
+                 {openLessons[idx] && (
+                   <div className="space-y-6 pt-6 border-t">
+                     <div className="space-y-4">
+                       <div className="space-y-2">
+                          <label className="text-sm font-medium">Lesson Title</label>
+                          <input value={lesson.title} onChange={e => {
+                            const n = [...lessons]; n[idx].title = e.target.value; setLessons(n)
+                          }} placeholder="Lesson Title" className="w-full px-4 py-2 border rounded-lg" />
+                       </div>
+                       
+                       <div className="space-y-2">
+                          <label className="text-sm font-medium">Duration</label>
+                          <input value={lesson.duration} onChange={e => {
+                            const n = [...lessons]; n[idx].duration = e.target.value; setLessons(n)
+                          }} placeholder="Duration (e.g. 10 min)" className="w-full px-4 py-2 border rounded-lg" />
+                       </div>
+                     </div>
+
+                     <div className="space-y-2">
+                        <label className="text-sm font-medium">Lesson Content</label>
+                        <RichTextEditor 
+                          value={lesson.content || ""} 
+                          onChange={val => {
+                             const n = [...lessons]; n[idx].content = val; setLessons(n)
+                          }} 
+                          placeholder="Lesson content, notes, or transcript..."
+                        />
+                     </div>
+
+                     <div className="grid md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                           <label className="text-sm font-medium flex items-center gap-2"><Video size={16}/> Video Source</label>
+                           <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-muted/50 transition-colors">
+                              {lesson.videoFile ? (
+                                <div className="flex items-center justify-between bg-muted p-2 rounded">
+                                  <span className="text-sm truncate max-w-[200px]">{lesson.videoFile.name}</span>
+                                  <button onClick={() => {
+                                    const n = [...lessons]; n[idx].videoFile = null; setLessons(n)
+                                  }} className="text-red-500"><Trash2 size={14}/></button>
+                                </div>
+                              ) : lesson.videoUrl ? (
+                                 <div className="flex items-center justify-between bg-muted p-2 rounded">
+                                  <span className="text-sm truncate max-w-[200px]">Current Video</span>
+                                  <button onClick={() => {
+                                    const n = [...lessons]; n[idx].videoUrl = undefined; setLessons(n)
+                                  }} className="text-red-500"><Trash2 size={14}/></button>
+                                </div>
+                              ) : (
+                                <label className="cursor-pointer block">
+                                  <Upload className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                                  <span className="text-sm text-muted-foreground">Upload Video</span>
+                                  <input type="file" accept="video/*" className="hidden" onChange={(e) => {
+                                     const file = e.target.files?.[0]
+                                     if (file) {
+                                       const n = [...lessons]; n[idx].videoFile = file; setLessons(n)
+                                     }
+                                  }} />
+                                </label>
+                              )}
+                           </div>
                         </div>
-                        {(openQuestionPanels[qi]?.[ii] ?? true) && (
-                          <div className="p-3 border-t space-y-3">
-                            <input value={item.question} onChange={(e) => setQuizzes((prev) => prev.map((p, idx) => idx === qi ? { ...p, items: p.items.map((it, j) => j === ii ? { ...it, question: e.target.value } : it) } : p))} placeholder="Enter the question" className="w-full px-3 py-2 border rounded-lg" />
-                            <div className="grid md:grid-cols-2 gap-3">
-                              {item.options.map((opt, oi) => (
-                                <div key={oi} className="flex items-center gap-2">
-                                  <input
-                                    type="radio"
-                                    checked={item.answerIndex === oi}
-                                    onChange={() => setQuizzes((prev) => prev.map((p, idx) => idx === qi ? { ...p, items: p.items.map((it, j) => j === ii ? { ...it, answerIndex: oi } : it) } : p))}
-                                  />
-                                  <input
-                                    value={opt}
-                                    onChange={(e) => setQuizzes((prev) => prev.map((p, idx) => idx === qi ? { ...p, items: p.items.map((it, j) => j === ii ? { ...it, options: it.options.map((o, k) => k === oi ? e.target.value : o) } : it) } : p))}
-                                    placeholder={`Option ${oi + 1}`}
-                                    className="flex-1 px-3 py-2 border rounded-lg"
-                                  />
+
+                        <div className="space-y-2">
+                           <label className="text-sm font-medium flex items-center gap-2"><ImageIcon size={16}/> Lesson Images</label>
+                           <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-muted/50 transition-colors">
+                              <label className="cursor-pointer block">
+                                <Upload className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                                <span className="text-sm text-muted-foreground">Upload Images</span>
+                                <input type="file" accept="image/*" multiple className="hidden" onChange={(e) => {
+                                   const files = Array.from(e.target.files || [])
+                                   if (files.length) {
+                                     const n = [...lessons]; 
+                                     n[idx].imageFiles = [...(n[idx].imageFiles || []), ...files]; 
+                                     setLessons(n)
+                                   }
+                                }} />
+                              </label>
+                              {((lesson.imageFiles?.length || 0) > 0 || (lesson.imageUrls?.length || 0) > 0) && (
+                                <div className="mt-4 space-y-1">
+                                   {lesson.imageFiles?.map((f, i) => (
+                                     <div key={`new-${i}`} className="flex items-center justify-between text-xs bg-muted p-1 rounded">
+                                       <div className="flex items-center gap-2 overflow-hidden">
+                                         <img src={URL.createObjectURL(f)} className="w-8 h-8 object-cover rounded" alt={f.name} />
+                                         <span className="truncate max-w-[120px]">{f.name}</span>
+                                       </div>
+                                       <button onClick={() => {
+                                          const n = [...lessons]; 
+                                          n[idx].imageFiles = n[idx].imageFiles?.filter((_, fi) => fi !== i);
+                                          setLessons(n)
+                                       }} className="text-red-500"><Trash2 size={12}/></button>
+                                     </div>
+                                   ))}
+                                   {lesson.imageUrls?.map((url, i) => (
+                                     <div key={`url-${i}`} className="flex items-center justify-between text-xs bg-muted p-1 rounded">
+                                       <div className="flex items-center gap-2 overflow-hidden">
+                                         <img src={url} className="w-8 h-8 object-cover rounded" alt={`Image ${i+1}`} />
+                                         <span className="truncate max-w-[120px]">Image {i+1}</span>
+                                       </div>
+                                       <button onClick={() => {
+                                          const n = [...lessons]; 
+                                          n[idx].imageUrls = n[idx].imageUrls?.filter((_, fi) => fi !== i);
+                                          setLessons(n)
+                                       }} className="text-red-500"><Trash2 size={12}/></button>
+                                     </div>
+                                   ))}
+                                </div>
+                              )}
+                           </div>
+                        </div>
+                     </div>
+                   </div>
+                 )}
+               </div>
+             ))}
+
+             {quizzes.map((quiz, idx) => (
+               <div key={`quiz-${idx}`} className="border rounded-lg p-4 bg-card border-purple-200">
+                 <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3 cursor-pointer flex-1" onClick={() => setOpenQuizzes(prev => { const n = [...prev]; n[idx] = !n[idx]; return n })}>
+                    <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs">Q{idx + 1}</span>
+                    <span className="font-medium">{quiz.title || "Untitled Quiz"}</span>
+                    <FileText size={16} className="text-muted-foreground ml-2" />
+                  </div>
+                  <button onClick={() => deleteQuiz(idx)} className="p-2 text-muted-foreground hover:text-red-500"><Trash2 size={16}/></button>
+                </div>
+                 
+                 {openQuizzes[idx] && (
+                   <div className="space-y-4 pt-4 border-t">
+                     <input value={quiz.title} onChange={e => {
+                       const n = [...quizzes]; n[idx].title = e.target.value; setQuizzes(n)
+                     }} placeholder="Quiz Title" className="w-full px-4 py-2 border rounded-lg" />
+                     
+                     <div className="space-y-4">
+                        {quiz.items.map((item, qIdx) => (
+                          <div key={qIdx} className="bg-muted/30 p-4 rounded-lg">
+                            <div className="flex items-center justify-between mb-2">
+                               <p className="font-medium text-sm">Question {qIdx + 1}</p>
+                               <button onClick={() => {
+                                 const n = [...quizzes]; n[idx].items = n[idx].items.filter((_, i) => i !== qIdx); setQuizzes(n)
+                               }} className="text-red-500 hover:text-red-700"><Trash2 size={14}/></button>
+                            </div>
+                            <input value={item.question} onChange={e => {
+                              const n = [...quizzes]; n[idx].items[qIdx].question = e.target.value; setQuizzes(n)
+                            }} placeholder="Question Text" className="w-full px-3 py-2 border rounded mb-2 bg-white" />
+                            
+                            <div className="grid grid-cols-2 gap-2">
+                              {item.options.map((opt, oIdx) => (
+                                <div key={oIdx} className="flex items-center gap-2">
+                                  <input type="radio" name={`q-${idx}-${qIdx}`} checked={item.answerIndex === oIdx} onChange={() => {
+                                     const n = [...quizzes]; n[idx].items[qIdx].answerIndex = oIdx; setQuizzes(n)
+                                  }} />
+                                  <input value={opt} onChange={e => {
+                                     const n = [...quizzes]; n[idx].items[qIdx].options[oIdx] = e.target.value; setQuizzes(n)
+                                  }} placeholder={`Option ${oIdx + 1}`} className="flex-1 px-2 py-1 border rounded text-sm bg-white" />
                                 </div>
                               ))}
                             </div>
                           </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-between">
-          <button onClick={() => setStep(2)} className="px-6 py-3 rounded-lg border">Back</button>
-          <button disabled={!canSave || saving} onClick={handleSaveAll} className="px-6 py-3 bg-primary text-primary-foreground rounded-lg">{saving ? "Saving..." : "Save All"}</button>
-        </div>
-      </div>
-      )}
-    </div>
-  )
-}
+                        ))}
+                        <button onClick={() => {
+                          const n = [...quizzes]; 
+                          n[idx].items.push({ question: "", options: ["", "", "", ""], answerIndex: 0 }); 
+                          setQuizzes(n)
+                        }} className="text-sm text-primary hover:underline flex items-center gap-1"><Plus size={14}/> Add Question</button>
+                     </div>
+                   </div>
+                 )}
+               </div>
+             ))}
 
-function RichTextEditor({ value, onChange, minHeight }: { value: string; onChange: (html: string) => void; minHeight?: number }) {
-  const ref = useRef<HTMLDivElement | null>(null)
-  const exec = (cmd: string, value?: string) => {
-    if (ref.current) ref.current.focus()
-    document.execCommand(cmd, false, value)
-    if (ref.current) onChange(ref.current.innerHTML)
-  }
-  const insertImage = (file: File | null) => {
-    if (!file) return
-    const url = URL.createObjectURL(file)
-    if (ref.current) {
-      ref.current.focus()
-      document.execCommand("insertImage", false, url)
-      onChange(ref.current.innerHTML)
-    }
-  }
-  useEffect(() => {
-    if (ref.current && typeof value === "string" && ref.current.innerHTML !== value) {
-      ref.current.innerHTML = value
-    }
-  }, [value])
-  return (
-    <div className="border rounded-lg">
-      <div className="flex flex-wrap items-center gap-2 p-2 border-b">
-        <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("bold")} className="px-3 py-1 rounded border">B</button>
-        <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("italic")} className="px-3 py-1 rounded border">I</button>
-        <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("formatBlock", "P")} className="px-3 py-1 rounded border">P</button>
-        <select onChange={(e) => exec("formatBlock", e.target.value)} className="px-3 py-1 rounded border bg-transparent">
-          <option value="P">Heading</option>
-          <option value="H1">H1</option>
-          <option value="H2">H2</option>
-          <option value="H3">H3</option>
-          <option value="H4">H4</option>
-          <option value="H5">H5</option>
-          <option value="H6">H6</option>
-        </select>
-        <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => exec("insertUnorderedList")} className="px-3 py-1 rounded border">• List</button>
-        <label className="px-3 py-1 rounded border inline-flex items-center gap-2">
-          <ImageIcon className="h-4 w-4" />
-          <input type="file" accept="image/*" onChange={(e) => insertImage(e.target.files?.[0] || null)} className="hidden" />
-        </label>
+             {lessons.length === 0 && quizzes.length === 0 && <p className="text-center text-muted-foreground py-8">No content added yet.</p>}
+           </div>
+        </div>
+      )}
+
+      {/* Step 3: Review */}
+      {step === 3 && (
+        <div className="space-y-6 animate-in fade-in">
+          <div className="bg-card border rounded-xl p-8">
+            <h2 className="text-2xl font-bold mb-4">{title}</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+               <div className="md:col-span-2 space-y-4">
+                 <div 
+                   className="text-muted-foreground prose prose-sm max-w-none [&_p]:mb-2 [&_h1]:text-xl [&_h2]:text-lg [&_ul]:list-disc [&_ul]:pl-5"
+                   dangerouslySetInnerHTML={{ __html: courseDescription || "No description provided." }}
+                 />
+                 <div>
+                   <h3 className="font-semibold mb-2">Requirements</h3>
+                   <ul className="list-disc pl-5 space-y-1">
+                     {requirements.map((r, i) => <li key={i}>{r}</li>)}
+                   </ul>
+                 </div>
+                 <div>
+                   <h3 className="font-semibold mb-2">Curriculum</h3>
+                   <p>{lessons.length} Lessons • {quizzes.length} Quizzes</p>
+                 </div>
+               </div>
+               <div>
+                  <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-4">
+                    {imagePreview && <img src={imagePreview} className="w-full h-full object-cover" />}
+                  </div>
+                  <div className="text-2xl font-bold text-primary mb-2">{isFree ? "Free" : `$${price}`}</div>
+               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Navigation Footer */}
+      <div className="flex items-center justify-between pt-8 border-t">
+        {step > 1 ? (
+          <button onClick={() => setStep(s => s - 1)} className="px-6 py-2 border rounded-lg hover:bg-muted flex items-center gap-2">
+            <ArrowLeft size={16} /> Previous
+          </button>
+        ) : <div></div>}
+        
+        {step < 3 ? (
+          <button onClick={handleNext} className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 flex items-center gap-2">
+            Next <ArrowRight size={16} />
+          </button>
+        ) : (
+          <button onClick={handlePublish} className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2">
+            Publish Course <Check size={16} />
+          </button>
+        )}
       </div>
-      <div
-        ref={ref}
-        contentEditable
-        className="p-3 text-left"
-        dir="ltr"
-        style={{ minHeight: minHeight ? `${minHeight}px` : undefined, direction: "ltr", textAlign: "left" }}
-        suppressContentEditableWarning
-        onInput={(e) => onChange((e.target as HTMLDivElement).innerHTML)}
-      />
     </div>
   )
 }
