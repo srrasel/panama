@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma"
 import { getSession } from "@/lib/auth"
 import { cookies } from "next/headers"
 
+export const dynamic = "force-dynamic"
+
 export async function GET() {
   try {
     const cookieStore = await cookies()
@@ -21,7 +23,6 @@ export async function GET() {
     }
 
     // 1. Stats Cards
-    // Fallback for counts using raw queries if model access fails (as seen in other files)
     let studentCount = 0
     let teacherCount = 0
     let courseCount = 0
@@ -46,11 +47,7 @@ export async function GET() {
         courseCount = Number(c[0]?.count || 0)
     }
 
-    // Revenue (Approximate: Sum of Course Price * Enrollment Count)
-    // This is complex to do via Prisma aggregate without explicit relation join in aggregate, 
-    // so we'll do a simpler query or raw query.
-    // For now, let's just count total enrollments and multiply by an average or sum actual prices if possible.
-    // Let's try to get all enrollments with course price.
+    // Revenue
     try {
         if ((prisma as any).enrollment) {
             const enrollments = await (prisma as any).enrollment.findMany({
@@ -62,7 +59,6 @@ export async function GET() {
             })
             totalRevenue = enrollments.reduce((acc: number, curr: any) => acc + (curr.course?.price || 0), 0)
         } else {
-            // Raw query for revenue
             const r: any[] = await prisma.$queryRaw`
                 SELECT SUM(c.price) as total 
                 FROM Enrollment e 
@@ -90,49 +86,137 @@ export async function GET() {
                 imageUrl: true
             }
         })
-    } else {
-        recentStudents = await prisma.$queryRaw`SELECT id, name, email, createdAt, imageUrl FROM User WHERE role='student' ORDER BY createdAt DESC LIMIT 5` as any[]
     }
 
-    // 3. Teachers List (Top 5)
+    // 3. Teachers List
     let teachers: any[] = []
     if ((prisma as any).user) {
-        // Fetch teachers with course count
-        // Prisma doesn't support relation count sort easily without aggregate, 
-        // so we just fetch 5 teachers.
-        const allTeachers = await (prisma as any).user.findMany({
+        const t = await (prisma as any).user.findMany({
             where: { role: 'teacher' },
             take: 5,
-            select: {
-                id: true,
-                name: true,
-                courses: {
-                    select: { id: true }
+            include: {
+                _count: {
+                    select: { courses: true }
                 }
             }
         })
-        teachers = allTeachers.map((t: any) => ({
-            name: t.name,
-            qualification: "Teacher", // Placeholder
-            fees: "$0", // Placeholder
-            performance: "Good", // Placeholder
-            courseCount: t.courses.length
-        }))
-    } else {
-        const rawTeachers = await prisma.$queryRaw`SELECT id, name FROM User WHERE role='teacher' LIMIT 5` as any[]
-        teachers = rawTeachers.map((t: any) => ({
-            name: t.name,
-            qualification: "Teacher",
-            fees: "$0",
-            performance: "Good",
-            courseCount: 0
+        teachers = t.map((teacher: any) => ({
+            name: teacher.name,
+            qualification: teacher.major || "N/A",
+            fees: "N/A",
+            performance: teacher._count.courses > 0 ? "Good" : "New"
         }))
     }
 
-    // 4. Graph Data (Mocked for now as we need time-series data which might be sparse)
-    // In a real app, we would group by createdAt.
-    // We will return the static data structure for graphs but maybe inject real totals if possible.
+    // 4. Messages (Last 5)
+    let messages: any[] = []
+    try {
+        if ((prisma as any).message) {
+            messages = await (prisma as any).message.findMany({
+                take: 5,
+                orderBy: { createdAt: 'desc' },
+                include: {
+                    sender: { select: { name: true, imageUrl: true } }
+                }
+            })
+        }
+    } catch (e) {
+        console.error("Messages fetch error:", e)
+    }
+
+    // 5. Monthly Stats (Last 12 months)
+    const monthlyStats = []
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const now = new Date()
     
+    // Performance Data (Last 5 Weeks vs Previous 5 Weeks)
+    const performanceData = []
+    
+    // Get last 12 months data
+    const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), 1)
+    // Get last 10 weeks data for performance
+    const tenWeeksAgo = new Date(now.getTime() - 10 * 7 * 24 * 60 * 60 * 1000)
+
+    const users = await (prisma as any).user.findMany({
+        where: { createdAt: { gte: oneYearAgo } },
+        select: { createdAt: true }
+    })
+    
+    const enrollments = await (prisma as any).enrollment.findMany({
+        where: { enrolledAt: { gte: oneYearAgo } },
+        include: { course: { select: { price: true } } }
+    })
+
+    const courses = await (prisma as any).course.findMany({
+        where: { createdAt: { gte: oneYearAgo } },
+        select: { createdAt: true }
+    })
+
+    // Calculate Monthly Stats
+    for (let i = 0; i < 12; i++) {
+        // ... (existing logic)
+        const d = new Date(now.getFullYear(), i, 1) // This loop logic needs to be relative to "now" properly to show trailing 12 months correctly
+        // But the previous implementation was iterating Jan-Dec of current year or mixed?
+        // Let's fix to be Last 12 Months relative to NOW
+        
+        const targetDate = new Date(now.getFullYear(), now.getMonth() - 11 + i, 1)
+        const monthIndex = targetDate.getMonth()
+        const year = targetDate.getFullYear()
+        const monthName = months[monthIndex]
+
+        const activeUsers = users.filter((u: any) => 
+            u.createdAt.getMonth() === monthIndex && u.createdAt.getFullYear() === year
+        ).length
+
+        const newCourses = courses.filter((c: any) => 
+            c.createdAt.getMonth() === monthIndex && c.createdAt.getFullYear() === year
+        ).length
+
+        const revenue = enrollments
+            .filter((e: any) => 
+                e.enrolledAt.getMonth() === monthIndex && e.enrolledAt.getFullYear() === year
+            )
+            .reduce((acc: number, curr: any) => acc + (curr.course?.price || 0), 0)
+
+        monthlyStats.push({
+            month: monthName,
+            projects: newCourses, 
+            revenue: revenue,
+            active: activeUsers
+        })
+    }
+
+    // Calculate Weekly Performance (Enrollments)
+    // Week 05 = Current Week
+    // Week 01 = 4 weeks ago
+    for (let i = 0; i < 5; i++) {
+        // "This" period: i weeks ago (from end). i=4 is current week? No, let's say i=0 is 4 weeks ago.
+        // Let's align with chart: Week 01 (oldest) -> Week 05 (newest)
+        
+        const weekOffset = 4 - i // 4, 3, 2, 1, 0 weeks ago
+        const startOfWeek = new Date(now.getTime() - weekOffset * 7 * 24 * 60 * 60 * 1000)
+        const endOfWeek = new Date(startOfWeek.getTime() + 7 * 24 * 60 * 60 * 1000)
+        
+        // "Last" period: 5 weeks before that? Or same week last year? 
+        // Let's do "Previous Period" (5 weeks prior to this week)
+        const startOfPrevWeek = new Date(startOfWeek.getTime() - 5 * 7 * 24 * 60 * 60 * 1000)
+        const endOfPrevWeek = new Date(startOfPrevWeek.getTime() + 7 * 24 * 60 * 60 * 1000)
+
+        const thisVal = enrollments.filter((e: any) => 
+            e.enrolledAt >= startOfWeek && e.enrolledAt < endOfWeek
+        ).length
+
+        const lastVal = enrollments.filter((e: any) => 
+            e.enrolledAt >= startOfPrevWeek && e.enrolledAt < endOfPrevWeek
+        ).length
+
+        performanceData.push({
+            name: `Week 0${i + 1}`,
+            this: thisVal * 10, // Scale up for chart visibility if low
+            last: lastVal * 10
+        })
+    }
+
     return NextResponse.json({
         stats: [
             { label: "Students", value: studentCount.toString(), icon: "🎓", color: "bg-blue-100 text-blue-600" },
@@ -140,16 +224,23 @@ export async function GET() {
             { label: "Courses", value: courseCount.toString(), icon: "📚", color: "bg-purple-100 text-purple-600" },
             { label: "Revenue", value: `$${totalRevenue.toLocaleString()}`, icon: "💰", color: "bg-green-100 text-green-600" },
         ],
-        recentStudents: recentStudents.map(s => ({
+        recentStudents: recentStudents.map((s: any) => ({
             name: s.name,
-            subtitle: new Date(s.createdAt).toLocaleDateString(),
-            initial: s.name.charAt(0)
+            subtitle: `Joined ${new Date(s.createdAt).toLocaleDateString()}`,
+            imageUrl: s.imageUrl
         })),
-        teachers
+        teachers,
+        messages: messages.map((m: any) => ({
+            name: m.sender.name,
+            time: new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            content: m.content
+        })),
+        monthlyStats,
+        performanceData
     })
 
-  } catch (error: any) {
-    console.error("Dashboard stats error:", error)
+  } catch (error) {
+    console.error("Stats error:", error)
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
   }
 }

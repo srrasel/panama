@@ -12,6 +12,9 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<any[]>([])
   const [recentStudents, setRecentStudents] = useState<any[]>([])
   const [teachers, setTeachers] = useState<any[]>([])
+  const [messages, setMessages] = useState<any[]>([])
+  const [monthlyStats, setMonthlyStats] = useState<any[]>([])
+  const [performanceStats, setPerformanceStats] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -30,6 +33,9 @@ export default function AdminDashboard() {
         if (sData.stats) setStats(sData.stats)
         if (sData.recentStudents) setRecentStudents(sData.recentStudents)
         if (sData.teachers) setTeachers(sData.teachers)
+        if (sData.messages) setMessages(sData.messages)
+        if (sData.monthlyStats) setMonthlyStats(sData.monthlyStats)
+        if (sData.performanceData) setPerformanceStats(sData.performanceData)
       }
       setLoading(false)
     })()
@@ -46,34 +52,27 @@ export default function AdminDashboard() {
     { label: "Revenue", value: "$0", icon: "💰", color: "bg-green-100 text-green-600" },
   ]
 
-  const performanceData = [
-    { name: "Week 01", this: 420, last: 320 },
-    { name: "Week 02", this: 380, last: 360 },
-    { name: "Week 03", this: 460, last: 410 },
-    { name: "Week 04", this: 430, last: 480 },
-    { name: "Week 05", this: 520, last: 450 },
+  const performanceData = performanceStats.length > 0 ? performanceStats : [
+    { name: "Week 01", this: 0, last: 0 },
+    { name: "Week 02", this: 0, last: 0 },
+    { name: "Week 03", this: 0, last: 0 },
+    { name: "Week 04", this: 0, last: 0 },
+    { name: "Week 05", this: 0, last: 0 },
   ]
 
-  const overviewData = [
-    { month: "Jan", projects: 12, revenue: 40, active: 8 },
-    { month: "Feb", projects: 10, revenue: 42, active: 9 },
-    { month: "Mar", projects: 14, revenue: 45, active: 11 },
-    { month: "Apr", projects: 9, revenue: 38, active: 7 },
-    { month: "May", projects: 13, revenue: 48, active: 10 },
-    { month: "Jun", projects: 11, revenue: 44, active: 9 },
-    { month: "Jul", projects: 15, revenue: 52, active: 12 },
-    { month: "Aug", projects: 12, revenue: 49, active: 10 },
-    { month: "Sep", projects: 16, revenue: 55, active: 12 },
-    { month: "Oct", projects: 7, revenue: 28, active: 5 },
-    { month: "Nov", projects: 14, revenue: 50, active: 11 },
-    { month: "Dec", projects: 18, revenue: 60, active: 14 },
-  ]
-
-  const messages = [
-    { name: "Samantha William", time: "12:45 PM" },
-    { name: "Tony Soop", time: "12:45 PM" },
-    { name: "Karen Hope", time: "12:45 PM" },
-    { name: "Jordan Nico", time: "12:45 PM" },
+  const overviewData = monthlyStats.length > 0 ? monthlyStats : [
+    { month: "Jan", projects: 0, revenue: 0, active: 0 },
+    { month: "Feb", projects: 0, revenue: 0, active: 0 },
+    { month: "Mar", projects: 0, revenue: 0, active: 0 },
+    { month: "Apr", projects: 0, revenue: 0, active: 0 },
+    { month: "May", projects: 0, revenue: 0, active: 0 },
+    { month: "Jun", projects: 0, revenue: 0, active: 0 },
+    { month: "Jul", projects: 0, revenue: 0, active: 0 },
+    { month: "Aug", projects: 0, revenue: 0, active: 0 },
+    { month: "Sep", projects: 0, revenue: 0, active: 0 },
+    { month: "Oct", projects: 0, revenue: 0, active: 0 },
+    { month: "Nov", projects: 0, revenue: 0, active: 0 },
+    { month: "Dec", projects: 0, revenue: 0, active: 0 },
   ]
 
   const calendarDays = Array.from({ length: 31 }, (_, i) => i + 1)
@@ -247,19 +246,24 @@ export default function AdminDashboard() {
         </div>
 
         <div className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-lg font-bold text-foreground mb-4">Messages</h2>
-          <div className="space-y-3">
-            {messages.map((m, i) => (
-              <div key={i} className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">{m.name.charAt(0)}</div>
-                  <div className="text-sm text-foreground">{m.name}</div>
+            <h2 className="text-lg font-bold text-foreground mb-4">Messages</h2>
+            <div className="space-y-3">
+              {messages.length > 0 ? messages.map((m, i) => (
+                <div key={i} className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">{m.name ? m.name.charAt(0) : "?"}</div>
+                    <div className="text-sm text-foreground">
+                        <div className="font-medium">{m.name}</div>
+                        <div className="text-xs text-muted-foreground line-clamp-1">{m.content}</div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-muted-foreground whitespace-nowrap">{m.time}</div>
                 </div>
-                <div className="text-xs text-muted-foreground">{m.time}</div>
-              </div>
-            ))}
+              )) : (
+                <div className="text-sm text-muted-foreground text-center py-4">No new messages</div>
+              )}
+            </div>
           </div>
-        </div>
       </div>
       </div>
 
