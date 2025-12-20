@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 
+import StudentPortalLayout from "@/components/student/student-portal-layout"
+
 export default function ContinueLearning() {
   const [inProgressCourses, setInProgressCourses] = useState<any[]>([])
   const [recommendedCourses, setRecommendedCourses] = useState<any[]>([])
@@ -41,15 +43,17 @@ export default function ContinueLearning() {
 
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-4xl font-bold text-foreground mb-2">Continue Your Learning Journey</h1>
-        <p className="text-muted-foreground">Pick up where you left off and unlock new skills</p>
-      </div>
-
-      {/* Stats Bar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <StudentPortalLayout
+      title="Continue Learning"
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Dashboard", href: "/student/dashboard" },
+        { label: "Continue Learning" }
+      ]}
+    >
+      <div className="space-y-8">
+        {/* Stats Bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
           <p className="text-muted-foreground text-sm font-medium">Learning Streak</p>
           <p className="text-3xl font-bold text-foreground mt-2">{learningStreak} days</p>
@@ -217,5 +221,6 @@ export default function ContinueLearning() {
         </div>
       </div>
     </div>
+    </StudentPortalLayout>
   )
 }

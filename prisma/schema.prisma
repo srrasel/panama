@@ -40,6 +40,8 @@ model User {
   // Messaging
   sentMessages     Message[] @relation("SentMessages")
   receivedMessages Message[] @relation("ReceivedMessages")
+  reviews          Review[]
+  libraryResources LibraryResource[]
 }
 
 model Role {
@@ -69,6 +71,19 @@ model Session {
   userId    String
   role      String
   createdAt DateTime @default(now())
+}
+
+model LibraryResource {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  fileUrl     String
+  fileType    String   // "PDF", "Video", "Image", "Other"
+  accessLevel String   // "Public", "Student", "Parent", "Teacher"
+  uploadedBy  User     @relation(fields: [uploaderId], references: [id])
+  uploaderId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model ParentChild {
@@ -103,6 +118,7 @@ model Course {
   questions    Question[]
   attendance   Attendance[]
   schedules    Schedule[]
+  reviews      Review[]
 }
 
 model Lesson {
@@ -257,4 +273,18 @@ model Message {
   content   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int      // 1-5
+  comment   String?
+  student   User     @relation(fields: [studentId], references: [id])
+  studentId String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, courseId])
 }

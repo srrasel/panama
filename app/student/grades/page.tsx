@@ -1,6 +1,8 @@
 "use client"
 import { useEffect, useState } from "react"
-import { Download, Mail, CalendarDays } from "lucide-react"
+import { Download, Mail, CalendarDays, BarChart3 } from "lucide-react"
+
+import StudentPortalLayout from "@/components/student/student-portal-layout"
 
 export default function StudentGrades() {
   const [selectedTerm, setSelectedTerm] = useState("term1")
@@ -35,86 +37,130 @@ export default function StudentGrades() {
   }
 
   return (
+    <StudentPortalLayout
+      title="Grades & Reports"
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Dashboard", href: "/student/dashboard" },
+        { label: "Grades" }
+      ]}
+    >
     <div className="space-y-8">
-      <section className="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div>
-            <h1 className="text-4xl font-semibold mb-2">Grades & Reports</h1>
-            <p className="text-white/80">View your academic performance and analytics</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <label className="text-sm text-white/80">Term</label>
-            <select value={selectedTerm} onChange={(e) => setSelectedTerm(e.target.value)} className="px-4 py-2 rounded-lg border border-white/20 bg-white/10 text-white">
-              <option value="term1">Term 1</option>
-              <option value="term2">Term 2</option>
+      <div className="bg-white p-4 rounded-[1.8rem] shadow-sm border border-slate-100 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2 px-2">
+            <BarChart3 className="h-5 w-5 text-[#007bff]" />
+            <h2 className="text-lg font-bold text-slate-700">Grade Report</h2>
+        </div>
+        <div className="flex items-center gap-4 bg-slate-50 p-1.5 pr-4 rounded-xl border border-slate-200">
+            <span className="bg-white shadow-sm border border-slate-100 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-500">Term</span>
+            <select 
+              value={selectedTerm} 
+              onChange={(e) => setSelectedTerm(e.target.value)} 
+              className="bg-transparent border-none text-slate-800 font-bold focus:ring-0 cursor-pointer text-sm outline-none"
+            >
+              <option value="term1">Term 1 - Fall 2024</option>
+              <option value="term2">Term 2 - Spring 2025</option>
             </select>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 flex flex-col justify-between h-40 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+             <div className="w-24 h-24 bg-blue-500 rounded-full blur-2xl"></div>
+          </div>
+          <p className="text-slate-500 text-sm font-bold uppercase tracking-wider">Average</p>
+          <div>
+             <p className="text-4xl font-extrabold text-[#007bff] mt-2">{avgPercentage}%</p>
+             <p className="text-xs text-slate-400 mt-1 font-medium">Across all subjects</p>
           </div>
         </div>
-      </section>
-
-      <div className="grid md:grid-cols-4 gap-6">
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <p className="text-muted-foreground text-sm font-medium">Average</p>
-          <p className="text-3xl font-bold text-blue-700 mt-2">{avgPercentage}%</p>
-          <p className="text-xs text-muted-foreground mt-2">Across subjects</p>
+        <div className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 flex flex-col justify-between h-40 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+             <div className="w-24 h-24 bg-green-500 rounded-full blur-2xl"></div>
+          </div>
+          <p className="text-slate-500 text-sm font-bold uppercase tracking-wider">Overall Grade</p>
+          <div>
+            <p className="text-4xl font-extrabold text-emerald-600 mt-2">A-</p>
+            <p className="text-xs text-slate-400 mt-1 font-medium">Outstanding performance</p>
+          </div>
         </div>
-        <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-          <p className="text-muted-foreground text-sm font-medium">Overall Grade</p>
-          <p className="text-3xl font-bold text-green-700 mt-2">A-</p>
-          <p className="text-xs text-muted-foreground mt-2">Outstanding performance</p>
+        <div className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 flex flex-col justify-between h-40 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+             <div className="w-24 h-24 bg-purple-500 rounded-full blur-2xl"></div>
+          </div>
+          <p className="text-slate-500 text-sm font-bold uppercase tracking-wider">Subjects</p>
+          <div>
+            <p className="text-4xl font-extrabold text-purple-600 mt-2">{currentTermGrades.length}</p>
+            <p className="text-xs text-slate-400 mt-1 font-medium">Total enrolled courses</p>
+          </div>
         </div>
-        <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
-          <p className="text-muted-foreground text-sm font-medium">Subjects</p>
-          <p className="text-3xl font-bold text-purple-700 mt-2">{currentTermGrades.length}</p>
-          <p className="text-xs text-muted-foreground mt-2">Total enrolled</p>
-        </div>
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
-          <p className="text-muted-foreground text-sm font-medium">GPA</p>
-          <p className="text-3xl font-bold text-amber-700 mt-2">3.9</p>
-          <p className="text-xs text-muted-foreground mt-2">Out of 4.0</p>
+        <div className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 flex flex-col justify-between h-40 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+             <div className="w-24 h-24 bg-amber-500 rounded-full blur-2xl"></div>
+          </div>
+          <p className="text-slate-500 text-sm font-bold uppercase tracking-wider">GPA</p>
+          <div>
+            <p className="text-4xl font-extrabold text-amber-500 mt-2">3.9</p>
+            <p className="text-xs text-slate-400 mt-1 font-medium">Out of 4.0 Scale</p>
+          </div>
         </div>
       </div>
 
-      <div className="bg-card rounded-lg border border-border p-6 overflow-x-auto">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Detailed Grade Report</h2>
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="text-left py-3 px-4 font-semibold text-foreground">Subject</th>
-              <th className="text-left py-3 px-4 font-semibold text-foreground">Grade</th>
-              <th className="text-left py-3 px-4 font-semibold text-foreground">Marks</th>
-              <th className="text-left py-3 px-4 font-semibold text-foreground">Percentage</th>
-              <th className="text-left py-3 px-4 font-semibold text-foreground">Performance</th>
-              <th className="text-left py-3 px-4 font-semibold text-foreground">Trend</th>
-              <th className="text-left py-3 px-4 font-semibold text-foreground">Comments</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentTermGrades.map((grade, i) => (
-              <tr key={i} className="border-b border-border hover:bg-muted/50 transition-colors">
-                <td className="py-4 px-4 font-medium text-foreground">{grade.subject}</td>
-                <td className="py-4 px-4"><span className={`px-4 py-2 rounded-full font-bold border ${getGradeColor(grade.grade)}`}>{grade.grade}</span></td>
-                <td className="py-4 px-4 text-foreground">{grade.marks}/{grade.outOf}</td>
-                <td className="py-4 px-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-20 bg-muted rounded-full h-2"><div className="bg-primary h-2 rounded-full" style={{ width: `${grade.percentage}%` }}></div></div>
-                    <span className="font-medium text-foreground">{grade.percentage}%</span>
-                  </div>
-                </td>
-                <td className="py-4 px-4"><span className={`px-3 py-1 rounded text-xs font-semibold ${grade.performance === "Outstanding" ? "bg-green-100 text-green-700" : grade.performance === "Excellent" ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>{grade.performance}</span></td>
-                <td className="py-4 px-4"><span className={`text-sm font-medium ${grade.trend.startsWith("+") ? "text-green-600" : "text-red-600"}`}>{grade.trend}% vs last term</span></td>
-                <td className="py-4 px-4 text-sm text-muted-foreground">{grade.comments}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="bg-white rounded-[1.8rem] border border-slate-100 shadow-sm overflow-hidden">
+        <div className="p-8 border-b border-slate-100 flex justify-between items-center">
+             <h2 className="text-xl font-bold text-slate-800">Detailed Grade Report</h2>
+             <button className="text-sm font-bold text-[#007bff] hover:underline">View Full History</button>
+        </div>
+        <div className="overflow-x-auto">
+            <table className="w-full">
+            <thead className="bg-slate-50/50">
+                <tr className="border-b border-slate-100">
+                <th className="text-left py-4 px-6 font-bold text-slate-500 text-xs uppercase tracking-wider">Subject</th>
+                <th className="text-left py-4 px-6 font-bold text-slate-500 text-xs uppercase tracking-wider">Grade</th>
+                <th className="text-left py-4 px-6 font-bold text-slate-500 text-xs uppercase tracking-wider">Marks</th>
+                <th className="text-left py-4 px-6 font-bold text-slate-500 text-xs uppercase tracking-wider">Percentage</th>
+                <th className="text-left py-4 px-6 font-bold text-slate-500 text-xs uppercase tracking-wider">Performance</th>
+                <th className="text-left py-4 px-6 font-bold text-slate-500 text-xs uppercase tracking-wider">Trend</th>
+                <th className="text-left py-4 px-6 font-bold text-slate-500 text-xs uppercase tracking-wider">Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                {currentTermGrades.map((grade, i) => (
+                <tr key={i} className="border-b border-slate-100 hover:bg-slate-50/80 transition-colors group">
+                    <td className="py-5 px-6 font-bold text-slate-800">{grade.subject}</td>
+                    <td className="py-5 px-6"><span className={`px-4 py-2 rounded-xl font-bold text-sm border ${getGradeColor(grade.grade)}`}>{grade.grade}</span></td>
+                    <td className="py-5 px-6 text-slate-600 font-medium">{grade.marks}/{grade.outOf}</td>
+                    <td className="py-5 px-6">
+                    <div className="flex items-center gap-3">
+                        <div className="w-24 bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                            <div className={`h-full rounded-full ${grade.percentage >= 80 ? 'bg-green-500' : grade.percentage >= 70 ? 'bg-blue-500' : 'bg-amber-500'}`} style={{ width: `${grade.percentage}%` }}></div>
+                        </div>
+                        <span className="font-bold text-slate-700 text-sm">{grade.percentage}%</span>
+                    </div>
+                    </td>
+                    <td className="py-5 px-6"><span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider ${grade.performance === "Outstanding" ? "bg-green-100 text-green-700" : grade.performance === "Excellent" ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>{grade.performance}</span></td>
+                    <td className="py-5 px-6"><span className={`text-sm font-bold ${grade.trend.startsWith("+") ? "text-emerald-600" : "text-red-600"}`}>{grade.trend}%</span></td>
+                    <td className="py-5 px-6 text-sm text-slate-500 font-medium">{grade.comments}</td>
+                </tr>
+                ))}
+            </tbody>
+            </table>
+        </div>
       </div>
 
-      <div className="flex gap-4">
-        <button className="px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors inline-flex items-center gap-2"><Mail className="h-4 w-4" /> Contact Advisor</button>
-        <button className="px-6 py-3 bg-muted text-foreground font-semibold rounded-lg hover:bg-muted/80 transition-colors inline-flex items-center gap-2"><Download className="h-4 w-4" /> Download Report</button>
-        <button className="px-6 py-3 bg-muted text-foreground font-semibold rounded-lg hover:bg-muted/80 transition-colors inline-flex items-center gap-2"><CalendarDays className="h-4 w-4" /> Schedule Meeting</button>
+      <div className="flex flex-wrap gap-4 justify-end">
+        <button className="px-8 py-4 bg-white text-slate-600 border border-slate-200 font-bold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm inline-flex items-center gap-2">
+            <Mail className="h-5 w-5 text-slate-400" /> Contact Advisor
+        </button>
+        <button className="px-8 py-4 bg-white text-slate-600 border border-slate-200 font-bold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm inline-flex items-center gap-2">
+            <CalendarDays className="h-5 w-5 text-slate-400" /> Schedule Meeting
+        </button>
+        <button className="px-8 py-4 bg-[#007bff] text-white font-bold rounded-xl hover:bg-blue-600 transition-all shadow-lg shadow-blue-200 inline-flex items-center gap-2">
+            <Download className="h-5 w-5" /> Download Report
+        </button>
       </div>
     </div>
+    </StudentPortalLayout>
   )
 }
