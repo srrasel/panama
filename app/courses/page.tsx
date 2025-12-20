@@ -3,6 +3,8 @@
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import Link from "next/link"
+import Image from "next/image"
+import { Video, User as UserIcon, Star } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 
 type Course = {
@@ -86,26 +88,51 @@ export default function CoursesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filtered.map((course) => (
                 <Link key={course.id} href={`/course/${course.id}`}>
-                  <div className="group rounded-xl border border-border bg-card overflow-hidden h-full">
-                    <div className="aspect-video bg-muted flex items-center justify-center">
-                      {course.image ? (
-                        <img src={course.image} alt={course.title} className="h-full w-full object-cover" />
-                      ) : (
-                        <div className="text-foreground/40">Course</div>
-                      )}
+                  <div className="bg-white group rounded-[1.8rem] shadow-xl shadow-slate-200/40 p-3 border border-slate-50 h-full">
+                    <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-6">
+                      <Image 
+                        src={course.image || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80"} 
+                        alt={course.title} 
+                        fill
+                        className="w-full group-hover:scale-110 transition-all duration-400 h-full object-cover" 
+                      />
                     </div>
-                    <div className="p-4 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition">{course.title}</h3>
-                      </div>
-                      <p className="text-sm text-foreground/60">By {course.instructor}</p>
-                      <div className="flex items-center justify-between text-sm text-foreground/70">
-                        <span>{course.students} students</span>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-foreground/60">Next: {course.nextLesson || "TBD"}</span>
-                        <span className="text-foreground/60">{course.estimatedTime || ""}</span>
-                      </div>
+                    <span className="bg-emerald-50 hover:bg-emerald-500 px-3 hover:text-white transition-all duration-300 text-emerald-600 py-2 rounded-lg text-sm font-bold mb-5 inline-block">
+                        Business
+                    </span>
+                    <div className="flex gap-6 px-3 mb-4 text-slate-500 text-sm justify-between font-bold uppercase tracking-wide">
+                        <div className="flex items-center gap-2">
+                            <Video className="w-4 h-4 text-slate-400" /> {course.totalLessons} Lessons
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <UserIcon className="w-4 h-4 text-slate-400" /> {course.students} Students
+                        </div>
+                    </div>
+                    <h4 className="text-xl px-3 font-bold text-[#1e293b] mb-6 leading-snug line-clamp-2">
+                        {course.title}
+                    </h4>
+                    
+                    <div className="flex justify-between items-center text-sm px-3 pb-4 border-t border-slate-50 pt-5">
+                        <div>
+                            <div className="flex text-amber-400 text-[10px] mb-1 gap-0.5">
+                                <Star className="w-3 h-3 fill-current" />
+                                <Star className="w-3 h-3 fill-current" />
+                                <Star className="w-3 h-3 fill-current" />
+                                <Star className="w-3 h-3 fill-current" />
+                                <Star className="w-3 h-3 fill-current opacity-50" />
+                            </div>
+                            <p className="text-slate-400 text-sm font-bold">4.5 (1.5K Reviews)</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Image 
+                                src={`https://ui-avatars.com/api/?name=${course.instructor}&background=fde68a&color=92400e`} 
+                                alt="Instructor"
+                                width={32}
+                                height={32}
+                                className="rounded-full shadow-sm"
+                            />
+                            <span className="text-slate-500 text-sm font-bold">{course.instructor}</span>
+                        </div>
                     </div>
                   </div>
                 </Link>

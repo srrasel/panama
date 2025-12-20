@@ -1,7 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useParent } from "../ParentContext"
+import { useParent } from "@/app/parent/ParentContext"
+import ParentPortalLayout from "@/components/parent/parent-portal-layout"
+import { CalendarDays, Award, BookOpen, Clock, Activity, TrendingUp, CheckCircle2 } from "lucide-react"
+import Link from "next/link"
 
 export default function ParentDashboard() {
   const { selectedChild } = useParent()
@@ -10,10 +13,12 @@ export default function ParentDashboard() {
   const [attendance, setAttendance] = useState<any>({})
   const [upcomingEvents, setUpcomingEvents] = useState<any[]>([])
   const [recentActivities, setRecentActivities] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!selectedChild) return
 
+    setLoading(true)
     Promise.all([
       fetch(`/api/parent/dashboard?childId=${selectedChild.id}`).then((r) => r.json()),
       fetch(`/api/parent/performance?childId=${selectedChild.id}`).then((r) => r.json()),
@@ -28,12 +33,11 @@ export default function ParentDashboard() {
         setUpcomingEvents(events.upcomingEvents || dash.upcomingEvents || [])
         setRecentActivities(recent.recentActivities || dash.recentActivities || [])
       })
-      .catch(() => {
-        setChildInfo(null)
-        setChildPerformance([])
-        setAttendance({})
-        setUpcomingEvents([])
-        setRecentActivities([])
+      .catch((err) => {
+        console.error("Error fetching parent dashboard data:", err)
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }, [selectedChild])
 
@@ -50,182 +54,157 @@ export default function ParentDashboard() {
   }
 
   return (
-    <div className="space-y-8">
-      <section className="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div>
-            <h1 className="text-4xl font-semibold mb-2">Welcome Back</h1>
-            <p className="text-white/80">Here's {(childInfo?.name || "Student")}'s learning overview</p>
-          </div>
-          <div className="flex items-center gap-4 bg-white/10 rounded-lg border border-white/20 p-4">
-            <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
-              {(childInfo?.name?.[0] || "S").toUpperCase()}
-            </div>
-            <div>
-              <p className="font-semibold text-white">{childInfo?.name || "Student"}</p>
-              <p className="text-sm text-white/80">{childInfo?.grade || ""}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="grid md:grid-cols-4 gap-6">
-        <div className="bg-white px-5 py-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between gap-4 mb-4">
-            <div>
-              <p className="text-xs text-muted-foreground mb-1">Attendance</p>
-              <p className="text-xl font-semibold text-foreground">{attendance.presentagePercentage || 0}%</p>
-            </div>
-            <div className="w-11 h-11 bg-emerald-600 rounded-full text-white flex items-center justify-center">✓</div>
-          </div>
-          <span className="text-xs font-medium text-primary">{attendance.presentDays || 0} present, {attendance.absentDays || 0} absent</span>
-        </div>
-        <div className="bg-white px-5 py-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between gap-4 mb-4">
-            <div>
-              <p className="text-xs text-muted-foreground mb-1">Average Grade</p>
-              <p className="text-xl font-semibold text-foreground">{averageGrade > 0 ? getGradeLetter(averageGrade) : "-"}</p>
-            </div>
-            <div className="w-11 h-11 bg-blue-600 rounded-full text-white flex items-center justify-center">A</div>
-          </div>
-          <span className="text-xs font-medium text-primary">Average: {averageGrade}%</span>
-        </div>
-        <div className="bg-white px-5 py-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between gap-4 mb-4">
-            <div>
-              <p className="text-xs text-muted-foreground mb-1">Courses Enrolled</p>
-              <p className="text-xl font-semibold text-foreground">{childPerformance.length}</p>
-            </div>
-            <div className="w-11 h-11 bg-purple-600 rounded-full text-white flex items-center justify-center">📚</div>
-          </div>
-          <span className="text-xs font-medium text-primary">Active subjects</span>
-        </div>
-        <div className="bg-white px-5 py-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between gap-4 mb-4">
-            <div>
-              <p className="text-xs text-muted-foreground mb-1">Upcoming Events</p>
-              <p className="text-xl font-semibold text-foreground">{upcomingEvents.length}</p>
-            </div>
-            <div className="w-11 h-11 bg-amber-600 rounded-full text-white flex items-center justify-center">⚑</div>
-          </div>
-          <span className="text-xs font-medium text-primary">Next: {upcomingEvents[0]?.title || "None"}</span>
-        </div>
-      </div>
-
-      <div className="grid lg:grid-cols-3 gap-8">
-        {/* Academic Performance */}
-        <div className="lg:col-span-2 bg-card rounded-lg border border-border p-6">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Academic Performance</h2>
-          <div className="space-y-4">
-            {childPerformance.map((subject, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-              >
-                <div className="flex-1">
-                  <h3 className="font-semibold text-foreground">{subject.subject}</h3>
-                  <div className="w-full bg-muted rounded-full h-2 mt-2">
-                    <div
-                      className="bg-primary h-2 rounded-full transition-all"
-                      style={{ width: `${subject.percentage}%` }}
-                    ></div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 ml-4">
-                  <span className="text-lg font-bold text-primary">{subject.currentGrade}</span>
-                  <span className="text-2xl">{subject.trend === "up" ? "📈" : "➡️"}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Attendance Overview */}
-        <div className="bg-card rounded-lg border border-border p-6">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Attendance</h2>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-              <span className="text-foreground font-medium">Present</span>
-              <span className="text-xl font-bold text-green-700">{attendance.presentDays}</span>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200">
-              <span className="text-foreground font-medium">Absent</span>
-              <span className="text-xl font-bold text-red-700">{attendance.absentDays}</span>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg border border-amber-200">
-              <span className="text-foreground font-medium">Leave</span>
-              <span className="text-xl font-bold text-amber-700">{attendance.leaveDays}</span>
-            </div>
-            <div className="mt-4 pt-4 border-t border-border">
-              <p className="text-sm text-muted-foreground">Attendance Rate</p>
-              <p className="text-3xl font-bold text-primary mt-2">{attendance.presentagePercentage}%</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Upcoming Events */}
-      <div className="bg-card rounded-lg border border-border p-6">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Upcoming Events & Deadlines</h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          {upcomingEvents.map((event) => (
-            <div key={event.id} className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors">
-              <div className="flex items-start justify-between mb-2">
+    <ParentPortalLayout
+      title="Dashboard"
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Dashboard", href: "/parent/dashboard" },
+        { label: selectedChild?.name || "Child" }
+      ]}
+    >
+      <div className="space-y-8">
+        
+        {/* Welcome Section */}
+        {!loading && (
+            <div className="bg-white p-8 rounded-[1.8rem] shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div>
-                  <h3 className="font-semibold text-foreground">{event.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{event.description}</p>
+                    <h2 className="text-2xl font-bold text-slate-800">Welcome Back!</h2>
+                    <p className="text-slate-500 mt-1">Here is the latest progress report for <span className="font-bold text-slate-700">{selectedChild?.name}</span>.</p>
                 </div>
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ml-2 ${
-                    event.type === "Exam"
-                      ? "bg-red-100 text-red-700"
-                      : event.type === "Meeting"
-                        ? "bg-blue-100 text-blue-700"
-                        : event.type === "Deadline"
-                          ? "bg-amber-100 text-amber-700"
-                          : "bg-green-100 text-green-700"
-                  }`}
-                >
-                  {event.type}
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-3">📅 {event.date}</p>
+                <div className="flex items-center gap-4 bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
+                     <div className="w-12 h-12 rounded-full bg-[#007bff] text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-200">
+                        {selectedChild?.name?.charAt(0) || "C"}
+                     </div>
+                     <div>
+                        <p className="text-sm font-bold text-slate-800 uppercase tracking-wide">Student ID</p>
+                        <p className="text-xs text-slate-500 font-mono">{selectedChild?.id?.substring(0, 8) || "Unknown"}</p>
+                     </div>
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
+        )}
 
-      {/* Recent Activities */}
-      <div className="bg-card rounded-lg border border-border p-6">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Recent Activities</h2>
-        <div className="space-y-3">
-          {recentActivities.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-start gap-4 p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-            >
-              <div className="text-2xl mt-1">📌</div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-foreground">{item.activity}</h3>
-                <div className="flex items-center justify-between mt-2">
-                  <p className="text-xs text-muted-foreground">{item.date}</p>
-                  <span
-                    className={`px-2 py-1 rounded text-xs font-semibold ${
-                      item.status === "Completed"
-                        ? "bg-green-100 text-green-700"
-                        : item.status === "Passed"
-                          ? "bg-blue-100 text-blue-700"
-                          : "bg-purple-100 text-purple-700"
-                    }`}
-                  >
-                    {item.status}
-                  </span>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {/* Attendance Card */}
+            <div className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 relative overflow-hidden group">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="p-3 bg-emerald-100 text-emerald-600 rounded-xl">
+                        <CalendarDays className="h-6 w-6" />
+                    </div>
+                    <span className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-lg">Good</span>
                 </div>
-              </div>
+                <h3 className="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">Attendance</h3>
+                <div className="flex items-end gap-2">
+                    <span className="text-4xl font-extrabold text-slate-800">{attendance.presentagePercentage || 0}%</span>
+                    <span className="text-sm text-slate-400 font-semibold mb-1.5">Present</span>
+                </div>
+                <div className="mt-4 pt-4 border-t border-slate-50 flex items-center gap-4 text-xs font-semibold text-slate-500">
+                    <span className="flex items-center gap-1"><CheckCircle2 className="h-3 w-3 text-emerald-500" /> {attendance.presentDays || 0} Present</span>
+                    <span className="flex items-center gap-1"><Clock className="h-3 w-3 text-red-400" /> {attendance.absentDays || 0} Absent</span>
+                </div>
             </div>
-          ))}
+
+            {/* Average Grade Card */}
+            <div className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 relative overflow-hidden group">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="p-3 bg-blue-100 text-blue-600 rounded-xl">
+                        <Award className="h-6 w-6" />
+                    </div>
+                    <span className={`text-xs font-bold px-3 py-1 rounded-lg ${averageGrade >= 80 ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-700'}`}>
+                        {averageGrade >= 80 ? 'Excellent' : 'Average'}
+                    </span>
+                </div>
+                <h3 className="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">Overall Grade</h3>
+                <div className="flex items-end gap-2">
+                    <span className="text-4xl font-extrabold text-slate-800">{averageGrade > 0 ? getGradeLetter(averageGrade) : "-"}</span>
+                    <span className="text-xl text-slate-400 font-bold mb-1.5">({averageGrade}%)</span>
+                </div>
+                 <div className="mt-4 pt-4 border-t border-slate-50 text-xs font-semibold text-slate-500">
+                    Across {childPerformance.length} enrolled courses
+                </div>
+            </div>
+
+             {/* Enrolled Courses Card */}
+             <div className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 relative overflow-hidden group">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="p-3 bg-purple-100 text-purple-600 rounded-xl">
+                        <BookOpen className="h-6 w-6" />
+                    </div>
+                </div>
+                <h3 className="text-slate-500 text-sm font-bold uppercase tracking-wider mb-1">Active Courses</h3>
+                <div className="flex items-end gap-2">
+                    <span className="text-4xl font-extrabold text-slate-800">{childPerformance.length}</span>
+                    <span className="text-sm text-slate-400 font-semibold mb-1.5">Courses</span>
+                </div>
+                <div className="mt-4 pt-4 border-t border-slate-50">
+                     <Link href="/parent/grades" className="text-purple-600 text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">
+                        View Performance <TrendingUp className="h-3 w-3" />
+                     </Link>
+                </div>
+            </div>
         </div>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+            {/* Recent Activity */}
+            <div className="lg:col-span-2 bg-white p-8 rounded-[1.8rem] shadow-sm border border-slate-100">
+                <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <Activity className="h-5 w-5 text-slate-400" /> Recent Activity
+                    </h3>
+                    <Link href="/parent/communication" className="text-sm font-bold text-[#007bff]">View All</Link>
+                </div>
+                
+                <div className="space-y-6">
+                    {recentActivities.length > 0 ? recentActivities.map((activity, i) => (
+                        <div key={i} className="flex items-start gap-4 pb-6 border-b border-slate-50 last:border-0 last:pb-0">
+                            <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 border border-slate-100">
+                                <Clock className="h-5 w-5" />
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-slate-800 text-sm">{activity.title || "Activity"}</h4>
+                                <p className="text-slate-500 text-xs mt-1">{activity.description || "No details available."}</p>
+                                <p className="text-xs text-slate-400 font-medium mt-2">{new Date(activity.date).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                    )) : (
+                        <div className="text-center py-10 text-slate-400">
+                            <p>No recent activities found.</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            {/* Upcoming Events */}
+            <div className="bg-white p-8 rounded-[1.8rem] shadow-sm border border-slate-100 h-fit">
+                <div className="flex items-center justify-between mb-6">
+                    <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <CalendarDays className="h-5 w-5 text-slate-400" /> Upcoming
+                    </h3>
+                    <Link href="/parent/events" className="text-sm font-bold text-[#007bff]">View Calendar</Link>
+                </div>
+
+                <div className="space-y-4">
+                    {upcomingEvents.length > 0 ? upcomingEvents.map((event, i) => (
+                        <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-[#007bff]/5 transition-colors group">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="px-2 py-1 bg-white rounded-lg text-xs font-bold text-slate-600 border border-slate-100 shadow-sm">
+                                    {new Date(event.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                                </div>
+                                <span className="text-xs font-bold text-[#007bff] bg-blue-50 px-2 py-0.5 rounded-md">{event.type || "Event"}</span>
+                            </div>
+                            <h4 className="font-bold text-slate-800 text-sm group-hover:text-[#007bff] transition-colors">{event.title}</h4>
+                            <p className="text-xs text-slate-500 mt-1 line-clamp-2">{event.description}</p>
+                        </div>
+                    )) : (
+                        <div className="text-center py-10 text-slate-400">
+                            <p>No upcoming events.</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+
       </div>
-    </div>
+    </ParentPortalLayout>
   )
 }

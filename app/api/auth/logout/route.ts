@@ -7,5 +7,6 @@ export async function POST() {
   await destroySession(sid)
   const res = NextResponse.json({ ok: true })
   res.cookies.set("session", "", { path: "/", httpOnly: true, maxAge: 0 })
+  res.cookies.set("user_role", "", { path: "/", httpOnly: true, maxAge: 0 })
   return res
 }

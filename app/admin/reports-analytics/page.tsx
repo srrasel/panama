@@ -1,33 +1,70 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function ReportsAnalytics() {
   const [reportType, setReportType] = useState("grades")
   const [dateRange, setDateRange] = useState("month")
+  const [gradeReports, setGradeReports] = useState<any[]>([])
+  const [attendanceReports, setAttendanceReports] = useState<any[]>([])
+  const [performanceReports, setPerformanceReports] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const gradeReports = [
-    { course: "Web Development", avgGrade: 8.5, students: 245, passRate: 94 },
-    { course: "Data Science", avgGrade: 7.8, students: 198, passRate: 88 },
-    { course: "Mobile Apps", avgGrade: 8.2, students: 156, passRate: 91 },
-    { course: "AI & Machine Learning", avgGrade: 7.5, students: 134, passRate: 85 },
-  ]
+  useEffect(() => {
+    fetch("/api/admin/analytics")
+      .then(res => res.json())
+      .then(data => {
+        if (data.gradeReports) setGradeReports(data.gradeReports)
+        if (data.attendanceReports) setAttendanceReports(data.attendanceReports)
+        if (data.performanceReports) setPerformanceReports(data.performanceReports)
+      })
+      .catch(err => console.error("Failed to fetch analytics:", err))
+      .finally(() => setLoading(false))
+  }, [])
 
-  const attendanceReports = [
-    { course: "Web Development", avgAttendance: 92, totalDays: 45, absences: 18 },
-    { course: "Data Science", avgAttendance: 88, totalDays: 40, absences: 24 },
-    { course: "Mobile Apps", avgAttendance: 95, totalDays: 38, absences: 8 },
-    { course: "AI & Machine Learning", avgAttendance: 86, totalDays: 42, absences: 32 },
-  ]
 
-  const performanceReports = [
-    { metric: "Active Students", value: 2450, growth: "+12%" },
-    { metric: "Active Teachers", value: 185, growth: "+5%" },
-    { metric: "Total Courses", value: 64, growth: "+8%" },
-    { metric: "Course Completion Rate", value: "78%", growth: "+3%" },
-    { metric: "Student Satisfaction", value: "4.5/5", growth: "+0.2" },
-    { metric: "System Uptime", value: "99.8%", growth: "-0.1%" },
-  ]
+  const handleDownload = () => {
+    let headers = []
+    let data = []
+    let filename = `report-${reportType}-${new Date().toISOString().split('T')[0]}.csv`
+
+    if (reportType === "grades") {
+      headers = ["Course", "Average Grade", "Students Enrolled", "Pass Rate (%)"]
+      data = gradeReports.map(r => [r.course, r.avgGrade, r.students, r.passRate])
+    } else if (reportType === "attendance") {
+      headers = ["Course", "Average Attendance (%)", "Total Days", "Total Absences"]
+      data = attendanceReports.map(r => [r.course, r.avgAttendance, r.totalDays, r.absences])
+    } else if (reportType === "performance") {
+      headers = ["Metric", "Value", "Growth"]
+      data = performanceReports.map(r => [r.metric, r.value, r.growth])
+    }
+
+    if (data.length === 0) {
+      alert("No data available to download.")
+      return
+    }
+
+    const csvContent = [
+      headers.join(","),
+      ...data.map(row => row.map(item => `"${item}"`).join(","))
+    ].join("\n")
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+    const link = document.createElement("a")
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob)
+      link.setAttribute("href", url)
+      link.setAttribute("download", filename)
+      link.style.visibility = "hidden"
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+  }
+
+  if (loading) {
+    return <div className="p-8 text-center text-muted-foreground">Loading analytics...</div>
+  }
 
   return (
     <div className="space-y-8">
@@ -37,7 +74,10 @@ export default function ReportsAnalytics() {
           <h1 className="text-3xl font-bold text-foreground mb-2">Reports & Analytics</h1>
           <p className="text-muted-foreground">Generate reports on grades, attendance, and performance</p>
         </div>
-        <button className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
+        <button 
+          onClick={handleDownload}
+          className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
+        >
           Download Report
         </button>
       </div>
