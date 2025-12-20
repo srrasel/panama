@@ -14,11 +14,12 @@ import CampusLife from "@/components/sections/campuslife"
 import Subscribe from "@/components/sections/subscribe"
 import HomeHero from "@/components/homehero"
 import School from "@/components/school"
+import LoginPage from "./login/page"
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-  <Navigation/>
+  {/* <Navigation/>
      
       <HomeHero/>
       <School/>
@@ -32,7 +33,8 @@ export default function Home() {
       <AcademicSection/>
       <BlogSection/>
       <Subscribe/>
-      <Footer />
+      <Footer /> */}
+      <LoginPage/>
     </main>
   )
 }

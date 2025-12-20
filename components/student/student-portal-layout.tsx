@@ -64,7 +64,7 @@ export default function StudentPortalLayout({ children, title, breadcrumbs }: St
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <Navigation />
+      {/* <Navigation /> */}
        {/* Red Header */}
       <section className="bg-[#7f1d1d] py-28 px-6">
         <div className="max-w-[1520px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
