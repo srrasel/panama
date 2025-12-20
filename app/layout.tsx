@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import NextTopLoader from "nextjs-toploader"
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -42,6 +43,7 @@ export default function RootLayout({
         <NextTopLoader color="#7c3aed" showSpinner={false} />
         {children}
         <Analytics />
+        <Toaster />
       </body>
     </html>
   )

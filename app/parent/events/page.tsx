@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { useParent } from "../ParentContext"
-import { Calendar, Clock, MapPin, AlertCircle } from "lucide-react"
+import { Calendar, Clock, MapPin, AlertCircle, Search, Filter } from "lucide-react"
+import ParentPortalLayout from "@/components/parent/parent-portal-layout"
 
 export default function ParentEvents() {
   const { selectedChild } = useParent()
@@ -38,7 +39,7 @@ export default function ParentEvents() {
       case "Meeting":
         return <MapPin className="w-5 h-5 text-blue-500" />
       default:
-        return <Calendar className="w-5 h-5 text-green-500" />
+        return <Calendar className="w-5 h-5 text-emerald-500" />
     }
   }
 
@@ -51,89 +52,116 @@ export default function ParentEvents() {
       case "Meeting":
         return "bg-blue-50 text-blue-700 border-blue-200"
       default:
-        return "bg-green-50 text-green-700 border-green-200"
+        return "bg-emerald-50 text-emerald-700 border-emerald-200"
     }
   }
 
   return (
-    <div className="space-y-8">
-      <section className="rounded-2xl bg-gradient-to-br from-indigo-900 to-indigo-800 text-white p-10">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
+    <ParentPortalLayout
+      title="Upcoming Events"
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Dashboard", href: "/parent/dashboard" },
+        { label: "Events" },
+      ]}
+    >
+      <div className="space-y-8">
+        <div className="bg-white p-8 rounded-[1.8rem] shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h1 className="text-4xl font-semibold mb-2">Upcoming Events</h1>
-            <p className="text-white/80">
+            <h1 className="text-3xl font-bold text-slate-900">Events Calendar</h1>
+            <p className="text-slate-500 mt-2 text-lg">
               {childName ? `${childName}'s` : "Student"} schedule, exams, and deadlines
             </p>
           </div>
-          <div className="bg-white/10 px-4 py-2 rounded-lg backdrop-blur-sm border border-white/20">
-            <span className="text-2xl font-bold">{events.length}</span>
-            <span className="ml-2 text-sm opacity-80">Upcoming Items</span>
+          <div className="flex gap-3">
+            <div className="bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 flex items-center gap-2">
+              <span className="text-2xl font-bold text-slate-900">{events.length}</span>
+              <span className="text-sm text-slate-500 font-medium">Upcoming</span>
+            </div>
           </div>
         </div>
-      </section>
 
-      {isLoading ? (
-        <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        {/* Filters and Search - Placeholder for future implementation */}
+        <div className="flex gap-4 overflow-x-auto pb-2">
+           <button className="px-5 py-2.5 bg-slate-900 text-white rounded-xl font-medium shadow-lg shadow-slate-900/20 whitespace-nowrap">
+             All Events
+           </button>
+           <button className="px-5 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl font-medium hover:bg-slate-50 transition-colors whitespace-nowrap">
+             Exams
+           </button>
+           <button className="px-5 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl font-medium hover:bg-slate-50 transition-colors whitespace-nowrap">
+             Assignments
+           </button>
+           <button className="px-5 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-xl font-medium hover:bg-slate-50 transition-colors whitespace-nowrap">
+             Meetings
+           </button>
         </div>
-      ) : events.length === 0 ? (
-        <div className="text-center py-12 bg-card rounded-xl border border-border">
-          <Calendar className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-foreground">No upcoming events</h3>
-          <p className="text-muted-foreground">You're all caught up!</p>
-        </div>
-      ) : (
-        <div className="grid gap-4">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="bg-card p-6 rounded-xl border border-border hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start md:items-center"
-            >
-              <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 h-16 bg-muted rounded-lg border border-border">
-                <span className="text-xs font-medium text-muted-foreground uppercase">
-                  {new Date(event.date).toLocaleString("default", { month: "short" })}
-                </span>
-                <span className="text-2xl font-bold text-foreground">
-                  {new Date(event.date).getDate()}
-                </span>
-              </div>
 
-              <div className="flex-1 space-y-1">
-                <div className="flex items-center gap-3 mb-1">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-2 ${getEventColor(
-                      event.type
-                    )}`}
-                  >
-                    {getEventIcon(event.type)}
-                    {event.type}
-                  </span>
-                  {event.courseId && (
-                    <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                      Course Event
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-xl font-semibold text-foreground">{event.title}</h3>
-                <p className="text-muted-foreground">{event.description}</p>
-              </div>
-
-              <div className="flex-shrink-0 text-right">
-                <p className="text-sm font-medium text-foreground">
-                  {new Date(event.date).toLocaleDateString(undefined, {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
-                {/* Placeholder for time if available */}
-                {/* <p className="text-sm text-muted-foreground">10:00 AM - 11:30 AM</p> */}
-              </div>
+        {isLoading ? (
+          <div className="flex items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-4 border-slate-900 border-t-transparent"></div>
+          </div>
+        ) : events.length === 0 ? (
+          <div className="bg-white p-12 rounded-[1.8rem] shadow-sm border border-slate-100 text-center">
+            <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
+               <Calendar className="w-8 h-8 text-slate-400" />
             </div>
-          ))}
-        </div>
-      )}
-    </div>
+            <h3 className="text-lg font-bold text-slate-900">No upcoming events</h3>
+            <p className="text-slate-500 mt-1">You're all caught up!</p>
+          </div>
+        ) : (
+          <div className="grid gap-4">
+            {events.map((event) => (
+              <div
+                key={event.id}
+                className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 group hover:shadow-md transition-all duration-300 flex flex-col md:flex-row gap-6 items-start md:items-center"
+              >
+                <div className="flex-shrink-0 flex flex-col items-center justify-center w-20 h-20 bg-slate-50 rounded-2xl border border-slate-100 group-hover:scale-105 transition-transform">
+                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                    {new Date(event.date).toLocaleString("default", { month: "short" })}
+                  </span>
+                  <span className="text-3xl font-bold text-slate-900">
+                    {new Date(event.date).getDate()}
+                  </span>
+                </div>
+
+                <div className="flex-1 space-y-2">
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-2 border ${getEventColor(
+                        event.type
+                      )}`}
+                    >
+                      {getEventIcon(event.type)}
+                      {event.type}
+                    </span>
+                    {event.courseId && (
+                      <span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded-lg font-medium">
+                        Course Event
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{event.title}</h3>
+                  <p className="text-slate-500 font-medium">{event.description}</p>
+                </div>
+
+                <div className="flex-shrink-0 text-right">
+                  <p className="text-sm font-bold text-slate-900">
+                    {new Date(event.date).toLocaleDateString(undefined, {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                  {/* Placeholder for time if available */}
+                  {/* <p className="text-sm text-slate-500 mt-1">10:00 AM - 11:30 AM</p> */}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </ParentPortalLayout>
   )
 }

@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma"
 import { hashPassword, Role } from "@/lib/auth"
 import type { User as PrismaUser } from "@prisma/client"
 
+export const db = prisma
+
 export type User = {
   id: string
   name: string

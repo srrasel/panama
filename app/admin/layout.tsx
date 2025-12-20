@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Users, BookOpen, CalendarDays, BarChart3, Settings, LogOut, User } from "lucide-react"
+import { LayoutDashboard, Users, BookOpen, CalendarDays, BarChart3, Settings, LogOut, User, Library } from "lucide-react"
 
 export default function AdminLayout({
   children,
@@ -24,6 +24,7 @@ export default function AdminLayout({
       title: "Menu",
       items: [
         { href: "/admin/dashboard", label: "Dashboard", Icon: LayoutDashboard },
+        { href: "/admin/library", label: "Online Library", Icon: Library },
       ],
     },
     {

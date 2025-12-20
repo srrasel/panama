@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ChevronLeft, FileText, Code, Download, CheckCircle, Circle } from "lucide-react"
 
+import StudentPortalLayout from "@/components/student/student-portal-layout"
+
 export default function CourseLearning({ params }: { params: { courseId: string } }) {
   const [activeLesson, setActiveLesson] = useState(0)
   const [completedLessons, setCompletedLessons] = useState<string[]>([])
@@ -53,37 +55,33 @@ export default function CourseLearning({ params }: { params: { courseId: string 
   }
 
   return (
-    <div className="bg-background min-h-screen">
-      {/* Header */}
-      <div className="bg-card border-b border-border sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/student/courses">
-              <button className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-                <ChevronLeft size={20} />
-                Back to Courses
-              </button>
-            </Link>
-            <div className="flex-1">
-              <h1 className="text-xl font-bold text-foreground">{course.title}</h1>
-              <p className="text-sm text-muted-foreground">by {course.instructor}</p>
+    <StudentPortalLayout
+      title={course.title}
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "My Courses", href: "/student/courses" },
+        { label: course.title }
+      ]}
+    >
+      <div className="space-y-6">
+        <div className="bg-card border border-border p-6 rounded-xl shadow-sm flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-bold text-foreground">Course Progress</h2>
+              <p className="text-sm text-muted-foreground">You are doing great! Keep going.</p>
             </div>
             <div className="text-right">
-              <p className="text-sm font-semibold text-primary">
-                {completedLessons.length} of {allLessons.length} lessons
+              <p className="text-sm font-semibold text-primary mb-2">
+                {completedLessons.length} of {allLessons.length} lessons completed
               </p>
-              <div className="w-32 bg-muted rounded-full h-2 mt-2">
+              <div className="w-64 bg-muted rounded-full h-2 ml-auto">
                 <div
                   className="bg-primary h-2 rounded-full transition-all"
                   style={{ width: `${allLessons.length > 0 ? (completedLessons.length / allLessons.length) * 100 : 0}%` }}
                 ></div>
               </div>
             </div>
-          </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
@@ -214,6 +212,6 @@ export default function CourseLearning({ params }: { params: { courseId: string 
           </div>
         </div>
       </div>
-    </div>
+    </StudentPortalLayout>
   )
 }

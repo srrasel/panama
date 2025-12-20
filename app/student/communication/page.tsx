@@ -30,6 +30,8 @@ type Message = {
   isRead: boolean
 }
 
+import StudentPortalLayout from "@/components/student/student-portal-layout"
+
 export default function StudentCommunication() {
   const [contacts, setContacts] = useState<Contact[]>([])
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null)
@@ -155,6 +157,14 @@ export default function StudentCommunication() {
   if (isLoading) return <div className="p-8 flex justify-center">Loading chat...</div>
 
   return (
+    <StudentPortalLayout
+      title="Messages"
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Dashboard", href: "/student/dashboard" },
+        { label: "Messages" }
+      ]}
+    >
     <div className="h-[calc(100vh-120px)] bg-card border border-border rounded-xl shadow-sm overflow-hidden flex">
       {/* Sidebar - Contacts */}
       <div className={cn(
@@ -423,5 +433,6 @@ export default function StudentCommunication() {
         )}
       </div>
     </div>
+    </StudentPortalLayout>
   )
 }

@@ -81,7 +81,6 @@ export async function GET() {
       // Add quizzes (assuming they might have dates, or we just list them)
       // Current schema for Quiz doesn't have a due date, maybe created/updated.
       // We'll skip quizzes for schedule unless we add a due date field.
-    }
 
     // Sort by date
     events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
