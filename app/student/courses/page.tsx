@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { PlayCircle, CheckCircle2, Clock, BookMarked, UserCircle, User as UserIcon } from "lucide-react"
+import Preloader from "@/components/preloader"
 
 type Course = {
   id: number
@@ -24,8 +25,10 @@ import StudentPortalLayout from "@/components/student/student-portal-layout"
 export default function StudentCourses() {
   const [courses, setCourses] = useState<Course[]>([])
   const [filter, setFilter] = useState<string>("All")
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    setLoading(true)
     fetch("/api/student/courses")
       .then((res) => res.json())
       .then((data) => {
@@ -36,7 +39,10 @@ export default function StudentCourses() {
         }
       })
       .catch(() => setCourses([]))
+      .finally(() => setLoading(false))
   }, [])
+
+  if (loading) return <Preloader />
 
   const inProgress = (courses || []).filter((c) => c.status === "in_progress")
   const filtered = (courses || []).filter((c) => (filter === "All" ? true : filter === "In Progress" ? c.status === "in_progress" : filter === "Completed" ? c.status === "completed" : c.status === "not_started"))

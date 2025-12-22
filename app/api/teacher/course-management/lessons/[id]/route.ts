@@ -60,13 +60,13 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   }
 
   try {
-    const lesson = await prisma.lesson.findUnique({ where: { id: parseInt(id) }, include: { course: true } })
+    const lesson = await prisma.lesson.findUnique({ where: { id }, include: { course: true } })
     if (!lesson || (lesson.course.teacherId !== session.userId && session.role !== "admin")) {
       return NextResponse.json({ error: "Lesson not found or unauthorized" }, { status: 404 })
     }
 
     const updatedLesson = await prisma.lesson.update({
-      where: { id: parseInt(id) },
+      where: { id },
       data
     })
     return NextResponse.json({ lesson: updatedLesson })
@@ -85,13 +85,13 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
   }
 
   try {
-    const lesson = await prisma.lesson.findUnique({ where: { id: parseInt(id) }, include: { course: true } })
+    const lesson = await prisma.lesson.findUnique({ where: { id }, include: { course: true } })
     if (!lesson || (lesson.course.teacherId !== session.userId && session.role !== "admin")) {
       return NextResponse.json({ error: "Lesson not found or unauthorized" }, { status: 404 })
     }
 
     await prisma.lesson.delete({
-      where: { id: parseInt(id) }
+      where: { id }
     })
     return NextResponse.json({ success: true })
   } catch (error) {

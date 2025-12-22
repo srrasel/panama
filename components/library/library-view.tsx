@@ -15,6 +15,7 @@ import {
   Upload
 } from "lucide-react"
 import { toast } from "sonner"
+import Preloader from "@/components/preloader"
 
 export default function LibraryView({ currentUserRole }: { currentUserRole?: string }) {
   const [resources, setResources] = useState<any[]>([])
@@ -184,7 +185,7 @@ export default function LibraryView({ currentUserRole }: { currentUserRole?: str
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-muted-foreground">Loading library...</div>
+        <Preloader />
       ) : filteredResources.length === 0 ? (
         <div className="text-center py-12 bg-muted/20 rounded-xl border border-dashed border-border">
           <FileIcon className="h-12 w-12 mx-auto text-muted-foreground/50 mb-3" />

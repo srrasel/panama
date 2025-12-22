@@ -3,19 +3,29 @@ import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
 export async function GET() {
-  const keys = Object.keys(prisma)
-  const hasRole = 'role' in prisma
-  
-  let rawRoles = []
   try {
-    rawRoles = await prisma.$queryRaw`SELECT * FROM Role`
-  } catch (e: any) {
-    rawRoles = [{ error: e.message }]
-  }
+    const dbUrl = process.env.DATABASE_URL
+    const isDefined = !!dbUrl
+    const maskedUrl = dbUrl ? dbUrl.replace(/:[^:@]+@/, ":****@") : "undefined"
 
-  return NextResponse.json({
-    keys,
-    hasRole,
-    rawRoles
-  })
+    console.log("Debug Prisma: Checking DB connection...")
+    
+    // Simple query to check connection
+    const userCount = await prisma.user.count()
+    
+    return NextResponse.json({
+      status: "ok",
+      database_url_defined: isDefined,
+      database_url_masked: maskedUrl,
+      user_count: userCount,
+      env_node_env: process.env.NODE_ENV
+    })
+  } catch (e: any) {
+    console.error("Debug Prisma Error:", e)
+    return NextResponse.json({
+      status: "error",
+      message: e.message,
+      stack: e.stack
+    }, { status: 500 })
+  }
 }

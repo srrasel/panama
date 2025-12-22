@@ -1,9 +1,11 @@
 import type React from "react"
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import NextTopLoader from "nextjs-toploader"
 import { Toaster } from "@/components/ui/sonner"
+import { LoadingProvider } from "@/components/providers/loading-provider"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -40,10 +42,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans antialiased`}>
-        <NextTopLoader color="#7c3aed" showSpinner={false} />
-        {children}
-        <Analytics />
-        <Toaster />
+        <Suspense fallback={null}>
+          <LoadingProvider>
+            <NextTopLoader color="#7c3aed" showSpinner={false} />
+            {children}
+            <Analytics />
+            <Toaster />
+          </LoadingProvider>
+        </Suspense>
       </body>
     </html>
   )

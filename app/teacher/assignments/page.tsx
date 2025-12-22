@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import Preloader from "@/components/preloader"
 
 export default function AssignmentsGrading() {
   const [selectedTab, setSelectedTab] = useState("pending")
@@ -11,6 +12,7 @@ export default function AssignmentsGrading() {
   const [statusFilter, setStatusFilter] = useState("All")
   const [items, setItems] = useState<any[]>([])
   const [teacherCourses, setTeacherCourses] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
   const [newTitle, setNewTitle] = useState("")
   const [newCourseId, setNewCourseId] = useState("")
   const [newDescription, setNewDescription] = useState("")
@@ -77,6 +79,8 @@ export default function AssignmentsGrading() {
       setNewTotal("")
     }
   }
+
+  if (loading) return <Preloader />
 
   return (
     <div className="space-y-8">

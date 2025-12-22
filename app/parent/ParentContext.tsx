@@ -38,13 +38,39 @@ export function ParentProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json()
       if (data.children) {
         setChildrenList(data.children)
-        // If no child selected yet, select first. 
-        // If child selected but not in new list (unlikely unless removed), handle that?
-        // For now, keep selection logic simple.
-        if (!selectedChild && data.children.length > 0) {
+        
+        let childToSelect = selectedChild;
+
+        // If we have a selected child, verify it still exists in the new list
+        if (childToSelect) {
+            const stillExists = data.children.find((c: any) => c.id === childToSelect?.id);
+            if (!stillExists) {
+                childToSelect = null; // Child removed or invalid, force re-selection
+            } else {
+                childToSelect = stillExists; // Update with fresh data
+            }
+        }
+
+        // If no valid selection yet, try localStorage or default to first child
+        if (!childToSelect && data.children.length > 0) {
            const savedId = localStorage.getItem("selectedChildId")
-           const found = data.children.find((c: any) => c.id === savedId)
-           setSelectedChild(found || data.children[0])
+           // Only use savedId if it actually exists in the fetched children list
+           const found = savedId ? data.children.find((c: any) => c.id === savedId) : null
+           childToSelect = found || data.children[0]
+        }
+        
+        // If list is empty, ensure selection is null
+        if (data.children.length === 0) {
+            childToSelect = null;
+        }
+
+        setSelectedChild(childToSelect);
+        
+        // Update localStorage to reflect the actual selection (or clear it if null)
+        if (childToSelect) {
+             localStorage.setItem("selectedChildId", childToSelect.id)
+        } else {
+             localStorage.removeItem("selectedChildId")
         }
       }
     } catch (err) {

@@ -17,6 +17,9 @@ import {
 } from "lucide-react"
 import { useParent } from "@/app/parent/ParentContext"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import Header from "../header"
+import { useLoading } from "@/components/providers/loading-provider"
+import { useLogout } from "@/hooks/use-logout"
 
 interface ParentPortalLayoutProps {
   children: React.ReactNode
@@ -27,6 +30,8 @@ interface ParentPortalLayoutProps {
 export default function ParentPortalLayout({ children, title, breadcrumbs }: ParentPortalLayoutProps) {
   const router = useRouter()
   const pathname = usePathname()
+  const { startLoading } = useLoading()
+  const logout = useLogout()
   const [user, setUser] = useState<{ name: string; email: string; imageUrl?: string } | null>(null)
   
   // Parent Context for Child Switcher
@@ -42,17 +47,6 @@ export default function ParentPortalLayout({ children, title, breadcrumbs }: Par
       .catch(err => console.error("Error fetching user:", err))
   }, [])
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" })
-      localStorage.removeItem("userRole")
-      localStorage.removeItem("userName")
-      router.push("/login")
-    } catch (error) {
-      console.error("Logout failed:", error)
-    }
-  }
-
   const navLinks = [
     { href: "/parent/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/parent/profile", label: "My Profile", icon: UserCircle },
@@ -65,7 +59,7 @@ export default function ParentPortalLayout({ children, title, breadcrumbs }: Par
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* <Navigation /> */}
+       <Header/>
        {/* Red Header */}
       <section className="bg-[#7f1d1d] py-28 px-6">
         <div className="max-w-[1520px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
@@ -76,7 +70,7 @@ export default function ParentPortalLayout({ children, title, breadcrumbs }: Par
                 <div key={index} className="flex items-center">
                   {index > 0 && <span className="text-slate-600 mx-2">/</span>}
                   {crumb.href ? (
-                    <Link href={crumb.href} className="text-white hover:text-yellow-500 transition-colors">
+                    <Link href={crumb.href} onClick={() => startLoading()} className="text-white hover:text-yellow-500 transition-colors">
                       {crumb.label}
                     </Link>
                   ) : (
@@ -165,7 +159,7 @@ export default function ParentPortalLayout({ children, title, breadcrumbs }: Par
               })}
               
               <button 
-                onClick={handleLogout}
+                onClick={logout}
                 className="flex w-full items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl duration-300 hover:text-red-600 transition-all font-medium mt-4"
               >
                 <LogOut className="w-5 h-5" /> Logout

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useParent } from "../ParentContext"
 import { Calendar, Clock, MapPin, AlertCircle, Search, Filter } from "lucide-react"
 import ParentPortalLayout from "@/components/parent/parent-portal-layout"
+import Preloader from "@/components/preloader"
 
 export default function ParentEvents() {
   const { selectedChild } = useParent()
@@ -56,6 +57,8 @@ export default function ParentEvents() {
     }
   }
 
+  if (isLoading) return <Preloader />
+
   return (
     <ParentPortalLayout
       title="Upcoming Events"
@@ -97,11 +100,7 @@ export default function ParentEvents() {
            </button>
         </div>
 
-        {isLoading ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-4 border-slate-900 border-t-transparent"></div>
-          </div>
-        ) : events.length === 0 ? (
+        {events.length === 0 ? (
           <div className="bg-white p-12 rounded-[1.8rem] shadow-sm border border-slate-100 text-center">
             <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
                <Calendar className="w-8 h-8 text-slate-400" />

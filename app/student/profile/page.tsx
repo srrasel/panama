@@ -22,9 +22,15 @@ import {
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { ProfileImageUpload } from "@/components/profile-image-upload"
+import { useLoading } from "@/components/providers/loading-provider"
+import Preloader from "@/components/preloader"
+import Header from "@/components/header"
+import { useLogout } from "@/hooks/use-logout"
 
 export default function StudentProfile() {
   const router = useRouter()
+  const { startLoading, stopLoading } = useLoading()
+  const logout = useLogout()
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState<{ name: string; email: string; imageUrl?: string } | null>(null)
   const [editMode, setEditMode] = useState(false)
@@ -125,28 +131,16 @@ export default function StudentProfile() {
   }
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" })
-      router.push("/login")
-    } catch (error) {
-      console.error("Logout failed:", error)
-    }
+    await logout()
   }
 
   if (loading) {
-    return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-            <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#7f1d1d] mx-auto mb-4"></div>
-                <p className="text-slate-500 font-medium">Loading profile...</p>
-            </div>
-        </div>
-    )
+    return <Preloader />
   }
 
   return (
     <main className="min-h-screen bg-slate-50">
-      {/* Red Header Section */}
+      <Header/>
       <section className="bg-[#7f1d1d] py-28 px-6">
         <div className="max-w-[1520px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-col gap-2">
@@ -203,9 +197,10 @@ export default function StudentProfile() {
               <Link href="/student/courses" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-[#007bff] rounded-xl duration-300 hover:text-white transition-all font-medium">
                 <BookMarked className="w-5 h-5" /> Enrolled Courses
               </Link>
-              <Link href="#" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-[#007bff] rounded-xl duration-300 hover:text-white transition-all font-medium">
+
+              {/* <Link href="#" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-[#007bff] rounded-xl duration-300 hover:text-white transition-all font-medium">
                 <Heart className="w-5 h-5" /> Wishlist
-              </Link>
+              </Link> */}
               <Link href="#" className="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-[#007bff] rounded-xl duration-300 hover:text-white transition-all font-medium">
                 <Star className="w-5 h-5" /> Reviews
               </Link>
@@ -255,7 +250,19 @@ export default function StudentProfile() {
                                 currentImageUrl={profile.imageUrl}
                                 onImageUploaded={(url) => {
                                     setProfile(prev => ({ ...prev, imageUrl: url }))
-                                    // Optionally save immediately
+                                    // Save immediately
+                                    fetch("/api/student/profile", {
+                                        method: "PUT",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ 
+                                            firstName: profile.firstName,
+                                            lastName: profile.lastName,
+                                            imageUrl: url 
+                                        })
+                                    }).then(() => {
+                                        // Refresh user data in layout
+                                        window.location.reload()
+                                    })
                                 }}
                             />
                         </div>

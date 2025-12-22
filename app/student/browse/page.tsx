@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Search, BookOpen, User, Clock, CheckCircle } from "lucide-react"
+import Preloader from "@/components/preloader"
 
 type Course = {
   id: string
@@ -103,7 +104,7 @@ export default function BrowseCourses() {
       </section>
 
       {loading ? (
-        <div className="text-center py-20 text-muted-foreground">Loading courses...</div>
+        <Preloader />
       ) : filteredCourses.length === 0 ? (
         <div className="text-center py-20 text-muted-foreground">
             <p className="text-xl mb-2">No courses found</p>

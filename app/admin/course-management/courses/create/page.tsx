@@ -341,7 +341,7 @@ export default function AdminCreateCoursePage() {
                     <p>Drag and drop course image here</p>
                     <p className="text-sm mt-2">or</p>
                     <input type="file" id="img-upload" className="hidden" accept="image/*" onChange={(e) => onSelectImage(e.target.files?.[0] || null)} />
-                    <label htmlFor="img-upload" className="mt-4 inline-block px-4 py-2 bg-secondary rounded-lg cursor-pointer">Browse Files</label>
+                    <label htmlFor="img-upload" className="mt-4 inline-block px-4 py-2  rounded-lg cursor-pointer">Browse Files</label>
                   </div>
                 )}
              </div>

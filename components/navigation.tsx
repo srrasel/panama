@@ -6,9 +6,13 @@ import { useRouter } from "next/navigation"
 
 import { useState, useEffect, useRef } from "react"
 import { Menu, X } from "lucide-react"
+import { useLoading } from "@/components/providers/loading-provider"
+import { useLogout } from "@/hooks/use-logout"
 
 export default function Navigation() {
   const router = useRouter()
+  const { startLoading } = useLoading()
+  const logout = useLogout()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [navclass, setNavClass] = useState("relative")
@@ -61,15 +65,9 @@ export default function Navigation() {
   }, [])
 
   const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" })
-      setUser(null)
-      setUserMenuOpen(false)
-      router.push("/login")
-      router.refresh()
-    } catch (error) {
-      console.error("Logout failed", error)
-    }
+    await logout()
+    setUser(null)
+    setUserMenuOpen(false)
   }
 
   const getProfileLink = (role: string) => {
@@ -190,14 +188,20 @@ export default function Navigation() {
                       <Link 
                         href={getDashboardLink(user.role)}
                         className="block px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted transition-colors"
-                        onClick={() => setUserMenuOpen(false)}
+                        onClick={() => {
+                          setUserMenuOpen(false)
+                          startLoading()
+                        }}
                       >
                         Dashboard
                       </Link>
                       <Link 
                         href={getProfileLink(user.role)}
                         className="block px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted transition-colors"
-                        onClick={() => setUserMenuOpen(false)}
+                        onClick={() => {
+                          setUserMenuOpen(false)
+                          startLoading()
+                        }}
                       >
                         My Profile
                       </Link>
@@ -214,6 +218,7 @@ export default function Navigation() {
             ) : (
               <Link
                 href="/login"
+                onClick={() => startLoading()}
                 className="px-5 py-2.5 bg-[rgb(127,29,29)] text-white font-medium rounded-lg hover:bg-[rgb(107,24,24)] transition-all shadow-lg"
               >
                 Login Now
@@ -262,6 +267,7 @@ export default function Navigation() {
                <div className="space-y-3">
                  <Link
                    href={getDashboardLink(user.role)}
+                   onClick={() => startLoading()}
                    className="block w-full text-center px-5 py-3 bg-muted text-foreground font-medium rounded-lg hover:bg-muted/80 transition-all"
                  >
                    Go to Dashboard
@@ -276,6 +282,7 @@ export default function Navigation() {
             ) : (
               <Link
                 href="/login"
+                onClick={() => startLoading()}
                 className="block w-full text-center px-5 py-3 bg-[rgb(127,29,29)] text-white font-medium rounded-lg hover:bg-[rgb(107,24,24)] transition-all shadow-lg"
               >
                 Login Now

@@ -19,7 +19,7 @@ import LoginPage from "./login/page"
 export default function Home() {
   return (
     <main className="min-h-screen">
-  {/* <Navigation/>
+  <Navigation/>
      
       <HomeHero/>
       <School/>
@@ -33,8 +33,8 @@ export default function Home() {
       <AcademicSection/>
       <BlogSection/>
       <Subscribe/>
-      <Footer /> */}
-      <LoginPage/>
+      <Footer />
+     
     </main>
   )
 }

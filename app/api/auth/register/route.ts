@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Email already registered" }, { status: 409 })
   }
 
-  const { hash, salt } = hashPassword(parsed.data.password)
+  const { hash, salt } = await hashPassword(parsed.data.password)
 
   const user = await prisma.user.create({
     data: {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { Send, User, MoreVertical, Phone, Video, Search, ArrowLeft } from "lucide-react"
@@ -31,7 +31,7 @@ type Message = {
   isRead: boolean
 }
 
-export default function TeacherCommunication() {
+function TeacherCommunicationContent() {
   const searchParams = useSearchParams()
   const [contacts, setContacts] = useState<Contact[]>([])
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null)
@@ -167,7 +167,7 @@ export default function TeacherCommunication() {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   }
 
-  if (isLoading) return <div className="p-8 flex justify-center">Loading chat...</div>
+  if (isLoading) return <Preloader />
 
   return (
     <div className="h-[calc(100vh-120px)] bg-card border border-border rounded-xl shadow-sm overflow-hidden flex">
@@ -448,5 +448,13 @@ export default function TeacherCommunication() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function TeacherCommunication() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading communication...</div>}>
+      <TeacherCommunicationContent />
+    </Suspense>
   )
 }

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Upload, UserPlus, Users, Search, Image as ImageIcon } from "lucide-react"
+import Preloader from "@/components/preloader"
+import RichTextEditor from "@/components/ui/RichTextEditor"
 
 export default function AdminAddUserPage() {
   const router = useRouter()
@@ -24,21 +26,28 @@ export default function AdminAddUserPage() {
 
   const [roles, setRoles] = useState<{ id: string; name: string }[]>([])
   const [loadingRoles, setLoadingRoles] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchRoles = async () => {
       setLoadingRoles(true)
-      const res = await fetch("/api/admin/roles").catch(() => null)
-      if (res && res.ok) {
-        const data = await res.json()
-        // Filter roles to only show student, teacher, parent
-        const allowedRoles = ["student", "teacher", "parent"]
-        setRoles(data.filter((r: any) => allowedRoles.includes(r.name)))
+      try {
+        const res = await fetch("/api/admin/roles").catch(() => null)
+        if (res && res.ok) {
+          const data = await res.json()
+          // Filter roles to only show student, teacher, parent
+          const allowedRoles = ["student", "teacher", "parent"]
+          setRoles(data.filter((r: any) => allowedRoles.includes(r.name)))
+        }
+      } finally {
+        setLoadingRoles(false)
+        setLoading(false)
       }
-      setLoadingRoles(false)
     }
     fetchRoles()
   }, [])
+
+  if (loading) return <Preloader />
 
   useEffect(() => {
     let active = true

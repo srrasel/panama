@@ -3,11 +3,13 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Search, BookOpen } from "lucide-react"
+import Preloader from "@/components/preloader"
 
 export default function AdminCourses() {
   const [filter, setFilter] = useState("All")
   const [query, setQuery] = useState("")
   const [courses, setCourses] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState<any>({})
 
@@ -16,6 +18,7 @@ export default function AdminCourses() {
       const res = await fetch("/api/teacher/course-management/courses").catch(() => null)
       const data = await res?.json().catch(() => null)
       setCourses(Array.isArray(data?.courses) ? data.courses : [])
+      setLoading(false)
     })()
   }, [])
 
@@ -70,6 +73,8 @@ export default function AdminCourses() {
     }).catch(() => null)
     if (res?.ok) setCourses(courses.filter((c) => c.id !== id))
   }
+
+  if (loading) return <Preloader />
 
   return (
     <div className="space-y-8">

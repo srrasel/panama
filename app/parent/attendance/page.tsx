@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useParent } from "../ParentContext"
 import ParentPortalLayout from "@/components/parent/parent-portal-layout"
 import { CheckCircle2, XCircle, Clock, Percent, Calendar, AlertCircle, CheckCircle } from "lucide-react"
+import Preloader from "@/components/preloader"
 
 export default function ParentAttendance() {
   const { selectedChild } = useParent()
@@ -12,9 +13,11 @@ export default function ParentAttendance() {
   const [childName, setChildName] = useState<string>("")
   const [upcomingEvents, setUpcomingEvents] = useState<any[]>([])
   const [recentActivities, setRecentActivities] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!selectedChild) return
+    setLoading(true)
     Promise.all([
       fetch(`/api/parent/attendance?childId=${selectedChild.id}`).then((r) => r.json()),
       fetch(`/api/parent/upcoming-events?childId=${selectedChild.id}`).then((r) => r.json()),
@@ -34,7 +37,10 @@ export default function ParentAttendance() {
         setUpcomingEvents([])
         setRecentActivities([])
       })
+      .finally(() => setLoading(false))
   }, [selectedChild])
+
+  if (loading) return <Preloader />
 
   return (
     <ParentPortalLayout

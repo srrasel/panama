@@ -3,24 +3,32 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import Preloader from "@/components/preloader"
 
 export default function TeacherDashboard() {
   const [earningsData, setEarningsData] = useState<{ month: string; earnings: number }[]>([])
   const [recentCourses, setRecentCourses] = useState<{ id: number; title: string; students: number; status: string }[]>([])
   const [stats, setStats] = useState<{ totalStudents: number; totalCourses: number; totalEarnings: number } | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     ;(async () => {
-      const dRes = await fetch("/api/teacher/dashboard").catch(() => null)
-      const dData = await dRes?.json().catch(() => null)
-      if (dData?.earnings) setEarningsData(dData.earnings)
-      if (dData?.stats) setStats(dData.stats)
+      try {
+        const dRes = await fetch("/api/teacher/dashboard").catch(() => null)
+        const dData = await dRes?.json().catch(() => null)
+        if (dData?.earnings) setEarningsData(dData.earnings)
+        if (dData?.stats) setStats(dData.stats)
 
-      const cRes = await fetch("/api/teacher/course-management/courses").catch(() => null)
-      const cData = await cRes?.json().catch(() => null)
-      if (cData?.courses) setRecentCourses(cData.courses.slice(0, 5))
+        const cRes = await fetch("/api/teacher/course-management/courses").catch(() => null)
+        const cData = await cRes?.json().catch(() => null)
+        if (cData?.courses) setRecentCourses(cData.courses.slice(0, 5))
+      } finally {
+        setLoading(false)
+      }
     })()
   }, [])
+
+  if (loading) return <Preloader />
 
   return (
     <div className="space-y-8">

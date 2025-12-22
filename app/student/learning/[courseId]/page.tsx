@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { useParams } from "next/navigation"
 import { ChevronLeft, FileText, Code, Download, CheckCircle, Circle } from "lucide-react"
+import { toast } from "sonner"
 
 import StudentPortalLayout from "@/components/student/student-portal-layout"
 
-export default function CourseLearning({ params }: { params: { courseId: string } }) {
+export default function CourseLearning() {
+  const params = useParams()
+  const courseId = params.courseId as string
   const [activeLesson, setActiveLesson] = useState(0)
   const [completedLessons, setCompletedLessons] = useState<string[]>([])
   const [course, setCourse] = useState<any>(null)
@@ -23,7 +27,7 @@ export default function CourseLearning({ params }: { params: { courseId: string 
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false))
-  }, [params.courseId])
+  }, [courseId])
 
   if (loading) return <div className="p-8 text-center">Loading...</div>
   if (!course) return <div className="p-8 text-center">Course not found</div>
@@ -40,17 +44,29 @@ export default function CourseLearning({ params }: { params: { courseId: string 
       setCompletedLessons([...completedLessons, currentLesson.id])
       
       try {
-        await fetch(`/api/student/learning/${params.courseId}/complete`, {
+        const res = await fetch(`/api/student/learning/${courseId}/complete`, {
             method: "POST",
             body: JSON.stringify({ lessonId: currentLesson.id })
         })
+
+        if (!res.ok) {
+          throw new Error("Failed to save progress")
+        }
+        toast.success("Progress saved")
       } catch (error) {
         console.error("Error marking complete:", error)
+        toast.error("Failed to save progress")
+        // Revert optimistic update
+        setCompletedLessons(prev => prev.filter(id => id !== currentLesson.id))
+        return // Don't advance if save failed
       }
     }
     
     if (activeLesson < allLessons.length - 1) {
       setActiveLesson(activeLesson + 1)
+      window.scrollTo(0, 0)
+    } else {
+      toast.success("Course completed!")
     }
   }
 

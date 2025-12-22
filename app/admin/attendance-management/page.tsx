@@ -1,13 +1,17 @@
 "use client"
 
+// Force rebuild
 import { useState, useEffect } from "react"
+import Preloader from "@/components/preloader"
 
 export default function AttendanceManagement() {
   const [selectedCourse, setSelectedCourse] = useState("all")
   const [attendanceData, setAttendanceData] = useState<any[]>([])
   const [courses, setCourses] = useState<string[]>(["all"])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    setLoading(true)
     fetch("/api/admin/attendance")
       .then((res) => res.json())
       .then((data) => {
@@ -15,7 +19,10 @@ export default function AttendanceManagement() {
         if (data.courses) setCourses(["all", ...data.courses])
       })
       .catch((err) => console.error(err))
+      .finally(() => setLoading(false))
   }, [])
+
+  if (loading) return <Preloader />
 
   const filteredData =
     selectedCourse === "all" ? attendanceData : attendanceData.filter((d) => d.course === selectedCourse)

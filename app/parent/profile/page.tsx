@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { ProfileImageUpload } from "@/components/profile-image-upload"
 import ParentPortalLayout from "@/components/parent/parent-portal-layout"
+import Preloader from "@/components/preloader"
 
 export default function ParentProfile() {
   const { childrenList, isLoading: childrenLoading, setSelectedChild, refreshChildren } = useParent()
@@ -103,6 +104,10 @@ export default function ParentProfile() {
     setSelectedChild(child) // Update global context
   }
 
+  if (loading || childrenLoading) {
+    return <Preloader />
+  }
+
   return (
     <ParentPortalLayout
       title="My Profile"
@@ -113,9 +118,7 @@ export default function ParentProfile() {
       ]}
     >
       {loading ? (
-        <div className="flex items-center justify-center h-[50vh]">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-slate-900 border-t-transparent"></div>
-        </div>
+        <Preloader />
       ) : (
         <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
           {/* Main Profile Column */}

@@ -4,27 +4,34 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import Preloader from "@/components/preloader"
 
 export default function UserManagement() {
   const [activeTab, setActiveTab] = useState("all")
   const [users, setUsers] = useState<any[]>([])
   const [roles, setRoles] = useState<{ id: string; name: string }[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     ;(async () => {
-      const [resUsers, resRoles] = await Promise.all([
-        fetch("/api/admin/users").catch(() => null),
-        fetch("/api/admin/roles").catch(() => null)
-      ])
-      
-      const dataUsers = await resUsers?.json().catch(() => null)
-      setUsers(Array.isArray(dataUsers?.users) ? dataUsers.users : [])
-      
-      const dataRoles = await resRoles?.json().catch(() => null)
-      if (Array.isArray(dataRoles)) {
-        // Filter roles for tabs
-        const allowedRoles = ["student", "teacher", "parent"]
-        setRoles(dataRoles.filter((r: any) => allowedRoles.includes(r.name)))
+      setLoading(true)
+      try {
+        const [resUsers, resRoles] = await Promise.all([
+          fetch("/api/admin/users").catch(() => null),
+          fetch("/api/admin/roles").catch(() => null)
+        ])
+        
+        const dataUsers = await resUsers?.json().catch(() => null)
+        setUsers(Array.isArray(dataUsers?.users) ? dataUsers.users : [])
+        
+        const dataRoles = await resRoles?.json().catch(() => null)
+        if (Array.isArray(dataRoles)) {
+          // Filter roles for tabs
+          const allowedRoles = ["student", "teacher", "parent"]
+          setRoles(dataRoles.filter((r: any) => allowedRoles.includes(r.name)))
+        }
+      } finally {
+        setLoading(false)
       }
     })()
   }, [])
@@ -52,6 +59,8 @@ export default function UserManagement() {
         return "bg-gray-100 text-gray-800"
     }
   }
+
+  if (loading) return <Preloader />
 
   return (
     <div className="space-y-8">

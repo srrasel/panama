@@ -7,6 +7,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { LayoutDashboard, BookOpen, ClipboardList, CalendarDays, Users, User2, LogOut, FileText, MessageCircle, Library } from "lucide-react"
+import { useLoading } from "@/components/providers/loading-provider"
+import { useLogout } from "@/hooks/use-logout"
 
 export default function TeacherLayout({
   children,
@@ -15,6 +17,8 @@ export default function TeacherLayout({
 }) {
   const pathname = usePathname()
   const router = useRouter()
+  const { startLoading } = useLoading()
+  const logout = useLogout()
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [user, setUser] = useState<{ name: string; role: string } | null>(null)
@@ -52,20 +56,13 @@ export default function TeacherLayout({
     },
   ]
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" })
-    } catch {}
-    localStorage.removeItem("userRole")
-    localStorage.removeItem("userName")
-    router.push("/login")
-  }
+
 
   useEffect(() => {
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then((data) => {
-        if (data?.name && data?.role) setUser({ name: data.name, role: data.role })
+        if (data?.name && data?.role) setUser({ name: data.name, role: data.role, imageUrl: data.imageUrl })
       })
       .catch(() => setUser(null))
   }, [])
@@ -95,6 +92,7 @@ export default function TeacherLayout({
                     <Link
                       key={item.href}
                       href={item.href}
+                      onClick={() => startLoading()}
                       className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-colors ${
                         active
                           ? "bg-primary text-primary-foreground border-primary"
@@ -111,7 +109,7 @@ export default function TeacherLayout({
           ))}
         </nav>
         <button
-          onClick={handleLogout}
+          onClick={logout}
           className="flex items-center gap-3 px-4 py-3 rounded-xl border border-border text-foreground hover:bg-muted transition-colors font-medium"
         >
           <LogOut className="h-4 w-4" />
@@ -167,8 +165,8 @@ export default function TeacherLayout({
                   </div>
                   <div className="mt-2 border-t border-border pt-2">
                     <Link href="/teacher/profile" className="block px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted">My Profile</Link>
-                    <Link href="/login" className="block px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted">Login</Link>
-                    <button onClick={handleLogout} className="w-full text-left px-3 py-2 rounded-lg text-sm text-destructive hover:bg-destructive/10">Logout</button>
+                   
+                    <button onClick={logout} className="w-full text-left px-3 py-2 rounded-lg text-sm text-destructive hover:bg-destructive/10">Logout</button>
                   </div>
                 </div>
               )}

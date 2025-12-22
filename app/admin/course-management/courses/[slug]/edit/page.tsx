@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter, useParams } from "next/navigation"
 import { Image as ImageIcon, ListOrdered, FileText, Plus, Trash2, Save, ArrowRight, ArrowLeft, Check, AlertCircle, Upload, Video } from "lucide-react"
 import RichTextEditor from "@/components/ui/RichTextEditor"
+import Preloader from "@/components/preloader"
 
 type LessonForm = { id?: string; title: string; duration: string; videoFile?: File | null; imageFiles?: File[]; content?: string; videoUrl?: string; imageUrls?: string[] }
 type MCQItem = { question: string; options: string[]; answerIndex: number }
@@ -50,6 +51,8 @@ export default function AdminEditCoursePage() {
       setError("Invalid Course Slug")
     }
   }, [slug])
+
+  if (loading) return <Preloader />
 
   const fetchCourseData = async (slugVal: string) => {
     try {

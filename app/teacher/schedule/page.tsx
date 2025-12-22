@@ -10,7 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
-import { Loader2, Plus, Calendar as CalendarIcon, Clock, MapPin } from "lucide-react"
+import { Plus, Calendar as CalendarIcon, Clock, MapPin, Loader2 } from "lucide-react"
+import Preloader from "@/components/preloader"
 
 export default function TeacherSchedule() {
   const [view, setView] = useState<"week" | "day">("week")

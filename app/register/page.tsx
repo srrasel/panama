@@ -8,14 +8,16 @@ import { useRouter } from "next/navigation"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { User, Phone, Building2 } from "lucide-react"
+import { useLoading } from "@/components/providers/loading-provider"
 
 type UserRole = "student" | "teacher" | "parent"
 
 export default function RegisterPage() {
   const router = useRouter()
+  const { startLoading, stopLoading } = useLoading()
   const [step, setStep] = useState<"role" | "form">("role")
   const [role, setRole] = useState<UserRole>("student")
-  const [loading, setLoading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -38,10 +40,13 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
+    setIsSubmitting(true)
+    startLoading()
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match")
-      setLoading(false)
+      setIsSubmitting(false)
+      stopLoading()
       return
     }
     try {
@@ -59,6 +64,8 @@ export default function RegisterPage() {
       if (!res.ok) {
         const data = await res.json()
         alert(data.error || "Registration failed")
+        setIsSubmitting(false)
+        stopLoading()
       } else {
         const login = await fetch("/api/auth/login", {
           method: "POST",
@@ -77,14 +84,15 @@ export default function RegisterPage() {
       }
     } catch (err) {
       alert("Network error")
+      setIsSubmitting(false)
+      stopLoading()
     }
-    setLoading(false)
   }
 
   if (step === "role") {
     return (
       <>
-        <Navigation />
+        <Navigation /> 
         <main className="min-h-screen bg-background">
           <section className="px-4 py-20 md:py-28 bg-[rgb(127,29,29)] relative overflow-hidden">
              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center bg-no-repeat opacity-20"></div>
@@ -129,7 +137,11 @@ export default function RegisterPage() {
             <div className="text-center mt-12">
               <p className="text-muted-foreground">
                 Already have an account?{" "}
-                <Link href="/login" className="text-primary font-semibold hover:underline">
+                <Link 
+                  href="/login" 
+                  onClick={() => startLoading()}
+                  className="text-primary font-semibold hover:underline"
+                >
                   Sign in
                 </Link>
               </p>
@@ -159,7 +171,11 @@ export default function RegisterPage() {
                 <h1 className="text-foreground text-3xl font-bold capitalize">{role} Registration</h1>
                 <p className="text-[15px] mt-2 text-muted-foreground">
                   Already have an account?{" "}
-                  <Link href="/login" className="text-primary font-medium hover:underline ml-1 whitespace-nowrap">
+                  <Link 
+                    href="/login" 
+                    onClick={() => startLoading()}
+                    className="text-primary font-medium hover:underline ml-1 whitespace-nowrap"
+                  >
                     Sign in here
                   </Link>
                 </p>
@@ -328,10 +344,10 @@ export default function RegisterPage() {
               <div className="mt-8">
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={isSubmitting}
                   className="w-full shadow-xl py-2.5 px-4 text-sm font-medium tracking-wide rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none cursor-pointer transition-colors"
                 >
-                  {loading ? "Creating Account..." : "Create Account"}
+                  {isSubmitting ? "Creating Account..." : "Create Account"}
                 </button>
               </div>
 
@@ -396,7 +412,7 @@ export default function RegisterPage() {
           </div>
         </div>
       </div>
-      <Footer />
+       <Footer /> 
     </>
   )
 }

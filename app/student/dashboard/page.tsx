@@ -13,6 +13,7 @@ import {
   Star
 } from "lucide-react"
 import StudentPortalLayout from "@/components/student/student-portal-layout"
+import Preloader from "@/components/preloader"
 
 export default function StudentDashboard() {
   const [stats, setStats] = useState({
@@ -59,7 +60,7 @@ export default function StudentDashboard() {
   const inProgressCourses = courses.filter((c) => c.status === "in_progress")
 
   if (loading) {
-    return <div className="p-10 text-center">Loading dashboard...</div>
+    return <Preloader />
   }
 
   return (

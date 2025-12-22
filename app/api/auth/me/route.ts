@@ -8,5 +8,11 @@ export async function GET() {
   if (!session || !session.user) return NextResponse.json({ user: null })
   
   const user = session.user
-  return NextResponse.json({ id: user.id, name: user.name, email: user.email, role: user.role })
+  return NextResponse.json({ 
+    id: user.id, 
+    name: user.name, 
+    email: user.email, 
+    role: user.role,
+    imageUrl: user.imageUrl 
+  })
 }

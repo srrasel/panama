@@ -147,7 +147,7 @@ export default function GradeSubmission() {
           <div className="bg-card rounded-lg border border-border p-6">
             <h3 className="text-lg font-bold text-foreground mb-3">Select Course</h3>
             <div className="space-y-2 max-h-60 overflow-y-auto">
-              {loadingCourses ? <p className="text-sm text-muted-foreground">Loading courses...</p> : courses.map((course) => (
+              {courses.map((course) => (
                 <button
                   key={course.id}
                   onClick={() => setSelectedCourse(course.id)}

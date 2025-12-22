@@ -24,6 +24,7 @@ export default function AdminEditUserPage() {
   const [submitting, setSubmitting] = useState(false)
   const [roles, setRoles] = useState<{ id: string; name: string }[]>([])
   const [loadingRoles, setLoadingRoles] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -42,19 +43,26 @@ export default function AdminEditUserPage() {
 
   useEffect(() => {
     ;(async () => {
-      const res = await fetch(`/api/admin/users?id=${encodeURIComponent(id)}`).catch(() => null)
-      const u = await res?.json().catch(() => null)
-      if (u?.id) {
-        const [fn, ...rest] = String(u.name || "").split(" ")
-        setFirstName(fn || "")
-        setLastName(rest.join(" "))
-        setEmail(u.email || "")
-        setRole(u.role || "student")
-        setBio(u.bio || "")
-        setSelectedStudents(Array.isArray(u.children) ? u.children : [])
+      setLoading(true)
+      try {
+        const res = await fetch(`/api/admin/users?id=${encodeURIComponent(id)}`).catch(() => null)
+        const u = await res?.json().catch(() => null)
+        if (u?.id) {
+          const [fn, ...rest] = String(u.name || "").split(" ")
+          setFirstName(fn || "")
+          setLastName(rest.join(" "))
+          setEmail(u.email || "")
+          setRole(u.role || "student")
+          setBio(u.bio || "")
+          setSelectedStudents(Array.isArray(u.children) ? u.children : [])
+        }
+      } finally {
+        setLoading(false)
       }
     })()
   }, [id])
+
+  if (loading) return <Preloader />
 
   useEffect(() => {
     let active = true

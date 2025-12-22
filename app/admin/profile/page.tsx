@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { ProfileImageUpload } from "@/components/profile-image-upload"
 import { toast } from "sonner"
+import Preloader from "@/components/preloader"
 
 export default function AdminProfile() {
   const [isEditing, setIsEditing] = useState(false)
@@ -55,7 +56,7 @@ export default function AdminProfile() {
     }
   }
 
-  if (loading) return <div className="p-8">Loading profile...</div>
+  if (loading) return <Preloader />
 
   return (
     <div className="space-y-8">
@@ -83,6 +84,8 @@ export default function AdminProfile() {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ imageUrl: url })
+              }).then(() => {
+                window.location.reload()
               })
             }}
           />

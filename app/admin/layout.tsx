@@ -7,6 +7,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { LayoutDashboard, Users, BookOpen, CalendarDays, BarChart3, Settings, LogOut, User, Library } from "lucide-react"
+import { useLoading } from "@/components/providers/loading-provider"
+import { useLogout } from "@/hooks/use-logout"
 
 export default function AdminLayout({
   children,
@@ -15,6 +17,8 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname()
   const router = useRouter()
+  const { startLoading } = useLoading()
+  const logout = useLogout()
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const [user, setUser] = useState<{ name: string; role: string } | null>(null)
@@ -50,15 +54,6 @@ export default function AdminLayout({
     },
   ]
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" })
-    } catch {}
-    localStorage.removeItem("userRole")
-    localStorage.removeItem("userName")
-    router.push("/login")
-  }
-
   useEffect(() => {
     fetch("/api/auth/me")
       .then((r) => r.json())
@@ -93,6 +88,7 @@ export default function AdminLayout({
                     <Link
                       key={item.href}
                       href={item.href}
+                      onClick={() => startLoading()}
                       className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-colors ${
                         active
                           ? "bg-primary text-primary-foreground border-primary"
@@ -109,7 +105,7 @@ export default function AdminLayout({
           ))}
         </nav>
         <button
-          onClick={handleLogout}
+          onClick={logout}
           className="flex items-center gap-3 px-4 py-3 rounded-xl border border-border text-foreground hover:bg-muted transition-colors font-medium"
         >
           <LogOut className="h-4 w-4" />
@@ -144,8 +140,12 @@ export default function AdminLayout({
                 className="flex items-center gap-3 rounded-lg px-2 py-1 hover:bg-muted"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
               >
-                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                  {(user?.name || "Admin").split(" ").map((n) => n[0]).join("")?.slice(0,2)}
+                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold overflow-hidden">
+                  {user?.imageUrl ? (
+                    <img src={user.imageUrl} alt={user.name} className="w-full h-full object-cover" />
+                  ) : (
+                    (user?.name || "Admin").split(" ").map((n) => n[0]).join("")?.slice(0,2)
+                  )}
                 </div>
                 <div className="hidden md:block text-left">
                   <div className="text-sm font-medium text-foreground">{user?.name || "Admin Demo"}</div>
@@ -155,8 +155,12 @@ export default function AdminLayout({
               {userMenuOpen && (
                 <div className="absolute right-0 mt-2 w-64 rounded-2xl border border-border bg-card p-3 shadow">
                   <div className="flex items-center gap-3 p-2">
-                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                      {(user?.name || "Admin").split(" ").map((n) => n[0]).join("")?.slice(0,2)}
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold overflow-hidden">
+                      {user?.imageUrl ? (
+                        <img src={user.imageUrl} alt={user.name} className="w-full h-full object-cover" />
+                      ) : (
+                        (user?.name || "Admin").split(" ").map((n) => n[0]).join("")?.slice(0,2)
+                      )}
                     </div>
                     <div>
                       <div className="text-sm font-medium text-foreground">{user?.name || "Admin Demo"}</div>
@@ -164,9 +168,18 @@ export default function AdminLayout({
                     </div>
                   </div>
                   <div className="mt-2 border-t border-border pt-2">
-                    <Link href="/admin/system-settings" className="block px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted">My Profile</Link>
-                    <Link href="/login" className="block px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted">Login</Link>
-                    <button onClick={handleLogout} className="w-full text-left px-3 py-2 rounded-lg text-sm text-destructive hover:bg-destructive/10">Logout</button>
+                    <Link 
+                      href="/admin/system-settings" 
+                      className="block px-3 py-2 rounded-lg text-sm text-foreground hover:bg-muted"
+                      onClick={() => {
+                        setUserMenuOpen(false)
+                        startLoading()
+                      }}
+                    >
+                      My Profile
+                    </Link>
+                    
+                    <button onClick={logout} className="w-full text-left px-3 py-2 rounded-lg text-sm text-destructive hover:bg-destructive/10">Logout</button>
                   </div>
                 </div>
               )}

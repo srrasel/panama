@@ -3,11 +3,13 @@
 import type React from "react"
 
 import { useEffect, useState } from "react"
+import Preloader from "@/components/preloader"
 
 export default function CourseManagement() {
   const [courses, setCourses] = useState<any[]>([])
   const [editingId, setEditingId] = useState<number | null>(null)
   const [editData, setEditData] = useState<any>({})
+  const [loading, setLoading] = useState(true)
 
   const [showForm, setShowForm] = useState(false)
   const [formData, setFormData] = useState({
@@ -20,11 +22,18 @@ export default function CourseManagement() {
 
   useEffect(() => {
     ;(async () => {
-      const res = await fetch("/api/teacher/course-management/courses").catch(() => null)
-      const data = await res?.json().catch(() => null)
-      if (data?.courses) setCourses(data.courses)
+      setLoading(true)
+      try {
+        const res = await fetch("/api/teacher/course-management/courses").catch(() => null)
+        const data = await res?.json().catch(() => null)
+        if (data?.courses) setCourses(data.courses)
+      } finally {
+        setLoading(false)
+      }
     })()
   }, [])
+
+  if (loading) return <Preloader />
 
   const handleAddCourse = async (e: React.FormEvent) => {
     e.preventDefault()

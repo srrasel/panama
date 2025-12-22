@@ -4,14 +4,15 @@ import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Image as ImageIcon, ListOrdered, Video, FileText, Plus, Trash2, Save, ArrowRight, ArrowLeft, Check } from "lucide-react"
+import Preloader from "@/components/preloader"
 
-type LessonForm = { id?: number; title: string; duration: string; videoFile?: File | null; imageFiles?: File[]; content?: string; videoUrl?: string; imageUrls?: string[] }
+type LessonForm = { id?: string; title: string; duration: string; videoFile?: File | null; imageFiles?: File[]; content?: string; videoUrl?: string; imageUrls?: string[] }
 type MCQItem = { question: string; options: string[]; answerIndex: number }
 type QuizForm = { id?: string; title: string; items: MCQItem[]; status?: string }
 
 export default function EditCoursePage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
-  const [courseId, setCourseId] = useState<number | null>(null)
+  const [courseId, setCourseId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   const [step, setStep] = useState(1)
@@ -36,7 +37,7 @@ export default function EditCoursePage({ params }: { params: Promise<{ id: strin
 
   useEffect(() => {
     params.then(({ id }) => {
-      setCourseId(parseInt(id))
+      setCourseId(id)
       fetch(`/api/teacher/course-management/courses/${id}`)
         .then(res => res.json())
         .then(data => {
@@ -75,6 +76,8 @@ export default function EditCoursePage({ params }: { params: Promise<{ id: strin
         .finally(() => setLoading(false))
     })
   }, [])
+
+  if (loading) return <Preloader />
 
   const canProceedStep1 = title.trim().length > 0
 

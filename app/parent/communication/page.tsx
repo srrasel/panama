@@ -5,6 +5,7 @@ import { toast } from "sonner"
 import { Send, User, MoreVertical, Phone, Video, Search, ArrowLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import ParentPortalLayout from "@/components/parent/parent-portal-layout"
+import Preloader from "@/components/preloader"
 
 type Contact = {
   id: string
@@ -163,12 +164,7 @@ export default function ParentCommunication() {
     >
       <div className="bg-white rounded-[1.8rem] shadow-sm border border-slate-100 overflow-hidden h-[calc(100vh-250px)] min-h-[600px] flex">
         {isLoading ? (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-8 h-8 border-4 border-slate-900 border-t-transparent rounded-full animate-spin"></div>
-              <p className="text-slate-500 font-medium">Loading conversations...</p>
-            </div>
-          </div>
+          <Preloader />
         ) : (
           <>
             {/* Sidebar - Contacts */}

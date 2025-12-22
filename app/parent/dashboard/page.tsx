@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useParent } from "@/app/parent/ParentContext"
 import ParentPortalLayout from "@/components/parent/parent-portal-layout"
+import Preloader from "@/components/preloader"
 import { CalendarDays, Award, BookOpen, Clock, Activity, TrendingUp, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 
@@ -52,6 +53,8 @@ export default function ParentDashboard() {
     if (pct >= 60) return "D"
     return "F"
   }
+
+  if (loading) return <Preloader />
 
   return (
     <ParentPortalLayout

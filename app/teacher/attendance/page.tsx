@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import Preloader from "@/components/preloader"
 
 export default function TeacherAttendance() {
   const [selectedClass, setSelectedClass] = useState("")
@@ -11,25 +12,31 @@ export default function TeacherAttendance() {
   const [statusFilter, setStatusFilter] = useState("All")
   const [classes, setClasses] = useState<{ id: string; name: string; students: number; period: string }[]>([])
   const [students, setStudents] = useState<{ id: string; name: string; roll: string; status: string }[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     ;(async () => {
-      // Build query string
-      const params = new URLSearchParams()
-      if (selectedClass) params.set("classId", selectedClass)
-      params.set("date", attendanceDate)
-      
-      const res = await fetch(`/api/teacher/attendance?${params.toString()}`).catch(() => null)
-      const data = await res?.json().catch(() => null)
-      
-      if (data?.classes) {
-        setClasses(data.classes)
-        // If no class selected yet, select the first one
-        if (!selectedClass && data.classes.length > 0) {
-          setSelectedClass(data.classes[0].id)
+      setLoading(true)
+      try {
+        // Build query string
+        const params = new URLSearchParams()
+        if (selectedClass) params.set("classId", selectedClass)
+        params.set("date", attendanceDate)
+        
+        const res = await fetch(`/api/teacher/attendance?${params.toString()}`).catch(() => null)
+        const data = await res?.json().catch(() => null)
+        
+        if (data?.classes) {
+          setClasses(data.classes)
+          // If no class selected yet, select the first one
+          if (!selectedClass && data.classes.length > 0) {
+            setSelectedClass(data.classes[0].id)
+          }
         }
+        if (data?.students) setStudents(data.students)
+      } finally {
+        setLoading(false)
       }
-      if (data?.students) setStudents(data.students)
     })()
   }, [selectedClass, attendanceDate])
 
@@ -48,6 +55,8 @@ export default function TeacherAttendance() {
     setSubmitted(true)
     setTimeout(() => setSubmitted(false), 2000)
   }
+
+  if (loading && !selectedClass && classes.length === 0) return <Preloader />
 
   return (
     <div className="space-y-8">

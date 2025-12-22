@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import Preloader from "@/components/preloader"
 
 export default function AdminDashboard() {
   const [timeframe, setTimeframe] = useState("week")
@@ -77,6 +78,8 @@ export default function AdminDashboard() {
 
   const calendarDays = Array.from({ length: 31 }, (_, i) => i + 1)
   const eventDays = new Set([10, 11])
+
+  if (loading) return <Preloader />
 
   return (
     <div className="space-y-8">

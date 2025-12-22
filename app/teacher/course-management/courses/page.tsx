@@ -2,7 +2,16 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { Search, BookOpen } from "lucide-react"
+import { Search, BookOpen, MoreVertical, Edit, Trash } from "lucide-react"
+import Preloader from "@/components/preloader"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function TeacherCourses() {
   const [filter, setFilter] = useState("All")
@@ -19,6 +28,24 @@ export default function TeacherCourses() {
       .catch(err => console.error(err))
       .finally(() => setLoading(false))
   }, [])
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this course? This action cannot be undone.")) return
+
+    try {
+      const res = await fetch(`/api/teacher/course-management/courses/${id}`, {
+        method: "DELETE",
+      })
+      if (res.ok) {
+        setCourses(courses.filter((c) => c.id !== id))
+      } else {
+        alert("Failed to delete course")
+      }
+    } catch (error) {
+      console.error("Error deleting course:", error)
+      alert("Error deleting course")
+    }
+  }
 
   const filtered = courses.filter((c) => (filter === "All" ? true : c.status === filter)).filter((c) => c.title.toLowerCase().includes(query.toLowerCase()))
 
@@ -64,7 +91,7 @@ export default function TeacherCourses() {
       </div>
 
       {loading ? (
-        <div className="text-center py-10 text-muted-foreground">Loading courses...</div>
+        <Preloader />
       ) : filtered.length === 0 ? (
         <div className="text-center py-10 border rounded-lg bg-muted/20">
           <p className="text-muted-foreground">No courses found. Create your first course!</p>
@@ -86,7 +113,28 @@ export default function TeacherCourses() {
               </div>
               <div className="mt-4 flex gap-2">
                 <Link href={`/teacher/course-management/courses/${c.id}/edit`} className="px-3 py-2 text-sm rounded-lg border hover:bg-muted inline-block">Edit</Link>
-                <button className="px-3 py-2 text-sm rounded-lg border hover:bg-muted">Manage</button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="px-3 py-2 text-sm rounded-lg border hover:bg-muted flex items-center gap-2">
+                      Manage <MoreVertical size={14} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                    <DropdownMenuItem asChild>
+                      <Link href={`/teacher/course-management/courses/${c.id}/edit`} className="flex items-center cursor-pointer">
+                        <Edit className="mr-2 h-4 w-4" /> Edit
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem 
+                      onClick={() => handleDelete(c.id)}
+                      className="text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer"
+                    >
+                      <Trash className="mr-2 h-4 w-4" /> Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           ))}

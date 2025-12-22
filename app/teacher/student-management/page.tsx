@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Preloader from "@/components/preloader"
 
 interface Student {
   id: string
@@ -51,7 +52,7 @@ export default function StudentManagement() {
     : students.filter((s) => s.courseId === selectedCourse)
 
   if (loading) {
-    return <div className="p-8 text-center">Loading student data...</div>
+    return <Preloader />
   }
 
   return (

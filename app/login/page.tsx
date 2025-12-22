@@ -6,18 +6,23 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
+import { useLoading } from "@/components/providers/loading-provider"
 
 export default function LoginPage() {
   const router = useRouter()
+  const { startLoading, stopLoading } = useLoading()
   const [email, setEmail] = useState("student@demo.com")
   const [password, setPassword] = useState("demo123")
   const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  // Local loading state just for disabling button if needed, or rely on global
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
-    setLoading(true)
+    setIsSubmitting(true)
+    startLoading()
+    
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
@@ -27,23 +32,28 @@ export default function LoginPage() {
       if (!res.ok) {
         const data = await res.json()
         setError(data.error || "Login failed")
+        setIsSubmitting(false)
+        stopLoading()
       } else {
         const data = await res.json()
         const role = data.role
+        // Keep loading true while redirecting
         if (role === "student") router.push("/student/dashboard")
         else if (role === "teacher") router.push("/teacher/dashboard")
         else if (role === "admin") router.push("/admin/dashboard")
         else router.push("/parent/dashboard")
       }
-    } catch (err) {
-      setError("Network error")
+    } catch (err: any) {
+      console.error("Login error details:", err)
+      setError(err.message || "Network error - check console")
+      setIsSubmitting(false)
+      stopLoading()
     }
-    setLoading(false)
   }
 
   return (
     <>
-      {/* <Navigation /> */}
+      <Navigation />
       <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
         <div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md bg-card border border-border">
           <div className="md:max-w-md w-full px-4 py-4">
@@ -52,7 +62,11 @@ export default function LoginPage() {
                 <h1 className="text-foreground text-3xl font-bold">Sign in</h1>
                 <p className="text-[15px] mt-6 text-muted-foreground">
                   Don't have an account{" "}
-                  <Link href="/register" className="text-primary font-medium hover:underline ml-1 whitespace-nowrap">
+                  <Link 
+                    href="/register" 
+                    onClick={() => startLoading()}
+                    className="text-primary font-medium hover:underline ml-1 whitespace-nowrap"
+                  >
                     Register here
                   </Link>
                 </p>
@@ -152,10 +166,10 @@ export default function LoginPage() {
               <div className="mt-12">
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={isSubmitting}
                   className="w-full shadow-xl py-2.5 px-4 text-sm font-medium tracking-wide rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none cursor-pointer transition-colors"
                 >
-                  {loading ? "Signing in..." : "Sign in"}
+                  {isSubmitting ? "Signing in..." : "Sign in"}
                 </button>
               </div>
 
@@ -230,7 +244,7 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer /> 
     </>
   )
 }

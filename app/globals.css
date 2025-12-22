@@ -170,3 +170,7 @@
   --tw-border-opacity: 1;
   border-color: rgb(127 29 29 / var(--tw-border-opacity, 1));
 }
+button.px-4.py-2.bg-secondary.rounded-lg.flex.items-center.gap-2
+ {
+    background: var(--color-amber-500);
+}

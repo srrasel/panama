@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Preloader from "@/components/preloader"
 
 export default function ReportsAnalytics() {
   const [reportType, setReportType] = useState("grades")
@@ -63,7 +64,7 @@ export default function ReportsAnalytics() {
   }
 
   if (loading) {
-    return <div className="p-8 text-center text-muted-foreground">Loading analytics...</div>
+    return <Preloader />
   }
 
   return (

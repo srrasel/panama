@@ -12,6 +12,7 @@ import {
   Mail, 
   Calendar 
 } from "lucide-react"
+import Preloader from "@/components/preloader"
 
 export default function ParentGrades() {
   const { selectedChild } = useParent()
@@ -19,9 +20,11 @@ export default function ParentGrades() {
 
   const [gradesData, setGradesData] = useState<Record<string, any[]>>({ term1: [], term2: [] })
   const [childName, setChildName] = useState<string>("")
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!selectedChild) return
+    setLoading(true)
     fetch(`/api/parent/grades?childId=${selectedChild.id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -32,7 +35,10 @@ export default function ParentGrades() {
         setGradesData({ term1: [], term2: [] })
         setChildName("")
       })
+      .finally(() => setLoading(false))
   }, [selectedChild])
+
+  if (loading) return <Preloader />
 
   const currentTermGrades = gradesData[selectedTerm as keyof typeof gradesData] || []
   const avgPercentage = currentTermGrades.length > 0 
