@@ -7,6 +7,8 @@ import NextTopLoader from "nextjs-toploader"
 import { Toaster } from "@/components/ui/sonner"
 import { LoadingProvider } from "@/components/providers/loading-provider"
 import "./globals.css"
+import Navbar from "@/components/Navbar"
+import Navigation from "@/components/navigation"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -45,6 +47,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <LoadingProvider>
             <NextTopLoader color="#7c3aed" showSpinner={false} />
+            
             {children}
             <Analytics />
             <Toaster />

@@ -92,7 +92,7 @@ export default function RegisterPage() {
   if (step === "role") {
     return (
       <>
-        <Navigation /> 
+        {/* <Navigation />  */}
         <main className="min-h-screen bg-background">
           <section className="px-4 py-20 md:py-28 bg-[rgb(127,29,29)] relative overflow-hidden">
              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] bg-cover bg-center bg-no-repeat opacity-20"></div>
@@ -148,14 +148,14 @@ export default function RegisterPage() {
             </div>
           </div>
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </>
     )
   }
 
   return (
     <>
-      <Navigation />
+      {/* <Navigation /> */}
       <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
         <div className="grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md bg-card border border-border">
           <div className="md:max-w-md w-full px-4 py-4">
@@ -412,7 +412,7 @@ export default function RegisterPage() {
           </div>
         </div>
       </div>
-       <Footer /> 
+       {/* <Footer />  */}
     </>
   )
 }
