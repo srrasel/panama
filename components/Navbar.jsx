@@ -9,8 +9,8 @@ import { useState } from "react";
 const dropdownData = {
   title: "INFORMATION FOR",
   items: [
-    { label: "Students", href: "/info/students" },
-    { label: "Parents", href: "/info/parents" },
+    { label: "Students", href: "/login" },
+    { label: "Parents", href: "/login" },
   ],
 };
 
