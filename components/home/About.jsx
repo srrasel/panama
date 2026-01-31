@@ -39,7 +39,7 @@ export default function AboutSection() {
             {/* Red Architectural Detail Background */}
             <div className="absolute top-0 right-0 w-full h-3/5 bg-[#bc1a31] overflow-hidden rounded-sm">
               <Image
-                src="/example-image-12.jpg"
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
                 alt="Architectural pattern"
                 fill
                 className="object-cover opacity-40 mix-blend-multiply"
@@ -49,7 +49,7 @@ export default function AboutSection() {
             {/* 16:9 Aspect Ratio */}
             <div className="absolute bottom-0 left-10 md:left-20 w-[90vw] md:w-[40vw] aspect-video shadow-2xl">
               <Image
-                src="/home_house.jpg"
+                src="https://images.unsplash.com/photo-1592280771190-3e2e4d571952?q=80&w=1974&auto=format&fit=crop"
                 alt="Students on porch"
                 fill
                 className="object-cover "
@@ -81,7 +81,7 @@ export default function AboutSection() {
           {/* Left Side: Classroom Image */}
           <div className="relative w-full aspect-4/3">
             <Image
-              src="/home_harkness.jpg"
+              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
               alt="Harkness table discussion"
               fill
               className="object-cover"

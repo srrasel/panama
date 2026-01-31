@@ -35,7 +35,7 @@ const ResearchInstitutes = () => {
         {/* Right Column: Image using Next.js Image component */}
         <div className="relative aspect-square w-full overflow-hidden order-1 md:order-2">
           <Image
-            src="/beyond/leopold-scholars.jpg"
+            src="https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=2080&auto=format&fit=crop"
             alt="Students in a creek conducting research"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"

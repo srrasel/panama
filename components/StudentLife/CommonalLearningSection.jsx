@@ -66,7 +66,7 @@ export default function CommunalLearningSection() {
             {/* Architectural pattern overlay using Next.js Image for optimization */}
             <div className="absolute inset-0 opacity-20 pointer-events-none">
               <Image
-                src="/example-image-12.jpg"
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
                 alt="pattern"
                 fill
                 className="object-cover"
@@ -78,7 +78,7 @@ export default function CommunalLearningSection() {
           {/* Main Action Photo (Top Layer) */}
           <div className="relative z-20 w-[90%] sm:w-[90%] md:w-[85%] lg:w-[75%] mr-4 sm:mr-6 md:mr-8 lg:mr-10 mt-4 sm:mt-6 md:mt-8 lg:mt-10 aspect-4/3 shadow-xl sm:shadow-2xl lg:shadow-2xl">
             <Image
-              src="/life/gps_communal-learning.jpg"
+              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
               alt="Students learning together"
               fill
               className="object-cover"

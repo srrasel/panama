@@ -50,7 +50,7 @@ const BoardOfTrustees = () => {
     { name: "IAN S. RICE '95", location: "AVON, CONNECTICUT" },
     { name: "WILLIAM L. ROBBINS '86", location: "SAN FRANCISCO, CALIFORNIA" },
     { name: "CORRENTE SCHANKLER '98 P'29", location: "NEW YORK, NEW YORK" },
-    { name: "LEUCRETIA BROWN SHAW '94", BLAIRSTOWN: "NEW JERSEY" },
+    { name: "LEUCRETIA BROWN SHAW '94", location: "BLAIRSTOWN, NEW JERSEY" },
     { name: "MARC STERNBERG P'27", location: "BROOKLYN, NEW YORK" },
     { name: "JOSEPH C. TSAI '82", location: "HONG KONG, CHINA" },
     { name: "MEERA S. VISWANATHAN, PH.D", location: "WAKEFIELD, RHODE ISLAND" },

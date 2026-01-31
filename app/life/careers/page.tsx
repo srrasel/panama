@@ -36,7 +36,7 @@ export default function CareersPage() {
       <SecondHero
         title="Career Services"
         subtitle="Preparing students for success beyond the classroom through comprehensive counseling and experiential learning."
-        backgroundImage="/life/readingtable.webp"
+        backgroundImage="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Careers", href: "/life/careers" }]}
       />
 
@@ -60,7 +60,7 @@ export default function CareersPage() {
             </div>
             <div className="md:w-1/2 relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/life/grid_library.jpg"
+                src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop"
                 alt="Students studying in library"
                 fill
                 className="object-cover"
@@ -96,7 +96,7 @@ export default function CareersPage() {
           <div className="bg-[#1a1a1a] rounded-3xl overflow-hidden relative">
             <div className="absolute inset-0 opacity-20">
                <Image
-                src="/life/students-laughing.webp"
+                src="https://images.unsplash.com/photo-1529390079861-591de354faf5?q=80&w=2070&auto=format&fit=crop"
                 alt="Background pattern"
                 fill
                 className="object-cover"
@@ -126,7 +126,7 @@ export default function CareersPage() {
            <div className="max-w-5xl mx-auto text-center">
              <div className="mb-8">
                <Image
-                 src="/life/grid_advisors.webp" 
+                 src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" 
                  alt="Alumni Portrait"
                  width={120}
                  height={120}

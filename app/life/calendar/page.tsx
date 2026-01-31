@@ -60,7 +60,7 @@ export default function CalendarPage() {
       <SecondHero
         title="School Calendar"
         subtitle="Stay updated with upcoming events, academic schedules, and community gatherings."
-        backgroundImage="/academic/library2.jpg"
+        backgroundImage="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=2068&auto=format&fit=crop"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Calendar", href: "/life/calendar" }]}
       />
       

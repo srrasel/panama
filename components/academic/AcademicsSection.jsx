@@ -21,7 +21,7 @@ export default function AcademicSection() {
           {/* 2. Foreground Image (Natural Colors) */}
           <div className="absolute bottom-0 right-0 w-[75%] h-[70%] z-20 shadow-lg sm:shadow-xl md:shadow-xl overflow-hidden rounded-sm">
             <Image
-              src="/academic/10521_lville_098_4432.jpg"
+              src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=2070&auto=format&fit=crop"
               alt="Students learning outdoors"
               fill
               className="object-cover"

@@ -30,7 +30,7 @@ export default function CommunityPage() {
 Academic Advising and Support"
         description="Our academic advising structure, peer tutoring, and learning support for qualified individuals encourages students to self-advocate and seek help when they need it."
         buttonText="Learn More"
-        imagePath="/academic/GOPR0138.jpg"
+        imagePath="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop"
         imageAlt="Students hiking"
       />
       <AcademicLeadership />

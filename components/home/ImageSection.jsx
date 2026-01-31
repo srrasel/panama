@@ -6,22 +6,22 @@ import Link from "next/link";
 const gridItems = [
   {
     title: "Academics",
-    image: "/home_academics.jpg",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop",
     link: "/academics",
   },
   {
     title: "Athletics",
-    image: "/home_athletics.jpg",
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop",
     link: "/athletics",
   },
   {
     title: "Admissions",
-    image: "/pa_dance_frobeats-horiz.jpg",
+    image: "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?q=80&w=2070&auto=format&fit=crop",
     link: "/arts",
   },
   {
     title: "Beyond the Classroom",
-    image: "/home_exp.jpg",
+    image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2070&auto=format&fit=crop",
     link: "/beyond",
   },
 ];
@@ -30,7 +30,7 @@ export default function ImageSection() {
   return (
     <section
       style={{
-        backgroundImage: 'url("/whiteout_pop-hall.jpg")',
+        backgroundImage: 'url("https://images.unsplash.com/photo-1453749024868-697480531b72?q=80&w=2007&auto=format&fit=crop")',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

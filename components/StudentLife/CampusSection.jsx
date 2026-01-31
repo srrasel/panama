@@ -3,14 +3,14 @@
 import Image from "next/image";
 
 const houseImages = [
-  "/life/piyano.jpg",
-  "/life/lodo.jpg",
-  "/life/tabletanis.jpg",
-  "/life/adda.jpg",
-  "/life/onugame.jpg",
-  "/life/outtenis.jpg",
-  "/life/readingtable.jpg",
-  "/life/room.jpg",
+  "https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1590579491624-f98f36d4c763?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2069&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1606167668584-78701c57f13d?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069&auto=format&fit=crop",
 ];
 
 export default function CampusSection() {

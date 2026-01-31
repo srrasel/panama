@@ -17,7 +17,7 @@ export default function VirtualTourSection() {
         {
           label: "DAWES HOUSE, GIRLS' LOWER",
           image:
-            "https://images.unsplash.com/photo-1541339907198-e08756defeec?q=80&w=1000",
+            "https://images.unsplash.com/photo-1510531704581-5b2870972060?q=80&w=1000",
         },
         {
           label: "RAYMOND HOUSE, BOYS' LOWER",
@@ -27,7 +27,7 @@ export default function VirtualTourSection() {
         {
           label: "STEPHENS HOUSE, THE CRESCENT",
           image:
-            "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000",
+            "https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1000",
         },
         {
           label: "DICKINSON HOUSE, THE CIRCLE",

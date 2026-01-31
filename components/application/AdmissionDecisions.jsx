@@ -23,7 +23,7 @@ const AdmissionDecisions = () => {
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/academic/background.jpg')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop')",
         }}
       />
 

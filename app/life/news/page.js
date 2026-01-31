@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 
 const heroData = {
-  backgroundImage: "/beyond/BeyondHero.jpg",
+  backgroundImage: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop",
   breadcrumbs: [
     { label: "Home", href: "/" },
     { label: "Student Life", href: "/life/student-life" },
@@ -136,7 +136,7 @@ const blogsData = {
         "A Pamavambo graduate is ready. Ready to embrace higher education and engage in the professional world; to create cultures of belonging; to enter any conversation with confidence and an open mind.In 18 minutes and 10 seconds, we explore the future of education with insights from bright-minded individuals, inspiring new ways of thinking. Stay tuned for future episodes and email us at communication@pamavambo.org to get in touch.",
       buttonText: "Listen Now",
       href: "/academics",
-      backgroundImage: "/life/cards1.jpg",
+      backgroundImage: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop",
     },
     {
       title: "Photo Albums",
@@ -144,7 +144,7 @@ const blogsData = {
         "When participating in co-curriculars, students learn through shared experience, varying perspectives, and a mutual accountability that encourages tenacity, resilience, empathy, and compassionate objectivity.The vibrant community at the Pamavambo School is documented in the albums on our Flickr account.Updated throughout the year, our photo albums are full of beautiful, high-resolution, professional photographs that are available for download.",
       buttonText: "Take a Look",
       href: "/co-curriculars",
-      backgroundImage: "/life/cards2.jpg",
+      backgroundImage: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
     },
   ];
 

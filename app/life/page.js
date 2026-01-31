@@ -18,7 +18,7 @@ export default function Life() {
         title="Student
 Life"
         subtitle="Are you ready to become a Lawrentian?"
-        backgroundImage="/life/students-laughing.jpg" // Ensure this file is in your /public folder
+        backgroundImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />
       <CommunalLearningSection />

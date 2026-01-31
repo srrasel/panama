@@ -4,17 +4,17 @@ export default function ActivitySection() {
   // Hardcoded data within the component
   const items = [
     {
-      image: "/life/ropes-course.jpg",
+      image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop",
       textPrefix: "PAYING ATTENTION",
       highlightText: "TO THEMSELVES AND OTHERS",
     },
     {
-      image: "/life/cleaning.jpg",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
       textPrefix: "SEARCHING FOR MEANING",
       highlightText: "IN PATTERNS AND CYCLES",
     },
     {
-      image: "/life/house-olympics.jpg",
+      image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=2070&auto=format&fit=crop",
       textPrefix: "CURIOUS, COURAGEOUS,",
       highlightText: "AND EXPRESSIVE",
     },

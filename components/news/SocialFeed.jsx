@@ -6,7 +6,7 @@ const SocialFeed = () => {
   const posts = [
     {
       id: 1,
-      src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       alt: "Students working on laptops",
       description:
         "Students collaborate on innovative projects in our new tech lab",

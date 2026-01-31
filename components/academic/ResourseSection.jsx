@@ -5,14 +5,14 @@ const resourceData = [
     title: "Bunn Library",
     description:
       "Bunn Library is a community hub of learning and exploration. An extension of the House and the classroom, Bunn Library is a welcoming place to gather that supports the intellectual, social, and creative pursuits of our students.",
-    image: "/academic/library_online-resources.jpg",
+    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2070&auto=format&fit=crop",
     buttonText: "START YOUR SEARCH",
   },
   {
     title: "College Counseling",
     description:
       "Pamavambo's college counseling program is designed to be an extension of the active learning that takes place each day in the classroom around the Harkness table, in the Houses, on the athletic fields, and throughout campus.",
-    image: "/academic/library2.jpg",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
     buttonText: "TAKE THE NEXT STEP",
   },
 ];

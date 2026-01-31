@@ -6,7 +6,7 @@ const BeyondHero = () => {
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat grayscale"
         style={{
-          backgroundImage: `url('/beyond/BeyondHero.jpg')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop')`,
         }}
       />
 

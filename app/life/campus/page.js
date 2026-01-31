@@ -16,7 +16,7 @@ const subNavItems = [
   { label: "NEWS AND MEDIA", href: "/news" },
 ];
 const heroData = {
-  backgroundImage: "/beyond/BeyondHero.jpg",
+  backgroundImage: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop",
   breadcrumbs: [
     { label: "Home", href: "/" },
     { label: "Student Life", href: "/life/student-life" },

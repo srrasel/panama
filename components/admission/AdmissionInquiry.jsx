@@ -54,8 +54,8 @@ export default function AdmissionInquiry() {
                 {/* Perimeter Map Image */}
                 <div className="relative w-full aspect-4/3 border-2 sm:border-3 md:border-4 border-[#a0162a] shadow-lg sm:shadow-xl md:shadow-2xl">
                   <Image
-                    src="/admission/map.jpg"
-                    alt="Day Student Perimeter Map"
+                    src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2070&auto=format&fit=crop"
+                    alt="Admission Planning"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 66vw"
