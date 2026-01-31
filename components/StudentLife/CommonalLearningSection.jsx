@@ -15,23 +15,7 @@ const subNavItems = [
 export default function CommunalLearningSection() {
   return (
     <div className="w-full bg-white pb-16 sm:pb-20 md:pb-24 lg:pb-28">
-      {/* 1. Sub-Navigation Bar */}
-      <nav className="border-t border-b border-[#b89149]/30 py-3 sm:py-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-6">
-          <ul className="flex flex-wrap justify-center sm:justify-center md:justify-between gap-3 sm:gap-4 md:gap-4 lg:gap-6">
-            {subNavItems.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  className="text-[10px] sm:text-[10px] md:text-xs lg:text-xs font-bold tracking-wider sm:tracking-widest text-gray-800 hover:text-[#bc1a31] transition-colors"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
+      
 
       {/* 2. Main Content Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-6 py-10 sm:py-12 md:py-14 lg:py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
