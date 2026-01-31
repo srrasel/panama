@@ -5,21 +5,21 @@ const teamMembers = [
     name: "Christy Aponte",
     title:
       "Director of Data Management Strategy and Operations, Office of Admission",
-    email: "caponte@lawrenceville.org",
+    email: "caponte@pamavambo.org",
     image:
       "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400",
   },
   {
     name: "Dana E. Brown",
     title: "Director, Office of Admission",
-    email: "dbrown@lawrenceville.org",
+    email: "dbrown@pamavambo.org",
     image:
       "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=400",
   },
   {
     name: "Yangyang Daniell",
     title: "Senior Assistant Director, Office of Admission",
-    email: "ydaniell@lawrenceville.org",
+    email: "ydaniell@pamavambo.org",
     image:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=400",
   },
@@ -27,28 +27,28 @@ const teamMembers = [
     name: "Christi Ding",
     title:
       "Director of Admission Communications Associate Director, Office of Admission",
-    email: "cding@lawrenceville.org",
+    email: "cding@pamavambo.org",
     image:
       "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400",
   },
   {
     name: "Cindy Ehret '95 H'03 P'28",
     title: "Interviewer, Office of Admission",
-    email: "cehret@lawrenceville.org",
+    email: "cehret@pamavambo.org",
     image:
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400",
   },
   {
     name: "Lisa Ewanchyna",
     title: "Senior Associate Director, Office of Admission",
-    email: "lewanchyna@lawrenceville.org",
+    email: "lewanchyna@pamavambo.org",
     image:
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=400",
   },
   {
     name: "Lauren Gold",
     title: "Director of Scholarship Aid, Office of Admission",
-    email: "lgold@lawrenceville.org",
+    email: "lgold@pamavambo.org",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
   },
@@ -56,7 +56,7 @@ const teamMembers = [
     name: "Brian Jacobs H'22 P'29",
     title:
       "Department Chair and French Teacher, Language Department; Faculty Interviewer",
-    email: "bjacobs@lawrenceville.org",
+    email: "bjacobs@pamavambo.org",
     image:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
   },

@@ -4,17 +4,17 @@ const highlights = [
   {
     title: "Our Faculty",
     icon: "/academic/child.png",
-    desc: "Lawrenceville educators are committed to building a community based on academic excellence achieved through the synergy of diverse perspectives and the boundless potential of their students.",
+    desc: "Pamavambo educators are committed to building a community based on academic excellence achieved through the synergy of diverse perspectives and the boundless potential of their students.",
   },
   {
     title: "Our Students",
     icon: "/academic/raised-arm.png",
-    desc: "Lawrenceville students are good citizens, ambitious learners, and servant leaders. They make each other better and lift each other up. Our students are willing to make mistakes.",
+    desc: "Pamavambo students are good citizens, ambitious learners, and servant leaders. They make each other better and lift each other up. Our students are willing to make mistakes.",
   },
   {
     title: "Our Home",
     icon: "/academic/architecture-04.svg",
-    desc: "The Lawrenceville School sits on more than 700 acres in suburban New Jersey. A mix of natural beauty, modern technology, and traditional brick buildings brings us together.",
+    desc: "The Pamavambo School sits on more than 700 acres in suburban New Jersey. A mix of natural beauty, modern technology, and traditional brick buildings brings us together.",
   },
 ];
 

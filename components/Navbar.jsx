@@ -1,8 +1,10 @@
 "use client";
 
-import { ChevronDown, Menu, Search, X } from "lucide-react";
+import { ChevronDown, Menu, Search, X, LogOut, User } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useLogout } from "@/hooks/use-logout";
 
 /* ================= CONFIG ================= */
 
@@ -58,6 +60,17 @@ export default function Navbar() {
   const [openIndex, setOpenIndex] = useState(null);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const logout = useLogout();
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then(res => res.json())
+      .then(data => {
+        if (data?.name) setUser(data)
+      })
+      .catch(err => console.error("Error fetching user:", err))
+  }, []);
 
   return (
     <>
@@ -112,7 +125,52 @@ export default function Navbar() {
 
           {/* 3. UTILITY AREA: Info For & Search */}
           <div className="flex items-center gap-6 z-60">
-            {/* "Information For" Dropdown */}
+            {/* User Profile or "Information For" Dropdown */}
+            {user ? (
+               <div
+                className="hidden lg:flex text-white items-center gap-3 cursor-pointer relative"
+                onMouseEnter={() => setIsInfoOpen(true)}
+                onMouseLeave={() => setIsInfoOpen(false)}
+              >
+                 <div className="w-9 h-9 rounded-full border-2 border-amber-500/50 p-0.5 overflow-hidden relative shadow-md">
+                   <div className="w-full h-full rounded-full overflow-hidden relative bg-gray-200">
+                     <Image
+                        src={user?.imageUrl || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=random`}
+                        alt="Profile"
+                        fill
+                        className="object-cover"
+                     />
+                   </div>
+                </div>
+
+                {isInfoOpen && (
+                  <div className="absolute top-full right-0 w-56 bg-[#610716] text-white shadow-2xl py-2 rounded-b-xl border-t border-amber-500/30 z-50">
+                     <div className="px-5 py-4 border-b border-white/10 mb-2">
+                        <p className="text-sm font-bold truncate text-white">{user.name}</p>
+                        <p className="text-[10px] text-amber-400 truncate uppercase tracking-wider">{user.role || 'Member'}</p>
+                    </div>
+                    <ul className="flex flex-col">
+                      <li className="px-4 py-2 hover:bg-[#821021] transition-colors">
+                        <Link
+                          href={user.role === 'student' ? "/student/dashboard" : user.role === 'parent' ? "/parent/dashboard" : "/login"}
+                          className="flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white/90"
+                        >
+                          <User size={14} className="text-amber-500" /> Dashboard
+                        </Link>
+                      </li>
+                       <li className="px-4 py-2 hover:bg-[#821021] transition-colors">
+                        <button
+                          onClick={logout}
+                          className="flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white/90 w-full text-left"
+                        >
+                          <LogOut size={14} className="text-amber-500" /> Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ) : (
             <div
               className="hidden lg:flex text-white items-center gap-1 cursor-pointer relative text-[10px] lg:text-xs tracking-widest font-bold"
               onMouseEnter={() => setIsInfoOpen(true)}
@@ -138,6 +196,7 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+            )}
 
             {/* Search Icon */}
             <button className="text-white hover:text-amber-500 transition-colors">

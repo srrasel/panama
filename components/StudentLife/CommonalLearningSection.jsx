@@ -42,7 +42,7 @@ export default function CommunalLearningSection() {
           </h2>
           <div className="space-y-4 sm:space-y-5 md:space-y-6 text-gray-700 leading-relaxed font-light">
             <p className="text-base sm:text-lg md:text-lg font-medium text-gray-900">
-              The outcome of a Lawrenceville education — the most lasting and
+              The outcome of a Pamavambo education — the most lasting and
               impactful outcome — is a set of values, a way of being, an ability
               to create belonging.
             </p>
@@ -78,7 +78,7 @@ export default function CommunalLearningSection() {
           {/* Main Action Photo (Top Layer) */}
           <div className="relative z-20 w-[90%] sm:w-[90%] md:w-[85%] lg:w-[75%] mr-4 sm:mr-6 md:mr-8 lg:mr-10 mt-4 sm:mt-6 md:mt-8 lg:mt-10 aspect-4/3 shadow-xl sm:shadow-2xl lg:shadow-2xl">
             <Image
-              src="/student_life/gps_communal-learning.jpg"
+              src="/life/gps_communal-learning.jpg"
               alt="Students learning together"
               fill
               className="object-cover"

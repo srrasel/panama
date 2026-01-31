@@ -33,8 +33,8 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative w-28 h-28 opacity-60">
               <Image
-                src="/logo-emblem-white.svg"
-                alt="The Lawrenceville School Seal"
+                src="/logo-school.png"
+                alt="The Pamavambo School Seal"
                 fill
                 className="object-contain grayscale brightness-200"
               />
@@ -44,7 +44,7 @@ export default function Footer() {
                 2500 Main Street
               </p>
               <p className="text-xs tracking-wide opacity-80">
-                Lawrenceville, NJ 08648
+                Pamavambo, NJ 08648
               </p>
               <p className="text-xs tracking-wide opacity-80">
                 Admission: (609) 895-2030

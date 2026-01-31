@@ -8,28 +8,28 @@ const features = [
     title: "Health and Wellness",
     description:
       "Wellness and inclusion work are inextricably tied with the thread of belonging - bringing people together in thoughtful and deliberate ways to reinforce a sense of community. With a hub at the Al Rashid Health and Wellness Center, student wellness is considered through all aspects of life.",
-    icon: "/student_life/icon_first-aid.png",
+    icon: "/life/icon_first-aid.png",
     href: "/health",
   },
   {
     title: "Public Safety",
     description:
       "The School's strategic approach to security planning integrates best practices in training, policy development, physical security, drills, technology, and coordination with local first responders. Officers are on duty 24 hours a day, 7 days a week.",
-    icon: "/student_life/icons8-safety-500.png",
+    icon: "/life/icons8-safety-500.png",
     href: "/safety",
   },
   {
     title: "Dining",
     description:
-      "The Lawrenceville community is healthy and strong. We approach dining as a time to build relationships just as much as a time to nourish and sustain ourselves. We accommodate dietary restrictions, offer culturally responsive options, and create opportunities for learning and connection.",
-    icon: "/student_life/icon_peopleattable.png",
+      "The Pamavambo community is healthy and strong. We approach dining as a time to build relationships just as much as a time to nourish and sustain ourselves. We accommodate dietary restrictions, offer culturally responsive options, and create opportunities for learning and connection.",
+    icon: "/life/icon_peopleattable.png",
     href: "/dining",
   },
   {
     title: "Diversity and Belonging",
     description:
       "Learning is enriched when it happens among students with different backgrounds, experiences, and perspectives. We are proud of our diverse and welcoming community and we mindfully support each student's identity.",
-    icon: "/student_life/icon_venn-diagram.png",
+    icon: "/life/icon_venn-diagram.png",
     href: "/diversity",
   },
 ];

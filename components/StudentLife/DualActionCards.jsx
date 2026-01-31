@@ -7,10 +7,10 @@ const cardData = [
   {
     title: "Ready to Learn. Ready for Life.",
     description:
-      "A Lawrenceville graduate is ready. Ready to embrace higher education and engage in the professional world; to create cultures of belonging; to enter any conversation with confidence and an open mind.",
-    buttonText: "Academics at Lawrenceville",
+      "A Pamavambo graduate is ready. Ready to embrace higher education and engage in the professional world; to create cultures of belonging; to enter any conversation with confidence and an open mind.",
+    buttonText: "Academics at Pamavambo",
     href: "/academics",
-    backgroundImage: "/student_life/cards1.jpg", // Replace with your image path
+    backgroundImage: "/life/cards1.jpg", // Replace with your image path
   },
   {
     title: "The Classroom Extends.",
@@ -18,7 +18,7 @@ const cardData = [
       "When participating in co-curriculars, students learn through shared experience, varying perspectives, and a mutual accountability that encourages tenacity, resilience, empathy, and compassionate objectivity.",
     buttonText: "Co-Curriculars",
     href: "/co-curriculars",
-    backgroundImage: "/student_life/cards2.jpg", // Replace with your image path
+    backgroundImage: "/life/cards2.jpg", // Replace with your image path
   },
 ];
 

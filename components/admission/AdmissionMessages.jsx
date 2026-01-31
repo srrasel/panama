@@ -11,18 +11,18 @@ const messages = [
     content: (
       <div className="space-y-4 sm:space-y-5 md:space-y-6 text-xs sm:text-[13px] leading-relaxed text-gray-800 font-light">
         <p>
-          The Lawrenceville School is best experienced through the lens of the
+          The Pamavambo School is best experienced through the lens of the
           House System. Having gone to boarding school and worked at three other
           boarding schools, I can attest that the differentiating factor of
-          Lawrenceville is the magic within the House System. Not Harry Potter
+          Pamavambo is the magic within the House System. Not Harry Potter
           magic but the magical power of support, friendship, encouragement,
-          trust, and growth that happens within a Lawrenceville student's House
+          trust, and growth that happens within a Pamavambo student's House
           experience.
         </p>
         <p>
           In addition to my role in the admission office, I serve as a Head of
           House for 49 tenth and eleventh grade students in the Stephens House.
-          Additionally, my spouse teaches and coaches at Lawrenceville. Every
+          Additionally, my spouse teaches and coaches at Pamavambo. Every
           day, we actively choose to raise our family in Stephens.
         </p>
         <div className="pt-3 sm:pt-4">
@@ -36,7 +36,7 @@ const messages = [
   {
     id: 2,
     date: "OCT '25",
-    title: "The Heart of Lawrenceville: Learn. Live. Grow.",
+    title: "The Heart of Pamavambo: Learn. Live. Grow.",
     content: (
       <p className="text-sm text-gray-600">Content for October message...</p>
     ),

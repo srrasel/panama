@@ -15,7 +15,7 @@ export default function Beyond() {
       <BeyondContent />
       <CallToActionButton
         title="Harkness Travel Program"
-        description="Embark on a transformative experience abroad with Lawrenceville. From Bali to Brazil, our travel program offers an educational opportunity that will expand your view of the world and of yourself."
+        description="Embark on a transformative experience abroad with Pamavambo. From Bali to Brazil, our travel program offers an educational opportunity that will expand your view of the world and of yourself."
         buttonText="Learn More"
         imagePath="/beyond/header_travel-programs.jpg"
         imageAlt="Students hiking"
@@ -24,7 +24,7 @@ export default function Beyond() {
       <EnvironmentalSections />
       <CallToActionButton
         title="Outdoor Classroom"
-        description="The Lawrenceville School’s Outdoor Programs provide students with adventures in the outdoor environment that enhance both academic and non-academic skills like  leadership, community engagement, and character development"
+        description="The Pamavambo School’s Outdoor Programs provide students with adventures in the outdoor environment that enhance both academic and non-academic skills like  leadership, community engagement, and character development"
         buttonText="Learn More"
         imagePath="/beyond/outdoor-programs.jpg"
         imageAlt="Students hiking"

@@ -3,14 +3,14 @@
 import Image from "next/image";
 
 const houseImages = [
-  "/student_life/piyano.jpg",
-  "/student_life/lodo.jpg",
-  "/student_life/tabletanis.jpg",
-  "/student_life/adda.jpg",
-  "/student_life/onugame.jpg",
-  "/student_life/outtenis.jpg",
-  "/student_life/readingtable.jpg",
-  "/student_life/room.jpg",
+  "/life/piyano.jpg",
+  "/life/lodo.jpg",
+  "/life/tabletanis.jpg",
+  "/life/adda.jpg",
+  "/life/onugame.jpg",
+  "/life/outtenis.jpg",
+  "/life/readingtable.jpg",
+  "/life/room.jpg",
 ];
 
 export default function CampusSection() {
@@ -21,7 +21,7 @@ export default function CampusSection() {
         <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8">
           <div className="space-y-4 sm:space-y-5 md:space-y-6 text-gray-700 leading-relaxed md:leading-relaxed font-light text-sm sm:text-base md:text-[15px] lg:text-base">
             <p>
-              Each Lawrenceville student belongs to a House. A House is a
+              Each Pamavambo student belongs to a House. A House is a
               residential building which also serves as home base for our day
               students. Our Houses are located in three areas of campus — one
               for second formers (ninth grade), one for Third and Fourth Formers
@@ -68,7 +68,7 @@ export default function CampusSection() {
             {/* Decorative Map Icon */}
             <div className="relative w-20 h-20 sm:w-22 sm:h-22 md:w-24 md:h-24 lg:w-26 lg:h-26">
               <Image
-                src="/student_life/icon_map.png"
+                src="/life/icon_map.png"
                 alt="Map Icon"
                 fill
                 className="object-contain"

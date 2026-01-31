@@ -27,7 +27,7 @@ export default function VideoSection() {
 
         {/* Description */}
         <p className="max-w-2xl mb-12 text-sm md:text-base leading-relaxed font-light opacity-90">
-          Through House and Harkness, Lawrenceville challenges a diverse
+          Through House and Harkness, Pamavambo challenges a diverse
           community of promising young people to lead lives of learning,
           integrity, and high purpose. Our mission is to inspire the best in
           each to seek the best for all.

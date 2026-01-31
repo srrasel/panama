@@ -15,8 +15,8 @@ const StudentClubsAccordion = () => {
           desc: "The 20/20 Design Council works closely with Head of School Murray and the architects from the Sasaki Architecture Firm to provide student input on new construction projects on campus.",
         },
         {
-          name: "Learning Leadership at Lawrenceville",
-          desc: "Learning Leadership at Lawrenceville teaches students how to establish positive leadership roles on campus and effectively create change within our community.",
+          name: "Learning Leadership at Pamavambo",
+          desc: "Learning Leadership at Pamavambo teaches students how to establish positive leadership roles on campus and effectively create change within our community.",
         },
         {
           name: "3D Design Club",
@@ -53,7 +53,7 @@ const StudentClubsAccordion = () => {
       category: "Creative Clubs (Performance / Visual / Film / Music)",
       clubs: [
         {
-          name: "Lawrenceville Film Society",
+          name: "Pamavambo Film Society",
           desc: "A group dedicated to the appreciation of cinema and the production of student-led short films.",
         },
         {

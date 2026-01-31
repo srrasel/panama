@@ -20,7 +20,7 @@ export default function AdmissionsCTA() {
         <div className="w-full lg:w-3/5 space-y-8 sm:space-y-10">
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
             <p className="text-lg sm:text-xl md:text-2xl lg:text-2xl font-serif text-[#1a1a1a] leading-relaxed md:leading-relaxed">
-              Through House and Harkness, Lawrenceville challenges a diverse
+              Through House and Harkness, Pamavambo challenges a diverse
               community of promising young people to lead lives of learning,
               integrity, and high purpose. Our mission is to inspire the best in
               each to seek the best for all.
@@ -28,7 +28,7 @@ export default function AdmissionsCTA() {
 
             <p className="text-gray-600 font-light leading-relaxed max-w-xl text-sm sm:text-base md:text-base">
               If you&apos;re ready to take the next steps towards joining the
-              Lawrenceville community, start with our inquiry form. Next,
+              Pamavambo community, start with our inquiry form. Next,
               schedule your visit with us to see what House, Harkness, and Heart
               is all about.
             </p>

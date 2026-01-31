@@ -23,7 +23,7 @@ export default function Academics() {
       <AcademicDepartments />
       <CallToActionButton
         title="Beyond the Classroom"
-        description="While the Harkness table is the cornerstone of learning at Lawrenceville, there are many opportunities for students to apply and expand their knowledge beyond the classroom."
+        description="While the Harkness table is the cornerstone of learning at Pamavambo, there are many opportunities for students to apply and expand their knowledge beyond the classroom."
         buttonText="Go Beyond"
         imagePath="/academic/GOPR0138.jpg"
         imageAlt="Students hiking"

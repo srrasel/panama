@@ -19,6 +19,7 @@ import {
 } from "lucide-react"
 import Navigation from "@/components/navigation"
 import Header from "../header"
+import Navbar from "@/components/Navbar"
 import { useLoading } from "@/components/providers/loading-provider"
 import { useLogout } from "@/hooks/use-logout"
 
@@ -61,9 +62,10 @@ export default function StudentPortalLayout({ children, title, breadcrumbs }: St
   return (
     <div className="min-h-screen bg-slate-50">
      
+       <Navbar />
        {/* <Header/> */}
        {/* Red Header */}
-      <section className="bg-[#7f1d1d] py-28 px-6">
+      <section className="bg-[#7f1d1d] pt-[250px] pb-28 px-6">
         <div className="max-w-[1520px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-white text-6xl font-extrabold tracking-tight">{title}</h1>

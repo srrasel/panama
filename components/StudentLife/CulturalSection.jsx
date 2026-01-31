@@ -6,32 +6,32 @@ const supportCategories = [
   {
     id: 1,
     name: "A CULTURE OF SUPPORT",
-    image: "/student_life/grid_cultureofsupport.jpg",
+    image: "/life/grid_cultureofsupport.jpg",
   },
   {
     id: 2,
     name: "CLASSROOM TEACHERS",
-    image: "/student_life/grid_classroomteachers.jpg",
+    image: "/life/grid_classroomteachers.jpg",
   },
-  { id: 3, name: "COACHES", image: "/student_life/grid_coaches.jpg" },
+  { id: 3, name: "COACHES", image: "/life/grid_coaches.jpg" },
   {
     id: 4,
     name: "RESIDENTIAL FACULTY",
-    image: "/student_life/grid_residentialfaculty.jpg",
+    image: "/life/grid_residentialfaculty.jpg",
   },
-  { id: 5, name: "ADVISORS", image: "/student_life/grid_advisors.jpg" },
+  { id: 5, name: "ADVISORS", image: "/life/grid_advisors.jpg" },
   {
     id: 6,
     name: "PROGRAM LEADERS",
-    image: "/student_life/grid_programleaders.jpg",
+    image: "/life/grid_programleaders.jpg",
   },
-  { id: 7, name: "CHAPERONES", image: "/student_life/grid_chaperones.jpg" },
+  { id: 7, name: "CHAPERONES", image: "/life/grid_chaperones.jpg" },
   {
     id: 8,
     name: "ADMINISTRATION",
-    image: "/student_life/grid_administrators.jpg",
+    image: "/life/grid_administrators.jpg",
   },
-  { id: 9, name: "PARENTS", image: "/student_life/grid_parents.jpg" },
+  { id: 9, name: "PARENTS", image: "/life/grid_parents.jpg" },
 ];
 
 export default function CulturalSection() {
@@ -76,7 +76,7 @@ export default function CulturalSection() {
           {/* Large Preview Image */}
           <div className="relative aspect-4/3 w-full shadow-lg sm:shadow-xl md:shadow-2xl overflow-hidden">
             <Image
-              src="/student_life/community.jpg"
+              src="/life/community.jpg"
               alt="community"
               fill
               className="object-cover transition-opacity duration-500"

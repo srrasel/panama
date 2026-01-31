@@ -4,17 +4,17 @@ export default function ActivitySection() {
   // Hardcoded data within the component
   const items = [
     {
-      image: "/student_life/ropes-course.jpg",
+      image: "/life/ropes-course.jpg",
       textPrefix: "PAYING ATTENTION",
       highlightText: "TO THEMSELVES AND OTHERS",
     },
     {
-      image: "/student_life/cleaning.jpg",
+      image: "/life/cleaning.jpg",
       textPrefix: "SEARCHING FOR MEANING",
       highlightText: "IN PATTERNS AND CYCLES",
     },
     {
-      image: "/student_life/house-olympics.jpg",
+      image: "/life/house-olympics.jpg",
       textPrefix: "CURIOUS, COURAGEOUS,",
       highlightText: "AND EXPRESSIVE",
     },

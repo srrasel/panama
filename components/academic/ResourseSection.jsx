@@ -11,7 +11,7 @@ const resourceData = [
   {
     title: "College Counseling",
     description:
-      "Lawrenceville's college counseling program is designed to be an extension of the active learning that takes place each day in the classroom around the Harkness table, in the Houses, on the athletic fields, and throughout campus.",
+      "Pamavambo's college counseling program is designed to be an extension of the active learning that takes place each day in the classroom around the Harkness table, in the Houses, on the athletic fields, and throughout campus.",
     image: "/academic/library2.jpg",
     buttonText: "TAKE THE NEXT STEP",
   },

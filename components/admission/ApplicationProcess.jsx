@@ -7,7 +7,7 @@ export default function ApplicationProcess() {
         </h2>
         <p className="text-white/80 text-xs sm:text-sm md:text-sm max-w-full sm:max-w-lg md:max-w-xl leading-relaxed sm:leading-relaxed">
           From inquiry through enrollment, this guide will let you know what to
-          expect when applying to The Lawrenceville School, including key dates,
+          expect when applying to The Pamavambo School, including key dates,
           required submissions, and helpful links.
         </p>
         <button className="bg-[#bc1a31] hover:bg-[#a0162a] text-white px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-[10px] font-bold tracking-wider sm:tracking-widest flex items-center gap-2 sm:gap-3 md:gap-4 transition-all uppercase">

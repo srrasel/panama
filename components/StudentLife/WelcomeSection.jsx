@@ -17,7 +17,7 @@ export default function WelcomeSection() {
             <p>
               Developing a positive and welcoming environment gives students the
               courage to participate in true Harkness discussion in class and in
-              life. Every learning experience at Lawrenceville is a deliberate
+              life. Every learning experience at Pamavambo is a deliberate
               and consistent effort to create a sense of belonging and
               affirmation for each and every student.
             </p>
@@ -44,7 +44,7 @@ export default function WelcomeSection() {
           {/* Replaced SVG with Next.js Image Component */}
           <div className="relative shrink-0 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 self-start sm:self-auto">
             <Image
-              src="/student_life/icons8-community-500.png"
+              src="/life/icons8-community-500.png"
               alt="Welcoming Icon"
               fill
               className="object-contain"

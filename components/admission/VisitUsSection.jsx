@@ -37,7 +37,7 @@ export default function VisitUsSection() {
           <div className="relative aspect-4/3 w-full overflow-hidden shadow-xl">
             <Image
               src="/admission/visit.jpg" // Replace with your image path
-              alt="Aerial view of Lawrenceville Campus"
+              alt="Aerial view of Pamavambo Campus"
               fill
               className="object-cover transition-transform duration-700 hover:scale-105"
             />

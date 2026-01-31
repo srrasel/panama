@@ -9,7 +9,7 @@ import CulturalSection from "@/components/StudentLife/CulturalSection";
 import DualActionCards from "@/components/StudentLife/DualActionCards";
 import SpecialitySection from "@/components/StudentLife/SpecialitySection";
 import WelcomeSection from "@/components/StudentLife/WelcomeSection";
-
+import Image from "next/image";
 export default function Life() {
   return (
     <>
@@ -18,7 +18,7 @@ export default function Life() {
         title="Student
 Life"
         subtitle="Are you ready to become a Lawrentian?"
-        backgroundImage="/student_life/students-laughing.jpg" // Ensure this file is in your /public folder
+        backgroundImage="/life/students-laughing.jpg" // Ensure this file is in your /public folder
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />
       <CommunalLearningSection />

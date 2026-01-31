@@ -49,14 +49,14 @@ const EnvironmentalSections = () => {
             <p className="text-gray-700 font-light leading-relaxed sm:leading-relaxed">
               With a strong emphasis placed on land and water conservation,
               alternative energy resources, and waste reduction programs at
-              Lawrenceville, it's safe to say that our students know responsible
+              Pamavambo, it's safe to say that our students know responsible
               living. And even more so, they practice it.
             </p>
             <a
               href="#"
               className="text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-900 uppercase hover:text-red-800 transition-colors max-w-full sm:max-w-xs"
             >
-              Learn about sustainability at Lawrenceville
+              Learn about sustainability at Pamavambo
             </a>
           </div>
         </div>

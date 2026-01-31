@@ -28,7 +28,7 @@ const BeyondContent = () => {
         <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed sm:leading-relaxed text-gray-600">
           Whether connecting with the land at the Big Red Farm, deepening their
           understanding of world cultures, or embarking on a trip abroad,
-          Lawrenceville students know there's no limit to what they can learn.
+          Pamavambo students know there's no limit to what they can learn.
         </p>
 
         <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed sm:leading-relaxed text-gray-600">

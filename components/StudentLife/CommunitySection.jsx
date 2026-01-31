@@ -6,32 +6,32 @@ const supportCategories = [
   {
     id: 1,
     name: "A CULTURE OF SUPPORT",
-    image: "/student_life/grid_cultureofsupport.jpg",
+    image: "/life/grid_cultureofsupport.jpg",
   },
   {
     id: 2,
     name: "CLASSROOM TEACHERS",
-    image: "/student_life/grid_classroomteachers.jpg",
+    image: "/life/grid_classroomteachers.jpg",
   },
-  { id: 3, name: "COACHES", image: "/student_life/grid_coaches.jpg" },
+  { id: 3, name: "COACHES", image: "/life/grid_coaches.jpg" },
   {
     id: 4,
     name: "RESIDENTIAL FACULTY",
-    image: "/student_life/grid_residentialfaculty.jpg",
+    image: "/life/grid_residentialfaculty.jpg",
   },
-  { id: 5, name: "ADVISORS", image: "/student_life/grid_advisors.jpg" },
+  { id: 5, name: "ADVISORS", image: "/life/grid_advisors.jpg" },
   {
     id: 6,
     name: "PROGRAM LEADERS",
-    image: "/student_life/grid_programleaders.jpg",
+    image: "/life/grid_programleaders.jpg",
   },
-  { id: 7, name: "CHAPERONES", image: "/student_life/grid_chaperones.jpg" },
+  { id: 7, name: "CHAPERONES", image: "/life/grid_chaperones.jpg" },
   {
     id: 8,
     name: "ADMINISTRATION",
-    image: "/student_life/grid_administrators.jpg",
+    image: "/life/grid_administrators.jpg",
   },
-  { id: 9, name: "PARENTS", image: "/student_life/grid_parents.jpg" },
+  { id: 9, name: "PARENTS", image: "/life/grid_parents.jpg" },
 ];
 
 export default function CommunitySection() {
@@ -65,7 +65,7 @@ export default function CommunitySection() {
             </h3>
             <p className="text-xs sm:text-xs md:text-sm text-gray-600 leading-relaxed sm:leading-relaxed font-light mb-6 sm:mb-7 md:mb-8 max-w-xl">
               While Houses are a student's home base, they are far from the only
-              place that feels like home at Lawrenceville. Our campus is
+              place that feels like home at Pamavambo. Our campus is
               designed to facilitate socialization, wellness activities, and
               memorable gatherings. From large, outdoor areas to cozy study
               rooms, students always have spaces that support their needs.
@@ -75,7 +75,7 @@ export default function CommunitySection() {
           {/* Large Preview Image */}
           <div className="relative aspect-4/3 w-full shadow-lg sm:shadow-xl md:shadow-2xl overflow-hidden">
             <Image
-              src="/student_life/tabs_fire.jpg"
+              src="/life/tabs_fire.jpg"
               alt="community"
               fill
               className="object-cover transition-opacity duration-500"

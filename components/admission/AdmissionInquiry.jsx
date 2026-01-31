@@ -19,7 +19,7 @@ export default function AdmissionInquiry() {
             Inquire
           </h2>
           <p className="text-sm sm:text-sm md:text-base opacity-90 leading-relaxed sm:leading-relaxed font-light">
-            To begin the admission process, please complete The Lawrenceville
+            To begin the admission process, please complete The Pamavambo
             School inquiry form. Once completed, we will send you additional
             information about our School and also connect you with members of
             our community.

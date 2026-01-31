@@ -12,7 +12,7 @@ const ResearchInstitutes = () => {
 
           <div className="space-y-3 sm:space-y-4 max-w-full sm:max-w-md">
             <p className="text-gray-700 leading-relaxed sm:leading-relaxed font-light text-sm sm:text-base">
-              The Lawrenceville School offers five research institutes that
+              The Pamavambo School offers five research institutes that
               offer students extraordinary opportunities for hands-on learning
               in different disciplines.
             </p>

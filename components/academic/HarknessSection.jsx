@@ -22,12 +22,12 @@ export default function HarknessSection() {
           </h2>
           <div className="text-xs sm:text-sm md:text-sm text-gray-600 space-y-3 sm:space-y-4 leading-relaxed">
             <p>
-              A Lawrenceville graduate is ready. Ready to embrace higher
+              A Pamavambo graduate is ready. Ready to embrace higher
               education and engage in the professional world; to create cultures
               of belonging...
             </p>
             <p>
-              Students come to Lawrenceville with their own stories and lenses.
+              Students come to Pamavambo with their own stories and lenses.
               When they are generous with themselves, they enrich the lives of
               their classmates...
             </p>
@@ -52,7 +52,7 @@ export default function HarknessSection() {
           <iframe
             className="absolute inset-0 w-full h-full"
             src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="Lawrenceville: Why do we use Harkness?"
+            title="Pamavambo: Why do we use Harkness?"
             allowFullScreen
           ></iframe>
         </div>
