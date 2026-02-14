@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/app:cached
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: development
+      # Add any env vars you need here, e.g. DATABASE_URL
+      # DATABASE_URL: "postgresql://user:pass@host:5432/db"
+    command: pnpm dev --hostname 0.0.0.0

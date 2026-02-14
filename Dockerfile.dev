@@ -1,0 +1,26 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Copy package files and install dependencies
+
+# Copy package files and install dependencies but skip lifecycle scripts
+# (we'll run postinstall after copying the project so Prisma schema exists)
+COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install --no-frozen-lockfile --ignore-scripts
+
+# Copy project files
+COPY . .
+
+# Run postinstall (prisma generate) now that schema is present
+RUN pnpm run postinstall || true
+
+# Allow container to be reached from host
+ENV HOST 0.0.0.0
+EXPOSE 3000
+
+# Start Next.js dev server and bind to 0.0.0.0 for container access
+CMD ["pnpm", "dev", "--hostname", "0.0.0.0"]

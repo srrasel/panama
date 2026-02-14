@@ -80,7 +80,7 @@ export default function Navbar() {
           {/* 1. LOGO (Stacked text but vertically centered) */}
           <Link href="/" className="z-60 shrink-0">
             <h1 className="font-serif text-lg md:text-xl lg:text-2xl text-white leading-[1.1] uppercase">
-              The <br /> Pamavambo <br /> School
+              The <br /> School
             </h1>
           </Link>
 
