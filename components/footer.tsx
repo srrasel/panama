@@ -34,15 +34,10 @@ export default function Footer() {
             </div>
             <div className="text-center md:text-left space-y-1">
               <p className="text-xs tracking-wide opacity-80">
-               731 Drinkwater Avenue
+                731 Drinkwater Avenue
               </p>
-              <p className="text-xs tracking-wide opacity-80">
-                Zvishavane
-              </p>
-              <p className="text-xs tracking-wide opacity-80">
-                Zimbabwe
-              </p>
-             
+              <p className="text-xs tracking-wide opacity-80">Zvishavane</p>
+              <p className="text-xs tracking-wide opacity-80">Zimbabwe</p>
             </div>
           </div>
 
@@ -50,7 +45,7 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-end space-y-6">
             <div className="flex flex-col space-y-3 w-full max-w-60">
               <Link
-                href="/inquire"
+                href="/admission/inquire"
                 className="flex justify-between items-center border border-[#b89149]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#b89149] hover:text-black transition-all group"
               >
                 INQUIRE
@@ -60,7 +55,7 @@ export default function Footer() {
                 />
               </Link>
               <Link
-                href="/give"
+                href="/admission/application"
                 className="flex justify-between items-center border border-[#b89149]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#b89149] hover:text-black transition-all group"
               >
                 GIVE NOW
@@ -100,13 +95,12 @@ export default function Footer() {
         <div className="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center gap-6">
           <nav className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2">
             {secondaryLinks.map((link) => (
-              <Link
+              <p
                 key={link.name}
-                href={link.href}
                 className="text-[9px] font-bold tracking-[0.15em] text-[#b89149] hover:brightness-125 transition-all uppercase"
               >
                 {link.name}
-              </Link>
+              </p>
             ))}
           </nav>
 

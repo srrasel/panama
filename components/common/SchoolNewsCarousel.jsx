@@ -17,7 +17,7 @@ const SchoolNewsCarousel = ({
   title = "School News",
   description = "Stories of the community members, programs, and happenings that shape life at Pamavambo.",
   buttonText = "Read All News Stories",
-  buttonLink = "#",
+
   newsPosts = [],
 }) => {
   const [api, setApi] = useState(null);
@@ -52,7 +52,7 @@ const SchoolNewsCarousel = ({
           asChild
           className="bg-[#b31b1b] hover:bg-[#8c1515] text-white rounded-none px-7 py-6 text-sm font-sans font-bold transition-colors shrink-0"
         >
-          <a href={buttonLink}>{buttonText}</a>
+          <p>{buttonText}</p>
         </Button>
       </div>
 

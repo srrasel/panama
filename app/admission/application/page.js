@@ -32,7 +32,7 @@ export default function ApplicationProcessPage() {
       <ThirdHero {...heroData} />
       <SubNav subNavItems={subNavItems} />
       <ApplicationCTA />
-
+ 
       <ApplicationMaterials />
 
       <Footer />

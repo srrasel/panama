@@ -10,11 +10,6 @@ const mainNavLinks = [
   { name: "CAREERS", href: "/life/careers" },
 ];
 
-const secondaryLinks = [
-  { name: "PRIVACY POLICY", href: "/privacy" },
-  { name: "SITE MAP", href: "/sitemap" },
-  { name: "EMPLOYEE SELF-SERVICE PORTAL", href: "/portal" },
-];
 
 export default function Footer() {
   return (
@@ -100,17 +95,7 @@ export default function Footer() {
 
         {/* Bottom Section: Legal Links and Branding */}
         <div className="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <nav className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2">
-            {secondaryLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-[9px] font-bold tracking-[0.15em] text-[#b89149] hover:brightness-125 transition-all uppercase"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
+         
 
           <div className="flex flex-col items-center md:items-end">
             <p className="text-[9px] opacity-30 uppercase tracking-[0.2em] flex items-center gap-1">

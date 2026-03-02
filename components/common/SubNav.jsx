@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const SubNav = ({ subNavItems = [] }) => {
   if (!Array.isArray(subNavItems)) {
     console.error("subNavItems must be an array");
@@ -13,12 +11,9 @@ const SubNav = ({ subNavItems = [] }) => {
           {subNavItems.map((item) => (
             <li key={item.label}>
               {item.href ? (
-                <Link
-                  href={item.href}
-                  className="text-[10px] sm:text-[10px] md:text-xs lg:text-xs font-bold tracking-wider sm:tracking-widest text-gray-800 hover:text-[#bc1a31] transition-colors"
-                >
+                <p className="text-[10px] sm:text-[10px] md:text-xs lg:text-xs font-bold tracking-wider sm:tracking-widest text-gray-800 hover:text-[#bc1a31] transition-colors">
                   {item.label}
-                </Link>
+                </p>
               ) : (
                 <span className="text-[10px] sm:text-[10px] md:text-xs lg:text-xs font-bold tracking-wider sm:tracking-widest text-gray-800 cursor-default">
                   {item.label}

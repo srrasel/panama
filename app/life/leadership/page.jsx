@@ -21,7 +21,7 @@ export default function LeadershipPage() {
       />
       <HeadOfSchool />
       <Founder />
-      <HeadOfSchoolCommunications />
+     
 
       <DualActionCards />
       <Footer />

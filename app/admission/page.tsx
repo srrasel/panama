@@ -23,7 +23,7 @@ export default function Admission() {
       <VisitUsSection />
       <ApplicationProcess />
       <AdmissionTeam />
-      <AdmissionMessages />
+      
      <Footer/>
     </>
   );
