@@ -1,21 +1,20 @@
-import type React from "react"
-import { Suspense } from "react"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import NextTopLoader from "nextjs-toploader"
-import { Toaster } from "@/components/ui/sonner"
-import { LoadingProvider } from "@/components/providers/loading-provider"
-import "./globals.css"
-import Navbar from "@/components/Navbar"
-import Navigation from "@/components/navigation"
+import { LoadingProvider } from "@/components/providers/loading-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/next";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import type React from "react";
+import { Suspense } from "react";
+import "./globals.css";
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pamavambo - Modern Learning Platform",
-  description: "Transform your education with our modern learning management system",
+  description:
+    "Transform your education with our modern learning management system",
   generator: "Pamavambo",
   icons: {
     icon: [
@@ -34,12 +33,12 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -47,7 +46,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <LoadingProvider>
             <NextTopLoader color="#7c3aed" showSpinner={false} />
-            
+
             {children}
             <Analytics />
             <Toaster />
@@ -55,5 +54,5 @@ export default function RootLayout({
         </Suspense>
       </body>
     </html>
-  )
+  );
 }

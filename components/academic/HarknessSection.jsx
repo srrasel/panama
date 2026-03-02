@@ -22,14 +22,14 @@ export default function HarknessSection() {
           </h2>
           <div className="text-xs sm:text-sm md:text-sm text-gray-600 space-y-3 sm:space-y-4 leading-relaxed">
             <p>
-              A Pamavambo graduate is ready. Ready to embrace higher
-              education and engage in the professional world; to create cultures
-              of belonging...
+              A Pamavambo graduate is ready. Ready to embrace higher education
+              and engage in the professional world; to create cultures of
+              belonging...
             </p>
             <p>
-              Students come to Pamavambo with their own stories and lenses.
-              When they are generous with themselves, they enrich the lives of
-              their classmates...
+              Students come to Pamavambo with their own stories and lenses. When
+              they are generous with themselves, they enrich the lives of their
+              classmates...
             </p>
           </div>
         </div>
@@ -39,12 +39,8 @@ export default function HarknessSection() {
       <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16">
         <div className="w-full md:w-1/3">
           <p className="text-xs sm:text-sm md:text-sm text-gray-700 leading-relaxed sm:leading-relaxed">
-            This is the foundation of{" "}
-            <span className="text-[#b89149] font-bold border-b border-[#b89149]">
-              HARKNESS LEARNING
-            </span>
-            , a collaborative form of learning that encourages intellectual
-            effort and social-emotional learning...
+            This is the foundation of , a collaborative form of learning that
+            encourages intellectual effort and social-emotional learning...
           </p>
         </div>
         <div className="w-full md:w-2/3 aspect-video relative bg-black">

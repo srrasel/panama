@@ -7,7 +7,7 @@ export default function WelcomeSection() {
         {/* 1. Top Section: Title */}
         <div className="-ml-6 sm:-ml-8 md:-ml-10 mb-6 sm:mb-8 md:mb-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-serif text-[#1a1a1a] leading-tight">
-            Welcoming
+            A Welcoming Foundation for Courageous Learning
           </h2>
         </div>
 
@@ -16,10 +16,11 @@ export default function WelcomeSection() {
           <div className="space-y-4 sm:space-y-5 md:space-y-6 text-gray-700 leading-relaxed md:leading-relaxed font-light text-sm sm:text-base md:text-[15px] lg:text-base">
             <p>
               Developing a positive and welcoming environment gives students the
-              courage to participate in true Harkness discussion in class and in
-              life. Every learning experience at Pamavambo is a deliberate
-              and consistent effort to create a sense of belonging and
-              affirmation for each and every student.
+              courage to participate fully — in classroom discussions, on the
+              sports field, in artistic expression, and in life. Every learning
+              experience at Pamavambo is a deliberate and consistent effort to
+              create a sense of belonging and affirmation for each and every
+              student.
             </p>
 
             <p>
@@ -31,13 +32,6 @@ export default function WelcomeSection() {
               paired with empathy and compassionate objectivity. Every class and
               every conversation is enriched by the ever-increasing knowledge
               and aptitude of its members.
-            </p>
-
-            <p>
-              As students see that learning happens in all environments and
-              applies to every part of life, they embrace the academic rigor
-              setting them on a path to a life of meaningful and rich
-              relationships as driven, critical citizens.
             </p>
           </div>
 

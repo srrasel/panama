@@ -36,27 +36,43 @@ const HeadOfSchool = () => {
         {/* Right Content Message */}
         <div className="lg:col-span-8 space-y-8">
           <h2 className="font-serif text-4xl text-gray-900">
-            From Our Head of School
+            From Board of school
           </h2>
-          <p className="text-gray-800 font-light italic text-lg">Welcome!</p>
+          <p className="text-gray-800 font-light italic text-lg">
+            Welcome to Pamavambo Private School
+          </p>
 
           <div className="space-y-6 text-gray-700 font-light leading-relaxed text-lg">
             <p>
-              The Pamavambo experience is more than 210 years in the making,
-              and core to that heritage is the value we place on our close,
-              caring community...
+              Welcome to a community built on purpose, rooted in values, and
+              dedicated to excellence. At Pamavambo, we challenge a diverse
+              community of promising young people to lead lives of learning,
+              integrity, and high purpose. Our mission is to inspire the best in
+              each to seek the best for all. We provide a high-quality,
+              inclusive education that develops the whole child through rigorous
+              academics, vibrant sports and arts programs, and a curriculum
+              grounded in Christian values — equipping students with the moral
+              clarity and cultural confidence to navigate an ever-changing world
             </p>
             <p>
-              At the heart of this great school is the belief that our students
-              dig deeper, reach higher, and stretch further when they feel the
-              embrace of supportive peers...
+              We are building a community where all members grow and thrive
+              physically, emotionally, spiritually, and intellectually. Students
+              feel safe, supported, and empowered in an environment that
+              promotes kindness, respect, and joy. Our core values — integrity,
+              accountability, spiritual development, and service — guide our
+              decisions, shape our culture, and define our character.
+            </p>
+            <p>
+              Whether you are exploring Pamavambo for the first time or are
+              already part of our family, welcome to an education that
+              transforms. Welcome home.
             </p>
           </div>
 
           {/* Script Signature */}
           <div className="pt-8">
             <p className="font-serif text-5xl text-gray-900 opacity-80">
-              Stephen S. Murray
+              Pamavambo Directors
             </p>
           </div>
         </div>

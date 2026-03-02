@@ -14,15 +14,21 @@ const ExploreSection = () => {
 
           <div className="space-y-6 max-w-lg">
             <p className="text-xl text-gray-700 font-light leading-relaxed">
-              Just a short trip from Princeton, New York City, and Philadelphia,
-              our campus is surrounded by woods, farmland, and a charming
-              downtown. Come see Pamavambo through the eyes of our students!
+              Pamavambo Private School is an independent day and boarding school
+              in Zvishavane, Zimbabwe, founded in January 2012 with a clear
+              mission: to provide exceptional education accessible to families
+              who value both academic excellence and character development. We
+              comprise a nursery, primary, and high school, offering quality
+              education from Early Childhood Development (ECD A and B) through
+              secondary level, fully registered under the Ministry of Primary
+              and Secondary Education
             </p>
 
             <p className="text-xl text-gray-700 font-light leading-relaxed">
-              On a student-led tour, you&apos;ll explore campus, hear real
-              stories about life at Pamavambo, and have plenty of chances to
-              ask questions.
+              . Our Cambridge-aligned curriculum prepares students not only for
+              academic success but for lives of meaning and impact, rooted in
+              cultural identity and moral clarity. Welcome to Pamavambo, where
+              excellence meets purpose and every child belongs.
             </p>
           </div>
         </div>

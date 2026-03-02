@@ -2,18 +2,17 @@ import Image from "next/image";
 
 const resourceData = [
   {
-    title: "Bunn Library",
-    description:
-      "Bunn Library is a community hub of learning and exploration. An extension of the House and the classroom, Bunn Library is a welcoming place to gather that supports the intellectual, social, and creative pursuits of our students.",
-    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2070&auto=format&fit=crop",
-    buttonText: "START YOUR SEARCH",
+    title: "Library",
+    description: "Explore, research, and discover in our digital library.",
+    image:
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2070&auto=format&fit=crop",
   },
   {
-    title: "College Counseling",
+    title: "Community",
     description:
-      "Pamavambo's college counseling program is designed to be an extension of the active learning that takes place each day in the classroom around the Harkness table, in the Houses, on the athletic fields, and throughout campus.",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
-    buttonText: "TAKE THE NEXT STEP",
+      "A vibrant community of students, families, and educators united by shared values, cultural pride, and commitment to excellence with purpose.",
+    image:
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
   },
 ];
 
@@ -46,26 +45,6 @@ export default function ResourceSection() {
                 {item.description}
               </p>
             </div>
-
-            {/* Gold Outlined Button */}
-            <button className="group flex items-center justify-between border border-[#c5a367] px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 w-full max-w-full sm:max-w-80 md:max-w-[320px] transition-all hover:bg-white/10">
-              <span className="text-white text-xs font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-left">
-                {item.buttonText}
-              </span>
-              <svg
-                className="w-6 h-3 sm:w-7 sm:h-3.5 md:w-8 md:h-4 text-[#c5a367] transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-300 flex-shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </button>
           </div>
         ))}
       </div>

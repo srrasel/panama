@@ -8,7 +8,7 @@ const StudentClubsAccordion = () => {
   // Data structure to handle the large volume of club information
   const clubData = [
     {
-      category: "Academic Clubs (Intellectual / Technological / Engineering)",
+      category: "Academic Clubs ",
       clubs: [
         {
           name: "20/20 Design Council",
@@ -37,7 +37,7 @@ const StudentClubsAccordion = () => {
       ],
     },
     {
-      category: "Athletic and Game Clubs (Sports / Hobbies / General Interest)",
+      category: " Game Clubs",
       clubs: [
         {
           name: "Varsity E-Sports",
@@ -50,7 +50,7 @@ const StudentClubsAccordion = () => {
       ],
     },
     {
-      category: "Creative Clubs (Performance / Visual / Film / Music)",
+      category: "Creative Clubs",
       clubs: [
         {
           name: "Pamavambo Film Society",
@@ -63,7 +63,7 @@ const StudentClubsAccordion = () => {
       ],
     },
     {
-      category: "Cultural and Religious Clubs",
+      category: " Religious Clubs",
       clubs: [
         {
           name: "Multicultural Student Union",
@@ -72,19 +72,6 @@ const StudentClubsAccordion = () => {
         {
           name: "Interfaith Council",
           desc: "A space for students of all spiritual backgrounds to discuss and share their traditions.",
-        },
-      ],
-    },
-    {
-      category: "Scientific Clubs (Environmental / Agricultural / Science)",
-      clubs: [
-        {
-          name: "Eco-Alliance",
-          desc: "Leading sustainability initiatives and environmental advocacy on campus.",
-        },
-        {
-          name: "Robotics Engineering",
-          desc: "Hands-on experience building and programming robots for regional competitions.",
         },
       ],
     },

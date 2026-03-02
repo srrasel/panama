@@ -11,15 +11,9 @@ const EnvironmentalSections = () => {
               Environmental <br /> Studies
             </h2>
             <p className="text-gray-700 font-light leading-relaxed sm:leading-relaxed max-w-full sm:max-w-sm">
-              Find enrichment through sustainable agriculture while connecting
-              with the earth and community at the Big Red Farm.
+              Excellence with purpose isn't taught—it's experienced, lived, and
+              embraced beyond the classroom
             </p>
-            <a
-              href="#"
-              className="text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-900 uppercase hover:text-red-800 transition-colors"
-            >
-              Read more about the big red farm
-            </a>
           </div>
 
           <div className="order-1 md:order-2 relative aspect-4/3 w-full shadow-sm">
@@ -46,18 +40,11 @@ const EnvironmentalSections = () => {
           </div>
 
           <div className="flex flex-col space-y-4 sm:space-y-5 md:space-y-6 md:pl-8 lg:pl-12">
+            <h3 className="text-xl font-semibold">Leading</h3>
             <p className="text-gray-700 font-light leading-relaxed sm:leading-relaxed">
-              With a strong emphasis placed on land and water conservation,
-              alternative energy resources, and waste reduction programs at
-              Pamavambo, it's safe to say that our students know responsible
-              living. And even more so, they practice it.
+              Excellence with purpose isn't taught—it's experienced, lived, and embraced beyond the classroom
             </p>
-            <a
-              href="#"
-              className="text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-900 uppercase hover:text-red-800 transition-colors max-w-full sm:max-w-xs"
-            >
-              Learn about sustainability at Pamavambo
-            </a>
+        
           </div>
         </div>
       </div>

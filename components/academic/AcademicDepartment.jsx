@@ -14,7 +14,7 @@ const departments = [
 
 export default function AcademicDepartments() {
   return (
-    <section className="relative min-h-80 sm:min-h-96 md:min-h-screen py-12 sm:py-16 md:py-20 px-4 sm:px-5 md:px-6 overflow-hidden">
+    <section id="departments" className="relative min-h-80 sm:min-h-96 md:min-h-screen py-12 sm:py-16 md:py-20 px-4 sm:px-5 md:px-6 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 -z-10">
         <Image

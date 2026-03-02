@@ -7,7 +7,6 @@ import React from "react";
 export default function SecondHero({
   backgroundImage = "/admission-hero.jpg",
   title = "Admission",
-  subtitle = "Are you ready to become a Lawrentian?",
   breadcrumbs = [{ label: "Home", href: "/" }],
 }) {
   return (
@@ -64,9 +63,6 @@ export default function SecondHero({
           </div>
 
           {/* Subtitle */}
-          <p className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide max-w-full sm:max-w-xl md:max-w-2xl drop-shadow-lg">
-            {subtitle}
-          </p>
         </div>
       </div>
 

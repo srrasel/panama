@@ -14,7 +14,7 @@ const highlights = [
   {
     title: "Our Home",
     icon: "/academic/architecture-04.svg",
-    desc: "The Pamavambo School sits on more than 700 acres in suburban New Jersey. A mix of natural beauty, modern technology, and traditional brick buildings brings us together.",
+    desc: "Pamavambo Private School is an independent day school in Zvishavane, Zimbabwe, founded in January 2012. Whether you're exploring our school for the first time or are already part of our community, you'll discover an education that transforms.",
   },
 ];
 

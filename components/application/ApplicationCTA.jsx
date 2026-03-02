@@ -10,7 +10,7 @@ const admissionLinks = [
   { name: "Travel and Events", href: "/admission/events" },
 ];
 
-export default function AdmissionsCTA() {
+export default function ApplicationCTA() {
   return (
     <section className="w-full bg-white py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-32">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10 sm:gap-12 md:gap-14 lg:gap-20 xl:gap-32 items-start">
@@ -21,12 +21,13 @@ export default function AdmissionsCTA() {
               Pamavambo challenges a diverse community of promising young people
               to lead lives of learning, integrity, and high purpose. Our
               mission is to inspire the best in each to seek the best for all.
+              We seek students who embody our core values of integrity,
+              accountability, spiritual development, and service—young people
+              ready to grow academically, emotionally, and morally.
             </p>
 
             <p className="text-gray-600 font-light leading-relaxed max-w-xl text-sm sm:text-base md:text-base">
-              If you&apos;re ready to take the next steps towards joining the
-              Pamavambo community, start with our inquiry form. Next, schedule
-              your visit with us to see all about.
+              Ready to become part of the Pamavambo family?
             </p>
           </div>
         </div>

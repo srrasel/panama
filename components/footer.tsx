@@ -1,20 +1,13 @@
 "use client";
 
-import {
-  ArrowRight,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Youtube,
-} from "lucide-react";
+import { ArrowRight, Facebook } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 const mainNavLinks = [
-  { name: "SCHOOL NEWS", href: "/news" },
-  { name: "DIRECTORY", href: "/directory" },
-  { name: "CAREERS", href: "/careers" },
-  { name: "BIG RED ONLINE STORE", href: "/store" },
+  { name: "SCHOOL NEWS", href: "/life/news" },
+
+  { name: "CAREERS", href: "/life/careers" },
 ];
 
 const secondaryLinks = [
@@ -41,23 +34,21 @@ export default function Footer() {
             </div>
             <div className="text-center md:text-left space-y-1">
               <p className="text-xs tracking-wide opacity-80">
-                2500 Main Street
+               731 Drinkwater Avenue
               </p>
               <p className="text-xs tracking-wide opacity-80">
-                Pamavambo, NJ 08648
+                Zvishavane
               </p>
               <p className="text-xs tracking-wide opacity-80">
-                Admission: (609) 895-2030
+                Zimbabwe
               </p>
-              <p className="text-xs tracking-wide opacity-80">
-                Main: (609) 896-0400
-              </p>
+             
             </div>
           </div>
 
           {/* Right Group: CTAs and Social Icons */}
           <div className="flex flex-col items-center md:items-end space-y-6">
-            <div className="flex flex-col space-y-3 w-full max-w-[240px]">
+            <div className="flex flex-col space-y-3 w-full max-w-60">
               <Link
                 href="/inquire"
                 className="flex justify-between items-center border border-[#b89149]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#b89149] hover:text-black transition-all group"
@@ -83,18 +74,6 @@ export default function Footer() {
             {/* Social Icons - Clean Row */}
             <div className="flex space-x-6">
               <Facebook
-                size={18}
-                className="cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
-              />
-              <Linkedin
-                size={18}
-                className="cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
-              />
-              <Instagram
-                size={18}
-                className="cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
-              />
-              <Youtube
                 size={18}
                 className="cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
               />
