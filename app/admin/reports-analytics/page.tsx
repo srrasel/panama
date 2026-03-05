@@ -25,8 +25,8 @@ export default function ReportsAnalytics() {
 
 
   const handleDownload = () => {
-    let headers = []
-    let data = []
+    let headers: string[] = []
+    let data: (string | number)[][] = []
     let filename = `report-${reportType}-${new Date().toISOString().split('T')[0]}.csv`
 
     if (reportType === "grades") {

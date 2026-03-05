@@ -38,7 +38,7 @@ export async function getUserById(id: string) {
 }
 
 export async function createUser(data: { name: string; email: string; role: string; password: string }) {
-  const { salt, hash } = hashPassword(data.password)
+  const { salt, hash } = await hashPassword(data.password)
   const u = await prisma.user.create({
     data: {
       name: data.name,
@@ -101,7 +101,7 @@ export async function updateUser(id: string, data: Partial<{ name: string; email
   if (data.imageUrl) updateData.imageUrl = data.imageUrl
   if (data.bio) updateData.bio = data.bio
   if (data.password) {
-    const { salt, hash } = hashPassword(data.password)
+    const { salt, hash } = await hashPassword(data.password)
     updateData.passwordHash = hash
     updateData.passwordSalt = salt
   }

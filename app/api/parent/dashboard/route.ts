@@ -25,7 +25,7 @@ export async function GET(req: Request) {
   const childName = child.name || "Student"
   const childInfo = { 
     name: childName, 
-    grade: child.grade || "10th Grade", // Assuming grade field might exist or default
+    grade: "10th Grade", 
     school: "Central High School", 
     avatar: childName.slice(0, 1).toUpperCase() 
   }

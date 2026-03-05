@@ -27,7 +27,7 @@ export async function GET() {
       totalLessons: c._count.lessons,
       nextLesson: "Start Course",
       estimatedTime: "Varies",
-      image: c.image || undefined, // Use image if available
+      image: c.imageUrl || undefined, // Use image if available
       price: c.isFree ? "Free" : `$${c.price}`
     }))
 

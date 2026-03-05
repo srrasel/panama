@@ -41,10 +41,10 @@ export async function GET(req: Request) {
 
   const attendanceRecords = records.map(r => ({
     id: r.id,
-    date: r.date.toISOString().split("T")[0],
+    date: r.date,
     status: r.status === "late" ? "Leave" : r.status.charAt(0).toUpperCase() + r.status.slice(1), // Map late -> Leave for UI consistency if needed
     subject: r.course.title,
-    remarks: r.remarks || "-"
+    remarks: "-"
   }))
 
   return Response.json({ childName, attendanceRecords, attendanceStats })

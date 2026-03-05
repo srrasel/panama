@@ -7,6 +7,7 @@ import React from "react";
 export default function SecondHero({
   backgroundImage = "/admission-hero.jpg",
   title = "Admission",
+  subtitle,
   breadcrumbs = [{ label: "Home", href: "/" }],
 }) {
   return (
@@ -63,6 +64,11 @@ export default function SecondHero({
           </div>
 
           {/* Subtitle */}
+          {subtitle && (
+            <p className="text-white text-lg sm:text-xl md:text-2xl mt-4 max-w-2xl font-light">
+              {subtitle}
+            </p>
+          )}
         </div>
       </div>
 

@@ -21,7 +21,7 @@ export default function AdminLayout({
   const logout = useLogout()
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
-  const [user, setUser] = useState<{ name: string; role: string } | null>(null)
+  const [user, setUser] = useState<{ name: string; role: string; imageUrl?: string } | null>(null)
 
   const navGroups = [
     {

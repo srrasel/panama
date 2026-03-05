@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { Send, User, MoreVertical, Phone, Video, Search, ArrowLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
+import Preloader from "@/components/preloader"
 
 type Contact = {
   id: string

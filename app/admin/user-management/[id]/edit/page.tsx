@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import { Upload, Save, Users, Search, Image as ImageIcon } from "lucide-react"
+import Preloader from "@/components/preloader"
 
 export default function AdminEditUserPage() {
   const params = useParams<{ id: string }>()

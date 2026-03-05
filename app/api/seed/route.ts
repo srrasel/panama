@@ -13,7 +13,7 @@ export async function GET() {
   for (const u of demoUsers) {
     const exists = await prisma.user.findUnique({ where: { email: u.email } })
     if (!exists) {
-      const { hash, salt } = hashPassword(u.password)
+      const { hash, salt } = await hashPassword(u.password)
       await prisma.user.create({
         data: {
           name: u.name,
