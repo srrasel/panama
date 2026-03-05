@@ -3,14 +3,15 @@ import { cookies } from "next/headers"
 import { getSession } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const sid = (await cookies()).get("session")?.value
   const session = await getSession(sid)
   if (!session || session.role !== "teacher") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const assignmentId = params.id
+  const assignmentId = id
 
   const assignment = await prisma.assignment.findUnique({
     where: { id: assignmentId },
@@ -53,14 +54,15 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   return NextResponse.json({ students, assignmentTitle: assignment.title, totalPoints: assignment.totalPoints })
 }
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const sid = (await cookies()).get("session")?.value
   const session = await getSession(sid)
   if (!session || session.role !== "teacher") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const assignmentId = params.id
+  const assignmentId = id
   const body = await req.json().catch(() => ({}))
   const { studentId, grade, feedback } = body
 

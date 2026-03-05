@@ -2,8 +2,99 @@ import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
 import { getSession } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { createUser, getUserByEmail, updateUser } from "@/lib/db"
+import { saveFile } from "@/lib/upload"
+import { z } from "zod"
 
 export const dynamic = "force-dynamic"
+
+export async function POST(req: Request) {
+  const sid = (await cookies()).get("session")?.value
+  const session = await getSession(sid)
+  if (!session || session.role !== "teacher") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  const contentType = req.headers.get("content-type") || ""
+  let firstName, lastName, email, password, confirmPassword, courseId, bio, image
+
+  if (contentType.includes("multipart/form-data")) {
+    const fd = await req.formData()
+    firstName = String(fd.get("firstName") || "").trim()
+    lastName = String(fd.get("lastName") || "").trim()
+    email = String(fd.get("email") || "").trim().toLowerCase()
+    password = String(fd.get("password") || "")
+    confirmPassword = String(fd.get("confirmPassword") || "")
+    courseId = String(fd.get("courseId") || "")
+    bio = String(fd.get("bio") || "")
+    image = fd.get("profileImage") as File | null
+  } else {
+    const body = await req.json().catch(() => ({}))
+    firstName = body.firstName
+    lastName = body.lastName
+    email = body.email
+    password = body.password
+    confirmPassword = body.confirmPassword // Expecting this field or just validate password
+    courseId = body.courseId
+    bio = body.bio
+  }
+
+  if (!firstName || !lastName || !email || !password || password.length < 6) {
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+  }
+  
+  if (confirmPassword && password !== confirmPassword) {
+      return NextResponse.json({ error: "Passwords do not match" }, { status: 400 })
+  }
+
+  if (await getUserByEmail(email)) {
+    return NextResponse.json({ error: "Email already registered" }, { status: 409 })
+  }
+
+  // Create user
+  const user = await createUser({ 
+    name: `${firstName} ${lastName}`.trim(), 
+    email, 
+    role: "student", 
+    password 
+  })
+
+  // Handle optional fields
+  const updateData: any = {}
+  if (bio) updateData.bio = bio
+  
+  if (image && typeof image === "object" && image.size > 0) {
+      updateData.imageUrl = await saveFile(image, "uploads/profiles")
+  }
+  
+  if (Object.keys(updateData).length > 0) {
+      await updateUser(user.id, updateData)
+  }
+
+  // Enroll in course if selected
+  if (courseId) {
+    // Verify course belongs to teacher
+    const course = await prisma.course.findUnique({ where: { id: courseId } })
+    if (course && course.teacherId === session.userId) {
+      await prisma.enrollment.create({
+        data: {
+          studentId: user.id,
+          courseId: courseId
+        }
+      }).catch(() => null)
+    } else if (course) {
+        // Course exists but doesn't belong to teacher
+        return NextResponse.json({ error: "Invalid course selection" }, { status: 403 })
+    }
+  }
+
+  return NextResponse.json({ 
+    id: user.id, 
+    name: user.name, 
+    email: user.email, 
+    role: user.role 
+  })
+}
 
 export async function GET(req: Request) {
   const sid = (await cookies()).get("session")?.value

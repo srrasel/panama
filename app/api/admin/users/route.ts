@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { z } from "zod"
 import { createUser, searchUsers, setParentChildren, getUserByEmail, getUserById, getChildrenForParent, updateUser, deleteUser } from "@/lib/db"
 import { prisma } from "@/lib/prisma"
+import { saveFile } from "@/lib/upload"
 
 export async function GET(req: Request) {
   const url = new URL(req.url)
@@ -28,6 +29,7 @@ export async function POST(req: Request) {
     const password = String(fd.get("password") || "")
     const confirm = String(fd.get("confirmPassword") || "")
     const role = String(fd.get("role") || "student")
+    const courseId = String(fd.get("courseId") || "")
     const image = fd.get("profileImage") as File | null
     const bio = String(fd.get("bio") || "")
     const childrenIds = fd.getAll("childrenIds").map((v) => String(v))
@@ -53,14 +55,30 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email already registered" }, { status: 409 })
     }
     const user = await createUser({ name: `${firstName} ${lastName}`.trim(), email, role, password })
-    if (image) user.imageUrl = `/uploads/${image.name}` // Note: This doesn't actually save the file
-    if (bio) user.bio = bio
     
-    if (image || bio) {
-        await updateUser(user.id, { imageUrl: image ? `/uploads/${image.name}` : undefined, bio: bio || undefined })
+    let imageUrl = undefined
+    if (image && image.size > 0) {
+      imageUrl = await saveFile(image, "uploads/profiles")
+    }
+
+    if (imageUrl || bio) {
+        await updateUser(user.id, { imageUrl, bio: bio || undefined })
     }
 
     if (role === "parent" && childrenIds.length) await setParentChildren(user.id, childrenIds)
+    
+    // Enroll in course if selected and role is student
+    if (role === "student" && courseId) {
+      const course = await prisma.course.findUnique({ where: { id: courseId } })
+      if (course) {
+        await prisma.enrollment.create({
+          data: {
+            studentId: user.id,
+            courseId: courseId
+          }
+        }).catch(() => null) // Ignore if already enrolled (though new user shouldn't be)
+      }
+    }
     
     const updated = await getUserById(user.id)
     return NextResponse.json({ id: updated?.id, name: updated?.name, email: updated?.email, role: updated?.role, imageUrl: updated?.imageUrl })
@@ -73,6 +91,7 @@ export async function POST(req: Request) {
       role: z.string().default("student"),
       bio: z.string().optional(),
       childrenIds: z.array(z.string()).optional(),
+      courseId: z.string().optional(),
     })
     const body = await req.json().catch(() => ({}))
     const parsed = schema.safeParse(body)
@@ -102,6 +121,20 @@ export async function POST(req: Request) {
         user = await updateUser(user.id, { bio: parsed.data.bio })
     }
     if (role === "parent" && parsed.data.childrenIds?.length) await setParentChildren(user.id, parsed.data.childrenIds)
+
+    // Enroll in course if selected and role is student
+    if (role === "student" && parsed.data.courseId) {
+      const course = await prisma.course.findUnique({ where: { id: parsed.data.courseId } })
+      if (course) {
+        await prisma.enrollment.create({
+          data: {
+            studentId: user.id,
+            courseId: parsed.data.courseId
+          }
+        }).catch(() => null)
+      }
+    }
+
     return NextResponse.json({ id: user.id, name: user.name, email: user.email, role: user.role })
   }
 }
@@ -131,7 +164,10 @@ export async function PUT(req: Request) {
       payload.role = role
     }
 
-    if (image) payload.imageUrl = `/uploads/${image.name}`
+    if (image && image.size > 0) {
+      payload.imageUrl = await saveFile(image, "uploads/profiles")
+    }
+    
     if (bio) payload.bio = bio
     if (password) payload.password = password
     const u = await updateUser(id, payload)

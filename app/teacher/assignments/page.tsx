@@ -23,19 +23,23 @@ export default function AssignmentsGrading() {
 
   useEffect(() => {
     ;(async () => {
-      // Fetch assignments
-      const res = await fetch("/api/teacher/assignments").catch(() => null)
-      const data = await res?.json().catch(() => null)
-      if (data?.assignments) setItems(data.assignments)
+      try {
+        // Fetch assignments
+        const res = await fetch("/api/teacher/assignments").catch(() => null)
+        const data = await res?.json().catch(() => null)
+        if (data?.assignments) setItems(data.assignments)
 
-      // Fetch courses for dropdown
-      const resCourses = await fetch("/api/teacher/course-management/courses").catch(() => null)
-      const dataCourses = await resCourses?.json().catch(() => null)
-      if (dataCourses?.courses) {
-        setTeacherCourses(dataCourses.courses)
-        if (dataCourses.courses.length > 0) {
-          setNewCourseId(dataCourses.courses[0].id)
+        // Fetch courses for dropdown
+        const resCourses = await fetch("/api/teacher/course-management/courses").catch(() => null)
+        const dataCourses = await resCourses?.json().catch(() => null)
+        if (dataCourses?.courses) {
+          setTeacherCourses(dataCourses.courses)
+          if (dataCourses.courses.length > 0) {
+            setNewCourseId(dataCourses.courses[0].id)
+          }
         }
+      } finally {
+        setLoading(false)
       }
     })()
   }, [])

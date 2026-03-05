@@ -29,8 +29,10 @@ export default function AboutSection() {
               A tight-knit community, a support system, a place of respite, a
               team, a flag, a cheer, a legacy to make your own.
             </p>
-            <Button className="bg-[#bc1a31] cursor-pointer hover:bg-[#9a1528] text-white rounded-none px-8 py-6 uppercase tracking-widest text-xs flex items-center gap-4">
-              <Link href={"/life"}>Learn More</Link> <ArrowRight size={16} />
+            <Button asChild className="bg-[#bc1a31] cursor-pointer hover:bg-[#9a1528] text-white rounded-none px-8 py-6 uppercase tracking-widest text-xs flex items-center gap-4">
+              <Link href={"/life"}>
+                Learn More <ArrowRight size={16} />
+              </Link>
             </Button>
           </div>
 

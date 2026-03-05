@@ -166,7 +166,7 @@ export default function ParentDashboard() {
                             <div>
                                 <h4 className="font-bold text-slate-800 text-sm">{activity.title || "Activity"}</h4>
                                 <p className="text-slate-500 text-xs mt-1">{activity.description || "No details available."}</p>
-                                <p className="text-xs text-slate-400 font-medium mt-2">{new Date(activity.date).toLocaleDateString()}</p>
+                                <p className="text-xs text-slate-400 font-medium mt-2" suppressHydrationWarning>{new Date(activity.date).toLocaleDateString()}</p>
                             </div>
                         </div>
                     )) : (
@@ -190,7 +190,7 @@ export default function ParentDashboard() {
                     {upcomingEvents.length > 0 ? upcomingEvents.map((event, i) => (
                         <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-[#007bff]/5 transition-colors group">
                             <div className="flex items-center gap-3 mb-2">
-                                <div className="px-2 py-1 bg-white rounded-lg text-xs font-bold text-slate-600 border border-slate-100 shadow-sm">
+                                <div className="px-2 py-1 bg-white rounded-lg text-xs font-bold text-slate-600 border border-slate-100 shadow-sm" suppressHydrationWarning>
                                     {new Date(event.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                                 </div>
                                 <span className="text-xs font-bold text-[#007bff] bg-blue-50 px-2 py-0.5 rounded-md">{event.type || "Event"}</span>

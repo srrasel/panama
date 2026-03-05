@@ -1,10 +1,10 @@
 "use client";
 
-import { useLogout } from "@/hooks/use-logout";
-import { ChevronDown, LogOut, Menu, Search, User, X } from "lucide-react";
-import Image from "next/image";
+import { ChevronDown, Menu, Search, X, LogOut, User } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useLogout } from "@/hooks/use-logout";
 
 /* ================= CONFIG ================= */
 
@@ -42,8 +42,9 @@ const mainNavConfig = [
     title: "ACADEMICS",
     href: "/academics",
     links: [
-      { label: "Departments", href: "/academics#departments" },
-
+      { label: "Departments", href: "/academics/departments" },
+      { label: "Academic Community", href: "/academics/community" },
+      { label: "Career", href: "/academics/career" },
     ],
   },
   {
@@ -64,11 +65,11 @@ export default function Navbar() {
 
   useEffect(() => {
     fetch("/api/auth/me")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.name) setUser(data);
+      .then(res => res.json())
+      .then(data => {
+        if (data?.name) setUser(data)
       })
-      .catch((err) => console.error("Error fetching user:", err));
+      .catch(err => console.error("Error fetching user:", err))
   }, []);
 
   return (
@@ -79,7 +80,7 @@ export default function Navbar() {
           {/* 1. LOGO (Stacked text but vertically centered) */}
           <Link href="/" className="z-60 shrink-0">
             <h1 className="font-serif text-lg md:text-xl lg:text-2xl text-white leading-[1.1] uppercase">
-              The <br /> School
+              The <br /> Pamavambo <br /> School
             </h1>
           </Link>
 
@@ -126,52 +127,38 @@ export default function Navbar() {
           <div className="flex items-center gap-6 z-60">
             {/* User Profile or "Information For" Dropdown */}
             {user ? (
-              <div
+               <div
                 className="hidden lg:flex text-white items-center gap-3 cursor-pointer relative"
                 onMouseEnter={() => setIsInfoOpen(true)}
                 onMouseLeave={() => setIsInfoOpen(false)}
               >
-                <div className="w-9 h-9 rounded-full border-2 border-amber-500/50 p-0.5 overflow-hidden relative shadow-md">
-                  <div className="w-full h-full rounded-full overflow-hidden relative bg-gray-200">
-                    <Image
-                      src={
-                        user?.imageUrl ||
-                        `https://ui-avatars.com/api/?name=${user?.name || "User"}&background=random`
-                      }
-                      alt="Profile"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+                 <div className="w-9 h-9 rounded-full border-2 border-amber-500/50 p-0.5 overflow-hidden relative shadow-md">
+                   <div className="w-full h-full rounded-full overflow-hidden relative bg-gray-200">
+                     <Image
+                        src={user?.imageUrl || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=random`}
+                        alt="Profile"
+                        fill
+                        className="object-cover"
+                     />
+                   </div>
                 </div>
 
                 {isInfoOpen && (
                   <div className="absolute top-full right-0 w-56 bg-[#610716] text-white shadow-2xl py-2 rounded-b-xl border-t border-amber-500/30 z-50">
-                    <div className="px-5 py-4 border-b border-white/10 mb-2">
-                      <p className="text-sm font-bold truncate text-white">
-                        {user.name}
-                      </p>
-                      <p className="text-[10px] text-amber-400 truncate uppercase tracking-wider">
-                        {user.role || "Member"}
-                      </p>
+                     <div className="px-5 py-4 border-b border-white/10 mb-2">
+                        <p className="text-sm font-bold truncate text-white">{user.name}</p>
+                        <p className="text-[10px] text-amber-400 truncate uppercase tracking-wider">{user.role || 'Member'}</p>
                     </div>
                     <ul className="flex flex-col">
                       <li className="px-4 py-2 hover:bg-[#821021] transition-colors">
                         <Link
-                          href={
-                            user.role === "student"
-                              ? "/student/dashboard"
-                              : user.role === "parent"
-                                ? "/parent/dashboard"
-                                : "/login"
-                          }
+                          href={user.role === 'student' ? "/student/dashboard" : user.role === 'parent' ? "/parent/dashboard" : "/login"}
                           className="flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white/90"
                         >
-                          <User size={14} className="text-amber-500" />{" "}
-                          Dashboard
+                          <User size={14} className="text-amber-500" /> Dashboard
                         </Link>
                       </li>
-                      <li className="px-4 py-2 hover:bg-[#821021] transition-colors">
+                       <li className="px-4 py-2 hover:bg-[#821021] transition-colors">
                         <button
                           onClick={logout}
                           className="flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white/90 w-full text-left"
@@ -184,34 +171,31 @@ export default function Navbar() {
                 )}
               </div>
             ) : (
-              <div
-                className="hidden lg:flex text-white items-center gap-1 cursor-pointer relative text-[10px] lg:text-xs tracking-widest font-bold"
-                onMouseEnter={() => setIsInfoOpen(true)}
-                onMouseLeave={() => setIsInfoOpen(false)}
-              >
-                <span>{dropdownData.title}</span>
-                <ChevronDown size={14} className="text-amber-500" />
+            <div
+              className="hidden lg:flex text-white items-center gap-1 cursor-pointer relative text-[10px] lg:text-xs tracking-widest font-bold"
+              onMouseEnter={() => setIsInfoOpen(true)}
+              onMouseLeave={() => setIsInfoOpen(false)}
+            >
+              <span>{dropdownData.title}</span>
+              <ChevronDown size={14} className="text-amber-500" />
 
-                {isInfoOpen && (
-                  <div className="absolute top-full right-0  w-40 bg-[#610716] text-white shadow-lg py-2">
-                    <ul className="flex flex-col">
-                      {dropdownData.items.map((item, index) => (
-                        <li
-                          key={index}
-                          className="px-4 py-2 hover:bg-[#821021]"
+              {isInfoOpen && (
+                <div className="absolute top-full right-0  w-40 bg-[#610716] text-white shadow-lg py-2">
+                  <ul className="flex flex-col">
+                    {dropdownData.items.map((item, index) => (
+                      <li key={index} className="px-4 py-2 hover:bg-[#821021]">
+                        <Link
+                          href={item.href}
+                          className="text-[10px] uppercase font-bold tracking-tighter"
                         >
-                          <Link
-                            href={item.href}
-                            className="text-[10px] uppercase font-bold tracking-tighter"
-                          >
-                            {item.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
             )}
 
             {/* Search Icon */}

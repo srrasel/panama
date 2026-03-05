@@ -41,7 +41,7 @@ export default function AcademicSection() {
           <p className="text-base sm:text-lg md:text-lg leading-relaxed sm:leading-relaxed">
             This disposition motivates students to fully engage so they can not
             only gain the knowledge they need to progress in their chosen field,
-            but the learning strategies they need to be fully ready for life.
+            but the learning strategies they need to be fully ready for college.
           </p>
         </div>
       </div>

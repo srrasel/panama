@@ -1,12 +1,15 @@
 import DualActionCards from "@/components/common/DualActionCards";
 import SecondHero from "@/components/common/SecondHero";
-import Footer from "@/components/footer";
-import ImageSection from "@/components/home/ImageSection";
-import Navbar from "@/components/Navbar";
+import SubNav from "@/components/common/SubNav";
 import ActivitySection from "@/components/StudentLife/ActivitySection";
+import CampusSection from "@/components/StudentLife/CampusSection";
 import CommunalLearningSection from "@/components/StudentLife/CommonalLearningSection";
+import CommunitySection from "@/components/StudentLife/CommunitySection";
+import CulturalSection from "@/components/StudentLife/CulturalSection";
 import SpecialitySection from "@/components/StudentLife/SpecialitySection";
 import WelcomeSection from "@/components/StudentLife/WelcomeSection";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/footer";
 
 const subNavItems = [
   { label: "CAMPUS", href: "/campus" },
@@ -22,14 +25,18 @@ export default function StudentLife() {
       <Navbar />
       <SecondHero
         title="Student
-     Life"
+Life"
+        subtitle="Are you ready to become a Lawrentian?"
         backgroundImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />
+       <SubNav subNavItems={subNavItems} />
       <CommunalLearningSection />
       <ActivitySection />
       <WelcomeSection />
-      <ImageSection />
+      <CulturalSection />
+      <CampusSection />
+      <CommunitySection />
       <SpecialitySection />
       <DualActionCards />
       <Footer />

@@ -1,17 +1,19 @@
 import SecondHero from "@/components/common/SecondHero";
 import Footer from "@/components/footer";
-import ImageSection from "@/components/home/ImageSection";
 import Navbar from "@/components/Navbar";
 import ActivitySection from "@/components/StudentLife/ActivitySection";
+import CampusSection from "@/components/StudentLife/CampusSection";
 import CommunalLearningSection from "@/components/StudentLife/CommonalLearningSection";
+import CommunitySection from "@/components/StudentLife/CommunitySection";
+import CulturalSection from "@/components/StudentLife/CulturalSection";
 import DualActionCards from "@/components/StudentLife/DualActionCards";
 import SpecialitySection from "@/components/StudentLife/SpecialitySection";
 import WelcomeSection from "@/components/StudentLife/WelcomeSection";
-
+import Image from "next/image";
 export default function Life() {
   return (
     <>
-      <Navbar />
+    <Navbar/>
       <SecondHero
         title="Student
 Life"
@@ -22,10 +24,12 @@ Life"
       <CommunalLearningSection />
       <ActivitySection />
       <WelcomeSection />
-      <ImageSection />
+      <CulturalSection />
+      <CampusSection />
+      <CommunitySection />
       <SpecialitySection />
       <DualActionCards />
-      <Footer />
+      <Footer/>
     </>
   );
 }

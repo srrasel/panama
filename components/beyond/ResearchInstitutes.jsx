@@ -7,15 +7,29 @@ const ResearchInstitutes = () => {
         {/* Left Column: Text Content */}
         <div className="flex flex-col space-y-4 sm:space-y-5 md:space-y-6 order-2 md:order-1">
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 leading-[1.1] sm:leading-[1.1]">
-            Character <br /> Through Action
+            Research <br /> Institutes
           </h2>
 
           <div className="space-y-3 sm:space-y-4 max-w-full sm:max-w-md">
             <p className="text-gray-700 leading-relaxed sm:leading-relaxed font-light text-sm sm:text-base">
-              Where character is built through challenge, values are tested
-              through experience, and purpose is found through service.
+              The Pamavambo School offers five research institutes that
+              offer students extraordinary opportunities for hands-on learning
+              in different disciplines.
+            </p>
+            <p className="text-gray-700 leading-relaxed sm:leading-relaxed font-light text-sm sm:text-base">
+              Each institute includes a two-week summer residential program and
+              additional coursework during the academic year.
             </p>
           </div>
+
+          <a
+            href="#"
+            className="group w-fit flex items-center text-gray-900 font-semibold text-xs sm:text-sm tracking-wide"
+          >
+            <span className="border-b-2 border-transparent group-hover:border-red-800 transition-all duration-300 pb-1">
+              Find an Opportunity
+            </span>
+          </a>
         </div>
 
         {/* Right Column: Image using Next.js Image component */}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Preloader from "@/components/preloader"
+import { Plus } from "lucide-react"
 
 interface Student {
   id: string
@@ -74,20 +75,26 @@ export default function StudentManagement() {
     
 
       {/* Filter by Course */}
-      <div className="bg-card rounded-lg border border-border p-6">
-        <label className="block text-sm font-medium text-foreground mb-3">Filter by Course</label>
-        <select
-          value={selectedCourse}
-          onChange={(e) => setSelectedCourse(e.target.value)}
-          className="w-full md:w-64 px-4 py-2 rounded-lg border border-border bg-input text-foreground"
-        >
-          <option value="all">All Courses</option>
-          {courses.map((course) => (
-            <option key={course.id} value={course.id}>
-              {course.title}
-            </option>
-          ))}
-        </select>
+      <div className="bg-card rounded-lg border border-border p-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-3">Filter by Course</label>
+          <select
+            value={selectedCourse}
+            onChange={(e) => setSelectedCourse(e.target.value)}
+            className="w-full md:w-64 px-4 py-2 rounded-lg border border-border bg-input text-foreground"
+          >
+            <option value="all">All Courses</option>
+            {courses.map((course) => (
+              <option key={course.id} value={course.id}>
+                {course.title}
+              </option>
+            ))}
+          </select>
+        </div>
+        <Link href="/teacher/student-management/create" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
+          <Plus className="h-4 w-4" />
+          Add Student
+        </Link>
       </div>
 
       {/* Students List */}

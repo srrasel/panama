@@ -14,9 +14,10 @@ import { Plus, Calendar as CalendarIcon, Clock, MapPin, Loader2 } from "lucide-r
 import Preloader from "@/components/preloader"
 
 export default function TeacherSchedule() {
+  const [isClient, setIsClient] = useState(false)
   const [view, setView] = useState<"week" | "day">("week")
   const [weekOffset, setWeekOffset] = useState(0)
-  const [selectedDay, setSelectedDay] = useState(new Date().toLocaleDateString("en-US", { weekday: "long" }))
+  const [selectedDay, setSelectedDay] = useState("")
   const [query, setQuery] = useState("")
   const [events, setEvents] = useState<any[]>([])
   const [courses, setCourses] = useState<any[]>([])
@@ -27,7 +28,7 @@ export default function TeacherSchedule() {
   const [newEvent, setNewEvent] = useState({
     title: "",
     type: "Class",
-    date: new Date().toISOString().split('T')[0],
+    date: "",
     startTime: "09:00",
     endTime: "10:30",
     courseId: "none",
@@ -36,6 +37,9 @@ export default function TeacherSchedule() {
   })
 
   useEffect(() => {
+    setIsClient(true)
+    setSelectedDay(new Date().toLocaleDateString("en-US", { weekday: "long" }))
+    setNewEvent(prev => ({ ...prev, date: new Date().toISOString().split('T')[0] }))
     fetchData()
   }, [])
 
@@ -164,6 +168,8 @@ export default function TeacherSchedule() {
   })
   const officeHoursThisWeek = thisWeekEvents.filter(e => e.type === "OfficeHours").length
   const examsThisWeek = thisWeekEvents.filter(e => e.type === "Exam").length
+
+  if (!isClient) return <Preloader />
 
   return (
     <div className="space-y-8">

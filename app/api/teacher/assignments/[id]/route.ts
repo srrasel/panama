@@ -3,14 +3,15 @@ import { cookies } from "next/headers"
 import { getSession } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const session = await getSession((await cookies()).get("session")?.value)
   if (!session || session.role !== "teacher") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
   const assignment = await prisma.assignment.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       course: true,
       submissions: {
@@ -32,7 +33,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   return NextResponse.json({ assignment })
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params
     const session = await getSession((await cookies()).get("session")?.value)
     if (!session || session.role !== "teacher") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -42,7 +44,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     const { title, description, dueDate, totalPoints } = body
 
     const assignment = await prisma.assignment.findUnique({
-        where: { id: params.id },
+        where: { id },
         include: { course: true }
     })
 
@@ -55,7 +57,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     }
 
     const updated = await prisma.assignment.update({
-        where: { id: params.id },
+        where: { id },
         data: {
             title: title || assignment.title,
             description: description || assignment.description,
@@ -67,14 +69,15 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     return NextResponse.json({ assignment: updated })
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params
     const session = await getSession((await cookies()).get("session")?.value)
     if (!session || session.role !== "teacher") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const assignment = await prisma.assignment.findUnique({
-        where: { id: params.id },
+        where: { id },
         include: { course: true }
     })
 
@@ -87,7 +90,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     }
 
     await prisma.assignment.delete({
-        where: { id: params.id }
+        where: { id }
     })
 
     return NextResponse.json({ ok: true })

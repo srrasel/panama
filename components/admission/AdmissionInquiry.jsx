@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 export default function AdmissionInquiry() {
   return (
@@ -18,10 +19,52 @@ export default function AdmissionInquiry() {
             Inquire
           </h2>
           <p className="text-sm sm:text-sm md:text-base opacity-90 leading-relaxed sm:leading-relaxed font-light">
-            To begin the admission process, please complete The Pamavambo School
-            inquiry form.
+            To begin the admission process, please complete The Pamavambo
+            School inquiry form. Once completed, we will send you additional
+            information about our School and also connect you with members of
+            our community.
           </p>
         </div>
+
+        {/* First Accordion - "Should You Apply..." */}
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem
+            value="boarding-vs-day"
+            className="border border-amber-500/50 bg-[#a0162a] px-3 sm:px-4"
+          >
+            <AccordionTrigger className="hover:no-underline py-3 sm:py-4 text-left">
+              <span className="text-xs sm:text-xs md:text-sm font-bold tracking-wider sm:tracking-widest text-amber-400 uppercase">
+                Should You Apply as a Boarding or Day Student?
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className="text-sm opacity-90 pb-4 sm:pb-6 leading-relaxed">
+              <div className="space-y-6 sm:space-y-8 pt-3 sm:pt-4">
+                <div className="space-y-3 sm:space-y-4">
+                  <h3 className="text-lg sm:text-xl md:text-xl font-serif">
+                    Day Student Applicants
+                  </h3>
+                  <p className="text-xs sm:text-xs md:text-sm opacity-80 leading-relaxed font-light">
+                    The following parameters define the boundaries within which
+                    families are expected to apply as day student candidates.
+                    All candidates outside those boundaries will be considered
+                    boarding applicants.
+                  </p>
+                </div>
+
+                {/* Perimeter Map Image */}
+                <div className="relative w-full aspect-4/3 border-2 sm:border-3 md:border-4 border-[#a0162a] shadow-lg sm:shadow-xl md:shadow-2xl">
+                  <Image
+                    src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2070&auto=format&fit=crop"
+                    alt="Admission Planning"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 66vw"
+                  />
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         {/* Second Accordion - "Submit Your Inquiry" */}
         <Accordion type="single" collapsible className="w-full">

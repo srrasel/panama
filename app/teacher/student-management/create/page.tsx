@@ -3,99 +3,40 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Upload, UserPlus, Users, Search, Image as ImageIcon } from "lucide-react"
+import { Upload, UserPlus, Image as ImageIcon } from "lucide-react"
 import Preloader from "@/components/preloader"
 
-export default function AdminAddUserPage() {
+export default function TeacherAddStudentPage() {
   const router = useRouter()
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [role, setRole] = useState("student")
   const [profileImage, setProfileImage] = useState<File | null>(null)
   const [bio, setBio] = useState("")
-  const [search, setSearch] = useState("")
-  const [searching, setSearching] = useState(false)
-  const [studentResults, setStudentResults] = useState<{ id: string; name: string; email: string }[]>([])
-  const [selectedStudents, setSelectedStudents] = useState<{ id: string; name: string }[]>([])
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
-
-  const [roles, setRoles] = useState<{ id: string; name: string }[]>([])
-  const [loadingRoles, setLoadingRoles] = useState(false)
-  const [loading, setLoading] = useState(true)
 
   const [courses, setCourses] = useState<{ id: string; title: string }[]>([])
   const [loadingCourses, setLoadingCourses] = useState(false)
   const [courseId, setCourseId] = useState("")
 
   useEffect(() => {
-    const fetchRoles = async () => {
-      setLoadingRoles(true)
-      try {
-        const res = await fetch("/api/admin/roles").catch(() => null)
-        if (res && res.ok) {
-          const data = await res.json().catch(() => [])
-          if (Array.isArray(data)) {
-            // Filter roles to only show student, teacher, parent
-            const allowedRoles = ["student", "teacher", "parent"]
-            setRoles(data.filter((r: any) => allowedRoles.includes(r.name)))
-          } else {
-            setRoles([])
-          }
-        }
-      } catch (err) {
-        console.error("Failed to fetch roles:", err)
-      } finally {
-        setLoadingRoles(false)
-        setLoading(false)
-      }
-    }
-    fetchRoles()
-
     const fetchCourses = async () => {
       setLoadingCourses(true)
       try {
         const res = await fetch("/api/teacher/course-management/courses").catch(() => null)
         if (res && res.ok) {
-          const data = await res.json().catch(() => ({}))
-          setCourses(Array.isArray(data?.courses) ? data.courses : [])
+          const data = await res.json()
+          setCourses(data.courses || [])
         }
-      } catch (err) {
-        console.error("Failed to fetch courses:", err)
       } finally {
         setLoadingCourses(false)
       }
     }
     fetchCourses()
   }, [])
-
-  if (loading) return <Preloader />
-
-  useEffect(() => {
-    let active = true
-    const run = async () => {
-      if (!search.trim()) { setStudentResults([]); return }
-      setSearching(true)
-      const res = await fetch(`/api/admin/users?role=student&q=${encodeURIComponent(search)}`).catch(() => null)
-      const data = await res?.json().catch(() => null)
-      if (!active) return
-      setStudentResults(Array.isArray(data?.users) ? data.users : [])
-      setSearching(false)
-    }
-    run()
-    return () => { active = false }
-  }, [search])
-
-  const onSelectStudent = (s: { id: string; name: string }) => {
-    if (selectedStudents.find((x) => x.id === s.id)) {
-      setSelectedStudents(selectedStudents.filter((x) => x.id !== s.id))
-    } else {
-      setSelectedStudents([...selectedStudents, s])
-    }
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -111,31 +52,28 @@ export default function AdminAddUserPage() {
     fd.append("email", email)
     fd.append("password", password)
     fd.append("confirmPassword", confirmPassword)
-    fd.append("role", role)
     fd.append("bio", bio)
     if (profileImage) fd.append("profileImage", profileImage)
-    if (role === "student" && courseId) fd.append("courseId", courseId)
-    if (role === "parent") {
-      for (const s of selectedStudents) fd.append("childrenIds", s.id)
-    }
-    const res = await fetch("/api/admin/users", { method: "POST", body: fd }).catch(() => null)
+    if (courseId) fd.append("courseId", courseId)
+
+    const res = await fetch("/api/teacher/student-management", { method: "POST", body: fd }).catch(() => null)
     const data = await res?.json().catch(() => null)
     setSubmitting(false)
     if (!res || !res.ok) {
-      setError(data?.error || "Failed to create user")
+      setError(data?.error || "Failed to create student")
       return
     }
-    router.push("/admin/user-management")
+    router.push("/teacher/student-management")
   }
 
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Add New User</h1>
-          <p className="text-muted-foreground">Create a new account with profile and role settings</p>
+          <h1 className="text-3xl font-bold text-foreground">Add New Student</h1>
+          <p className="text-muted-foreground">Create a new student account and enroll them in a course</p>
         </div>
-        <Link href="/admin/user-management" className="px-4 py-2 rounded-lg border">Back</Link>
+        <Link href="/teacher/student-management" className="px-4 py-2 rounded-lg border">Back</Link>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -154,17 +92,12 @@ export default function AdminAddUserPage() {
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-border bg-input" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Role</label>
-              <select value={role} onChange={(e) => setRole(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-border bg-input" disabled={loadingRoles}>
-                {loadingRoles ? (
-                  <option>Loading roles...</option>
-                ) : (
-                  roles.map((r) => (
-                    <option key={r.id} value={r.name}>
-                      {r.name.charAt(0).toUpperCase() + r.name.slice(1)}
-                    </option>
-                  ))
-                )}
+              <label className="block text-sm font-medium text-foreground mb-2">Assign Course (Optional)</label>
+              <select value={courseId} onChange={(e) => setCourseId(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-border bg-input" disabled={loadingCourses}>
+                <option value="">Select a course...</option>
+                {courses.map((c) => (
+                  <option key={c.id} value={c.id}>{c.title}</option>
+                ))}
               </select>
             </div>
             <div>
@@ -196,47 +129,11 @@ export default function AdminAddUserPage() {
             <RichTextEditor value={bio} onChange={setBio} minHeight={160} />
           </div>
 
-          {role === "student" && (
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Assign Course (Optional)</label>
-              <select value={courseId} onChange={(e) => setCourseId(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-border bg-input" disabled={loadingCourses}>
-                <option value="">Select a course...</option>
-                {courses.map((c) => (
-                  <option key={c.id} value={c.id}>{c.title}</option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          {role === "parent" && (
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Assign Students</label>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-2 border rounded-lg px-3 py-2 w-full">
-                  <Search className="h-4 w-4 text-muted-foreground" />
-                  <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search students by name or email" className="flex-1 bg-transparent outline-none text-sm" />
-                </div>
-              </div>
-              <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
-                {searching && <div className="text-sm text-muted-foreground">Searching…</div>}
-                {!searching && studentResults.map((s) => (
-                  <button type="button" key={s.id} onClick={() => onSelectStudent({ id: s.id, name: s.name })} className={`flex items-center justify-between px-3 py-2 rounded-lg border ${selectedStudents.find((x) => x.id === s.id) ? "bg-primary text-primary-foreground border-primary" : "hover:bg-muted"}`}>
-                    <span className="text-sm">{s.name}</span>
-                    <Users className="h-4 w-4" />
-                  </button>
-                ))}
-              </div>
-              {selectedStudents.length > 0 && (
-                <div className="mt-3 text-sm text-muted-foreground">Selected: {selectedStudents.map((s) => s.name).join(", ")}</div>
-              )}
-            </div>
-          )}
-
           {error && <div className="text-sm text-destructive">{error}</div>}
 
           <button type="submit" disabled={submitting} className="inline-flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
             <UserPlus className="h-4 w-4" />
-            {submitting ? "Creating…" : "Create User"}
+            {submitting ? "Creating…" : "Create Student"}
           </button>
         </form>
 
@@ -244,7 +141,7 @@ export default function AdminAddUserPage() {
           <h3 className="text-lg font-bold text-foreground mb-3">Tips</h3>
           <ul className="text-sm text-muted-foreground space-y-2">
             <li>Use strong passwords with at least 6 characters</li>
-            <li>Parents can be linked to multiple students</li>
+            <li>Select a course to immediately enroll the student</li>
             <li>Upload a square profile image for best results</li>
           </ul>
         </div>

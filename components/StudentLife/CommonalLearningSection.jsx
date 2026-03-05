@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link"; // Import Link from Next.js
 
 const subNavItems = [
   { label: "CAMPUS", href: "/campus" },
@@ -14,30 +15,27 @@ const subNavItems = [
 export default function CommunalLearningSection() {
   return (
     <div className="w-full bg-white pb-16 sm:pb-20 md:pb-24 lg:pb-28">
+      
+
       {/* 2. Main Content Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-6 py-10 sm:py-12 md:py-14 lg:py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
         {/* Left Side: Text Content */}
         <div className="max-w-xl">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-[#1a1a1a] leading-tight mb-6 sm:mb-7 md:mb-8">
-            Excellence Rooted in Purpose: Education That Transforms
+            Communal Learning Brings Purpose to Academic Challenge
           </h2>
           <div className="space-y-4 sm:space-y-5 md:space-y-6 text-gray-700 leading-relaxed font-light">
             <p className="text-base sm:text-lg md:text-lg font-medium text-gray-900">
               The outcome of a Pamavambo education — the most lasting and
-              impactful outcome — is a student who knows their worth, honors
-              their heritage, and serves their community with integrity and
-              purpose.
+              impactful outcome — is a set of values, a way of being, an ability
+              to create belonging.
             </p>
             <p className="text-sm sm:text-base md:text-base">
-              Foundational to that outcome is our commitment to holistic
-              development. We believe education extends far beyond academic
-              achievement. At Pamavambo, we cultivate the whole child:
-              intellectually curious minds, spiritually grounded hearts,
-              physically capable bodies, and culturally rooted identities. We
-              engage each student with high expectations and unwavering support,
-              creating an environment where Christian values inform character,
-              discipline shapes resilience, and cultural heritage provides
-              belonging.
+              Foundational to that outcome is Harkness learning; it is the
+              organizing principle of our community. We engage each other with
+              curiosity and inquiry, we listen, and we give each other grace —
+              all without fear or pretense — and we make space for others to
+              exercise that privilege.
             </p>
           </div>
         </div>

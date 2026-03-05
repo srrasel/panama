@@ -1,19 +1,21 @@
 import AdmissionsCTA from "@/components/admission/AdmissionCTA";
 import AdmissionInquiry from "@/components/admission/AdmissionInquiry";
+import VisitUsSection from "@/components/admission/VisitUsSection";
 import SubNav from "@/components/common/SubNav";
 import ThirdHero from "@/components/common/ThirdHero";
-import Footer from "@/components/footer";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/footer";
 
 const subNavItems = [
   { label: "CAMPUS", href: "/campus" },
   { label: "DINING", href: "/dining" },
-
+  { label: "HEALTH AND WELLNESS", href: "/health" },
+  { label: "PUBLIC SAFETY", href: "/safety" },
+  { label: "DIVERSITY AND BELONGING", href: "/diversity" },
   { label: "NEWS AND MEDIA", href: "/news" },
 ];
 const heroData = {
-  backgroundImage:
-    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
+  backgroundImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
   breadcrumbs: [
     { label: "Home", href: "/" },
     { label: "Admission", href: "/admission" },
@@ -33,7 +35,7 @@ export default function InquirePage() {
       <SubNav subNavItems={subNavItems} />
       <AdmissionsCTA />
       <AdmissionInquiry />
-
+      <VisitUsSection />
       <Footer />
     </>
   );

@@ -216,7 +216,7 @@ export default function LibraryView({ currentUserRole }: { currentUserRole?: str
               <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
                 <div className="text-xs text-muted-foreground">
                   <span className="block font-medium text-foreground/80">{resource.uploadedBy?.name || "Unknown"}</span>
-                  <span>{new Date(resource.createdAt).toLocaleDateString()}</span>
+                  <span suppressHydrationWarning>{new Date(resource.createdAt).toLocaleDateString()}</span>
                 </div>
                 <a 
                   href={resource.fileUrl} 

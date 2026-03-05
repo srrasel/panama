@@ -1,6 +1,7 @@
 "use client";
 
-import { Heart, ShieldCheck, Users, Utensils } from "lucide-react";
+import Link from "next/link";
+import { Heart, ShieldCheck, Utensils, Users } from "lucide-react";
 
 const features = [
   {
@@ -45,10 +46,7 @@ export default function SpecialitySection() {
             >
               {/* Icon Container */}
               <div className="relative w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 flex items-center justify-center bg-white rounded-full shadow-sm">
-                <feature.icon
-                  className="w-6 h-6 sm:w-8 sm:h-8 text-amber-700"
-                  strokeWidth={1.5}
-                />
+                <feature.icon className="w-6 h-6 sm:w-8 sm:h-8 text-amber-700" strokeWidth={1.5} />
               </div>
 
               {/* Text Content */}
@@ -60,6 +58,14 @@ export default function SpecialitySection() {
                   {feature.description}
                 </p>
               </div>
+
+              {/* Learn More Button */}
+              <Link
+                href={feature.href}
+                className="inline-block bg-black text-white text-[10px] sm:text-[10px] md:text-[10px] font-bold tracking-widest uppercase px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 hover:bg-[#bc1a31] transition-colors duration-300"
+              >
+                Learn More
+              </Link>
             </div>
           ))}
         </div>

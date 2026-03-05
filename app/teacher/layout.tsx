@@ -21,7 +21,7 @@ export default function TeacherLayout({
   const logout = useLogout()
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
-  const [user, setUser] = useState<{ name: string; role: string } | null>(null)
+  const [user, setUser] = useState<{ name: string; role: string; imageUrl?: string } | null>(null)
 
   const navGroups = [
     {
@@ -144,8 +144,12 @@ export default function TeacherLayout({
                 className="flex items-center gap-3 rounded-lg px-2 py-1 hover:bg-muted"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
               >
-                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                  {(user?.name || "Teacher").split(" ").map((n) => n[0]).join("")?.slice(0,2)}
+                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold overflow-hidden">
+                  {user?.imageUrl ? (
+                    <img src={user.imageUrl} alt={user.name} className="w-full h-full object-cover" />
+                  ) : (
+                    (user?.name || "Teacher").split(" ").map((n) => n[0]).join("")?.slice(0,2)
+                  )}
                 </div>
                 <div className="hidden md:block text-left">
                   <div className="text-sm font-medium text-foreground">{user?.name || "Teacher Demo"}</div>
@@ -155,8 +159,12 @@ export default function TeacherLayout({
               {userMenuOpen && (
                 <div className="absolute right-0 mt-2 w-64 rounded-2xl border border-border bg-card p-3 shadow">
                   <div className="flex items-center gap-3 p-2">
-                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                      {(user?.name || "Teacher").split(" ").map((n) => n[0]).join("")?.slice(0,2)}
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold overflow-hidden">
+                      {user?.imageUrl ? (
+                        <img src={user.imageUrl} alt={user.name} className="w-full h-full object-cover" />
+                      ) : (
+                        (user?.name || "Teacher").split(" ").map((n) => n[0]).join("")?.slice(0,2)
+                      )}
                     </div>
                     <div>
                       <div className="text-sm font-medium text-foreground">{user?.name || "Teacher Demo"}</div>

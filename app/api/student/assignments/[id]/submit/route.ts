@@ -3,13 +3,14 @@ import { cookies } from "next/headers"
 import { getSession } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const session = await getSession((await cookies()).get("session")?.value)
   if (!session || session.role !== "student") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const assignmentId = params.id
+  const assignmentId = id
   
   const contentType = req.headers.get("content-type") || ""
   let content = ""

@@ -47,6 +47,7 @@
         "npm:@vercel/analytics@latest",
         "npm:autoprefixer@^10.4.20",
         "npm:class-variance-authority@~0.7.1",
+        "npm:cloudinary@^2.9.0",
         "npm:clsx@^2.1.1",
         "npm:cmdk@1.0.4",
         "npm:date-fns@4.1.0",
