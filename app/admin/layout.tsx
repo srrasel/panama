@@ -58,7 +58,9 @@ export default function AdminLayout({
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then((data) => {
-        if (data?.name && data?.role) setUser({ name: data.name, role: data.role, imageUrl: data.imageUrl })
+        if (data?.name && data?.role) {
+            setUser({ name: data.name, role: data.role, imageUrl: data.imageUrl })
+        }
       })
       .catch(() => setUser(null))
   }, [])
