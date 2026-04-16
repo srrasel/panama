@@ -63,7 +63,7 @@ export default function HeroSection() {
         <div
           key={index}
           className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
-            currentSlide === index ? "opacity-30 z-20" : "opacity-0 z-0"
+            currentSlide === index ? "opacity-100 z-20" : "opacity-0 z-0"
           }`}
         >
           {slide.type === "video" ? (
@@ -129,7 +129,7 @@ export default function HeroSection() {
               <span
                 className={`cursor-pointer text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold transition-all duration-300 whitespace-nowrap ${
                   currentSlide === index + 1
-                    ? "text-red-900"
+                    ? "text-[#4A6FA5]"
                     : "text-white hover:text-gray-300"
                 }`}
                 onMouseEnter={() => handleHover(index)}

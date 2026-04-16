@@ -101,12 +101,12 @@ export default function Navbar() {
                 </Link>
 
                 {openIndex === index && menu.links.length > 0 && (
-                  <div className="absolute left-0  w-56 bg-[#610716] text-white shadow-2xl py-2 z-50">
+                  <div className="absolute left-0  w-56 bg-[#4A6FA5] text-white shadow-2xl py-2 z-50">
                     <ul className="flex flex-col">
                       {menu.links.map((link, i) => (
                         <li
                           key={i}
-                          className="px-4 py-2 hover:bg-[#821021] transition-colors"
+                          className="px-4 py-2 hover:bg-[#34527d] transition-colors"
                         >
                           <Link
                             href={link.href}
@@ -144,13 +144,13 @@ export default function Navbar() {
                 </div>
 
                 {isInfoOpen && (
-                  <div className="absolute top-full right-0 w-56 bg-[#610716] text-white shadow-2xl py-2 rounded-b-xl border-t border-amber-500/30 z-50">
+                  <div className="absolute top-full right-0 w-56 bg-[#4A6FA5] text-white shadow-2xl py-2 rounded-b-xl border-t border-amber-500/30 z-50">
                      <div className="px-5 py-4 border-b border-white/10 mb-2">
                         <p className="text-sm font-bold truncate text-white">{user.name}</p>
                         <p className="text-[10px] text-amber-400 truncate uppercase tracking-wider">{user.role || 'Member'}</p>
                     </div>
                     <ul className="flex flex-col">
-                      <li className="px-4 py-2 hover:bg-[#821021] transition-colors">
+                      <li className="px-4 py-2 hover:bg-[#34527d] transition-colors">
                         <Link
                           href={user.role === 'student' ? "/student/dashboard" : user.role === 'parent' ? "/parent/dashboard" : "/login"}
                           className="flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white/90"
@@ -158,7 +158,7 @@ export default function Navbar() {
                           <User size={14} className="text-amber-500" /> Dashboard
                         </Link>
                       </li>
-                       <li className="px-4 py-2 hover:bg-[#821021] transition-colors">
+                       <li className="px-4 py-2 hover:bg-[#34527d] transition-colors">
                         <button
                           onClick={logout}
                           className="flex items-center gap-3 text-xs uppercase font-bold tracking-widest text-white/90 w-full text-left"
@@ -180,10 +180,10 @@ export default function Navbar() {
               <ChevronDown size={14} className="text-amber-500" />
 
               {isInfoOpen && (
-                <div className="absolute top-full right-0  w-40 bg-[#610716] text-white shadow-lg py-2">
+                <div className="absolute top-full right-0  w-40 bg-[#4A6FA5] text-white shadow-lg py-2">
                   <ul className="flex flex-col">
                     {dropdownData.items.map((item, index) => (
-                      <li key={index} className="px-4 py-2 hover:bg-[#821021]">
+                      <li key={index} className="px-4 py-2 hover:bg-[#34527d]">
                         <Link
                           href={item.href}
                           className="text-[10px] uppercase font-bold tracking-tighter"
@@ -216,7 +216,7 @@ export default function Navbar() {
         {/* ================= MOBILE NAVIGATION OVERLAY ================= */}
         <div
           className={`
-          fixed inset-0 bg-[#610716] z-50 transition-transform duration-300 ease-in-out flex flex-col
+          fixed inset-0 bg-[#4A6FA5] z-50 transition-transform duration-300 ease-in-out flex flex-col
           ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}
           xl:hidden
         `}

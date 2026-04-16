@@ -170,7 +170,7 @@ export default function ReportsAnalytics() {
                       </div>
                     </td>
                     <td className="px-6 py-4 text-sm font-semibold text-foreground">{report.totalDays}</td>
-                    <td className="px-6 py-4 text-sm font-semibold text-red-600">{report.absences}</td>
+                    <td className="px-6 py-4 text-sm font-semibold text-blue-700">{report.absences}</td>
                   </tr>
                 ))}
               </tbody>
@@ -191,7 +191,7 @@ export default function ReportsAnalytics() {
                   <span className="text-2xl font-bold text-foreground">{report.value}</span>
                   <span
                     className={`text-xs font-semibold px-2 py-1 rounded ${
-                      report.growth.includes("+") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                      report.growth.includes("+") ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-900"
                     }`}
                   >
                     {report.growth}

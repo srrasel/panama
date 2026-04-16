@@ -34,7 +34,7 @@ export default function ParentEvents() {
   const getEventIcon = (type: string) => {
     switch (type) {
       case "Exam":
-        return <AlertCircle className="w-5 h-5 text-red-500" />
+        return <AlertCircle className="w-5 h-5 text-blue-700" />
       case "Assignment":
         return <Clock className="w-5 h-5 text-amber-500" />
       case "Meeting":
@@ -47,7 +47,7 @@ export default function ParentEvents() {
   const getEventColor = (type: string) => {
     switch (type) {
       case "Exam":
-        return "bg-red-50 text-red-700 border-red-200"
+        return "bg-blue-50 text-blue-800 border-blue-200"
       case "Assignment":
         return "bg-amber-50 text-amber-700 border-amber-200"
       case "Meeting":

@@ -74,7 +74,7 @@ const HeadOfSchoolCommunications = () => {
                       <li key={i} className="text-sm">
                         <a
                           href="#"
-                          className="text-[#9b031f] font-bold border-b border-transparent hover:border-[#9b031f] transition-all"
+                          className="text-[#4A6FA5] font-bold border-b border-transparent hover:border-[#4A6FA5] transition-all"
                         >
                           {item.year} - {item.title}
                         </a>
@@ -84,7 +84,7 @@ const HeadOfSchoolCommunications = () => {
                   <div className="pt-8">
                     <a
                       href="#"
-                      className="text-[#9b031f] font-bold text-sm border-b border-[#9b031f] pb-0.5"
+                      className="text-[#4A6FA5] font-bold text-sm border-b border-[#4A6FA5] pb-0.5"
                     >
                       Installation Remarks, October 9, 2015
                     </a>
@@ -101,7 +101,7 @@ const HeadOfSchoolCommunications = () => {
                       <li key={i} className="text-sm">
                         <a
                           href="#"
-                          className="text-[#9b031f] font-bold border-b border-transparent hover:border-[#9b031f] transition-all"
+                          className="text-[#4A6FA5] font-bold border-b border-transparent hover:border-[#4A6FA5] transition-all"
                         >
                           {item.year} - {item.title}
                         </a>

@@ -15,7 +15,7 @@ export default function TestRoles() {
   return (
     <div className="p-8">
       <h1>Test Roles API</h1>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-blue-700">{error}</p>}
       <pre>{JSON.stringify(roles, null, 2)}</pre>
     </div>
   )

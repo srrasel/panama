@@ -366,7 +366,7 @@ export default function TeacherSchedule() {
                               <p className="font-semibold text-foreground truncate">{event.title}</p>
                               <span className={`px-2 py-0.5 rounded-full text-[10px] uppercase font-bold
                                 ${event.type === 'Class' ? 'bg-blue-100 text-blue-700' : 
-                                  event.type === 'Exam' ? 'bg-red-100 text-red-700' :
+                                  event.type === 'Exam' ? 'bg-blue-100 text-blue-800' :
                                   event.type === 'OfficeHours' ? 'bg-emerald-100 text-emerald-700' :
                                   'bg-gray-100 text-gray-700'}`}>
                                 {event.type}
@@ -386,7 +386,7 @@ export default function TeacherSchedule() {
                             )}
                             <button 
                               onClick={() => handleDeleteEvent(event.id)}
-                              className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 transition-opacity"
+                              className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-blue-700 hover:text-blue-800 transition-opacity"
                             >
                               &times;
                             </button>
@@ -419,7 +419,7 @@ export default function TeacherSchedule() {
                             <p className="font-semibold text-foreground text-lg">{event.title}</p>
                             <span className={`px-2 py-0.5 rounded-full text-xs uppercase font-bold
                                 ${event.type === 'Class' ? 'bg-blue-100 text-blue-700' : 
-                                  event.type === 'Exam' ? 'bg-red-100 text-red-700' :
+                                  event.type === 'Exam' ? 'bg-blue-100 text-blue-800' :
                                   event.type === 'OfficeHours' ? 'bg-emerald-100 text-emerald-700' :
                                   'bg-gray-100 text-gray-700'}`}>
                               {event.type}
@@ -435,7 +435,7 @@ export default function TeacherSchedule() {
                         <Button 
                           variant="ghost" 
                           size="sm" 
-                          className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 hover:bg-red-50"
+                          className="opacity-0 group-hover:opacity-100 text-blue-700 hover:text-blue-800 hover:bg-blue-50"
                           onClick={() => handleDeleteEvent(event.id)}
                         >
                           Delete

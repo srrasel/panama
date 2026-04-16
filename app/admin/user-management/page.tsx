@@ -54,7 +54,7 @@ export default function UserManagement() {
       case "parent":
         return "bg-green-100 text-green-800"
       case "admin":
-        return "bg-red-100 text-red-800"
+        return "bg-blue-100 text-blue-900"
       default:
         return "bg-gray-100 text-gray-800"
     }
@@ -138,7 +138,7 @@ export default function UserManagement() {
                   </Link>
                   <button
                     onClick={() => handleDeleteUser(user.id)}
-                    className="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors"
+                    className="px-3 py-1 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition-colors"
                   >
                     Delete
                   </button>

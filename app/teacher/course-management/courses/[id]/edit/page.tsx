@@ -398,7 +398,7 @@ export default function EditCoursePage({ params }: { params: Promise<{ id: strin
                     <span className="font-medium">{lesson.title || "Untitled Lesson"}</span>
                     <ListOrdered size={16} className="text-muted-foreground ml-2" />
                   </div>
-                  <button onClick={() => deleteLesson(idx)} className="p-2 text-muted-foreground hover:text-red-500"><Trash2 size={16}/></button>
+                  <button onClick={() => deleteLesson(idx)} className="p-2 text-muted-foreground hover:text-blue-700"><Trash2 size={16}/></button>
                 </div>
                  
                  {openLessons[idx] && (
@@ -427,7 +427,7 @@ export default function EditCoursePage({ params }: { params: Promise<{ id: strin
                     <span className="font-medium">{quiz.title || "Untitled Quiz"}</span>
                     <FileText size={16} className="text-muted-foreground ml-2" />
                   </div>
-                  <button onClick={() => deleteQuiz(idx)} className="p-2 text-muted-foreground hover:text-red-500"><Trash2 size={16}/></button>
+                  <button onClick={() => deleteQuiz(idx)} className="p-2 text-muted-foreground hover:text-blue-700"><Trash2 size={16}/></button>
                 </div>
                  
                  {openQuizzes[idx] && (
@@ -443,7 +443,7 @@ export default function EditCoursePage({ params }: { params: Promise<{ id: strin
                                <p className="font-medium text-sm">Question {qIdx + 1}</p>
                                <button onClick={() => {
                                  const n = [...quizzes]; n[idx].items = n[idx].items.filter((_, i) => i !== qIdx); setQuizzes(n)
-                               }} className="text-red-500 hover:text-red-700"><Trash2 size={14}/></button>
+                               }} className="text-blue-700 hover:text-blue-800"><Trash2 size={14}/></button>
                             </div>
                             <input value={item.question} onChange={e => {
                               const n = [...quizzes]; n[idx].items[qIdx].question = e.target.value; setQuizzes(n)

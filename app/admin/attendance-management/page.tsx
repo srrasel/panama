@@ -34,7 +34,7 @@ export default function AttendanceManagement() {
       case "late":
         return "bg-yellow-100 text-yellow-800"
       case "absent":
-        return "bg-red-100 text-red-800"
+        return "bg-blue-100 text-blue-900"
       default:
         return "bg-gray-100 text-gray-800"
     }
@@ -79,7 +79,7 @@ export default function AttendanceManagement() {
         </div>
         <div className="bg-card border border-border rounded-lg p-6">
           <h3 className="text-sm font-medium text-muted-foreground mb-2">Absent Today</h3>
-          <p className="text-3xl font-bold text-red-600">{filteredData.filter((d) => d.status === "absent").length}</p>
+          <p className="text-3xl font-bold text-blue-700">{filteredData.filter((d) => d.status === "absent").length}</p>
         </div>
       </div>
 

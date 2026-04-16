@@ -229,7 +229,7 @@ export default function CourseManagement() {
               )}
               <button
                 onClick={() => handleDeleteCourse(course.id)}
-                className="flex-1 px-3 py-2 bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors text-sm font-medium"
+                className="flex-1 px-3 py-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition-colors text-sm font-medium"
               >
                 Delete
               </button>

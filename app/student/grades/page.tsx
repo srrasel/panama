@@ -140,7 +140,7 @@ export default function StudentGrades() {
                     </div>
                     </td>
                     <td className="py-5 px-6"><span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider ${grade.performance === "Outstanding" ? "bg-green-100 text-green-700" : grade.performance === "Excellent" ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>{grade.performance}</span></td>
-                    <td className="py-5 px-6"><span className={`text-sm font-bold ${grade.trend.startsWith("+") ? "text-emerald-600" : "text-red-600"}`}>{grade.trend}%</span></td>
+                    <td className="py-5 px-6"><span className={`text-sm font-bold ${grade.trend.startsWith("+") ? "text-emerald-600" : "text-blue-700"}`}>{grade.trend}%</span></td>
                     <td className="py-5 px-6 text-sm text-slate-500 font-medium">{grade.comments}</td>
                 </tr>
                 ))}

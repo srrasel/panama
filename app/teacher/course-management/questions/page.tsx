@@ -42,9 +42,9 @@ export default function TeacherQuestions() {
           <p className="text-muted-foreground text-sm">Medium</p>
           <p className="text-3xl font-bold text-amber-700 mt-2">{stat.medium}</p>
         </div>
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
           <p className="text-muted-foreground text-sm">Hard</p>
-          <p className="text-3xl font-bold text-red-700 mt-2">{stat.hard}</p>
+          <p className="text-3xl font-bold text-blue-800 mt-2">{stat.hard}</p>
         </div>
       </div>
 
@@ -120,7 +120,7 @@ export default function TeacherQuestions() {
                 <p className="text-xs text-muted-foreground">{q.type} • {q.marks} marks</p>
               </div>
             </div>
-            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${q.difficulty === 'Easy' ? 'bg-green-100 text-green-700' : q.difficulty === 'Medium' ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'}`}>{q.difficulty}</span>
+            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${q.difficulty === 'Easy' ? 'bg-green-100 text-green-700' : q.difficulty === 'Medium' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-800'}`}>{q.difficulty}</span>
           </div>
         ))}
       </div>

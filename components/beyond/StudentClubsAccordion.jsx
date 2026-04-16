@@ -104,7 +104,7 @@ const StudentClubsAccordion = () => {
                 onClick={() => toggleAccordion(index)}
                 className={`w-full flex items-center py-3 sm:py-4 px-3 sm:px-4 transition-all duration-300 group ${
                   openIndex === index
-                    ? "bg-[#9b031f] text-white"
+                    ? "bg-[#4A6FA5] text-white"
                     : "hover:bg-gray-50"
                 }`}
               >

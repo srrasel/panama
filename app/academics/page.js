@@ -25,6 +25,7 @@ export default function Academics() {
         title="Beyond the Classroom"
         description="While the Harkness table is the cornerstone of learning at Pamavambo, there are many opportunities for students to apply and expand their knowledge beyond the classroom."
         buttonText="Go Beyond"
+        buttonHref="/beyond-the-classroom"
         imagePath="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop"
         imageAlt="Students hiking"
       />

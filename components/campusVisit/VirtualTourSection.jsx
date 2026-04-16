@@ -157,7 +157,7 @@ export default function VirtualTourSection() {
                           />
                           {/* Play Button Overlay */}
                           <div className="absolute inset-0 flex items-center justify-center bg-black/5 group-hover:bg-black/20 transition-all duration-300">
-                            <div className="w-12 h-8 bg-red-600 rounded-md flex items-center justify-center shadow-lg group-hover:bg-red-700">
+                            <div className="w-12 h-8 bg-[#4A6FA5] rounded-md flex items-center justify-center shadow-lg group-hover:bg-[#4A6FA5]">
                               <Play
                                 size={16}
                                 className="text-white fill-white ml-0.5"

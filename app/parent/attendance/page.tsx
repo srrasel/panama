@@ -85,15 +85,15 @@ export default function ParentAttendance() {
 
           <div className="bg-white p-6 rounded-[1.8rem] shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-md transition-all duration-300">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <XCircle className="w-24 h-24 text-red-600" />
+              <XCircle className="w-24 h-24 text-blue-700" />
             </div>
             <div className="relative z-10">
-              <div className="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                <XCircle className="w-6 h-6 text-red-600" />
+              <div className="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <XCircle className="w-6 h-6 text-blue-700" />
               </div>
               <p className="text-slate-500 font-medium">Absent</p>
               <h3 className="text-3xl font-bold text-slate-900 mt-1">{attendanceStats.absent}</h3>
-              <p className="text-red-600 text-sm font-medium mt-2 bg-red-50 inline-block px-2 py-1 rounded-lg">
+              <p className="text-blue-700 text-sm font-medium mt-2 bg-blue-50 inline-block px-2 py-1 rounded-lg">
                 Days absent
               </p>
             </div>
@@ -149,7 +149,7 @@ export default function ParentAttendance() {
                       record.status === "Present"
                         ? "bg-emerald-100 text-emerald-700"
                         : record.status === "Absent"
-                          ? "bg-red-100 text-red-700"
+                          ? "bg-blue-100 text-blue-800"
                           : "bg-amber-100 text-amber-700"
                     }`}
                   >
@@ -167,7 +167,7 @@ export default function ParentAttendance() {
                     record.status === "Present"
                       ? "bg-white text-emerald-700 border border-emerald-100"
                       : record.status === "Absent"
-                        ? "bg-white text-red-700 border border-red-100"
+                        ? "bg-white text-blue-800 border border-blue-100"
                         : "bg-white text-amber-700 border border-amber-100"
                   }`}
                 >
@@ -198,7 +198,7 @@ export default function ParentAttendance() {
                     <span
                       className={`px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap ml-2 ${
                         event.type === "Exam"
-                          ? "bg-red-100 text-red-700"
+                          ? "bg-blue-100 text-blue-800"
                           : event.type === "Meeting"
                             ? "bg-blue-100 text-blue-700"
                             : event.type === "Deadline"

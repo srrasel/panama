@@ -19,7 +19,7 @@ const resourceData = [
 
 export default function ResourceSection() {
   return (
-    <section className="bg-[#8c1525] py-12 sm:py-16 md:py-20 px-4 sm:px-5 md:px-6">
+    <section className="bg-[#34527d] py-12 sm:py-16 md:py-20 px-4 sm:px-5 md:px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-24">
         {resourceData.map((item, index) => (
           <div

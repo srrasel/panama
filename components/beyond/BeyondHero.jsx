@@ -1,7 +1,7 @@
 const BeyondHero = () => {
   return (
     // Responsive height
-    <section className="relative h-80 sm:h-96 md:h-screen w-full overflow-hidden bg-red-900">
+    <section className="relative h-80 sm:h-96 md:h-screen w-full overflow-hidden bg-[#4A6FA5]">
       {/* Background Image */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat grayscale"
@@ -11,7 +11,7 @@ const BeyondHero = () => {
       />
 
       {/* Red Tint Overlay - mix-blend-multiply creates that deep red effect */}
-      <div className="absolute inset-0 z-10 bg-red-900/90 mix-blend-multiply" />
+      <div className="absolute inset-0 z-10 bg-[#4A6FA5]/90 mix-blend-multiply" />
 
       {/* Content Container */}
       <div className="relative z-20 flex h-full flex-col justify-center px-4 sm:px-5 md:px-8 lg:px-20 xl:px-32">

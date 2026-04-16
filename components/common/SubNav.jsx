@@ -5,13 +5,13 @@ const SubNav = ({ subNavItems = [] }) => {
   }
 
   return (
-    <nav className="border-t border-b border-[#b89149]/30 py-3 sm:py-4">
+    <nav className="border-t border-b border-[#FFD166]/30 py-3 sm:py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-6">
         <ul className="flex flex-wrap justify-center  gap-3 sm:gap-4 md:gap-8 lg:gap-12">
           {subNavItems.map((item) => (
             <li key={item.label}>
               {item.href ? (
-                <p className="text-[10px] sm:text-[10px] md:text-xs lg:text-xs font-bold tracking-wider sm:tracking-widest text-gray-800 hover:text-[#bc1a31] transition-colors">
+                <p className="text-[10px] sm:text-[10px] md:text-xs lg:text-xs font-bold tracking-wider sm:tracking-widest text-gray-800 hover:text-[#4A6FA5] transition-colors">
                   {item.label}
                 </p>
               ) : (
@@ -29,3 +29,4 @@ const SubNav = ({ subNavItems = [] }) => {
 
 // Make sure to export as default
 export default SubNav;
+

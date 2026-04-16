@@ -39,12 +39,12 @@ export default function AdmissionsCTA() {
               href={link.href}
               className="group flex justify-between sm:justify-end items-center gap-4 sm:gap-6 border-b border-gray-100 hover:border-gray-100 pb-2 sm:pb-2 transition-all"
             >
-              <span className="text-base sm:text-lg md:text-xl lg:text-xl font-serif text-[#1a1a1a] group-hover:text-[#bc1a31] transition-colors">
+              <span className="text-base sm:text-lg md:text-xl lg:text-xl font-serif text-[#1a1a1a] group-hover:text-[#4A6FA5] transition-colors">
                 {link.name}
               </span>
               <ArrowRight
                 size={18}
-                className="text-gray-300 group-hover:text-[#bc1a31] group-hover:translate-x-1 transition-all shrink-0"
+                className="text-gray-300 group-hover:text-[#4A6FA5] group-hover:translate-x-1 transition-all shrink-0"
                 strokeWidth={1}
               />
             </Link>
@@ -54,3 +54,4 @@ export default function AdmissionsCTA() {
     </section>
   );
 }
+

@@ -8,7 +8,7 @@ const HeadOfSchool = () => {
         <div className="lg:col-span-4 flex flex-col items-center text-center">
           <div className="relative w-64 h-64 mb-8">
             {/* Red border accent */}
-            <div className="absolute inset-0 border-[3px] border-[#9b031f] rounded-full -m-2" />
+            <div className="absolute inset-0 border-[3px] border-[#4A6FA5] rounded-full -m-2" />
             <div className="relative w-full h-full rounded-full overflow-hidden">
               <Image
                 src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400"
@@ -27,7 +27,7 @@ const HeadOfSchool = () => {
             </p>
           </div>
           <div className="mt-8">
-            <button className="text-[10px] font-bold tracking-[0.2em] text-[#9b031f] uppercase border-b border-[#9b031f] pb-1">
+            <button className="text-[10px] font-bold tracking-[0.2em] text-[#4A6FA5] uppercase border-b border-[#4A6FA5] pb-1">
               Read Steve's Biography
             </button>
           </div>

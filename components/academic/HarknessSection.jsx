@@ -40,7 +40,7 @@ export default function HarknessSection() {
         <div className="w-full md:w-1/3">
           <p className="text-xs sm:text-sm md:text-sm text-gray-700 leading-relaxed sm:leading-relaxed">
             This is the foundation of{" "}
-            <span className="text-[#b89149] font-bold border-b border-[#b89149]">
+            <span className="text-[#FFD166] font-bold border-b border-[#FFD166]">
               HARKNESS LEARNING
             </span>
             , a collaborative form of learning that encourages intellectual
@@ -60,3 +60,4 @@ export default function HarknessSection() {
     </section>
   );
 }
+

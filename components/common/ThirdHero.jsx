@@ -5,12 +5,12 @@ const ThirdHero = ({
   breadcrumbs,
   title,
   description, // Optional prop
-  tintColor = "#7e0b1a",
-  tintOpacity = 95,
+  tintColor = "#4A6FA5",
+  tintOpacity = 90,
 }) => {
   return (
     // Responsive height
-    <section className="relative h-80 sm:h-96 md:h-screen w-full overflow-hidden bg-red-900">
+    <section className="relative h-80 sm:h-96 md:h-screen w-full overflow-hidden bg-[#4A6FA5]">
       {/* Background Image */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat grayscale"

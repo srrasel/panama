@@ -42,7 +42,7 @@ const DualActionCards = ({
             </div>
 
             {/* Decorative Gold Border Frame */}
-            <div className="absolute inset-4 md:inset-10 border-2 border-[#b89149] z-10 pointer-events-none" />
+            <div className="absolute inset-4 md:inset-10 border-2 border-[#FFD166] z-10 pointer-events-none" />
 
             {/* Content Container */}
             <div className="relative z-20 flex flex-col items-start text-left space-y-4 md:space-y-6 max-w-sm md:max-w-md">
@@ -56,7 +56,7 @@ const DualActionCards = ({
 
               <Link
                 href={card.href}
-                className="inline-block bg-[#bc1a31] text-white text-[10px] md:text-xs font-bold tracking-widest uppercase px-6 py-3 md:px-8 md:py-4 hover:bg-[#9a1628] transition-colors duration-300"
+                className="inline-block bg-[#4A6FA5] text-white text-[10px] md:text-xs font-bold tracking-widest uppercase px-6 py-3 md:px-8 md:py-4 hover:bg-[#34527d] transition-colors duration-300"
               >
                 {card.buttonText}
               </Link>

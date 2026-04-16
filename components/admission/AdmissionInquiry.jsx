@@ -11,7 +11,7 @@ import Image from "next/image";
 
 export default function AdmissionInquiry() {
   return (
-    <section className="w-full bg-[#bc1a31] text-white py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-40">
+    <section className="w-full bg-[#4A6FA5] text-white py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-40">
       <div className="max-w-4xl mx-auto space-y-8 sm:space-y-10 md:space-y-12">
         {/* Header Section */}
         <div className="space-y-4 sm:space-y-5 md:space-y-6">
@@ -281,3 +281,4 @@ export default function AdmissionInquiry() {
     </section>
   );
 }
+

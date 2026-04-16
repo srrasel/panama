@@ -3,13 +3,13 @@ import Image from "next/image";
 const departments = [
   { name: "English", icon: "/academic/english.svg" },
   { name: "History", icon: "/academic/history.svg" },
-  { name: "Interdisciplinary Studies", icon: "/academic/interdisiplinary.svg" },
-  { name: "Language", icon: "/academic/language.svg" },
+  { name: "Accounts/Commerce", icon: "/academic/interdisiplinary.svg" },
+  { name: "Combined Science", icon: "/academic/language.svg" },
   { name: "Mathematics", icon: "/academic/mathematics.svg" },
-  { name: "Performing Arts", icon: "/academic/performing-arts.svg" },
-  { name: "Religion and Philosophy", icon: "/academic/religion.svg" },
-  { name: "Science", icon: "/academic/science.svg" },
-  { name: "Visual Arts", icon: "/academic/visual-arts.svg" },
+  { name: "Geography", icon: "/academic/performing-arts.svg" },
+  { name: "Physics", icon: "/academic/religion.svg" },
+  { name: "Biology", icon: "/academic/science.svg" },
+  { name: "Chemistry", icon: "/academic/visual-arts.svg" },
 ];
 
 export default function AcademicDepartments() {
@@ -62,7 +62,7 @@ export default function AcademicDepartments() {
               <div
                 className="
                   absolute inset-0 
-                  bg-[#8b0000] 
+                  bg-[#4A6FA5] 
                   opacity-0 
                   group-hover:opacity-100 
                   transition-opacity duration-300

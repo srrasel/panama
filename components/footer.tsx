@@ -46,7 +46,7 @@ export default function Footer() {
             <div className="flex flex-col space-y-3 w-full max-w-60">
               <Link
                 href="/admission/inquire"
-                className="flex justify-between items-center border border-[#b89149]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#b89149] hover:text-black transition-all group"
+                className="flex justify-between items-center border border-[#FFD166]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#FFD166] hover:text-black transition-all group"
               >
                 INQUIRE
                 <ArrowRight
@@ -56,7 +56,7 @@ export default function Footer() {
               </Link>
               <Link
                 href="/admission/application"
-                className="flex justify-between items-center border border-[#b89149]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#b89149] hover:text-black transition-all group"
+                className="flex justify-between items-center border border-[#FFD166]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#FFD166] hover:text-black transition-all group"
               >
                 GIVE NOW
                 <ArrowRight
@@ -83,7 +83,7 @@ export default function Footer() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-[10px] font-bold tracking-[0.2em] opacity-80 hover:text-[#b89149] hover:opacity-100 transition-all uppercase"
+                className="text-[10px] font-bold tracking-[0.2em] opacity-80 hover:text-[#FFD166] hover:opacity-100 transition-all uppercase"
               >
                 {link.name}
               </Link>
@@ -97,7 +97,7 @@ export default function Footer() {
             {secondaryLinks.map((link) => (
               <p
                 key={link.name}
-                className="text-[9px] font-bold tracking-[0.15em] text-[#b89149] hover:brightness-125 transition-all uppercase"
+                className="text-[9px] font-bold tracking-[0.15em] text-[#FFD166] hover:brightness-125 transition-all uppercase"
               >
                 {link.name}
               </p>
@@ -115,3 +115,4 @@ export default function Footer() {
     </footer>
   );
 }
+

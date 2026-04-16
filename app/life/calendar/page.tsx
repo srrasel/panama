@@ -9,6 +9,8 @@ import Image from "next/image";
 
 export default function CalendarPage() {
   const [date, setDate] = useState<Date | undefined>(undefined);
+  const INITIAL_VISIBLE_EVENTS = 5;
+  const LOAD_MORE_STEP = 3;
 
   useEffect(() => {
     setDate(new Date());
@@ -55,8 +57,56 @@ export default function CalendarPage() {
       time: "1:00 PM - 4:00 PM",
       location: "Field House",
       description: "Representatives from over 100 colleges and universities will be available to answer questions."
+    },
+    {
+      id: 6,
+      date: "NOV 05",
+      title: "Community Service Day",
+      time: "9:00 AM - 12:00 PM",
+      location: "City Outreach Center",
+      description: "Students and staff join local partners for service projects focused on education, environment, and food security."
+    },
+    {
+      id: 7,
+      date: "NOV 10",
+      title: "Winter Sports Tryouts",
+      time: "3:30 PM - 6:00 PM",
+      location: "Athletics Complex",
+      description: "Open tryouts for basketball, swimming, and track. Students should arrive with completed participation forms."
+    },
+    {
+      id: 8,
+      date: "NOV 14",
+      title: "Student Art Showcase",
+      time: "5:00 PM - 7:00 PM",
+      location: "Visual Arts Gallery",
+      description: "An exhibition of student work across painting, digital design, photography, and mixed media."
+    },
+    {
+      id: 9,
+      date: "NOV 19",
+      title: "STEM Innovation Night",
+      time: "6:00 PM - 8:30 PM",
+      location: "Innovation Lab",
+      description: "Families are invited to explore robotics demos, coding challenges, and engineering prototypes created by students."
+    },
+    {
+      id: 10,
+      date: "NOV 22",
+      title: "Cultural Heritage Festival",
+      time: "11:00 AM - 3:00 PM",
+      location: "Central Courtyard",
+      description: "A celebration of global cultures through music, dance, storytelling, and food hosted by student organizations."
     }
   ];
+
+  const [visibleEvents, setVisibleEvents] = useState(INITIAL_VISIBLE_EVENTS);
+  const displayedEvents = events.slice(0, visibleEvents);
+  const hasMoreEvents = visibleEvents < events.length;
+
+  const handleLoadMore = () => {
+    setVisibleEvents((prev) => Math.min(prev + LOAD_MORE_STEP, events.length));
+  };
 
   return (
     <>
@@ -130,11 +180,11 @@ export default function CalendarPage() {
              <div className="lg:w-2/3">
                 <div className="flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
                   <h2 className="text-3xl font-serif text-gray-900">Upcoming Events</h2>
-                  <div className="text-gray-500 text-sm">Showing 5 upcoming events</div>
+                  <div className="text-gray-500 text-sm">Showing {displayedEvents.length} of {events.length} upcoming events</div>
                 </div>
                 
                 <div className="space-y-6">
-                  {events.map((event) => (
+                  {displayedEvents.map((event) => (
                     <div key={event.id} className="group flex flex-col sm:flex-row gap-6 bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-amber-200 transition-all duration-300">
                       {/* Date Box */}
                       <div className="flex-shrink-0 w-full sm:w-24 h-24 bg-amber-50 rounded-lg border border-amber-100 flex flex-col items-center justify-center text-amber-800 group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300">
@@ -168,11 +218,17 @@ export default function CalendarPage() {
                   ))}
                 </div>
                 
-                <div className="mt-12 text-center">
-                  <button className="px-8 py-3 bg-white border border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 hover:border-gray-400 transition-colors">
-                    Load More Events
-                  </button>
-                </div>
+                {hasMoreEvents && (
+                  <div className="mt-12 text-center">
+                    <button
+                      type="button"
+                      onClick={handleLoadMore}
+                      className="px-8 py-3 bg-white border border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 hover:border-gray-400 transition-colors"
+                    >
+                      Load More Events
+                    </button>
+                  </div>
+                )}
              </div>
           </div>
         </div>

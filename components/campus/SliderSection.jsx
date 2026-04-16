@@ -64,7 +64,7 @@ const SliderSection = ({
             </div>
             <button
               onClick={() => (window.location.href = learnMoreLink)}
-              className="text-[10px] font-bold tracking-[0.25em] uppercase border-b-2 border-black pb-1 hover:text-red-800 hover:border-red-800 transition-all cursor-pointer"
+              className="text-[10px] font-bold tracking-[0.25em] uppercase border-b-2 border-black pb-1 hover:text-[#4A6FA5] hover:border-[#4A6FA5] transition-all cursor-pointer"
             >
               {learnMoreText}
             </button>

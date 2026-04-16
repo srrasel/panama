@@ -10,9 +10,9 @@ const gridItems = [
     link: "/academics",
   },
   {
-    title: "Athletics",
+    title: "Sports",
     image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop",
-    link: "/athletics",
+    link: "/sports",
   },
   {
     title: "Admissions",
@@ -22,7 +22,7 @@ const gridItems = [
   {
     title: "Beyond the Classroom",
     image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2070&auto=format&fit=crop",
-    link: "/beyond",
+    link: "/beyond-the-classroom",
   },
 ];
 

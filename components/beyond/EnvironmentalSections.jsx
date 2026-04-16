@@ -16,7 +16,7 @@ const EnvironmentalSections = () => {
             </p>
             <a
               href="#"
-              className="text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-900 uppercase hover:text-red-800 transition-colors"
+              className="text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-900 uppercase hover:text-[#4A6FA5] transition-colors"
             >
               Read more about the big red farm
             </a>
@@ -54,7 +54,7 @@ const EnvironmentalSections = () => {
             </p>
             <a
               href="#"
-              className="text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-900 uppercase hover:text-red-800 transition-colors max-w-full sm:max-w-xs"
+              className="text-[10px] font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-900 uppercase hover:text-[#4A6FA5] transition-colors max-w-full sm:max-w-xs"
             >
               Learn about sustainability at Pamavambo
             </a>

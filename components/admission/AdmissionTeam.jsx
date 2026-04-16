@@ -80,7 +80,7 @@ export default function AdmissionTeam() {
             >
               <div className="relative w-48 aspect-square mb-6">
                 {/* Red border ring */}
-                <div className="absolute inset-0 rounded-full border-4 border-[#bc1a31] pointer-events-none z-20" />
+                <div className="absolute inset-0 rounded-full border-4 border-[#4A6FA5] pointer-events-none z-20" />
 
                 {/* Image container */}
                 <div className="absolute inset-1 rounded-full overflow-hidden z-10 bg-gray-100">
@@ -105,7 +105,7 @@ export default function AdmissionTeam() {
                 </p>
                 <a
                   href={`mailto:${member.email}`}
-                  className="text-[11px] font-medium text-[#bc1a31] hover:underline px-2"
+                  className="text-[11px] font-medium text-[#4A6FA5] hover:underline px-2"
                 >
                   {member.email}
                 </a>
@@ -117,3 +117,4 @@ export default function AdmissionTeam() {
     </section>
   );
 }
+

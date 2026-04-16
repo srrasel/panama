@@ -21,7 +21,7 @@ export default function ActivitySection() {
   ];
 
   return (
-    <section className="w-full bg-[#610716] py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-[#4A6FA5] py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Responsive Grid: 1 column on mobile, 3 columns on larger screens */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12">

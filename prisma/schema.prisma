@@ -303,3 +303,33 @@ model Review {
 
   @@unique([studentId, courseId])
 }
+
+model Podcast {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+  coverImage  String?
+  audioUrl    String?
+  iframeEmbed String?  // optional iframe embed code (Spotify, SoundCloud, etc.)
+  duration    String?  // e.g. "45:30"
+  host        String?
+  category    String?
+  status      String   @default("Draft") // Draft, Published
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlogPost {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  content    String   // full blog content (rich text / markdown)
+  excerpt    String?  // short summary for card display
+  coverImage String?
+  category   String?
+  quiz       String?  // JSON string of quiz questions array
+  status     String   @default("Draft") // Draft, Published
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

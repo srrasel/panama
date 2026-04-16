@@ -447,7 +447,7 @@ export default function SystemSettings() {
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
           ) : errorRoles ? (
-            <div className="p-8 text-center text-red-500 bg-red-50 rounded-lg border border-red-200">
+            <div className="p-8 text-center text-blue-700 bg-blue-50 rounded-lg border border-blue-200">
               <p className="font-bold">Error loading roles</p>
               <p className="text-sm mt-2">{errorRoles}</p>
               <Button onClick={fetchRoles} variant="outline" className="mt-4">Try Again</Button>

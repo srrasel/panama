@@ -162,7 +162,7 @@ export default function ParentPortalLayout({ children, title, breadcrumbs }: Par
               
               <button 
                 onClick={logout}
-                className="flex w-full items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl duration-300 hover:text-red-600 transition-all font-medium mt-4"
+                className="flex w-full items-center gap-3 px-4 py-3 text-blue-700 hover:bg-blue-50 rounded-xl duration-300 hover:text-blue-700 transition-all font-medium mt-4"
               >
                 <LogOut className="w-5 h-5" /> Logout
               </button>

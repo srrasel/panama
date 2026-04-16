@@ -188,7 +188,7 @@ export default function CoursePage() {
       <main className="min-h-screen bg-slate-50">
         <Navigation />
         <div className="flex flex-col items-center justify-center h-[60vh] gap-4">
-          <div className="text-red-500 font-bold text-xl">{error || "Course not found"}</div>
+          <div className="text-blue-700 font-bold text-xl">{error || "Course not found"}</div>
           <button 
             onClick={() => router.push("/courses")}
             className="text-blue-600 hover:underline"

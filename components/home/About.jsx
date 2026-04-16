@@ -9,12 +9,12 @@ export default function AboutSection() {
   return (
     <section className="relative w-full py-20 px-4 md:px-20 bg-white overflow-hidden">
       {/* Decorative Gold Border Box - Top Section */}
-      <div className="max-w-7xl mx-auto relative border border-[#b89149] p-8 md:p-16 ">
+      <div className="max-w-7xl mx-auto relative border border-[#FFD166] p-8 md:p-16 ">
         {/* Small patterned box on the left line */}
         <div
-          className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-5 h-20 bg-[#f3efe4] hidden md:block border-l border-r border-[#b89149]"
+          className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-5 h-20 bg-[#f3efe4] hidden md:block border-l border-r border-[#FFD166]"
           style={{
-            backgroundImage: "radial-gradient(#b89149 1px, transparent 0)",
+            backgroundImage: "radial-gradient(#FFD166 1px, transparent 0)",
             backgroundSize: "4px 4px",
           }}
         />
@@ -23,13 +23,15 @@ export default function AboutSection() {
           {/* Left Side: Text */}
           <div className="z-10">
             <h2 className="text-4xl md:text-5xl font-serif text-[#2a3c4a] mb-6 leading-tight">
-              With a House to <br /> Call Home...
+          This is where <br/>it begins... 
+
             </h2>
             <p className="text-gray-600 max-w-sm mb-8 leading-relaxed italic">
-              A tight-knit community, a support system, a place of respite, a
-              team, a flag, a cheer, a legacy to make your own.
+           A tight-knit community, a support system, a place of growth. A team, a foundation, a journey to excellence. 
+           At Pamavambo, your story starts here.
+
             </p>
-            <Button asChild className="bg-[#bc1a31] cursor-pointer hover:bg-[#9a1528] text-white rounded-none px-8 py-6 uppercase tracking-widest text-xs flex items-center gap-4">
+            <Button asChild className="bg-[#4A6FA5] cursor-pointer hover:bg-[#34527d] text-white rounded-none px-8 py-6 uppercase tracking-widest text-xs flex items-center gap-4">
               <Link href={"/life"}>
                 Learn More <ArrowRight size={16} />
               </Link>
@@ -39,7 +41,7 @@ export default function AboutSection() {
           {/* Right Side: Overlapping Images */}
           <div className="relative h-75 md:h-100">
             {/* Red Architectural Detail Background */}
-            <div className="absolute top-0 right-0 w-full h-3/5 bg-[#bc1a31] overflow-hidden rounded-sm">
+            <div className="absolute top-0 right-0 w-full h-3/5 bg-[#4A6FA5] overflow-hidden rounded-sm">
               <Image
                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
                 alt="Architectural pattern"
@@ -64,7 +66,7 @@ export default function AboutSection() {
 
       {/* Decorative Connector and Logo */}
       <div className="flex flex-col items-center mb-12">
-        <div className="border border-[#b89149] py-2 px-6 -mt-12 bg-white z-50">
+        <div className="border border-[#FFD166] py-2 px-6 -mt-12 bg-white z-50">
           <div className="relative w-20 h-20 ">
             <Image
               src="/texture-02.svg"
@@ -74,7 +76,7 @@ export default function AboutSection() {
             />
           </div>
         </div>
-        <div className="w-0.5 h-28  bg-[#b89149]"></div>
+        <div className="w-0.5 h-28  bg-[#FFD166]"></div>
       </div>
 
       {/* Bottom Section */}
@@ -94,14 +96,15 @@ export default function AboutSection() {
           {/* Right Side: Text */}
           <div className="md:pl-12">
             <h2 className="text-4xl md:text-5xl font-serif text-[#2a3c4a] mb-8 leading-tight">
-              ...and a Table <br /> That Transforms <br /> You...
+             ...and a Table <br/>That Transforms<br/> You... 
             </h2>
             <p className="text-gray-600 mb-8 leading-relaxed italic max-w-md">
-              Harkness is the table around which we teach and learn, and so much
-              more. It’s the state of mind that every Lawrentian brings to the
-              classroom: a spirit of openness, curiosity, and discovery.
+            Ubuntu is the table around which we gather and grow, and so much more. 
+            It's the spirit that every Pamavambo student brings to the classroom: a sense of community, 
+            shared purpose, and collective discovery.
+
             </p>
-            <Button className="bg-[#bc1a31] cursor-pointer hover:bg-[#9a1528] text-white rounded-none px-8 py-6 uppercase tracking-widest text-xs flex items-center gap-4">
+            <Button className="bg-[#4A6FA5] cursor-pointer hover:bg-[#34527d] text-white rounded-none px-8 py-6 uppercase tracking-widest text-xs flex items-center gap-4">
               <Link href={"/life"}>Learn More</Link> <ArrowRight size={16} />
             </Button>
           </div>
@@ -110,3 +113,4 @@ export default function AboutSection() {
     </section>
   );
 }
+

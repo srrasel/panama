@@ -79,7 +79,7 @@ const SeniorStaff = () => {
             >
               {/* Profile Image with Crimson Border */}
               <div className="relative w-48 h-48 mb-6">
-                <div className="absolute inset-0 border-[3px] border-[#9b031f] rounded-full -m-2" />
+                <div className="absolute inset-0 border-[3px] border-[#4A6FA5] rounded-full -m-2" />
                 <div className="relative w-full h-full rounded-full overflow-hidden bg-gray-50 flex items-center justify-center">
                   {member.isSeal ? (
                     <div className="p-8 opacity-40 italic font-serif text-sm">
@@ -98,14 +98,14 @@ const SeniorStaff = () => {
 
               {/* Text Content */}
               <div className="space-y-2 max-w-55">
-                <h3 className="font-bold text-gray-900 text-sm border-b border-transparent group-hover:border-[#9b031f] transition-all cursor-pointer">
+                <h3 className="font-bold text-gray-900 text-sm border-b border-transparent group-hover:border-[#4A6FA5] transition-all cursor-pointer">
                   {member.name}
                 </h3>
                 <p className="text-[10px] font-medium text-gray-500 uppercase leading-tight tracking-wider">
                   {member.role}
                 </p>
                 {/* Email Icon */}
-                <button className="pt-2 text-gray-400 hover:text-[#9b031f] transition-colors">
+                <button className="pt-2 text-gray-400 hover:text-[#4A6FA5] transition-colors">
                   <Mail size={16} strokeWidth={1.5} />
                 </button>
               </div>

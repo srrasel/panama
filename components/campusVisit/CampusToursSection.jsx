@@ -46,7 +46,7 @@ export default function CampusToursSection() {
 
           <Link
             href="/scholarship-aid"
-            className="inline-block text-[#9b031f] font-bold text-sm tracking-widest uppercase border-b-2 border-[#9b031f] pb-1 hover:text-red-900 hover:border-red-900 transition-all"
+            className="inline-block text-[#4A6FA5] font-bold text-sm tracking-widest uppercase border-b-2 border-[#4A6FA5] pb-1 hover:text-[#4A6FA5] hover:border-[#4A6FA5] transition-all"
           >
             Learn More About Scholarship Aid
           </Link>

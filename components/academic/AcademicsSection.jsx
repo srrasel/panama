@@ -8,7 +8,7 @@ export default function AcademicSection() {
         <div className="relative w-full max-w-full sm:max-w-100 md:max-w-110 lg:max-w-125 aspect-square">
           {/* 1. Background Image (Red Overlay) */}
           <div className="absolute top-0 left-0 w-[80%] h-[75%] overflow-hidden rounded-sm">
-            <div className="absolute inset-0 bg-red-700/80 mix-blend-multiply z-10" />
+            <div className="absolute inset-0 bg-[#4A6FA5]/80 mix-blend-multiply z-10" />
             <Image
               src="/academic/header_technology.jpg"
               alt="Student in classroom"

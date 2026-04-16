@@ -1,13 +1,22 @@
 import type React from "react"
 import { Suspense } from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Montserrat, Playfair_Display } from "next/font/google"
 import { Toaster } from "@/components/ui/sonner"
 import { LoadingProvider } from "@/components/providers/loading-provider"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+})
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "Pamavambo - Modern Learning Platform",
@@ -39,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body className={`${montserrat.variable} ${playfairDisplay.variable} font-sans antialiased`}>
         <Suspense fallback={null}>
           <LoadingProvider>
             {children}

@@ -100,7 +100,7 @@ export default function AssignmentDetails() {
               assignment.status === "Submitted"
                 ? "bg-green-100 text-green-700"
                 : assignment.status === "Overdue"
-                  ? "bg-red-100 text-red-700"
+                  ? "bg-blue-100 text-blue-800"
                   : "bg-amber-100 text-amber-700"
             }`}
           >

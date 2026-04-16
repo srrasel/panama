@@ -319,7 +319,7 @@ export default function AdminEditCoursePage() {
 
   if (error) {
     return (
-      <div className="flex h-[50vh] items-center justify-center flex-col gap-4 text-red-500">
+      <div className="flex h-[50vh] items-center justify-center flex-col gap-4 text-blue-700">
         <AlertCircle size={48} />
         <p className="font-medium text-lg">{error}</p>
         <Link href="/admin/course-management/courses" className="text-primary hover:underline">
@@ -465,7 +465,7 @@ export default function AdminEditCoursePage() {
                     <span className="font-medium">{lesson.title || "Untitled Lesson"}</span>
                     <ListOrdered size={16} className="text-muted-foreground ml-2" />
                   </div>
-                  <button onClick={() => deleteLesson(idx)} className="p-2 text-muted-foreground hover:text-red-500"><Trash2 size={16}/></button>
+                  <button onClick={() => deleteLesson(idx)} className="p-2 text-muted-foreground hover:text-blue-700"><Trash2 size={16}/></button>
                 </div>
                  
                  {openLessons[idx] && (
@@ -506,14 +506,14 @@ export default function AdminEditCoursePage() {
                                   <span className="text-sm truncate max-w-[200px]">{lesson.videoFile.name}</span>
                                   <button onClick={() => {
                                     const n = [...lessons]; n[idx].videoFile = null; setLessons(n)
-                                  }} className="text-red-500"><Trash2 size={14}/></button>
+                                  }} className="text-blue-700"><Trash2 size={14}/></button>
                                 </div>
                               ) : lesson.videoUrl ? (
                                  <div className="flex items-center justify-between bg-muted p-2 rounded">
                                   <span className="text-sm truncate max-w-[200px]">Current Video</span>
                                   <button onClick={() => {
                                     const n = [...lessons]; n[idx].videoUrl = undefined; setLessons(n)
-                                  }} className="text-red-500"><Trash2 size={14}/></button>
+                                  }} className="text-blue-700"><Trash2 size={14}/></button>
                                 </div>
                               ) : (
                                 <label className="cursor-pointer block">
@@ -554,7 +554,7 @@ export default function AdminEditCoursePage() {
                                           const n = [...lessons]; 
                                           n[idx].imageFiles = n[idx].imageFiles?.filter((_, fi) => fi !== i);
                                           setLessons(n)
-                                       }} className="text-red-500"><Trash2 size={12}/></button>
+                                       }} className="text-blue-700"><Trash2 size={12}/></button>
                                      </div>
                                    ))}
                                    {lesson.imageUrls?.map((url, i) => (
@@ -564,7 +564,7 @@ export default function AdminEditCoursePage() {
                                           const n = [...lessons]; 
                                           n[idx].imageUrls = n[idx].imageUrls?.filter((_, fi) => fi !== i);
                                           setLessons(n)
-                                       }} className="text-red-500"><Trash2 size={12}/></button>
+                                       }} className="text-blue-700"><Trash2 size={12}/></button>
                                      </div>
                                    ))}
                                 </div>
@@ -585,7 +585,7 @@ export default function AdminEditCoursePage() {
                     <span className="font-medium">{quiz.title || "Untitled Quiz"}</span>
                     <FileText size={16} className="text-muted-foreground ml-2" />
                   </div>
-                  <button onClick={() => deleteQuiz(idx)} className="p-2 text-muted-foreground hover:text-red-500"><Trash2 size={16}/></button>
+                  <button onClick={() => deleteQuiz(idx)} className="p-2 text-muted-foreground hover:text-blue-700"><Trash2 size={16}/></button>
                 </div>
                  
                  {openQuizzes[idx] && (
@@ -601,7 +601,7 @@ export default function AdminEditCoursePage() {
                                <p className="font-medium text-sm">Question {qIdx + 1}</p>
                                <button onClick={() => {
                                  const n = [...quizzes]; n[idx].items = n[idx].items.filter((_, i) => i !== qIdx); setQuizzes(n)
-                               }} className="text-red-500 hover:text-red-700"><Trash2 size={14}/></button>
+                               }} className="text-blue-700 hover:text-blue-800"><Trash2 size={14}/></button>
                             </div>
                             <input value={item.question} onChange={e => {
                               const n = [...quizzes]; n[idx].items[qIdx].question = e.target.value; setQuizzes(n)

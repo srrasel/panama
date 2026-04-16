@@ -129,9 +129,9 @@ export default function TeacherAttendance() {
               <p className="text-muted-foreground text-sm font-medium">Late</p>
               <p className="text-3xl font-bold text-amber-700 mt-2">{lateCount}</p>
             </div>
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
               <p className="text-muted-foreground text-sm font-medium">Absent</p>
-              <p className="text-3xl font-bold text-red-700 mt-2">{absentCount}</p>
+              <p className="text-3xl font-bold text-blue-800 mt-2">{absentCount}</p>
             </div>
           </div>
         </div>
@@ -176,7 +176,7 @@ export default function TeacherAttendance() {
                           ? "bg-green-100 text-green-700"
                           : student.status === "late"
                             ? "bg-amber-100 text-amber-700"
-                            : "bg-red-100 text-red-700"
+                            : "bg-blue-100 text-blue-800"
                       }`}
                     >
                       {student.status.charAt(0).toUpperCase() + student.status.slice(1)}
@@ -208,7 +208,7 @@ export default function TeacherAttendance() {
                         onClick={() => toggleAttendance(student.id, "absent")}
                         className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
                           student.status === "absent"
-                            ? "bg-red-500 text-white"
+                            ? "bg-blue-500 text-white"
                             : "bg-muted text-foreground hover:bg-muted/80"
                         }`}
                       >

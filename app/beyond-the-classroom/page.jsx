@@ -26,6 +26,7 @@ export default function Beyond() {
         title="Outdoor Classroom"
         description="The Pamavambo School’s Outdoor Programs provide students with adventures in the outdoor environment that enhance both academic and non-academic skills like  leadership, community engagement, and character development"
         buttonText="Learn More"
+        buttonHref="/life/leadership"
         imagePath="https://images.unsplash.com/photo-1503424886307-b090341d25d1?q=80&w=2070&auto=format&fit=crop"
         imageAlt="Students hiking"
       />

@@ -11,6 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Bell, Rss } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const SchoolNewsCarousel = ({
@@ -50,7 +51,7 @@ const SchoolNewsCarousel = ({
         </div>
         <Button
           asChild
-          className="bg-[#b31b1b] hover:bg-[#8c1515] text-white rounded-none px-7 py-6 text-sm font-sans font-bold transition-colors shrink-0"
+          className="bg-[#4A6FA5] hover:bg-[#34527d] text-white rounded-none px-7 py-6 text-sm font-sans font-bold transition-colors shrink-0"
         >
           <p>{buttonText}</p>
         </Button>
@@ -81,26 +82,51 @@ const SchoolNewsCarousel = ({
               key={post.id}
               className="pl-6 md:basis-1/2 lg:basis-1/3"
             >
-              <div className="flex flex-col gap-4 group/card cursor-pointer">
-                {/* Image Container */}
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-                  />
+              {post.href ? (
+                <Link href={post.href}>
+                  <div className="flex flex-col gap-4 group/card cursor-pointer">
+                    {/* Image Container */}
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+                      />
+                    </div>
+                    {/* Text Content */}
+                    <div className="space-y-2">
+                      <h3 className="text-[20px] font-bold leading-snug text-[#1a1a1a] group-hover/card:underline decoration-1 underline-offset-4 transition-all">
+                        {post.title}
+                      </h3>
+                      <p className="text-[11px] text-gray-400 uppercase tracking-widest font-sans font-semibold">
+                        {post.date}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex flex-col gap-4 group/card cursor-pointer">
+                  {/* Image Container */}
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+                    />
+                  </div>
+                  {/* Text Content */}
+                  <div className="space-y-2">
+                    <h3 className="text-[20px] font-bold leading-snug text-[#1a1a1a] group-hover/card:underline decoration-1 underline-offset-4 transition-all">
+                      {post.title}
+                    </h3>
+                    <p className="text-[11px] text-gray-400 uppercase tracking-widest font-sans font-semibold">
+                      {post.date}
+                    </p>
+                  </div>
                 </div>
-                {/* Text Content */}
-                <div className="space-y-2">
-                  <h3 className="text-[20px] font-bold leading-snug text-[#1a1a1a] group-hover/card:underline decoration-1 underline-offset-4 transition-all">
-                    {post.title}
-                  </h3>
-                  <p className="text-[11px] text-gray-400 uppercase tracking-widest font-sans font-semibold">
-                    {post.date}
-                  </p>
-                </div>
-              </div>
+              )}
             </CarouselItem>
           ))}
         </CarouselContent>

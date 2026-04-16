@@ -22,7 +22,7 @@ export default function VisitUsSection() {
 
           <Link
             href="/admission/visit"
-            className="inline-flex items-center gap-2 text-[#bc1a31] text-[10px] font-bold tracking-[0.3em] uppercase group"
+            className="inline-flex items-center gap-2 text-[#4A6FA5] text-[10px] font-bold tracking-[0.3em] uppercase group"
           >
             Visit Our Campus
             <ArrowRight
@@ -47,3 +47,4 @@ export default function VisitUsSection() {
     </section>
   );
 }
+

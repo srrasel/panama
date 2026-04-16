@@ -7,28 +7,28 @@ const features = [
   {
     title: "Health and Wellness",
     description:
-      "Wellness and inclusion work are inextricably tied with the thread of belonging - bringing people together in thoughtful and deliberate ways to reinforce a sense of community. With a hub at the Al Rashid Health and Wellness Center, student wellness is considered through all aspects of life.",
+      "Wellness and community are deeply connected at Pamavambo - bringing people together in meaningful and intentional ways to strengthen our sense of belonging. Student wellbeing is woven into every aspect of school life.",
     icon: Heart,
     href: "/health",
   },
   {
     title: "Public Safety",
     description:
-      "The School's strategic approach to security planning integrates best practices in training, policy development, physical security, drills, technology, and coordination with local first responders. Officers are on duty 24 hours a day, 7 days a week.",
+      "A safe learning environment is maintained around the clock, every day of the year. Trained security personnel patrol the campus continuously, ensuring the safety and wellbeing of our students, staff, and visitors.",
     icon: ShieldCheck,
     href: "/safety",
   },
   {
     title: "Dining",
     description:
-      "The Pamavambo community is healthy and strong. We approach dining as a time to build relationships just as much as a time to nourish and sustain ourselves. We accommodate dietary restrictions, offer culturally responsive options, and create opportunities for learning and connection.",
+      "The Pamavambo community thrives when we are nourished and connected. We view dining as an opportunity to build relationships and foster ubuntu just as much as a time to fuel our bodies. We honor dietary needs, celebrate cultural traditions through food, and create meaningful moments of connection around the table.",
     icon: Utensils,
     href: "/dining",
   },
   {
     title: "Diversity and Belonging",
     description:
-      "Learning is enriched when it happens among students with different backgrounds, experiences, and perspectives. We are proud of our diverse and welcoming community and we mindfully support each student's identity.",
+      "Learning deepens when it happens among students with varied backgrounds, experiences, and perspectives. We celebrate our diverse and inclusive community and intentionally create space for each student's unique identity, voice, and story to be heard and valued.",
     icon: Users,
     href: "/diversity",
   },
@@ -62,7 +62,7 @@ export default function SpecialitySection() {
               {/* Learn More Button */}
               <Link
                 href={feature.href}
-                className="inline-block bg-black text-white text-[10px] sm:text-[10px] md:text-[10px] font-bold tracking-widest uppercase px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 hover:bg-[#bc1a31] transition-colors duration-300"
+                className="inline-block bg-black text-white text-[10px] sm:text-[10px] md:text-[10px] font-bold tracking-widest uppercase px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 hover:bg-[#4A6FA5] transition-colors duration-300"
               >
                 Learn More
               </Link>
@@ -73,3 +73,4 @@ export default function SpecialitySection() {
     </section>
   );
 }
+

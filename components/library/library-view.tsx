@@ -248,7 +248,7 @@ export default function LibraryView({ currentUserRole }: { currentUserRole?: str
 
   const getIcon = (type: string) => {
     switch (type) {
-      case "PDF": return <FileText className="h-8 w-8 text-red-500" />
+      case "PDF": return <FileText className="h-8 w-8 text-blue-700" />
       case "Image": return <ImageIcon className="h-8 w-8 text-blue-500" />
       case "Video": return <Video className="h-8 w-8 text-purple-500" />
       default: return <FileIcon className="h-8 w-8 text-gray-500" />

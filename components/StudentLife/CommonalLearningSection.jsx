@@ -43,10 +43,10 @@ export default function CommunalLearningSection() {
         {/* Right Side: Overlapping Image Stack */}
         <div className="relative flex justify-center lg:justify-end py-8 sm:py-12 md:py-14 lg:py-16">
           {/* Decorative Gold Frame (Bottom Layer) */}
-          <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 md:-top-4 md:-right-4 lg:top-0 lg:right-12 w-[85%] sm:w-[85%] md:w-[85%] lg:w-[80%] aspect-4/5 border border-[#b89149] z-0" />
+          <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 md:-top-4 md:-right-4 lg:top-0 lg:right-12 w-[85%] sm:w-[85%] md:w-[85%] lg:w-[80%] aspect-4/5 border border-[#FFD166] z-0" />
 
           {/* Solid Red Texture Block (Middle Layer) */}
-          <div className="absolute top-4 sm:top-6 md:top-8 lg:top-10 right-0 w-[75%] sm:w-[75%] md:w-[75%] lg:w-[70%] aspect-square bg-[#bc1a31] overflow-hidden z-10 shadow-lg sm:shadow-xl lg:shadow-xl">
+          <div className="absolute top-4 sm:top-6 md:top-8 lg:top-10 right-0 w-[75%] sm:w-[75%] md:w-[75%] lg:w-[70%] aspect-square bg-[#4A6FA5] overflow-hidden z-10 shadow-lg sm:shadow-xl lg:shadow-xl">
             {/* Architectural pattern overlay using Next.js Image for optimization */}
             <div className="absolute inset-0 opacity-20 pointer-events-none">
               <Image
@@ -74,3 +74,4 @@ export default function CommunalLearningSection() {
     </div>
   );
 }
+

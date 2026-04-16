@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Users, BookOpen, CalendarDays, BarChart3, Settings, LogOut, User, Library } from "lucide-react"
+import { LayoutDashboard, Users, BookOpen, CalendarDays, BarChart3, Settings, LogOut, User, Library, Mic, FileText } from "lucide-react"
 import { useLoading } from "@/components/providers/loading-provider"
 import { useLogout } from "@/hooks/use-logout"
 
@@ -29,6 +29,8 @@ export default function AdminLayout({
       items: [
         { href: "/admin/dashboard", label: "Dashboard", Icon: LayoutDashboard },
         { href: "/admin/library", label: "Online Library", Icon: Library },
+        { href: "/admin/podcasts", label: "Podcasts", Icon: Mic },
+        { href: "/admin/blogs", label: "Blog Posts", Icon: FileText },
       ],
     },
     {

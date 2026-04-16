@@ -26,7 +26,7 @@ const ResearchInstitutes = () => {
             href="#"
             className="group w-fit flex items-center text-gray-900 font-semibold text-xs sm:text-sm tracking-wide"
           >
-            <span className="border-b-2 border-transparent group-hover:border-red-800 transition-all duration-300 pb-1">
+            <span className="border-b-2 border-transparent group-hover:border-[#4A6FA5] transition-all duration-300 pb-1">
               Find an Opportunity
             </span>
           </a>

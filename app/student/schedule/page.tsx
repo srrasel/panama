@@ -195,7 +195,7 @@ export default function StudentSchedule() {
         <div className="space-y-6">
           <div className="bg-white rounded-[1.8rem] border border-slate-100 shadow-sm p-8 sticky top-8">
             <div className="flex items-center gap-3 mb-8">
-               <div className="p-3 bg-red-100 text-red-600 rounded-xl">
+               <div className="p-3 bg-blue-100 text-blue-700 rounded-xl">
                   <AlarmClock className="h-6 w-6" />
                </div>
               <h2 className="text-2xl font-bold text-slate-800">Upcoming Events</h2>
@@ -208,7 +208,7 @@ export default function StudentSchedule() {
                       <div className="w-full">
                         <div className="flex items-center justify-between mb-2">
                            <span className={`px-3 py-1 rounded-lg text-[10px] uppercase font-bold tracking-wider
-                            ${exam.type === 'Exam' ? 'bg-red-100 text-red-700' : 
+                            ${exam.type === 'Exam' ? 'bg-blue-100 text-blue-800' : 
                               exam.type === 'Assignment' ? 'bg-amber-100 text-amber-700' :
                               'bg-blue-100 text-blue-700'}`}>
                             {exam.type}

@@ -76,8 +76,9 @@
 }
 
 @theme inline {
-  --font-sans: "Geist", "Geist Fallback";
-  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-sans: var(--font-montserrat);
+  --font-serif: var(--font-playfair);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -122,6 +123,19 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-montserrat), sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-playfair), serif;
+  }
+  nav,
+  [role="navigation"] {
+    font-family: var(--font-montserrat), sans-serif;
   }
 }
 .bg-brand-900 {

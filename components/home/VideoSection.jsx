@@ -5,7 +5,7 @@ export default function VideoSection() {
   const videoId = "wQMGRuVkip8";
 
   return (
-    <section className="relative w-full py-24 bg-[#bc1a31] text-white overflow-hidden">
+    <section className="relative w-full py-24 bg-[#4A6FA5] text-white overflow-hidden">
       {/* Background Texture Overlay */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
@@ -16,11 +16,11 @@ export default function VideoSection() {
         }}
       />{" "}
       <div className="flex items-center w-full mb-8">
-        <div className="grow h-0.5 bg-[#b89149]" />
+        <div className="grow h-0.5 bg-[#FFD166]" />
         <h2 className="px-6 text-3xl md:text-4xl font-serif italic tracking-wide">
           ...Who Will You Become?
         </h2>
-        <div className="grow h-0.5 bg-[#b89149]" />
+        <div className="grow h-0.5 bg-[#FFD166]" />
       </div>
       <div className="relative z-10 max-w-4xl mx-auto px-6 flex flex-col items-center text-center">
         {/* Decorative Heading */}
@@ -49,3 +49,4 @@ export default function VideoSection() {
     </section>
   );
 }
+

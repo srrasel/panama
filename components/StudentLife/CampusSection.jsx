@@ -60,7 +60,7 @@ export default function CampusSection() {
               <span className="text-[10px] sm:text-[10px] md:text-[10px] lg:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.25em] md:tracking-[0.3em] uppercase text-black mb-1">
                 Explore Campus By
               </span>
-              <span className="text-[10px] sm:text-[10px] md:text-[10px] lg:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.25em] md:tracking-[0.3em] uppercase text-black border-b border-black pb-1 group-hover:text-[#bc1a31] group-hover:border-[#bc1a31] transition-colors">
+              <span className="text-[10px] sm:text-[10px] md:text-[10px] lg:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.25em] md:tracking-[0.3em] uppercase text-black border-b border-black pb-1 group-hover:text-[#4A6FA5] group-hover:border-[#4A6FA5] transition-colors">
                 Taking a Virtual Tour.
               </span>
             </button>
@@ -99,3 +99,4 @@ export default function CampusSection() {
     </section>
   );
 }
+

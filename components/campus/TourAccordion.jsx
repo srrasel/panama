@@ -93,7 +93,7 @@ const ToursAccordion = ({
 
                       {/* Play Button Overlay */}
                       <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-all">
-                        <div className="w-16 h-12 bg-red-600 rounded-xl flex items-center justify-center text-white opacity-90 group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-12 bg-[#4A6FA5] rounded-xl flex items-center justify-center text-white opacity-90 group-hover:scale-110 transition-transform">
                           <Play fill="currentColor" size={24} />
                         </div>
                       </div>
@@ -102,7 +102,7 @@ const ToursAccordion = ({
                       <div className="absolute top-0 left-0 right-0 p-4 flex items-center gap-3 bg-linear-to-b from-black/60 to-transparent">
                         <div
                           className="w-9 h-9 rounded-full flex items-center justify-center text-white font-serif font-bold text-xs"
-                          style={{ backgroundColor: "#9b031f" }}
+                          style={{ backgroundColor: "#4A6FA5" }}
                         >
                           L
                         </div>

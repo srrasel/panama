@@ -103,7 +103,7 @@ export default function ParentDashboard() {
                 </div>
                 <div className="mt-4 pt-4 border-t border-slate-50 flex items-center gap-4 text-xs font-semibold text-slate-500">
                     <span className="flex items-center gap-1"><CheckCircle2 className="h-3 w-3 text-emerald-500" /> {attendance.presentDays || 0} Present</span>
-                    <span className="flex items-center gap-1"><Clock className="h-3 w-3 text-red-400" /> {attendance.absentDays || 0} Absent</span>
+                    <span className="flex items-center gap-1"><Clock className="h-3 w-3 text-blue-400" /> {attendance.absentDays || 0} Absent</span>
                 </div>
             </div>
 

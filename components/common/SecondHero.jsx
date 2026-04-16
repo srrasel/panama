@@ -73,7 +73,8 @@ export default function SecondHero({
       </div>
 
       {/* Optional: Thin Red Top Border seen in screenshot */}
-      <div className="absolute top-0 left-0 w-full h-px sm:h-1 bg-[#bc1a31] z-20" />
+      <div className="absolute top-0 left-0 w-full h-px sm:h-1 bg-[#4A6FA5] z-20" />
     </section>
   );
 }
+

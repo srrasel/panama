@@ -28,8 +28,8 @@ const CampusMapSection = () => {
 
           {/* Right Sidebar: Download & Google Maps */}
           <div className="lg:col-span-4 space-y-8">
-            <div className="bg-[#D9F2F1] p-1 border-2 border-[#9b031f]">
-              <button className="w-full flex items-center justify-center gap-3 py-4 bg-white text-[#9b031f] font-bold text-xs tracking-widest uppercase hover:bg-gray-50 transition-colors">
+            <div className="bg-[#D9F2F1] p-1 border-2 border-[#4A6FA5]">
+              <button className="w-full flex items-center justify-center gap-3 py-4 bg-white text-[#4A6FA5] font-bold text-xs tracking-widest uppercase hover:bg-gray-50 transition-colors">
                 <Download size={18} />
                 Download a Campus Map
               </button>

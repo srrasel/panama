@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CallToActionButton({
   title,
   description,
   buttonText,
+  buttonHref = "#",
   imagePath,
   imageAlt,
 }) {
@@ -35,7 +37,10 @@ export default function CallToActionButton({
           </p>
 
           {/* Red Action Button - Fixed to respect border */}
-          <button className="group flex items-center justify-between bg-[#b01a2e] hover:bg-[#8c1525] transition-colors duration-300 px-4 sm:px-5 md:px-6 lg:px-8 py-3 sm:py-3.5 md:py-4 w-full max-w-full sm:max-w-60 md:max-w-70 text-xs sm:text-sm font-bold tracking-wider sm:tracking-widest uppercase">
+          <Link
+            href={buttonHref}
+            className="group flex items-center justify-between bg-[#4A6FA5] hover:bg-[#34527d] transition-colors duration-300 px-4 sm:px-5 md:px-6 lg:px-8 py-3 sm:py-3.5 md:py-4 w-full max-w-full sm:max-w-60 md:max-w-70 text-xs sm:text-sm font-bold tracking-wider sm:tracking-widest uppercase"
+          >
             <span className="text-left truncate">{buttonText}</span>
             <svg
               className="w-5 h-5 sm:w-6 sm:h-6 transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-300 shrink-0"
@@ -50,7 +55,7 @@ export default function CallToActionButton({
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
 
