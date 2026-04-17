@@ -53,7 +53,7 @@ export default function AboutSection() {
             {/* 16:9 Aspect Ratio */}
             <div className="absolute bottom-0 left-10 md:left-20 w-[90vw] md:w-[40vw] aspect-video shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1592280771190-3e2e4d571952?q=80&w=1974&auto=format&fit=crop"
+                src="/new/image22.jpeg"
                 alt="Students on porch"
                 fill
                 className="object-cover "
@@ -85,7 +85,7 @@ export default function AboutSection() {
           {/* Left Side: Classroom Image */}
           <div className="relative w-full aspect-4/3">
             <Image
-              src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
+              src="/new/image11.jpeg"
               alt="Harkness table discussion"
               fill
               className="object-cover"

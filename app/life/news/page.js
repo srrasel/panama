@@ -31,7 +31,7 @@ const cardsData = [
     buttonText: "Listen Now",
     href: "/podcasts",
     backgroundImage:
-      "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop",
+      "/new/image4.jpeg",
   },
   {
     title: "Photo Albums",
@@ -40,7 +40,7 @@ const cardsData = [
     buttonText: "Take a Look",
     href: "/co-curriculars",
     backgroundImage:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
+      "/new/image5.jpeg",
   },
 ];
 
@@ -66,7 +66,7 @@ export default function News() {
           date: formatDate(b.createdAt),
           image:
             b.coverImage ||
-            "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            "/new/image26.jpeg",
           description: b.excerpt || "",
           href: `/news/${b.slug}`,
         }));
@@ -83,7 +83,7 @@ export default function News() {
           date: formatDate(p.createdAt),
           image:
             p.coverImage ||
-            "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            "/new/image27.jpeg",
           description: p.description || "",
           href: `/podcasts/${p.slug}`,
         }));

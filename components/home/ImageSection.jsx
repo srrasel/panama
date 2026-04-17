@@ -6,22 +6,22 @@ import Link from "next/link";
 const gridItems = [
   {
     title: "Academics",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop",
+    image: "/new/image37.jpeg",
     link: "/academics",
   },
   {
     title: "Sports",
-    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop",
+    image: "/new/image38.jpeg",
     link: "/sports",
   },
   {
     title: "Admissions",
-    image: "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?q=80&w=2070&auto=format&fit=crop",
+    image: "/new/image39.jpeg",
     link: "/arts",
   },
   {
     title: "Beyond the Classroom",
-    image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2070&auto=format&fit=crop",
+    image: "/new/image40.jpeg",
     link: "/beyond-the-classroom",
   },
 ];

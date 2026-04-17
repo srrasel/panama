@@ -36,7 +36,7 @@ const ExploreSection = () => {
         {/* Next.js Image Column */}
         <div className="order-1 md:order-2 relative aspect-4/3 w-full overflow-hidden shadow-2xl">
           <Image
-            src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1200"
+            src="/new/image18.jpeg"
             alt="The Pamavambo School Campus Architecture"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

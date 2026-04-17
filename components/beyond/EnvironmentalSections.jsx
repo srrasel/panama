@@ -24,7 +24,7 @@ const EnvironmentalSections = () => {
 
           <div className="order-1 md:order-2 relative aspect-4/3 w-full shadow-sm">
             <Image
-              src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=2070&auto=format&fit=crop"
+              src="/new/image28.jpeg"
               alt="Student with seedlings"
               fill
               className="object-cover"
@@ -37,7 +37,7 @@ const EnvironmentalSections = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center pt-8 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-32">
           <div className="relative aspect-4/3 w-full shadow-sm">
             <Image
-              src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2070&auto=format&fit=crop"
+              src="/new/image34.jpeg"
               alt="Scenic lake view"
               fill
               className="object-cover"

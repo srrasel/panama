@@ -15,15 +15,15 @@ const slides = [
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070&auto=format&fit=crop",
+    src: "/new/image1.jpeg",
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?q=80&w=1974&auto=format&fit=crop",
+    src: "/new/image2.jpeg",
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop",
+    src: "/new/image18.jpeg",
   },
 ];
 

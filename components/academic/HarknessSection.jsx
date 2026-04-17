@@ -7,7 +7,7 @@ export default function HarknessSection() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16">
         <div className="w-full md:w-1/2 relative aspect-4/3">
           <Image
-            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
+            src="/new/image17.jpeg"
             alt="Students in classroom"
             fill
             className="object-cover"

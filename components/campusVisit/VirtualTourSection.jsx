@@ -177,9 +177,9 @@ export default function VirtualTourSection() {
 
       {/* Bottom Hero Section */}
       <div className="grid md:grid-cols-2 gap-16 items-center">
-        <div className="relative h-[450px] w-full overflow-hidden shadow-2xl">
+        <div className="relative h-112.5 w-full overflow-hidden shadow-2xl">
           <Image
-            src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b"
+            src="/new/image16.jpeg"
             alt="Campus Life"
             fill
             className="object-cover"

@@ -2,13 +2,19 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
 // GET /api/blogs/[slug]
-export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   try {
     const { slug } = await params
+
     const post = await prisma.blogPost.findUnique({ where: { slug } })
+
     if (!post) {
       return NextResponse.json({ error: "Blog post not found" }, { status: 404 })
     }
+
     return NextResponse.json({ post })
   } catch (error) {
     console.error("Error fetching blog post:", error)
@@ -17,10 +23,14 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
 }
 
 // PUT /api/blogs/[slug]
-export async function PUT(req: NextRequest, { params }: { params: { slug: string } }) {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   try {
     const { slug } = await params
     const body = await req.json()
+
     const { title, content, excerpt, coverImage, category, quiz, status } = body
 
     const existing = await prisma.blogPost.findUnique({ where: { slug } })
@@ -60,15 +70,20 @@ export async function PUT(req: NextRequest, { params }: { params: { slug: string
 }
 
 // DELETE /api/blogs/[slug]
-export async function DELETE(req: NextRequest, { params }: { params: { slug: string } }) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
   try {
     const { slug } = await params
+
     const existing = await prisma.blogPost.findUnique({ where: { slug } })
     if (!existing) {
       return NextResponse.json({ error: "Blog post not found" }, { status: 404 })
     }
 
     await prisma.blogPost.delete({ where: { slug } })
+
     return NextResponse.json({ message: "Blog post deleted" })
   } catch (error) {
     console.error("Error deleting blog post:", error)

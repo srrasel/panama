@@ -22,7 +22,7 @@ const heroData = {
     { label: "Student Life", href: "/life/student-life" },
     { label: "News and Events" }, // Last item without link
   ],
-  title: "News and Media",
+  title: "campus",
   description:
     "Welcome to the Pamavambo community! Read stories about what matters to us and what's happening on campus.",
   tintColor: "#4A6FA5",

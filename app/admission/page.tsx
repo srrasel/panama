@@ -15,7 +15,7 @@ export default function Admission() {
       <SecondHero
         title="Admission"
         subtitle="Are you ready to become a Lawrentian?"
-        backgroundImage="https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop"
+        backgroundImage="/new/image2.jpeg"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />
       <AdmissionsCTA />

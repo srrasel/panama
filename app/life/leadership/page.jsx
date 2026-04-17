@@ -15,7 +15,7 @@ export default function LeadershipPage() {
       <SecondHero
         title="Leadership"
         subtitle="Guiding Pamavambo into the future"
-        backgroundImage="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070"
+        backgroundImage="/new/image36.jpeg"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Life", href: "/life" }]}
       />
       <HeadOfSchool />

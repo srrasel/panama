@@ -36,7 +36,7 @@ export default function VisitUsSection() {
         <div className="w-full lg:w-2/3">
           <div className="relative aspect-4/3 w-full overflow-hidden shadow-xl">
             <Image
-              src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=2070&auto=format&fit=crop" // Aerial view of Campus
+              src="/new/image18.jpeg" // Aerial view of Campus
               alt="Aerial view of Pamavambo Campus"
               fill
               className="object-cover transition-transform duration-700 hover:scale-105"

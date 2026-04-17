@@ -42,9 +42,9 @@ const mainNavConfig = [
     title: "ACADEMICS",
     href: "/academics",
     links: [
-      { label: "Departments", href: "/academics/departments" },
-      { label: "Academic Community", href: "/academics/community" },
-      { label: "Career", href: "/academics/career" },
+      { label: "Departments", href: "/academics#departments" },
+      { label: "Academic Community", href: "/academics#community" },
+      { label: "Career", href: "/academics#career" },
     ],
   },
   {

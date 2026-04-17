@@ -27,7 +27,7 @@ export default function StudentLife() {
         title="Student
 Life"
         subtitle="Are you ready to become a Lawrentian?"
-        backgroundImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop"
+        backgroundImage="/new/image16.jpeg"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />
        <SubNav subNavItems={subNavItems} />

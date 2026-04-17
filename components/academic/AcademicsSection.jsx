@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AcademicSection() {
   return (
-    <section className="max-w-6xl mx-auto bg-white px-4 sm:px-5 md:px-6 py-10 sm:py-14 md:py-20 lg:py-24 font-sans">
+    <section id="career" className="max-w-6xl mx-auto bg-white px-4 sm:px-5 md:px-6 py-10 sm:py-14 md:py-20 lg:py-24 font-sans">
       <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20">
         {/* Image Composition Container */}
         <div className="relative w-full max-w-full sm:max-w-100 md:max-w-110 lg:max-w-125 aspect-square">
@@ -10,7 +10,7 @@ export default function AcademicSection() {
           <div className="absolute top-0 left-0 w-[80%] h-[75%] overflow-hidden rounded-sm">
             <div className="absolute inset-0 bg-[#4A6FA5]/80 mix-blend-multiply z-10" />
             <Image
-              src="/academic/header_technology.jpg"
+              src="/new/image28.jpeg"
               alt="Student in classroom"
               fill
               className="object-cover grayscale"
@@ -21,7 +21,7 @@ export default function AcademicSection() {
           {/* 2. Foreground Image (Natural Colors) */}
           <div className="absolute bottom-0 right-0 w-[75%] h-[70%] z-20 shadow-lg sm:shadow-xl md:shadow-xl overflow-hidden rounded-sm">
             <Image
-              src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=2070&auto=format&fit=crop"
+              src="/new/image38.jpeg"
               alt="Students learning outdoors"
               fill
               className="object-cover"

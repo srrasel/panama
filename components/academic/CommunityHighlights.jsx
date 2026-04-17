@@ -20,7 +20,7 @@ const highlights = [
 
 export function CommunityHighlights() {
   return (
-    <section className="bg-[#23242a] text-white py-12 sm:py-16 md:py-20 px-4 sm:px-5 md:px-6">
+    <section id="community" className="bg-[#23242a] text-white py-12 sm:py-16 md:py-20 px-4 sm:px-5 md:px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
         {highlights.map((item, i) => (
           <div key={i} className="space-y-4 sm:space-y-5 md:space-y-6">
