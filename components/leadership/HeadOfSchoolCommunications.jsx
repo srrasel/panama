@@ -50,7 +50,7 @@ const HeadOfSchoolCommunications = () => {
         <Accordion type="single" collapsible className="w-full space-y-px">
           {/* Main Accordion Item: Addresses */}
           <AccordionItem value="addresses" className="border-none">
-            <AccordionTrigger className="px-6 py-4 hover:no-underline group data-[state=open]:bg-[#8c122a] data-[state=open]:text-white transition-colors duration-200">
+            <AccordionTrigger className="px-6 py-4 hover:no-underline group data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white transition-colors duration-200">
               <div className="flex items-center gap-6">
                 <ChevronRight
                   size={16}
@@ -115,7 +115,7 @@ const HeadOfSchoolCommunications = () => {
 
           {/* School Meeting Remarks */}
           <AccordionItem value="remarks" className="border-none">
-            <AccordionTrigger className="px-6 py-4 hover:no-underline group data-[state=open]:bg-[#8c122a] data-[state=open]:text-white transition-colors duration-200 border-t border-gray-100">
+            <AccordionTrigger className="px-6 py-4 hover:no-underline group data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white transition-colors duration-200 border-t border-gray-100">
               <div className="flex items-center gap-6">
                 <ChevronRight
                   size={16}
@@ -133,7 +133,7 @@ const HeadOfSchoolCommunications = () => {
 
           {/* Community Communications */}
           <AccordionItem value="community" className="border-none">
-            <AccordionTrigger className="px-6 py-4 hover:no-underline group data-[state=open]:bg-[#8c122a] data-[state=open]:text-white transition-colors duration-200 border-t border-gray-100">
+            <AccordionTrigger className="px-6 py-4 hover:no-underline group data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white transition-colors duration-200 border-t border-gray-100">
               <div className="flex items-center gap-6">
                 <ChevronRight
                   size={16}

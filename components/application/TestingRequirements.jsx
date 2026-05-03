@@ -78,7 +78,7 @@ const TestingRequirements = () => {
                   value={item.id}
                   className="border-none"
                 >
-                  <AccordionTrigger className="bg-white text-gray-500 data-[state=open]:bg-[#8c122a] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
+                  <AccordionTrigger className="bg-white text-gray-500 data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
                     <div className="flex items-center gap-6">
                       <ChevronRight
                         size={16}
@@ -123,7 +123,7 @@ const TestingRequirements = () => {
                   value={item.id}
                   className="border-none"
                 >
-                  <AccordionTrigger className="bg-white text-gray-500 data-[state=open]:bg-[#8c122a] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
+                  <AccordionTrigger className="bg-white text-gray-500 data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
                     <div className="flex items-center gap-6">
                       <ChevronRight
                         size={16}
