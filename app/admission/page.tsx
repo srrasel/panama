@@ -14,7 +14,7 @@ export default function Admission() {
     <Navbar/>
       <SecondHero
         title="Admission"
-        subtitle="Are you ready to become a Lawrentian?"
+        subtitle=""
         backgroundImage="/new/image2.jpeg"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />

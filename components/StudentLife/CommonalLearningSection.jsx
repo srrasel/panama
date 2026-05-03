@@ -22,20 +22,14 @@ export default function CommunalLearningSection() {
         {/* Left Side: Text Content */}
         <div className="max-w-xl">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-[#1a1a1a] leading-tight mb-6 sm:mb-7 md:mb-8">
-            Communal Learning Brings Purpose to Academic Challenge
+            Excellence Rooted in Purpose: Education That Transforms
           </h2>
           <div className="space-y-4 sm:space-y-5 md:space-y-6 text-gray-700 leading-relaxed font-light">
             <p className="text-base sm:text-lg md:text-lg font-medium text-gray-900">
-              The outcome of a Pamavambo education — the most lasting and
-              impactful outcome — is a set of values, a way of being, an ability
-              to create belonging.
+             The outcome of a Pamavambo education — the most lasting and impactful outcome — is a student who knows their worth, honors their heritage, and serves their community with integrity and purpose.
             </p>
             <p className="text-sm sm:text-base md:text-base">
-              Foundational to that outcome is Harkness learning; it is the
-              organizing principle of our community. We engage each other with
-              curiosity and inquiry, we listen, and we give each other grace —
-              all without fear or pretense — and we make space for others to
-              exercise that privilege.
+             Foundational to that outcome is our commitment to holistic development. We believe education extends far beyond academic achievement. At Pamavambo, we cultivate the whole child: intellectually curious minds, spiritually grounded hearts, physically capable bodies, and culturally rooted identities. We engage each student with high expectations and unwavering support, creating an environment where Christian values inform character, discipline shapes resilience, and cultural heritage provides belonging.
             </p>
           </div>
         </div>

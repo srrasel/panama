@@ -10,9 +10,7 @@ import Footer from "@/components/footer";
 const subNavItems = [
   { label: "CAMPUS", href: "/campus" },
   { label: "DINING", href: "/dining" },
-  { label: "HEALTH AND WELLNESS", href: "/health" },
-  { label: "PUBLIC SAFETY", href: "/safety" },
-  { label: "DIVERSITY AND BELONGING", href: "/diversity" },
+  
   { label: "NEWS AND MEDIA", href: "/news" },
 ];
 const heroData = {
@@ -35,7 +33,7 @@ export default function VisitPage() {
       <ThirdHero {...heroData} />
       <SubNav subNavItems={subNavItems} />
       <AdmissionsCTA />
-      <VisitorPlanningAccordion />
+     
       <ExploreSection />
       {/* <CampusToursSection /> */}
       <VirtualTourSection />

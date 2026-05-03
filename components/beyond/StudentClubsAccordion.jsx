@@ -1,14 +1,10 @@
 "use client";
 import { ChevronRight } from "lucide-react";
-import { useState } from "react";
 
-const StudentClubsAccordion = () => {
-  const [openIndex, setOpenIndex] = useState(null);
-
-  // Data structure to handle the large volume of club information
+const StudentClubs = () => {
   const clubData = [
     {
-      category: "Academic Clubs ",
+      category: "Academic Clubs",
       clubs: [
         {
           name: "20/20 Design Council",
@@ -37,7 +33,7 @@ const StudentClubsAccordion = () => {
       ],
     },
     {
-      category: " Game Clubs",
+      category: "Game Clubs",
       clubs: [
         {
           name: "Varsity E-Sports",
@@ -63,7 +59,7 @@ const StudentClubsAccordion = () => {
       ],
     },
     {
-      category: " Religious Clubs",
+      category: "Religious Clubs",
       clubs: [
         {
           name: "Multicultural Student Union",
@@ -77,83 +73,45 @@ const StudentClubsAccordion = () => {
     },
   ];
 
-  const toggleAccordion = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
     <section className="bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
+        {/* Header */}
         <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 sm:mb-8">
           Student Clubs and Organizations
         </h2>
 
-        <p className="text-gray-600 font-light leading-relaxed sm:leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-full sm:max-w-3xl md:max-w-4xl text-sm sm:text-base">
+        <p className="text-gray-600 font-light leading-relaxed mb-10 max-w-4xl text-sm sm:text-base">
           Student Clubs and Organizations offer the opportunity for students to
           discover and pursue personal interests — from academic topics to
           performance to community development and service — and to meet and
           learn from like-minded Lawrentians.
         </p>
 
-        {/* Accordion List */}
-        <div className="border-t border-gray-200">
+        {/* Content */}
+        <div className="space-y-12">
           {clubData.map((item, index) => (
-            <div key={index} className="border-b border-gray-200">
-              <button
-                onClick={() => toggleAccordion(index)}
-                className={`w-full flex items-center py-3 sm:py-4 px-3 sm:px-4 transition-all duration-300 group ${
-                  openIndex === index
-                    ? "bg-[#4A6FA5] text-white"
-                    : "hover:bg-gray-50"
-                }`}
-              >
-                {/* Icon Wrapper */}
-                <div
-                  className={`mr-3 sm:mr-4 flex h-6 w-8 sm:h-8 sm:w-10 items-center justify-center border-r pr-3 sm:pr-4 transition-colors ${
-                    openIndex === index ? "border-white/30" : "border-gray-300"
-                  }`}
-                >
-                  <ChevronRight
-                    className={`h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-300 ${
-                      openIndex === index
-                        ? "rotate-90 text-white"
-                        : "text-gray-400"
-                    }`}
-                  />
-                </div>
-
-                <span className="text-xs sm:text-sm md:text-base lg:text-lg font-medium text-left">
+            <div key={index}>
+              {/* Category Title */}
+              <div className="flex items-center mb-6">
+                <ChevronRight className="mr-2 text-gray-400" />
+                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900">
                   {item.category}
-                </span>
-              </button>
+                </h3>
+              </div>
 
-              {/* Accordion Content */}
-              <div
-                className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                  openIndex === index
-                    ? "max-h-screen opacity-100"
-                    : "max-h-0 opacity-0"
-                }`}
-              >
-                <div className="p-4 sm:p-6 md:p-8 lg:p-12 bg-white">
-                  {/* Two-column grid for clubs */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 sm:gap-x-10 md:gap-x-12 lg:gap-x-16 gap-y-6 sm:gap-y-8 md:gap-y-10">
-                    {item.clubs.map((club, i) => (
-                      <div
-                        key={i}
-                        className="flex flex-col space-y-1 sm:space-y-2"
-                      >
-                        <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg">
-                          {club.name}
-                        </h4>
-                        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed font-light">
-                          {club.desc}
-                        </p>
-                      </div>
-                    ))}
+              {/* Clubs Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
+                {item.clubs.map((club, i) => (
+                  <div key={i}>
+                    <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg">
+                      {club.name}
+                    </h4>
+                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed font-light">
+                      {club.desc}
+                    </p>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           ))}
@@ -163,4 +121,4 @@ const StudentClubsAccordion = () => {
   );
 };
 
-export default StudentClubsAccordion;
+export default StudentClubs;

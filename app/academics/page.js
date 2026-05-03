@@ -24,16 +24,16 @@ export default function Academics() {
       <AcademicDepartments />
       <CallToActionButton
         title="Beyond the Classroom"
-        description="While the Harkness table is the cornerstone of learning at Pamavambo, there are many opportunities for students to apply and expand their knowledge beyond the classroom."
+        description="Learning at Pamavambo, there are many opportunities for students to apply and expand their knowledge beyond the classroom."
         buttonText="Go Beyond"
         buttonHref="/beyond-the-classroom"
-        imagePath="/new/image4.jpeg"
+        imagePath="/new/image26.jpeg"
         imageAlt="Students hiking"
       />
       <ResourceSection />
       <CallToActionButton
-        title="The Hutchins Institute for Social Justice"
-        description="The Hutchins Institute for Social Justice is an innovation in secondary education. Functioning primarily as an academic hub, the Hutchins Institute seeks to engage social justice as a subject of study, a method of analysis, and a standard of ethics through scholarship, programming, and experiential learning."
+        title="Leadership"
+        description="At Pamavambo is cultivated through example, opportunity, and responsibility. Students develop essential leadership skills through student government, peer mentoring, service projects, and daily practice of our core values in action."
         buttonText="Learn More"
         imagePath="/new/image5.jpeg"
         imageAlt="Students hiking"

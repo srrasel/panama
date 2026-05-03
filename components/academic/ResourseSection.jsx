@@ -2,18 +2,18 @@ import Image from "next/image";
 
 const resourceData = [
   {
-    title: "Bunn Library",
+    title: " Library",
     description:
-      "Bunn Library is a community hub of learning and exploration. An extension of the House and the classroom, Bunn Library is a welcoming place to gather that supports the intellectual, social, and creative pursuits of our students.",
+      " Explore, research, and discover in our digital library. ",
     image: "/new/image9.jpeg",
-    buttonText: "START YOUR SEARCH",
+    
   },
   {
-    title: "College Counseling",
+    title: "Community",
     description:
-      "Pamavambo's college counseling program is designed to be an extension of the active learning that takes place each day in the classroom around the Harkness table, in the Houses, on the athletic fields, and throughout campus.",
+      " A vibrant community of students, families, and educators united by shared values, cultural pride, and commitment to excellence with purpose.",
     image: "/new/image10.jpeg",
-    buttonText: "TAKE THE NEXT STEP",
+
   },
 ];
 
@@ -47,25 +47,7 @@ export default function ResourceSection() {
               </p>
             </div>
 
-            {/* Gold Outlined Button */}
-            <button className="group flex items-center justify-between border border-[#c5a367] px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 w-full max-w-full sm:max-w-80 md:max-w-[320px] transition-all hover:bg-white/10">
-              <span className="text-white text-xs font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-left">
-                {item.buttonText}
-              </span>
-              <svg
-                className="w-6 h-3 sm:w-7 sm:h-3.5 md:w-8 md:h-4 text-[#c5a367] transform group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-300 flex-shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </button>
+           
           </div>
         ))}
       </div>

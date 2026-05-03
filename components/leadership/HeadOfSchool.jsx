@@ -11,7 +11,7 @@ const HeadOfSchool = () => {
             <div className="absolute inset-0 border-[3px] border-[#4A6FA5] rounded-full -m-2" />
             <div className="relative w-full h-full rounded-full overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400"
+                src="/logo.png"
                 alt="Head of School"
                 fill
                 className="object-cover"

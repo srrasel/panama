@@ -4,27 +4,11 @@ import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const slides = [
-  {
-    type: "video",
-    src: "https://www.youtube.com/watch?v=wQMGRuVkip8",
-  },
-  {
-    type: "image",
-    src: "/new/image1.jpeg",
-  },
-  {
-    type: "image",
-    src: "/new/image2.jpeg",
-  },
-  {
-    type: "image",
-    src: "/new/image18.jpeg",
-  },
+  { src: "/new/image14.jpeg" },
+  { src: "/new/image32.jpeg" },
+  { src: "/new/image8.jpeg" },
 ];
 
 const texts = ["Primary", "Secondary", "Boarding"];
@@ -32,29 +16,21 @@ const texts = ["Primary", "Secondary", "Boarding"];
 export default function HeroSection() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [hoverText, setHoverText] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsPlaying(true);
-    }, 1000);
-
     const interval = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
 
-    return () => {
-      clearTimeout(timer);
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   const handleHover = (index) => {
     setHoverText(index);
-    setActiveSlide(index + 1);
+    setActiveSlide(index);
   };
 
-  const currentSlide = hoverText !== null ? hoverText + 1 : activeSlide;
+  const currentSlide = hoverText !== null ? hoverText : activeSlide;
 
   return (
     <section className="relative bg-black w-full h-screen overflow-hidden">
@@ -66,59 +42,27 @@ export default function HeroSection() {
             currentSlide === index ? "opacity-100 z-20" : "opacity-0 z-0"
           }`}
         >
-          {slide.type === "video" ? (
-            <ReactPlayer
-              url={slide.src}
-              playing={isPlaying && currentSlide === index}
-              loop
-              muted
-              width="100%"
-              height="100%"
-              className="object-cover w-full h-full"
-              config={{
-                youtube: {
-                  playerVars: {
-                    autoplay: 1,
-                    controls: 0,
-                    modestbranding: 1,
-                    showinfo: 0,
-                    loop: 1,
-                    playlist: "wQMGRuVkip8",
-                    mute: 1,
-                  },
-                },
-              }}
-              onReady={() => {
-                if (currentSlide === index) {
-                  setIsPlaying(true);
-                }
-              }}
-              playsinline
-            />
-          ) : (
-            <div
-              className="w-full h-full bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${slide.src})`,
-                transform: currentSlide === index ? "scale(1)" : "scale(1.1)",
-                transition: "transform 5s ease-in-out",
-              }}
-            />
-          )}
+          <div
+            className="w-full h-full bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${slide.src})`,
+              transform: currentSlide === index ? "scale(1)" : "scale(1.1)",
+              transition: "transform 5s ease-in-out",
+            }}
+          />
         </div>
       ))}
 
-      {/* Overlay content */}
+      {/* Overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-30 px-4">
         {/* Logo */}
-        <div className="mb-4 md:mb-8 relative w-62.5 h-18.75 md:w-100 md:h-30 lg:w-125 lg:h-37.5 mt-16 md:mt-28">
+        <div className="mb-4 md:mb-8 relative w-[250px] h-[75px] md:w-[400px] md:h-[120px] lg:w-[500px] lg:h-[150px] mt-16 md:mt-28">
           <Image
             src="/logo-school.png"
             alt="School Logo"
             fill
             className="object-contain"
             priority
-            sizes="(max-width: 768px) 250px, (max-width: 1024px) 400px, 500px"
           />
         </div>
 
@@ -127,8 +71,8 @@ export default function HeroSection() {
           {texts.map((text, index) => (
             <div key={index} className="flex items-center">
               <span
-                className={`cursor-pointer text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold transition-all duration-300 whitespace-nowrap ${
-                  currentSlide === index + 1
+                className={`cursor-pointer text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold transition-all duration-300 ${
+                  currentSlide === index
                     ? "text-[#4A6FA5]"
                     : "text-white hover:text-gray-300"
                 }`}
@@ -137,6 +81,7 @@ export default function HeroSection() {
               >
                 {text}
               </span>
+
               {index < texts.length - 1 && (
                 <div className="hidden sm:block w-0.5 h-8 md:h-10 bg-white mx-4 md:mx-6"></div>
               )}
@@ -145,46 +90,39 @@ export default function HeroSection() {
         </div>
 
         {/* Buttons */}
-        <div className="flex  gap-6 md:gap-12 lg:gap-20 mx-auto items-center mt-12 md:mt-20 w-full max-w-4xl justify-center">
+        <div className="flex gap-6 md:gap-12 lg:gap-20 mt-12 md:mt-20 w-full max-w-4xl justify-center">
           <Link
             href="/admission/inquire"
-            className="text-white flex flex-col items-center justify-center hover:scale-105 transition-transform"
+            className="flex flex-col items-center hover:scale-105 transition-transform"
           >
             <span className="text-base sm:text-lg md:text-xl font-medium">
-              {" "}
               Inquire
             </span>
-            <span className="text-amber-500 mt-1">
-              <MoveRight className="w-5 h-5 sm:w-6 sm:h-6" />
-            </span>
+            <MoveRight className="mt-1 text-amber-500" />
           </Link>
 
           <div className="hidden sm:block w-px h-8 bg-white/50"></div>
 
           <Link
             href="/admission/visit"
-            className="text-white flex flex-col items-center justify-center hover:scale-105 transition-transform"
+            className="flex flex-col items-center hover:scale-105 transition-transform"
           >
             <span className="text-base sm:text-lg md:text-xl font-medium">
               Visit
             </span>
-            <span className="text-amber-500 mt-1">
-              <MoveRight className="w-5 h-5 sm:w-6 sm:h-6" />
-            </span>
+            <MoveRight className="mt-1 text-amber-500" />
           </Link>
 
           <div className="hidden sm:block w-px h-8 bg-white/50"></div>
 
           <Link
             href="/admission/application"
-            className="text-white flex flex-col items-center justify-center hover:scale-105 transition-transform"
+            className="flex flex-col items-center hover:scale-105 transition-transform"
           >
             <span className="text-base sm:text-lg md:text-xl font-medium">
               Apply
             </span>
-            <span className="text-amber-500 mt-1">
-              <MoveRight className="w-5 h-5 sm:w-6 sm:h-6" />
-            </span>
+            <MoveRight className="mt-1 text-amber-500" />
           </Link>
         </div>
       </div>

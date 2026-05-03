@@ -12,9 +12,7 @@ import Footer from "@/components/footer";
 const subNavItems = [
   { label: "CAMPUS", href: "/campus" },
   { label: "DINING", href: "/dining" },
-  { label: "HEALTH AND WELLNESS", href: "/health" },
-  { label: "PUBLIC SAFETY", href: "/safety" },
-  { label: "DIVERSITY AND BELONGING", href: "/diversity" },
+ 
   { label: "NEWS AND MEDIA", href: "/news" },
 ];
 const heroData = {
@@ -37,9 +35,9 @@ export default function ApplicationProcessPage() {
       <ThirdHero {...heroData} />
       <SubNav subNavItems={subNavItems} />
       <AdmissionsCTA />
-      <CampusInterviewSection />
+      {/* <CampusInterviewSection /> */}
       <ApplicationMaterials />
-      <ScholarshipAidSection />
+      {/* <ScholarshipAidSection /> */}
       <TestingRequirements />
       <AdmissionDecisions />
       <div className="max-w-7xl mx-auto py-10 px-6 md:px-20 lg:px-32  bg-white">

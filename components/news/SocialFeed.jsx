@@ -40,7 +40,7 @@ const SocialFeed = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <h2 className="text-3xl text-[#002d24] mb-8 font-semibold">
-          Social Media <span className="font-normal">@lvilleschool</span>
+          Social Media <span className="font-normal">@ Pamavambo school</span>
         </h2>
 
         {/* Grid of Images */}

@@ -17,16 +17,16 @@ export default function Life() {
       <SecondHero
         title="Student
 Life"
-        subtitle="Are you ready to become a Lawrentian?"
+        
         backgroundImage="/new/image16.jpeg"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />
       <CommunalLearningSection />
       <ActivitySection />
       <WelcomeSection />
-      <CulturalSection />
+      {/* <CulturalSection />
       <CampusSection />
-      <CommunitySection />
+      <CommunitySection /> */}
       <SpecialitySection />
       <DualActionCards />
       <Footer/>

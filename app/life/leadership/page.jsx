@@ -20,9 +20,9 @@ export default function LeadershipPage() {
       />
       <HeadOfSchool />
       <HeadOfSchoolCommunications />
-      <SeniorStaff />
+      {/* <SeniorStaff />
       <BoardOfTrustees />
-      <TrusteesEmeriti />
+      <TrusteesEmeriti /> */}
       <DualActionCards />
       <Footer />
     </>

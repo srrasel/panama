@@ -7,7 +7,7 @@ const admissionLinks = [
   { name: "Inquire", href: "/admission/inquire" },
   { name: "Application Process", href: "/admission/application" },
   { name: "Campus Visits", href: "/admission/visit" },
-  { name: "Travel and Events", href: "/admission/events" },
+ { name: "Travel and Events", href: "/life/calendar" },
 ];
 
 export default function ApplicationCTA() {

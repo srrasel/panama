@@ -57,7 +57,7 @@ const CampusMapSection = () => {
           {/* Planning Your Visit Accordion */}
           <div className="space-y-8">
             <h3 className="font-serif text-3xl text-gray-900 italic">
-              Planning Your Visit
+              Planning Your Visitvbn
             </h3>
             <Accordion type="single" collapsible className="w-full">
               {[

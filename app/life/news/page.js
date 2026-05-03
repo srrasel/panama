@@ -38,7 +38,7 @@ const cardsData = [
     description:
       "When participating in co-curriculars, students learn through shared experience, varying perspectives, and a mutual accountability that encourages tenacity, resilience, empathy, and compassionate objectivity. The vibrant community at the Pamavambo School is documented in the albums on our Flickr account. Updated throughout the year, our photo albums are full of beautiful, high-resolution, professional photographs that are available for download.",
     buttonText: "Take a Look",
-    href: "/co-curriculars",
+    href: "/life/campus",
     backgroundImage:
       "/new/image5.jpeg",
   },
