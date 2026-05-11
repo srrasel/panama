@@ -25,11 +25,7 @@ const heroData = {
   description:
     "Welcome to the Pamavambo community! Read stories about what matters to us and what's happening on campus.",
   tintColor: "#4A6FA5",
-<<<<<<< HEAD
   tintOpacity: 80,
-=======
-  tintOpacity: 94,
->>>>>>> 473cf06567e3a3a6d771a2c92ac27d265f8221dc
 };
 
 export default function ApplicationProcessPage() {
