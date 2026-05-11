@@ -15,7 +15,7 @@ const VisitorPlanningAccordion = () => {
       <Accordion type="single" collapsible className="space-y-1">
         {/* Transportation Section */}
         <AccordionItem value="transportation" className="border-none">
-          <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#8c122a] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
+          <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
             <div className="flex items-center gap-6">
               <ChevronRight
                 size={16}
@@ -34,35 +34,35 @@ const VisitorPlanningAccordion = () => {
                 <ul className="space-y-4 text-sm text-gray-700 font-light">
                   <li>
                     Philadelphia International Airport (
-                    <span className="text-[#8c122a] border-b border-[#8c122a]">
+                    <span className="text-[#4a6fa5] border-b border-[#4a6fa5]">
                       PHL
                     </span>
                     )
                   </li>
                   <li>
                     Newark Liberty International Airport (
-                    <span className="text-[#8c122a] border-b border-[#8c122a]">
+                    <span className="text-[#4a6fa5] border-b border-[#4a6fa5]">
                       EWR
                     </span>
                     )
                   </li>
                   <li>
                     La Guardia International Airport (
-                    <span className="text-[#8c122a] border-b border-[#8c122a]">
+                    <span className="text-[#4a6fa5] border-b border-[#4a6fa5]">
                       LGA
                     </span>
                     )
                   </li>
                   <li>
                     John F. Kennedy International Airport (
-                    <span className="text-[#8c122a] border-b border-[#8c122a]">
+                    <span className="text-[#4a6fa5] border-b border-[#4a6fa5]">
                       JFK
                     </span>
                     )
                   </li>
                   <li>
                     Trenton - Mercer Airport (
-                    <span className="text-[#8c122a] border-b border-[#8c122a]">
+                    <span className="text-[#4a6fa5] border-b border-[#4a6fa5]">
                       TTN
                     </span>
                     ) - Domestic Flights
@@ -76,22 +76,22 @@ const VisitorPlanningAccordion = () => {
                 <ul className="space-y-4 text-sm text-gray-700 font-light">
                   <li>
                     Trenton Transit Center (
-                    <span className="text-[#8c122a] border-b border-[#8c122a]">
+                    <span className="text-[#4a6fa5] border-b border-[#4a6fa5]">
                       TR
                     </span>
                     )
                   </li>
                   <li>
                     Princeton Junction (
-                    <span className="text-[#8c122a] border-b border-[#8c122a]">
+                    <span className="text-[#4a6fa5] border-b border-[#4a6fa5]">
                       PJ
                     </span>
                     )
                   </li>
-                  <li className="text-[#8c122a] border-b border-[#8c122a] w-fit">
+                  <li className="text-[#4a6fa5] border-b border-[#4a6fa5] w-fit">
                     NJ Transit
                   </li>
-                  <li className="text-[#8c122a] border-b border-[#8c122a] w-fit">
+                  <li className="text-[#4a6fa5] border-b border-[#4a6fa5] w-fit">
                     SEPTA
                   </li>
                 </ul>
@@ -102,20 +102,20 @@ const VisitorPlanningAccordion = () => {
                 <h4 className="font-bold text-lg mb-6">Car Services</h4>
                 <div className="space-y-6 text-sm">
                   <div>
-                    <p className="font-bold border-b border-[#8c122a] w-fit">
+                    <p className="font-bold border-b border-[#4a6fa5] w-fit">
                       Spectrum Limousine
                     </p>
                     <p className="text-gray-500">(609) 921-3330</p>
-                    <p className="text-[#8c122a] border-b border-[#8c122a] w-fit">
+                    <p className="text-[#4a6fa5] border-b border-[#4a6fa5] w-fit">
                       mindy@spectrumlimousine.com
                     </p>
                   </div>
                   <div>
-                    <p className="font-bold border-b border-[#8c122a] w-fit">
+                    <p className="font-bold border-b border-[#4a6fa5] w-fit">
                       A-1 Limousine
                     </p>
                     <p className="text-gray-500">(888) 546-6888</p>
-                    <p className="text-[#8c122a] border-b border-[#8c122a] w-fit">
+                    <p className="text-[#4a6fa5] border-b border-[#4a6fa5] w-fit">
                       info@a1limo.com
                     </p>
                   </div>
@@ -127,7 +127,7 @@ const VisitorPlanningAccordion = () => {
 
         {/* Accommodations Section */}
         <AccordionItem value="accommodations" className="border-none">
-          <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#8c122a] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
+          <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
             <div className="flex items-center gap-6">
               <ChevronRight
                 size={16}
@@ -144,7 +144,7 @@ const VisitorPlanningAccordion = () => {
               {/* Hotel Entry Example */}
               <div className="flex justify-between items-start border-b border-gray-100 pb-4">
                 <div>
-                  <p className="font-bold text-[#8c122a] border-b border-[#8c122a] w-fit">
+                  <p className="font-bold text-[#4a6fa5] border-b border-[#4a6fa5] w-fit">
                     The Inn at Glencairn
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
@@ -158,7 +158,7 @@ const VisitorPlanningAccordion = () => {
               </div>
               <div className="flex justify-between items-start border-b border-gray-100 pb-4">
                 <div>
-                  <p className="font-bold text-[#8c122a] border-b border-[#8c122a] w-fit">
+                  <p className="font-bold text-[#4a6fa5] border-b border-[#4a6fa5] w-fit">
                     The Peacock Inn
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
@@ -177,7 +177,7 @@ const VisitorPlanningAccordion = () => {
 
         {/* Nearby Schools Section */}
         <AccordionItem value="schools" className="border-none">
-          <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#8c122a] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
+          <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
             <div className="flex items-center gap-6">
               <ChevronRight
                 size={16}

@@ -114,7 +114,7 @@ export default function AcademicLeadership() {
                 className="flex flex-col items-center text-center group"
               >
                 {/* Circular Profile Image with Crimson Border */}
-                <div className="relative w-32 h-32 mb-6 rounded-full border-2 border-[#8c122a] p-1 overflow-hidden transition-transform duration-300 group-hover:scale-105">
+                <div className="relative w-32 h-32 mb-6 rounded-full border-2 border-[#4a6fa5] p-1 overflow-hidden transition-transform duration-300 group-hover:scale-105">
                   <div className="relative w-full h-full rounded-full overflow-hidden">
                     <Image
                       src={leader.image}
@@ -135,7 +135,7 @@ export default function AcademicLeadership() {
                   </p>
                   <a
                     href={`mailto:${leader.email}`}
-                    className="block text-[11px] text-[#8c122a] border-b border-[#8c122a] w-fit mx-auto mt-2 hover:opacity-70 transition-opacity"
+                    className="block text-[11px] text-[#4a6fa5] border-b border-[#4a6fa5] w-fit mx-auto mt-2 hover:opacity-70 transition-opacity"
                   >
                     {leader.email}
                   </a>

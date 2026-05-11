@@ -120,7 +120,7 @@ export default function VirtualTourSection() {
               value={`item-${index}`}
               className="border-none"
             >
-              <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#8c122a] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
+              <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
                 <div className="flex items-center gap-6">
                   <ChevronRight
                     size={16}

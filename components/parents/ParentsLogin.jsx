@@ -7,8 +7,8 @@ export default function ParentsLogin() {
     <section className="max-w-4xl mx-auto px-6 py-24 font-sans text-[#1a1a1a]">
       {/* Protected Page Alert */}
       <div className="flex items-center gap-2 mb-12">
-        <AlertCircle className="text-[#8c122a] w-5 h-5" />
-        <p className="text-[15px] font-medium text-[#8c122a]">
+        <AlertCircle className="text-[#4a6fa5] w-5 h-5" />
+        <p className="text-[15px] font-medium text-[#4a6fa5]">
           This page is protected. Please log in to view this page.
         </p>
       </div>
@@ -28,14 +28,14 @@ export default function ParentsLogin() {
             <Input
               type="text"
               placeholder="Enter your username"
-              className="rounded-none border-gray-300 h-12 text-gray-600 placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-[#8c122a]"
+              className="rounded-none border-gray-300 h-12 text-gray-600 placeholder:text-gray-400 focus-visible:ring-1 focus-visible:ring-[#4a6fa5]"
             />
           </div>
 
           {/* Styled Login Button */}
           <Button
             variant="outline"
-            className="rounded-none border-2 border-[#8c122a] text-[#1a1a1a] hover:bg-[#8c122a] hover:text-white px-10 py-6 text-xs font-bold tracking-widest uppercase transition-all duration-300"
+            className="rounded-none border-2 border-[#4a6fa5] text-[#1a1a1a] hover:bg-[#4a6fa5] hover:text-white px-10 py-6 text-xs font-bold tracking-widest uppercase transition-all duration-300"
           >
             Next
           </Button>
@@ -44,7 +44,7 @@ export default function ParentsLogin() {
         {/* Password Reset Link */}
         <p className="pt-4 text-[15px] font-light text-gray-700">
           If you are having trouble logging in, please{" "}
-          <button className="font-bold border-b border-gray-900 hover:text-[#8c122a] hover:border-[#8c122a] transition-colors">
+          <button className="font-bold border-b border-gray-900 hover:text-[#4a6fa5] hover:border-[#4a6fa5] transition-colors">
             click here to reset your password.
           </button>
         </p>

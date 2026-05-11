@@ -35,7 +35,7 @@ const ApplicationMaterials = () => {
                 className="space-y-4"
               >
                 <AccordionItem value="recommendations" className="border-none">
-                  <AccordionTrigger className="bg-[#8c122a] text-white px-6 py-4 hover:no-underline group">
+                  <AccordionTrigger className="bg-[#4a6fa5] text-white px-6 py-4 hover:no-underline group">
                     <div className="flex items-center gap-6">
                       <ChevronRight
                         size={16}
@@ -56,7 +56,7 @@ const ApplicationMaterials = () => {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="requirement" className="border-none">
-                  <AccordionTrigger className="bg-[#8c122a] text-white px-6 py-4 hover:no-underline group">
+                  <AccordionTrigger className="bg-[#4a6fa5] text-white px-6 py-4 hover:no-underline group">
                     <div className="flex items-center gap-6">
                       <ChevronRight
                         size={16}

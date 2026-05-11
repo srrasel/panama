@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-amber-700: #4a6fa5;
+}
+
 :root {
   /* <CHANGE> Updated color palette to professional white, grey, black theme */
   --background: oklch(0.99 0 0);
