@@ -19,7 +19,7 @@ const heroData = {
   title: "News and Media",
   description:
     "Welcome to the Pamavambo community! Read stories about what matters to us and what's happening on campus.",
-  tintColor: "#4A6FA5",
+  tintColor: "#1F2A44",
   tintOpacity: 80,
 };
 
@@ -96,12 +96,15 @@ export default function News() {
       <Navbar />
       <ThirdHero {...heroData} />
 
-      <SchoolNewsCarousel
-        title="School Blogs"
-        description="Insights, reflections, and perspectives from across the Pamavambo School community."
-        buttonText="Read All Blog Posts"
-        newsPosts={blogPosts}
-      />
+       {blogPosts.length > 0 && (
+        <SchoolNewsCarousel
+          title="Latest Blog Posts"
+          description="Insights, reflections, and perspectives from across the Pamavambo School community."
+          buttonText="View All Blog Posts"
+          newsPosts={blogPosts}
+          buttonLink="/news"
+        />
+      )}
 
       {podcastPosts.length > 0 && (
         <SchoolNewsCarousel
@@ -109,6 +112,7 @@ export default function News() {
           description="Listen to inspiring conversations and stories from our community."
           buttonText="View All Podcasts"
           newsPosts={podcastPosts}
+          buttonLink="/podcasts"
         />
       )}
 

@@ -206,7 +206,7 @@ export default function Navbar() {
 
             {/* Mobile Hamburger (Only visible on small screens) */}
             <button
-              className="text-white xl:hidden"
+              className="text-(--deep-navy) xl:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}

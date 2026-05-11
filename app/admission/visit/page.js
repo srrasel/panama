@@ -22,7 +22,7 @@ const heroData = {
   title: "Campus Visits",
   description:
     "Welcome to the Pamavambo community! Read stories about what matters to us and what's happening on campus.",
-  tintColor: "#4A6FA5",
+  tintColor: "#1F2A44",
   tintOpacity: 80,
 };
 
@@ -38,12 +38,19 @@ export default function VisitPage() {
       {/* <CampusToursSection /> */}
       <VirtualTourSection />
 
-      <div className="max-w-7xl mx-auto py-10 px-6 md:px-20 lg:px-32  bg-white">
-        <h1 className="text-xl font-bold mb-8">Meet us on the Road</h1>
-        <p className="text-[11px] italic text-gray-500 leading-relaxed max-w-5xl">
-          There are no events to display
-        </p>
-      </div>
+      <div className="w-full bg-[#F7F6F3] py-16 px-6 md:px-20 lg:px-32 font-['Montserrat']">
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-baseline gap-6">
+    {/* Heading using Playfair Display */}
+    <h1 className="text-2xl md:text-3xl font-['Playfair_Display'] font-bold text-[#1F2A44] border-l-4 border-[#D4A437] pl-6 tracking-tight uppercase">
+      Meet us on the <span className="italic font-medium">Road</span>
+    </h1>
+    
+    {/* Placeholder message using Montserrat */}
+    <p className="text-[10px] md:text-[11px] italic text-[#222222] opacity-60 leading-relaxed uppercase tracking-[0.2em] font-semibold">
+      There are no events to display
+    </p>
+  </div>
+</div>
       <Footer />
     </>
   );

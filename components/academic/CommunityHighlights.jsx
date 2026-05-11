@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 const highlights = [
@@ -20,23 +22,30 @@ const highlights = [
 
 export function CommunityHighlights() {
   return (
-    <section id="community" className="bg-[#23242a] text-white py-12 sm:py-16 md:py-20 px-4 sm:px-5 md:px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
+    <section id="community" className="bg-[#0F1B2D] text-[#F7F6F3] py-12 sm:py-16 md:py-24 px-4 sm:px-5 md:px-6 font-['Montserrat']">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-16 md:gap-20">
         {highlights.map((item, i) => (
-          <div key={i} className="space-y-4 sm:space-y-5 md:space-y-6">
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
+          <div key={i} className="space-y-6 group">
+            {/* Icon with Gold Tint */}
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 transition-transform duration-500 group-hover:-translate-y-2">
               <Image
                 src={item.icon}
                 alt={item.title}
                 fill
-                className="object-contain sepia saturate-[2] hue-rotate-15"
+                className="object-contain brightness-0 invert-[0.8] sepia-[1] saturate-[3] hue-rotate-[10deg] opacity-90"
                 sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, 96px"
               />
+              {/* Decorative Gold Underline for Icon */}
+              <div className="absolute -bottom-2 left-0 w-8 h-[2px] bg-[#D4A437] opacity-60 group-hover:w-full transition-all duration-500" />
             </div>
-            <h3 className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight">
+
+            {/* Title using Playfair Display */}
+            <h3 className="text-2xl sm:text-3xl font-['Playfair_Display'] font-bold tracking-tight text-[#D4A437]">
               {item.title}
             </h3>
-            <p className="text-xs sm:text-sm md:text-sm leading-relaxed sm:leading-relaxed text-white font-light">
+
+            {/* Description with Montserrat */}
+            <p className="text-sm md:text-base leading-relaxed text-[#F7F6F3] font-light opacity-80 italic">
               {item.desc}
             </p>
           </div>

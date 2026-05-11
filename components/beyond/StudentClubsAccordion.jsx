@@ -74,40 +74,40 @@ const StudentClubs = () => {
   ];
 
   return (
-    <section className="bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
+    <section className="bg-[#F7F6F3] py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 font-['Montserrat']">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 mb-6 sm:mb-8">
-          Student Clubs and Organizations
+        <h2 className="font-['Playfair_Display'] text-3xl sm:text-4xl md:text-5xl text-[#1F2A44] font-bold mb-6 sm:mb-8 tracking-tight border-l-4 border-[#D4A437] pl-6">
+          Student Clubs and <span className="text-[#D4A437] italic font-medium">Organizations</span>
         </h2>
 
-        <p className="text-gray-600 font-light leading-relaxed mb-10 max-w-4xl text-sm sm:text-base">
+        <p className="text-[#222222] font-light leading-relaxed mb-16 max-w-4xl text-sm sm:text-base md:text-lg opacity-90 border-b border-[#D4A437]/20 pb-8">
           Student Clubs and Organizations offer the opportunity for students to
           discover and pursue personal interests — from academic topics to
           performance to community development and service — and to meet and
-          learn from like-minded Lawrentians.
+          learn from like-minded Pamavambo students.
         </p>
 
         {/* Content */}
-        <div className="space-y-12">
+        <div className="space-y-16">
           {clubData.map((item, index) => (
             <div key={index}>
               {/* Category Title */}
-              <div className="flex items-center mb-6">
-                <ChevronRight className="mr-2 text-gray-400" />
-                <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900">
+              <div className="flex items-center mb-8 border-b border-[#D4A437]/10 pb-4">
+                <ChevronRight className="mr-3 text-[#D4A437]" size={20} />
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-['Playfair_Display'] font-bold text-[#1F2A44] tracking-wide">
                   {item.category}
                 </h3>
               </div>
 
               {/* Clubs Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
                 {item.clubs.map((club, i) => (
-                  <div key={i}>
-                    <h4 className="font-bold text-gray-900 text-sm sm:text-base md:text-lg">
+                  <div key={i} className="group">
+                    <h4 className="font-bold text-[#1F2A44] text-base sm:text-lg md:text-xl mb-2 transition-colors duration-300 group-hover:text-[#D4A437]">
                       {club.name}
                     </h4>
-                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed font-light">
+                    <p className="text-[#222222] text-xs sm:text-sm md:text-base leading-relaxed font-light opacity-80 border-l border-transparent group-hover:border-[#D4A437] pl-0 group-hover:pl-4 transition-all duration-300 italic">
                       {club.desc}
                     </p>
                   </div>

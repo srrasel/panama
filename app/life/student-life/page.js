@@ -12,12 +12,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 
 const subNavItems = [
-  { label: "CAMPUS", href: "/campus" },
-  { label: "DINING", href: "/dining" },
-  { label: "HEALTH AND WELLNESS", href: "/health" },
-  { label: "PUBLIC SAFETY", href: "/safety" },
-  { label: "DIVERSITY AND BELONGING", href: "/diversity" },
-  { label: "NEWS AND MEDIA", href: "/news" },
+  { label: "CAMPUS", },
+  { label: "DINING",},
+  { label: "HEALTH AND WELLNESS",},
+  { label: "PUBLIC SAFETY", },
+  { label: "DIVERSITY AND BELONGING",  },
+  { label: "NEWS AND MEDIA",  },
 ];
 export default function StudentLife() {
   return (

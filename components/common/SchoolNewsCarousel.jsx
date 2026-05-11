@@ -18,7 +18,7 @@ const SchoolNewsCarousel = ({
   title = "School News",
   description = "Stories of the community members, programs, and happenings that shape life at Pamavambo.",
   buttonText = "Read All News Stories",
-
+  buttonLink = "/news",
   newsPosts = [],
 }) => {
   const [api, setApi] = useState(null);
@@ -38,32 +38,34 @@ const SchoolNewsCarousel = ({
   }, [api]);
 
   return (
-    <section className="py-12 px-4 max-w-7xl mx-auto font-serif">
+    <section className="py-20 px-4 max-w-7xl mx-auto font-['Montserrat'] bg-[#F7F6F3]">
       {/* Header Area */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
-        <div className="space-y-3 max-w-2xl">
-          <h2 className="text-4xl md:text-5xl text-[#0a2540] tracking-tight">
+        <div className="space-y-4 max-w-2xl">
+          <h2 className="text-4xl md:text-6xl font-['Playfair_Display'] font-bold text-[#1F2A44] tracking-tight leading-tight">
             {title}
           </h2>
-          <p className="text-gray-600 font-sans text-sm md:text-base leading-relaxed">
+          <p className="text-[#222222] opacity-80 text-sm md:text-base leading-relaxed max-w-lg italic">
             {description}
           </p>
         </div>
         <Button
           asChild
-          className="bg-[#4A6FA5] hover:bg-[#34527d] text-white rounded-none px-7 py-6 text-sm font-sans font-bold transition-colors shrink-0"
+          className="bg-[#1F2A44] hover:bg-[#0F1B2D] text-[#F7F6F3] rounded-none px-8 py-7 text-xs font-bold uppercase tracking-[0.2em] transition-all shrink-0 shadow-lg"
         >
-          <p>{buttonText}</p>
+          <Link href={buttonLink}>
+            {buttonText}
+          </Link>
         </Button>
       </div>
 
-      {/* Social Icons Strip */}
-      <div className="flex justify-end gap-1.5 mb-4">
-        <div className="bg-gray-500 p-1 rounded-sm cursor-pointer hover:bg-gray-600 transition-colors">
-          <Rss className="w-3.5 h-3.5 text-white fill-current" />
+      {/* Social Icons Strip - Using Brand Colors */}
+      <div className="flex justify-end gap-2 mb-6">
+        <div className="bg-[#1F2A44]/10 p-2 rounded-none cursor-pointer hover:bg-[#D4A437] hover:text-white transition-all group">
+          <Rss className="w-4 h-4 text-[#1F2A44] group-hover:text-white" />
         </div>
-        <div className="bg-[#f08a00] p-1 rounded-sm cursor-pointer hover:bg-[#d97d00] transition-colors">
-          <Bell className="w-3.5 h-3.5 text-white fill-current" />
+        <div className="bg-[#D4A437] p-2 rounded-none cursor-pointer hover:bg-[#E6C26A] transition-all">
+          <Bell className="w-4 h-4 text-[#0F1B2D]" />
         </div>
       </div>
 
@@ -82,69 +84,47 @@ const SchoolNewsCarousel = ({
               key={post.id}
               className="pl-6 md:basis-1/2 lg:basis-1/3"
             >
-              {post.href ? (
-                <Link href={post.href}>
-                  <div className="flex flex-col gap-4 group/card cursor-pointer">
-                    {/* Image Container */}
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover/card:scale-105"
-                      />
-                    </div>
-                    {/* Text Content */}
-                    <div className="space-y-2">
-                      <h3 className="text-[20px] font-bold leading-snug text-[#1a1a1a] group-hover/card:underline decoration-1 underline-offset-4 transition-all">
-                        {post.title}
-                      </h3>
-                      <p className="text-[11px] text-gray-400 uppercase tracking-widest font-sans font-semibold">
-                        {post.date}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ) : (
-                <div className="flex flex-col gap-4 group/card cursor-pointer">
-                  {/* Image Container */}
+              <Link href={post.href || "#"}>
+                <div className="flex flex-col gap-6 group/card cursor-pointer bg-white p-2 border border-transparent hover:border-[#D4A437]/20 transition-all duration-500">
+                  {/* Image Container with Brand Border Effect */}
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image
                       src={post.image}
                       alt={post.title}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+                      className="object-cover transition-transform duration-700 group-hover/card:scale-110"
                     />
+                    <div className="absolute inset-0 bg-[#1F2A44]/10 group-hover/card:bg-transparent transition-colors duration-500" />
                   </div>
                   {/* Text Content */}
-                  <div className="space-y-2">
-                    <h3 className="text-[20px] font-bold leading-snug text-[#1a1a1a] group-hover/card:underline decoration-1 underline-offset-4 transition-all">
-                      {post.title}
-                    </h3>
-                    <p className="text-[11px] text-gray-400 uppercase tracking-widest font-sans font-semibold">
+                  <div className="space-y-3 pb-4 px-2">
+                    <p className="text-[10px] text-[#D4A437] uppercase tracking-[0.25em] font-bold">
                       {post.date}
                     </p>
+                    <h3 className="text-xl md:text-2xl font-['Playfair_Display'] font-bold leading-snug text-[#1F2A44] group-hover/card:text-[#D4A437] transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
                   </div>
                 </div>
-              )}
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
 
-        {/* Navigation Arrows - Centered on the Image height specifically */}
-        <CarouselPrevious className="absolute -left-8 top-[35%] h-12 w-12 border-none bg-gray-200 rounded-full   text-black" />
-        <CarouselNext className="absolute -right-8 top-[35%] h-12 w-12 border-none bg-gray-200 rounded-full   text-black" />
+        {/* Navigation Arrows - Using Navy and Gold Accents */}
+        <CarouselPrevious className="absolute -left-4 md:-left-12 top-[40%] h-14 w-14 border-none bg-[#1F2A44] text-[#D4A437] hover:bg-[#D4A437] hover:text-[#0F1B2D] rounded-none shadow-xl transition-all opacity-0 group-hover:opacity-100" />
+        <CarouselNext className="absolute -right-4 md:-right-12 top-[40%] h-14 w-14 border-none bg-[#1F2A44] text-[#D4A437] hover:bg-[#D4A437] hover:text-[#0F1B2D] rounded-none shadow-xl transition-all opacity-0 group-hover:opacity-100" />
       </Carousel>
 
       {/* Pagination Dots */}
-      <div className="flex justify-center gap-3 mt-12">
+      <div className="flex justify-center gap-4 mt-16">
         {Array.from({ length: count }).map((_, i) => (
           <button
             key={i}
             onClick={() => api?.scrollTo(i)}
             className={cn(
-              "h-2.5 w-2.5 rounded-full transition-all duration-300",
-              current === i ? "bg-[#4a4a4a]" : "bg-gray-300",
+              "h-1.5 transition-all duration-500 rounded-none",
+              current === i ? "w-12 bg-[#D4A437]" : "w-6 bg-[#1F2A44]/20 hover:bg-[#1F2A44]/40"
             )}
             aria-label={`Go to slide ${i + 1}`}
           />

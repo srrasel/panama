@@ -29,40 +29,39 @@ const gridItems = [
 export default function ImageSection() {
   return (
     <section
+      className="relative w-full py-24 overflow-hidden"
       style={{
-        backgroundImage: 'url("https://images.unsplash.com/photo-1453749024868-697480531b72?q=80&w=2007&auto=format&fit=crop")',
+        backgroundImage: 'linear-gradient(rgba(247, 246, 243, 0.9), rgba(247, 246, 243, 0.9)), url("https://images.unsplash.com/photo-1453749024868-697480531b72?q=80&w=2007&auto=format&fit=crop")',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="relative w-full py-24 overflow-hidden"
     >
-      {/* 1. Background Pattern / Watermark */}
-
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        {/* 2. The 2x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 shadow-2xl relative">
-          {/* Central Logo Overlay (The small crest in the middle of the 4 images) */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 hidden md:block">
-            <div className="relative w-40 h-40 md:w-56 md:h-56">
-              {/* Background */}
+        {/* The 2x2 Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 shadow-[0_20px_50px_rgba(31,42,68,0.15)] relative ">
+          
+          {/* Central Logo Overlay */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 hidden md:block">
+            <div className="relative w-48 h-48 md:w-60 md:h-60 flex items-center justify-center">
+              {/* Radiating circles with Brand Gold (#D4A437) */}
               <div
+                className="absolute inset-0 w-full h-full opacity-20 animate-pulse"
                 style={{
                   backgroundImage: 'url("/radiating-circles.svg")',
-                  backgroundSize: "cover",
+                  backgroundSize: "contain",
                   backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
                 }}
-                className="absolute inset-0 w-full h-full"
               />
-
-              {/* Logo */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-24 h-24 ">
+              
+              {/* Central White Circular Base for Logo */}
+              <div className="relative w-32 h-32  rounded-full flex items-center justify-center shadow-xl border-2 border-[#D4A437]/20">
+                <div className="relative w-20 h-20">
                   <Image
-                    src="/logo-school.png"
+                    src="/new/logo.png"
                     alt="School Logo"
                     fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 96px, 128px"
+                    className="object-contain p-2"
                   />
                 </div>
               </div>
@@ -73,8 +72,9 @@ export default function ImageSection() {
             <Link
               key={index}
               href={item.link}
-              className="group relative aspect-square overflow-hidden "
+              className="group relative aspect-square overflow-hidden border border-white/20"
             >
+              {/* Background Image */}
               <Image
                 src={item.image}
                 alt={item.title}
@@ -82,27 +82,39 @@ export default function ImageSection() {
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
               />
 
-              {/* Gradient Overlay for Text Readability */}
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+              {/* Navy Blue Overlay on Hover (#1F2A44) */}
+              <div className="absolute inset-0 bg-[#1F2A44]/30 group-hover:bg-[#1F2A44]/70 transition-all duration-500" />
 
-              <div className="absolute top-8 left-8">
-                <h3 className="text-white text-2xl font-bold tracking-tight uppercase">
-                  {item.title}
-                </h3>
+              {/* Text Content */}
+              <div className="absolute inset-0 flex flex-col justify-start p-10">
+                <div className="overflow-hidden">
+                  <h3 className="text-white text-2xl md:text-3xl font-['Playfair_Display'] font-bold tracking-wide uppercase transition-transform duration-500 group-hover:-translate-y-2">
+                    {item.title}
+                  </h3>
+                  {/* Decorative underline that expands on hover */}
+                  <div className="h-0.5 bg-[#D4A437] w-12 group-hover:w-24 transition-all duration-500 mt-2" />
+                </div>
+                
+                {/* Subtle description or "Explore" text visible on hover */}
+                <div className="mt-auto opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-4 group-hover:translate-y-0">
+                  <span className="text-[#D4A437] font-['Montserrat'] font-bold text-xs tracking-[0.2em] uppercase flex items-center gap-2">
+                    Explore <div className="w-8 h-px bg-[#D4A437]" />
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
         </div>
 
-        {/* 3. Bottom Decorative Crest */}
-        <div className="flex justify-center mt-16">
-          <div className="  flex items-center justify-center">
+        {/* Bottom Decorative Crest */}
+        <div className="flex flex-col items-center mt-20">
+          <div className="w-px h-16 bg-linear-to-b from-[#D4A437] to-transparent mb-8" />
+          <div className="relative w-40 h-40">
             <Image
               src="/texture-02.svg"
               alt="crest"
-              width={150}
-              height={150}
-              className="opacity-80"
+              fill
+              className="opacity-30 object-contain saturate-0 brightness-50"
             />
           </div>
         </div>

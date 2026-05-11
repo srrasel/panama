@@ -1,19 +1,21 @@
+"use client";
+
 import Image from "next/image";
 
 export default function WelcomeSection() {
   return (
-    <section className="w-full bg-white py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20">
+    <section className="w-full bg-[#F7F6F3] py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 font-['Montserrat']">
       <div className="max-w-4xl mx-auto">
         {/* 1. Top Section: Title */}
-        <div className="-ml-6 sm:-ml-8 md:-ml-10 mb-6 sm:mb-8 md:mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-serif text-[#1a1a1a] leading-tight">
+        <div className="-ml-2 sm:-ml-4 md:-ml-6 mb-6 sm:mb-8 md:mb-10">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-['Playfair_Display'] text-[#1F2A44] leading-tight font-bold">
             A Welcoming Foundation for Courageous Learning
           </h2>
         </div>
 
         {/* 2. Down Section: Description and Icon */}
         <div className="flex flex-col sm:flex-row justify-between items-start gap-6 sm:gap-8 md:gap-10 lg:gap-12">
-          <div className="space-y-4 sm:space-y-5 md:space-y-6 text-gray-700 leading-relaxed md:leading-relaxed font-light text-sm sm:text-base md:text-[15px] lg:text-base">
+          <div className="space-y-4 sm:space-y-5 md:space-y-6 text-[#222222] leading-relaxed font-light text-sm sm:text-base md:text-[15px] lg:text-base">
             <p>
               Developing a positive and welcoming environment gives students the
               courage to participate fully — in classroom discussions, on the
@@ -35,13 +37,13 @@ export default function WelcomeSection() {
             </p>
           </div>
 
-          {/* Replaced SVG with Next.js Image Component */}
+          {/* Icon with Brand Styling */}
           <div className="relative shrink-0 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 self-start sm:self-auto">
             <Image
               src="/life/icons8-community-500.png"
               alt="Welcoming Icon"
               fill
-              className="object-contain"
+              className="object-contain p-2"
               sizes="(max-width: 640px) 80px, (max-width: 768px) 96px, (max-width: 1024px) 128px, 144px"
             />
           </div>

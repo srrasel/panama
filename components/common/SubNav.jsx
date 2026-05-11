@@ -1,3 +1,8 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+
 const SubNav = ({ subNavItems = [] }) => {
   if (!Array.isArray(subNavItems)) {
     console.error("subNavItems must be an array");
@@ -5,20 +10,15 @@ const SubNav = ({ subNavItems = [] }) => {
   }
 
   return (
-    <nav className="border-t border-b border-[#FFD166]/30 py-3 sm:py-4">
+    <nav className="border-t border-b border-[#D4A437]/20 py-3 sm:py-5 bg-[#F7F6F3] font-['Montserrat']">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-6">
-        <ul className="flex flex-wrap justify-center  gap-3 sm:gap-4 md:gap-8 lg:gap-12">
+        <ul className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10 lg:gap-14">
           {subNavItems.map((item) => (
-            <li key={item.label}>
-              {item.href ? (
-                <p className="text-[10px] sm:text-[10px] md:text-xs lg:text-xs font-bold tracking-wider sm:tracking-widest text-gray-800 hover:text-[#4A6FA5] transition-colors">
-                  {item.label}
-                </p>
-              ) : (
-                <span className="text-[10px] sm:text-[10px] md:text-xs lg:text-xs font-bold tracking-wider sm:tracking-widest text-gray-800 cursor-default">
-                  {item.label}
-                </span>
-              )}
+            <li key={item.label} className="group">
+               <p className="text-[10px] sm:text-[11px] md:text-xs font-bold tracking-[0.2em] text-[#1F2A44] hover:text-[#D4A437] transition-all duration-300 uppercase relative">
+                    {item.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#D4A437] transition-all duration-300 group-hover:w-full"></span>
+                  </p>
             </li>
           ))}
         </ul>
@@ -27,6 +27,4 @@ const SubNav = ({ subNavItems = [] }) => {
   );
 };
 
-// Make sure to export as default
 export default SubNav;
-

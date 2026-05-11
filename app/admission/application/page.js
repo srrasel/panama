@@ -24,7 +24,7 @@ const heroData = {
   title: "Application Process",
   description:
     "Welcome to the Pamavambo community! Read stories about what matters to us and what's happening on campus.",
-  tintColor: "#4A6FA5",
+  tintColor: "#1F2A44",
   tintOpacity: 80,
 };
 
@@ -40,15 +40,20 @@ export default function ApplicationProcessPage() {
       {/* <ScholarshipAidSection /> */}
       {/* <TestingRequirements /> */}
       <AdmissionDecisions />
-      <div className="max-w-7xl mx-auto py-10 px-6 md:px-20 lg:px-32  bg-white">
-        <p className="text-[11px] italic text-gray-500 leading-relaxed max-w-5xl">
-          The Pamavambo School does not discriminate on the basis of race,
-          color, national or ethnic origin, religion, gender, gender expression,
-          sexual orientation, genetic information, or physical or mental
-          disabilities in the administration of its admission and scholarship
-          aid programs.
-        </p>
-      </div>
+      <div className="w-full bg-[#F7F6F3] py-12 px-6 md:px-20 lg:px-32 border-t border-[#D4A437]/10 font-['Montserrat']">
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start gap-6">
+    {/* Brand Accent Line */}
+    <div className="w-12 h-[1px] bg-[#D4A437] mt-2 shrink-0" />
+    
+    <p className="text-[10px] md:text-[11px] italic text-[#1F2A44] opacity-60 leading-relaxed max-w-5xl uppercase tracking-wider">
+      The Pamavambo School does not discriminate on the basis of race,
+      color, national or ethnic origin, religion, gender, gender expression,
+      sexual orientation, genetic information, or physical or mental
+      disabilities in the administration of its admission and scholarship
+      aid programs.
+    </p>
+  </div>
+</div>
       <Footer />
     </>
   );

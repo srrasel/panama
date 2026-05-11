@@ -6,7 +6,6 @@ import Link from "next/link";
 
 const mainNavLinks = [
   { name: "SCHOOL NEWS", href: "/life/news" },
-
   { name: "CAREERS", href: "/life/careers" },
 ];
 
@@ -18,18 +17,18 @@ const secondaryLinks = [
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#1a1a1a] text-white py-16 px-6 md:px-20 border-t border-white/10">
+    <footer className="w-full bg-[#0F1B2D] text-[#F7F6F3] py-16 px-6 md:px-20 border-t border-[#D4A437]/30 font-['Montserrat']">
       <div className="max-w-7xl mx-auto">
         {/* Top Section: Seal, Address, and Action Buttons */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-12 pb-16">
           {/* Left Group: Seal and Address */}
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="relative w-28 h-28 opacity-60">
+          <div className="flex flex-col md:flex-row items-center gap-3">
+            <div className="relative w-44 h-44">
               <Image
                 src="/new/logo.png"
                 alt="The Pamavambo School Seal"
                 fill
-                className="object-contain grayscale brightness-200"
+                className="object-contain"
               />
             </div>
             <div className="text-center md:text-left space-y-1">
@@ -46,7 +45,7 @@ export default function Footer() {
             <div className="flex flex-col space-y-3 w-full max-w-60">
               <Link
                 href="/admission/inquire"
-                className="flex justify-between items-center border border-[#FFD166]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#FFD166] hover:text-black transition-all group"
+                className="flex justify-between items-center border border-[#D4A437]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#D4A437] hover:text-[#0F1B2D] transition-all group"
               >
                 INQUIRE
                 <ArrowRight
@@ -56,7 +55,7 @@ export default function Footer() {
               </Link>
               <Link
                 href="/admission/application"
-                className="flex justify-between items-center border border-[#FFD166]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#FFD166] hover:text-black transition-all group"
+                className="flex justify-between items-center border border-[#D4A437]/50 px-5 py-3 text-[10px] font-bold tracking-[0.2em] hover:bg-[#D4A437] hover:text-[#0F1B2D] transition-all group"
               >
                 GIVE NOW
                 <ArrowRight
@@ -70,7 +69,7 @@ export default function Footer() {
             <div className="flex space-x-6">
               <Facebook
                 size={18}
-                className="cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
+                className="cursor-pointer text-[#D4A437] opacity-70 hover:opacity-100 transition-opacity"
               />
             </div>
           </div>
@@ -83,7 +82,7 @@ export default function Footer() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-[10px] font-bold tracking-[0.2em] opacity-80 hover:text-[#FFD166] hover:opacity-100 transition-all uppercase"
+                className="text-[10px] font-bold tracking-[0.2em] opacity-80 hover:text-[#D4A437] hover:opacity-100 transition-all uppercase"
               >
                 {link.name}
               </Link>
@@ -97,22 +96,16 @@ export default function Footer() {
             {secondaryLinks.map((link) => (
               <p
                 key={link.name}
-                className="text-[9px] font-bold tracking-[0.15em] text-[#FFD166] hover:brightness-125 transition-all uppercase"
+                className="text-[9px] font-bold tracking-[0.15em] text-[#D4A437] hover:text-[#E6C26A] transition-all uppercase cursor-pointer"
               >
                 {link.name}
               </p>
             ))}
           </nav>
 
-          <div className="flex flex-col items-center md:items-end">
-            <p className="text-[9px] opacity-30 uppercase tracking-[0.2em] flex items-center gap-1">
-              <span className="text-base leading-none">©</span> Powered by
-              Finalsite
-            </p>
-          </div>
+         
         </div>
       </div>
     </footer>
   );
 }
-

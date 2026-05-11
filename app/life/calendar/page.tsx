@@ -6,6 +6,7 @@ import SecondHero from "@/components/common/SecondHero";
 import { Calendar } from "@/components/ui/calendar";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { ChevronRight, Clock, FileText, MapPin } from "lucide-react";
 
 export default function CalendarPage() {
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -118,122 +119,134 @@ export default function CalendarPage() {
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Calendar", href: "/life/calendar" }]}
       />
       
-      <main className="bg-white min-h-screen">
-        <div className="container mx-auto px-4 py-12 md:py-20 max-w-7xl">
-          <div className="flex flex-col lg:flex-row gap-12">
-             {/* Left Column: Calendar Widget & Filters */}
-             <div className="lg:w-1/3 space-y-8">
-               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100 sticky top-24">
-                 <h3 className="text-2xl font-serif mb-6 text-gray-900 border-b pb-4">Select Date</h3>
-                 <div className="flex justify-center">
-                   <Calendar
-                     mode="single"
-                     selected={date}
-                     onSelect={setDate}
-                     className="rounded-md border p-4 shadow-sm"
-                   />
-                 </div>
-                 <div className="mt-6 pt-6 border-t border-gray-100">
-                   <h4 className="font-bold text-gray-800 mb-3">Filter by Category</h4>
-                   <div className="space-y-2">
-                     <label className="flex items-center space-x-3 cursor-pointer">
-                       <input type="checkbox" className="form-checkbox h-5 w-5 text-amber-600 rounded focus:ring-amber-500" defaultChecked />
-                       <span className="text-gray-700">Academics</span>
-                     </label>
-                     <label className="flex items-center space-x-3 cursor-pointer">
-                       <input type="checkbox" className="form-checkbox h-5 w-5 text-amber-600 rounded focus:ring-amber-500" defaultChecked />
-                       <span className="text-gray-700">Athletics</span>
-                     </label>
-                     <label className="flex items-center space-x-3 cursor-pointer">
-                       <input type="checkbox" className="form-checkbox h-5 w-5 text-amber-600 rounded focus:ring-amber-500" defaultChecked />
-                       <span className="text-gray-700">Arts</span>
-                     </label>
-                     <label className="flex items-center space-x-3 cursor-pointer">
-                       <input type="checkbox" className="form-checkbox h-5 w-5 text-amber-600 rounded focus:ring-amber-500" defaultChecked />
-                       <span className="text-gray-700">Community</span>
-                     </label>
-                   </div>
-                 </div>
-               </div>
-               
-               {/* Quick Download Links */}
-               <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                  <h4 className="font-bold text-gray-800 mb-4">Downloads</h4>
-                  <ul className="space-y-3">
-                    <li>
-                      <a href="#" className="flex items-center text-amber-700 hover:text-amber-900 hover:underline">
-                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                        2025-2026 Academic Calendar (PDF)
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="flex items-center text-amber-700 hover:text-amber-900 hover:underline">
-                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                        Athletics Schedule (PDF)
-                      </a>
-                    </li>
-                  </ul>
-               </div>
-             </div>
+      <main className="bg-[#F7F6F3] min-h-screen font-['Montserrat']">
+      <div className="container mx-auto px-4 py-12 md:py-20 max-w-7xl">
+        <div className="flex flex-col lg:flex-row gap-12">
+          
+          {/* Left Column: Calendar Widget & Filters */}
+          <div className="lg:w-1/3 space-y-8">
+            <div className="bg-white p-8 rounded-none shadow-sm border border-[#E5E7EB] sticky top-24">
+              <h3 className="text-2xl font-['Playfair_Display'] font-bold mb-6 text-[#1F2A44] border-b border-[#D4A437]/30 pb-4 uppercase tracking-tight">
+                Select Date
+              </h3>
+              
+              <div className="flex justify-center">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  className="rounded-none border border-[#E5E7EB] p-4 shadow-sm"
+                />
+              </div>
 
-             {/* Right Column: Events List */}
-             <div className="lg:w-2/3">
-                <div className="flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
-                  <h2 className="text-3xl font-serif text-gray-900">Upcoming Events</h2>
-                  <div className="text-gray-500 text-sm">Showing {displayedEvents.length} of {events.length} upcoming events</div>
-                </div>
-                
-                <div className="space-y-6">
-                  {displayedEvents.map((event) => (
-                    <div key={event.id} className="group flex flex-col sm:flex-row gap-6 bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-amber-200 transition-all duration-300">
-                      {/* Date Box */}
-                      <div className="flex-shrink-0 w-full sm:w-24 h-24 bg-amber-50 rounded-lg border border-amber-100 flex flex-col items-center justify-center text-amber-800 group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300">
-                        <span className="text-2xl font-bold leading-none mb-1">{event.date.split(" ")[1]}</span>
-                        <span className="text-sm font-semibold uppercase tracking-wider">{event.date.split(" ")[0]}</span>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="flex-grow">
-                        <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-700 transition-colors">{event.title}</h4>
-                        <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-3">
-                          <span className="flex items-center">
-                            <svg className="w-4 h-4 mr-1 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            {event.time}
-                          </span>
-                          <span className="flex items-center">
-                            <svg className="w-4 h-4 mr-1 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                            {event.location}
-                          </span>
-                        </div>
-                        <p className="text-gray-600 leading-relaxed">{event.description}</p>
-                      </div>
-                      
-                      {/* Action Arrow (Visible on Desktop) */}
-                      <div className="hidden sm:flex flex-col justify-center items-center pl-4 border-l border-gray-100">
-                         <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-amber-100 text-gray-400 group-hover:text-amber-600 transition-colors">
-                           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                         </div>
-                      </div>
-                    </div>
+              <div className="mt-8 pt-8 border-t border-[#E5E7EB]">
+                <h4 className="font-bold text-[#1F2A44] mb-4 uppercase tracking-[0.1em] text-sm">
+                  Filter by Category
+                </h4>
+                <div className="space-y-3">
+                  {["Academics", "Athletics", "Arts", "Community"].map((category) => (
+                    <label key={category} className="flex items-center space-x-3 cursor-pointer group">
+                      <input 
+                        type="checkbox" 
+                        className="form-checkbox h-5 w-5 text-[#D4A437] border-[#E5E7EB] rounded-none focus:ring-[#D4A437]" 
+                        defaultChecked 
+                      />
+                      <span className="text-[#222222] group-hover:text-[#D4A437] transition-colors">{category}</span>
+                    </label>
                   ))}
                 </div>
-                
-                {hasMoreEvents && (
-                  <div className="mt-12 text-center">
-                    <button
-                      type="button"
-                      onClick={handleLoadMore}
-                      className="px-8 py-3 bg-white border border-gray-300 text-gray-700 font-semibold rounded-full hover:bg-gray-50 hover:border-gray-400 transition-colors"
-                    >
-                      Load More Events
-                    </button>
+              </div>
+            </div>
+            
+            {/* Quick Download Links */}
+            <div className="bg-[#1F2A44] p-8 rounded-none border border-[#0F1B2D]">
+              <h4 className="font-bold text-[#D4A437] mb-6 uppercase tracking-widest text-sm">
+                Downloads
+              </h4>
+              <ul className="space-y-4">
+                <li>
+                  <a href="#" className="flex items-center text-[#F7F6F3] hover:text-[#D4A437] transition-all group">
+                    <FileText className="w-5 h-5 mr-3 text-[#D4A437]" />
+                    <span className="text-sm font-medium tracking-wide">2025-2026 Academic Calendar (PDF)</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="flex items-center text-[#F7F6F3] hover:text-[#D4A437] transition-all group">
+                    <FileText className="w-5 h-5 mr-3 text-[#D4A437]" />
+                    <span className="text-sm font-medium tracking-wide">Athletics Schedule (PDF)</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Right Column: Events List */}
+          <div className="lg:w-2/3">
+            <div className="flex flex-col md:flex-row justify-between items-baseline mb-10 border-b border-[#D4A437]/20 pb-6 gap-4">
+              <h2 className="text-4xl md:text-5xl font-['Playfair_Display'] font-bold text-[#1F2A44]">
+                Upcoming <span className="text-[#D4A437] italic">Events</span>
+              </h2>
+              <div className="text-[#222222]/60 text-xs uppercase tracking-[0.2em] font-semibold">
+                Discover your journey
+              </div>
+            </div>
+            
+            <div className="space-y-8">
+              {/* Event Card Example */}
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="group flex flex-col sm:flex-row gap-8 bg-white p-8 rounded-none border-l-4 border-l-[#D4A437] shadow-sm hover:shadow-md transition-all duration-500 border border-[#E5E7EB]">
+                  {/* Date Box */}
+                  <div className="flex-shrink-0 w-full sm:w-28 h-28 bg-[#1F2A44] rounded-none flex flex-col items-center justify-center text-[#F7F6F3] group-hover:bg-[#D4A437] transition-colors duration-500">
+                    <span className="text-3xl font-['Playfair_Display'] font-bold leading-none mb-1">15</span>
+                    <span className="text-xs font-bold uppercase tracking-[0.2em]">MAY</span>
                   </div>
-                )}
-             </div>
+                  
+                  {/* Content */}
+                  <div className="flex-grow">
+                    <div className="inline-block px-3 py-1 bg-[#F7F6F3] text-[#D4A437] text-[10px] font-bold uppercase tracking-widest mb-4">
+                      Academic
+                    </div>
+                    <h4 className="text-2xl font-['Playfair_Display'] font-bold text-[#1F2A44] mb-3 group-hover:text-[#D4A437] transition-colors duration-300">
+                      Annual Founders Day Celebration
+                    </h4>
+                    <div className="flex flex-wrap gap-6 text-xs text-[#222222]/70 mb-4 font-bold tracking-wider uppercase">
+                      <span className="flex items-center">
+                        <Clock className="w-4 h-4 mr-2 text-[#D4A437]" />
+                        09:00 AM - 04:00 PM
+                      </span>
+                      <span className="flex items-center">
+                        <MapPin className="w-4 h-4 mr-2 text-[#D4A437]" />
+                        Main Auditorium
+                      </span>
+                    </div>
+                    <p className="text-[#222222]/80 leading-relaxed text-sm">
+                      Join us as we celebrate the rich history and values of Pamavambo Private Schools. A day filled with heritage, community, and vision for the future.
+                    </p>
+                  </div>
+                  
+                  {/* Action Arrow */}
+                  <div className="hidden sm:flex flex-col justify-center items-center pl-6 border-l border-[#E5E7EB]">
+                     <div className="w-12 h-12 rounded-none bg-[#F7F6F3] flex items-center justify-center group-hover:bg-[#1F2A44] text-[#1F2A44] group-hover:text-[#D4A437] transition-all duration-300">
+                        <ChevronRight className="w-6 h-6" />
+                     </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Load More Button */}
+            <div className="mt-16 text-center">
+              <button
+                type="button"
+                className="px-12 py-4 bg-[#1F2A44] text-[#F7F6F3] font-bold uppercase tracking-[0.2em] text-xs hover:bg-[#D4A437] transition-all duration-300 rounded-none shadow-lg"
+              >
+                Load More Events
+              </button>
+            </div>
           </div>
         </div>
-      </main>
-      
+      </div>
+    </main>
       <Footer />
     </>
   );

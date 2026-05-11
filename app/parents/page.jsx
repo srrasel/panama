@@ -7,7 +7,7 @@ const heroData = {
   breadcrumbs: [],
   title: "Log In",
   description: "Please log in to view the content on this page. \n\Thank you!",
-  tintColor: "#4A6FA5",
+  tintColor: "#1F2A44",
   tintOpacity: 80,
 };
 

@@ -11,8 +11,8 @@ export default function SecondHero({
   breadcrumbs = [{ label: "Home", href: "/" }],
 }) {
   return (
-    <section className="relative w-full min-h-80 sm:min-h-96 md:min-h-screen flex items-center overflow-hidden">
-      {/* 1. Background Image with Dark Overlay */}
+    <section className="relative w-full min-h-80 sm:min-h-96 md:min-h-screen flex items-center overflow-hidden font-['Montserrat']">
+      {/* 1. Background Image with Brand Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
           src={backgroundImage}
@@ -22,8 +22,8 @@ export default function SecondHero({
           className="object-cover"
           sizes="100vw"
         />
-        {/* Darkening overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-black/40" />
+        {/* Navy Blue (#1F2A44) overlay for readability */}
+        <div className="absolute inset-0 bg-[#1F2A44]/50" />
       </div>
 
       {/* 2. Content Container */}
@@ -31,19 +31,19 @@ export default function SecondHero({
         <div className="max-w-full md:max-w-4xl">
           {/* Breadcrumbs */}
           <nav className="mb-3 sm:mb-4">
-            <ul className="flex items-center flex-wrap gap-x-2 text-white/90 text-xs sm:text-sm font-medium">
+            <ul className="flex items-center flex-wrap gap-x-2 text-[#F7F6F3]/90 text-xs sm:text-sm font-medium uppercase tracking-widest">
               {breadcrumbs.map((crumb, index) => (
                 <React.Fragment key={index}>
                   <li>
                     <Link
                       href={crumb.href}
-                      className="hover:text-amber-400 transition-colors"
+                      className="hover:text-[#D4A437] transition-colors"
                     >
                       {crumb.label}
                     </Link>
                   </li>
                   {index < breadcrumbs.length - 1 && (
-                    <span className="text-white/70">/</span>
+                    <span className="text-[#D4A437]/70">/</span>
                   )}
                 </React.Fragment>
               ))}
@@ -52,29 +52,28 @@ export default function SecondHero({
 
           {/* Main Title with Decorative Line */}
           <div className="relative inline-block mb-4 sm:mb-5 md:mb-6">
-            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif leading-none pr-6 sm:pr-8 md:pr-12">
+            <h1 className="text-[#F7F6F3] text-7xl font-['Playfair_Display'] font-bold leading-none pr-6 sm:pr-8 md:pr-12 uppercase tracking-tight">
               {title}
             </h1>
 
-            {/* The Gold Decorative L-Shape Line */}
-            <div className="absolute -bottom-1 sm:bottom-0 md:bottom-4 left-full w-[20vw] sm:w-[30vw] md:w-[40vw] h-px sm:h-1 bg-amber-500/60 hidden sm:block">
-              {/* Vertical part of the line seen in screenshot */}
-              <div className="absolute right-0 top-0 w-px sm:w-1 h-20 sm:h-40 md:h-50 lg:h-70 bg-amber-500/60" />
+            {/* The Gold Decorative L-Shape Line (#D4A437) */}
+            <div className="absolute -bottom-1 sm:bottom-0 md:bottom-4 left-full w-[20vw] sm:w-[30vw] md:w-[40vw] h-px sm:h-[2px] bg-[#D4A437]/60 hidden sm:block">
+              {/* Vertical part of the line */}
+              <div className="absolute right-0 top-0 w-px sm:w-[2px] h-20 sm:h-40 md:h-50 lg:h-70 bg-[#D4A437]/60" />
             </div>
           </div>
 
           {/* Subtitle */}
           {subtitle && (
-            <p className="text-white text-lg sm:text-xl md:text-2xl mt-4 max-w-2xl font-light">
+            <p className="text-[#F7F6F3] text-lg sm:text-xl md:text-2xl mt-4 max-w-2xl font-light italic opacity-90">
               {subtitle}
             </p>
           )}
         </div>
       </div>
 
-      {/* Optional: Thin Red Top Border seen in screenshot */}
-      <div className="absolute top-0 left-0 w-full h-px sm:h-1 bg-[#4A6FA5] z-20" />
+      {/* Top Border with Brand Navy (#1F2A44) */}
+      <div className="absolute top-0 left-0 w-full h-1 sm:h-[6px] bg-[#1F2A44] z-20" />
     </section>
   );
 }
-

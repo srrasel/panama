@@ -1,17 +1,19 @@
+"use client";
+
 import Image from "next/image";
 
 const HeadOfSchool = () => {
   return (
-    <section className="bg-white py-24 px-6 md:px-20 lg:px-32">
+    <section className=" py-24 px-6 md:px-20 lg:px-32 font-['Montserrat']">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
         {/* Left Sidebar Profile */}
         <div className="lg:col-span-4 flex flex-col items-center text-center">
           <div className="relative w-64 h-64 mb-8">
-            {/* Red border accent */}
-            <div className="absolute inset-0 border-[3px] border-[#4A6FA5] rounded-full -m-2" />
-            <div className="relative w-full h-full rounded-full overflow-hidden">
+            {/* Gold border accent (#D4A437) */}
+            <div className="absolute inset-0 border-[3px] border-[#D4A437] rounded-full -m-2" />
+            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
               <Image
-                src="/logo.png"
+                src="/logo.png" // Replace with actual head of school image path
                 alt="Head of School"
                 fill
                 className="object-cover"
@@ -19,30 +21,30 @@ const HeadOfSchool = () => {
             </div>
           </div>
           <div className="space-y-2">
-            <p className="font-bold text-gray-900 text-sm">
+            <p className="font-bold text-[#1F2A44] text-sm tracking-wide">
               Stephen Murray H’54 ’55 ’63 ’65 ’16 P’16 ’21
             </p>
-            <p className="text-[11px] font-medium text-gray-500 uppercase leading-relaxed max-w-50">
+            <p className="text-[11px] font-bold text-[#222222]/60 uppercase tracking-[0.15em] leading-relaxed max-w-xs mx-auto">
               The Shelby Cullom Davis, Class of 1926, Head of School
             </p>
           </div>
           <div className="mt-8">
-            <button className="text-[10px] font-bold tracking-[0.2em] text-[#4A6FA5] uppercase border-b border-[#4A6FA5] pb-1">
-              Read Steve's Biography
+            <button className="text-[10px] font-bold tracking-[0.25em] text-[#D4A437] uppercase border-b-2 border-[#D4A437] pb-1 hover:text-[#1F2A44] hover:border-[#1F2A44] transition-all duration-300">
+              Read Steve&apos;s Biography
             </button>
           </div>
         </div>
 
         {/* Right Content Message */}
         <div className="lg:col-span-8 space-y-8">
-          <h2 className="font-serif text-4xl text-gray-900">
+          <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl text-[#1F2A44] font-bold tracking-tight">
             From Board of school
           </h2>
-          <p className="text-gray-800 font-light italic text-lg">
+          <p className="text-[#D4A437] font-['Playfair_Display'] italic text-2xl">
             Welcome to Pamavambo Private School
           </p>
 
-          <div className="space-y-6 text-gray-700 font-light leading-relaxed text-lg">
+          <div className="space-y-6 text-[#222222] font-light leading-relaxed text-lg opacity-90">
             <p>
               Welcome to a community built on purpose, rooted in values, and
               dedicated to excellence. At Pamavambo, we challenge a diverse
@@ -70,8 +72,8 @@ const HeadOfSchool = () => {
           </div>
 
           {/* Script Signature */}
-          <div className="pt-8">
-            <p className="font-serif text-5xl text-gray-900 opacity-80">
+          <div className="pt-8 border-t border-[#D4A437]/20">
+            <p className="font-['Playfair_Display'] text-5xl text-[#1F2A44] opacity-80 italic">
               Pamavambo Directors
             </p>
           </div>
