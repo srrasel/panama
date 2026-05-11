@@ -5,7 +5,7 @@ const resourceData = [
     title: " Library",
     description:
       " Explore, research, and discover in our digital library. ",
-    image: "/new/image9.jpeg",
+    image: "/new/image16.jpeg",
     
   },
   {

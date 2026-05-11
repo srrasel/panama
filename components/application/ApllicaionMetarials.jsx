@@ -49,7 +49,7 @@ const ApplicationMaterials = () => {
                   <AccordionContent className="bg-transparent pt-8 pb-4 px-12">
                     <ul className="list-disc space-y-4 text-sm font-light text-gray-300 ml-4">
                       <li>
-                        Change principal/ counselor to school report ( current
+                        School report ( current
                         year)
                       </li>
                     </ul>
@@ -71,10 +71,7 @@ const ApplicationMaterials = () => {
                     <ul className="list-disc space-y-4 text-sm font-light text-gray-300 ml-4">
                       <li>
                         All transfer students entering Grade 3 and above will
-                        complete an academic assessment as part of the
-                        enrollment process to ensure they are prepared for our
-                        Cambridge-aligned curriculum and to identify the best
-                        placement for their success at Pamavambo.
+                        complete an academic assessment as part of the enrollment process to ensure they are prepared for our Cambridge-aligned curriculum and Zimbabwe curriculum to identify the best placement for their success at Pamavambo.
                       </li>
                     </ul>
                   </AccordionContent>

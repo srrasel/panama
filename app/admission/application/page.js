@@ -25,7 +25,7 @@ const heroData = {
   description:
     "Welcome to the Pamavambo community! Read stories about what matters to us and what's happening on campus.",
   tintColor: "#4A6FA5",
-  tintOpacity: 95,
+  tintOpacity: 80,
 };
 
 export default function ApplicationProcessPage() {
@@ -38,7 +38,7 @@ export default function ApplicationProcessPage() {
       {/* <CampusInterviewSection /> */}
       <ApplicationMaterials />
       {/* <ScholarshipAidSection /> */}
-      <TestingRequirements />
+      {/* <TestingRequirements /> */}
       <AdmissionDecisions />
       <div className="max-w-7xl mx-auto py-10 px-6 md:px-20 lg:px-32  bg-white">
         <p className="text-[11px] italic text-gray-500 leading-relaxed max-w-5xl">

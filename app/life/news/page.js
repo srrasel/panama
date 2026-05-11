@@ -20,7 +20,7 @@ const heroData = {
   description:
     "Welcome to the Pamavambo community! Read stories about what matters to us and what's happening on campus.",
   tintColor: "#4A6FA5",
-  tintOpacity: 90,
+  tintOpacity: 80,
 };
 
 const cardsData = [
@@ -31,7 +31,7 @@ const cardsData = [
     buttonText: "Listen Now",
     href: "/podcasts",
     backgroundImage:
-      "/new/image4.jpeg",
+      "/new/Picture10.png",
   },
   {
     title: "Photo Albums",
@@ -91,7 +91,6 @@ export default function News() {
       })
       .catch(() => {});
   }, []);
-
   return (
     <>
       <Navbar />

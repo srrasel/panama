@@ -16,7 +16,7 @@ export default function Academics() {
       <SecondHero
         title="Academics"
         subtitle="Empowered students reach further, look deeper, and achieve to their fullest potential. Thoughtful inquiry fosters curiosity, empathy, and a lifelong love of learning"
-        backgroundImage="/new/image16.jpeg"
+        backgroundImage="/new/Picture14.png"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />
       <HarknessSection />

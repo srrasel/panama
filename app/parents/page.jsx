@@ -8,7 +8,7 @@ const heroData = {
   title: "Log In",
   description: "Please log in to view the content on this page. \n\Thank you!",
   tintColor: "#4A6FA5",
-  tintOpacity: 95,
+  tintOpacity: 80,
 };
 
 const subNavItems = [

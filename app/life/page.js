@@ -18,7 +18,7 @@ export default function Life() {
         title="Student
 Life"
         
-        backgroundImage="/new/image16.jpeg"
+        backgroundImage="/new/image2.jpeg"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />
       <CommunalLearningSection />

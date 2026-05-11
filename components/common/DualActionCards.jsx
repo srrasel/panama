@@ -11,7 +11,7 @@ const DualActionCards = ({
         "A Pamavambo graduate is ready. Ready to embrace higher education and engage in the professional world; to create cultures of belonging; to enter any conversation with confidence and an open mind.",
       buttonText: "Academics at Pamavambo",
       href: "/academics",
-      backgroundImage: "/life/cards1.jpg",
+      backgroundImage: "/new/Picture4.png",
     },
     {
       title: "The Classroom Extends.",
@@ -19,7 +19,7 @@ const DualActionCards = ({
         "When participating in co-curriculars, students learn through shared experience, varying perspectives, and a mutual accountability that encourages tenacity, resilience, empathy, and compassionate objectivity.",
       buttonText: "Co-Curriculars",
       href: "/academics",
-      backgroundImage: "/life/cards2.jpg",
+      backgroundImage: "/new/Picture5.png",
     },
   ] 
 }) => {

@@ -14,10 +14,10 @@ export default function Beyond() {
       <BeyondHero />
       <BeyondContent />
       <CallToActionButton
-        title="Harkness Travel Program"
+        title="Pamavambo Travel Program"
         description="Embark on a transformative experience abroad with Pamavambo. From Bali to Brazil, our travel program offers an educational opportunity that will expand your view of the world and of yourself."
         buttonText="Learn More"
-        imagePath="/new/image4.jpeg"
+        imagePath="/new/travals.jpg"
         imageAlt="Students hiking"
       />
       <ResearchInstitutes />

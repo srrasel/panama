@@ -7,7 +7,7 @@ const ResearchInstitutes = () => {
         {/* Left Column: Text Content */}
         <div className="flex flex-col space-y-4 sm:space-y-5 md:space-y-6 order-2 md:order-1">
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 leading-[1.1] sm:leading-[1.1]">
-          Character Through Action <br /> Action
+          Character Through Action 
           </h2>
 
           <div className="space-y-3 sm:space-y-4 max-w-full sm:max-w-md">
@@ -23,7 +23,7 @@ const ResearchInstitutes = () => {
         {/* Right Column: Image using Next.js Image component */}
         <div className="relative aspect-square w-full overflow-hidden order-1 md:order-2">
           <Image
-            src="/new/image11.jpeg"
+            src="/new/image8.jpeg"
             alt="Students in a creek conducting research"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"

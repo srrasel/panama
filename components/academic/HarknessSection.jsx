@@ -7,7 +7,7 @@ export default function HarknessSection() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16">
         <div className="w-full md:w-1/2 relative aspect-4/3">
           <Image
-            src="/new/image17.jpeg"
+            src="/new/Picture15.png"
             alt="Students in classroom"
             fill
             className="object-cover"
@@ -49,9 +49,10 @@ export default function HarknessSection() {
           {/* YouTube Embed */}
           <iframe
             className="absolute inset-0 w-full h-full"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            src="/new/video.mp4"
             title="Pamavambo: Why do we use Harkness?"
             allowFullScreen
+            
           ></iframe>
         </div>
       </div>

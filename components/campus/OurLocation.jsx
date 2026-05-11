@@ -34,7 +34,7 @@ const OurLocation = () => {
         <div>
           <div className="relative w-full h-100 md:h-125 rounded-xl overflow-hidden shadow-lg">
             <Image
-              src="/admission/location.jpeg"
+              src="/new/Picture11.png"
               alt="Campus Location"
               fill
               priority

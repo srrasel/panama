@@ -6,7 +6,7 @@ const SocialFeed = () => {
   const posts = [
     {
       id: 1,
-      src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "/new/Picture6.png",
       alt: "Students working on laptops",
       description:
         "Students collaborate on innovative projects in our new tech lab",
@@ -14,21 +14,21 @@ const SocialFeed = () => {
     },
     {
       id: 2,
-      src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "/new/Picture7.png",
       alt: "Group shoveling snow",
       description: "Community comes together for annual winter service day",
       platform: "Instagram",
     },
     {
       id: 3,
-      src: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "/new/Picture8.png",
       alt: "Winter weather announcement",
       description: "Campus transforms into a winter wonderland",
       platform: "Instagram",
     },
     {
       id: 4,
-      src: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      src: "/new/Picture9.png",
       alt: "Students around a campfire",
       description: "Evening gathering strengthens community bonds",
       platform: "Instagram",

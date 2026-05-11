@@ -7,7 +7,7 @@ const Founder = () => {
         {/* Left: Founder Image */}
         <div className="relative w-full h-70 md:h-80 lg:h-90 rounded-md overflow-hidden shadow-md">
           <Image
-            src="/admission/founder.jpeg"
+            src="/admission/Founder.jpeg"
             alt="Founder"
             fill
             className="object-cover"
@@ -22,19 +22,19 @@ const Founder = () => {
           </h3>
 
           <p className="text-gray-700 leading-relaxed mb-4">
-            Mrs. Joyce Rozario, “a woman of legacy”, a beloved soul that many
+            Mrs. Joyce Raradza, “a woman of legacy”, a beloved soul that many
             names Mai Rozario, Mama, Ambuya, Shamwari, director… among many
             more. What she was best known for in life was for being a generous
             person who gave her time, knowledge, energy, and money. She imparted
             the gift of knowledge to hundreds of children that went through
-            Pamuzinda Infants and Primary School that she founded in 2012.
+             Infants and Primary School that she founded in 2012.
           </p>
 
           <p className="text-gray-700 leading-relaxed mb-4">
             She loved her community and always opened her heart and home to
             anyone in need. She put others first and always had time to impart
-            wisdom and encouragement with each interaction. Pamuzinda Infants
-            and Primary School represent her love for providing top-quality
+            wisdom and encouragement with each interaction. Pamavambo Infants
+            represent her love for providing top-quality
             education for children and creating employment for her community.
           </p>
 
@@ -45,7 +45,7 @@ const Founder = () => {
           </p>
 
           <p className="text-amber-600 text-sm font-medium">
-            Late Director and Founder Joyce Rozario
+            Late Director and Founder Joyce Raradza
           </p>
         </div>
       </div>

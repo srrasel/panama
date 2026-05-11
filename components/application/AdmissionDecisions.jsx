@@ -18,12 +18,12 @@ const AdmissionDecisions = () => {
   ];
 
   return (
-    <section className="relative py-24 px-6 md:px-20 lg:px-32">
+    <section className="relative py-48 px-6 md:px-20 lg:px-32">
       {/* Background Image - NO OPACITY, LOCAL IMAGE */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop')",
+         backgroundImage: "url('/new/image10.jpeg')",
         }}
       />
 
@@ -46,11 +46,11 @@ const AdmissionDecisions = () => {
                 </svg>
               </div>
 
-              <h3 className="font-serif text-2xl text-gray-900 leading-tight">
+              <h3 className="font-serif text-2xl text-transparent leading-tight">
                 {step.title}
               </h3>
 
-              <p className="text-sm font-light text-gray-700 leading-relaxed px-4">
+              <p className="text-sm font-light text-transparent leading-relaxed px-4">
                 {step.content}
               </p>
             </div>

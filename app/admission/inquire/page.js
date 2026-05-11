@@ -15,7 +15,7 @@ const subNavItems = [
   { label: "NEWS AND MEDIA", href: "/news" },
 ];
 const heroData = {
-  backgroundImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
+  backgroundImage: "/new/inqureHero.jpg",
   breadcrumbs: [
     { label: "Home", href: "/" },
     { label: "Admission", href: "/admission" },
@@ -24,7 +24,7 @@ const heroData = {
   description:
     "Welcome to the Pamavambo community! Read stories about what matters to us and what's happening on campus.",
   tintColor: "#4A6FA5",
-  tintOpacity: 95,
+  tintOpacity: 80,
 };
 
 export default function InquirePage() {

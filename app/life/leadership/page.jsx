@@ -3,12 +3,28 @@ import Footer from "@/components/footer";
 import SecondHero from "@/components/common/SecondHero";
 import DualActionCards from "@/components/common/DualActionCards";
 import HeadOfSchool from "@/components/leadership/HeadOfSchool";
-import HeadOfSchoolCommunications from "@/components/leadership/HeadOfSchoolCommunications";
-import SeniorStaff from "@/components/leadership/SeniorStaff";
-import BoardOfTrustees from "@/components/leadership/BoardOfTrustees";
-import TrusteesEmeriti from "@/components/leadership/TrusteesEmeriti";
+import Founder from "@/components/leadership/Founder";
+
 
 export default function LeadershipPage() {
+  const cards = [
+  {
+    title: "Modern Learning Experience",
+    description:
+      "Students gain real-world knowledge through interactive learning methods and advanced curriculum.",
+    buttonText: "Explore Programs",
+    href: "/programs",
+    backgroundImage: "/new/image9.jpeg",
+  },
+  {
+    title: "Build Your Future",
+    description:
+      "Develop leadership, creativity, and problem-solving skills for tomorrow’s challenges.",
+    buttonText: "Student Life",
+    href: "/student-life",
+    backgroundImage: "/new/Picture5.png",
+  },
+];
   return (
     <>
       <Navbar />
@@ -19,11 +35,12 @@ export default function LeadershipPage() {
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Life", href: "/life" }]}
       />
       <HeadOfSchool />
-      <HeadOfSchoolCommunications />
+      <Founder/>
+      {/* <HeadOfSchoolCommunications /> */}
       {/* <SeniorStaff />
       <BoardOfTrustees />
       <TrusteesEmeriti /> */}
-      <DualActionCards />
+      <DualActionCards cardData={cards} />
       <Footer />
     </>
   );

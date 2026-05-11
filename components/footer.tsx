@@ -26,7 +26,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative w-28 h-28 opacity-60">
               <Image
-                src="/logo-school.png"
+                src="/new/logo.png"
                 alt="The Pamavambo School Seal"
                 fill
                 className="object-contain grayscale brightness-200"

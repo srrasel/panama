@@ -56,7 +56,7 @@ export default function CommunalLearningSection() {
           {/* Main Action Photo (Top Layer) */}
           <div className="relative z-20 w-[90%] sm:w-[90%] md:w-[85%] lg:w-[75%] mr-4 sm:mr-6 md:mr-8 lg:mr-10 mt-4 sm:mt-6 md:mt-8 lg:mt-10 aspect-4/3 shadow-xl sm:shadow-2xl lg:shadow-2xl">
             <Image
-              src="/new/image35.jpeg"
+              src="/new/image10.jpeg"
               alt="Students learning together"
               fill
               className="object-cover"

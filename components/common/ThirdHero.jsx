@@ -6,11 +6,11 @@ const ThirdHero = ({
   title,
   description, // Optional prop
   tintColor = "#4A6FA5",
-  tintOpacity = 90,
+  tintOpacity = 80,
 }) => {
   return (
     // Responsive height
-    <section className="relative h-80 sm:h-96 md:h-screen w-full overflow-hidden bg-[#4A6FA5]">
+    <section className="relative h-80 sm:h-96 md:h-screen w-full overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat grayscale"
