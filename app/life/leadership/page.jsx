@@ -13,7 +13,7 @@ export default function LeadershipPage() {
     description:
       "Students gain real-world knowledge through interactive learning methods and advanced curriculum.",
     buttonText: "Explore Programs",
-    href: "/programs",
+    href: "/admission/inquire",
     backgroundImage: "/new/image9.jpeg",
   },
   {
@@ -21,7 +21,7 @@ export default function LeadershipPage() {
     description:
       "Develop leadership, creativity, and problem-solving skills for tomorrow’s challenges.",
     buttonText: "Student Life",
-    href: "/student-life",
+    href: "/life/student-life",
     backgroundImage: "/new/Picture5.png",
   },
 ];

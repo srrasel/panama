@@ -35,6 +35,7 @@ export default function Academics() {
         title="Leadership"
         description="At Pamavambo is cultivated through example, opportunity, and responsibility. Students develop essential leadership skills through student government, peer mentoring, service projects, and daily practice of our core values in action."
         buttonText="Learn More"
+        buttonHref="/life/leadership"
         imagePath="/new/image5.jpeg"
         imageAlt="Students hiking"
       />

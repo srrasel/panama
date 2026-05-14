@@ -19,10 +19,112 @@ type Podcast = {
   createdAt: string
 }
 
+type LearningResource = {
+  category: string
+  title: string
+  ages: string
+  url: string
+  description: string
+  grades: string[]
+}
+
+const learningResources: LearningResource[] = [
+  {
+    category: "Science & Nature",
+    title: "National Geographic Society Kids Videos",
+    ages: "Ages 7-14",
+    url: "https://kids.nationalgeographic.com/videos",
+    description: "Short, engaging videos on animals, ecosystems, and Earth science.",
+    grades: ["Elementary", "Middle"],
+  },
+  {
+    category: "Science & Nature",
+    title: "Smithsonian Institution Learning Lab",
+    ages: "Ages 10-17",
+    url: "https://learninglab.si.edu/",
+    description: "Curated science, space, and innovation videos tied to real artifacts.",
+    grades: ["Middle", "High"],
+  },
+  {
+    category: "Science & Nature",
+    title: "Khan Academy - Science Courses",
+    ages: "Ages 11-17",
+    url: "https://www.khanacademy.org/",
+    description: "Clear instructional videos on biology, chemistry, physics, and more.",
+    grades: ["Middle", "High"],
+  },
+  {
+    category: "Social-Emotional Learning (SEL)",
+    title: "PBS Kids - Talk About",
+    ages: "Ages 7-12",
+    url: "https://pbskids.org/videos/pbs-kids-talk-about",
+    description: "Helps students understand emotions, relationships, and real-life challenges.",
+    grades: ["Elementary", "Middle"],
+  },
+  {
+    category: "Social-Emotional Learning (SEL)",
+    title: "PBS - Becoming Your Personal Best",
+    ages: "Ages 12-17",
+    url: "https://www.pbs.org/video/educators-youth-part-1-eizkxn/",
+    description: "Builds resilience, confidence, and goal-setting skills.",
+    grades: ["Middle", "High"],
+  },
+  {
+    category: "History & Social Studies",
+    title: "Smithsonian Institution Learning Lab - History Collections",
+    ages: "Ages 10-17",
+    url: "https://learninglab.si.edu/",
+    description: "Primary sources and videos covering U.S. and world history.",
+    grades: ["Middle", "High"],
+  },
+  {
+    category: "History & Social Studies",
+    title: "PBS LearningMedia",
+    ages: "Ages 8-17",
+    url: "https://www.pbslearningmedia.org/",
+    description: "Classroom-ready videos on civics, government, and historical events.",
+    grades: ["Elementary", "Middle", "High"],
+  },
+  {
+    category: "General Learning & Critical Thinking",
+    title: "TED Talks",
+    ages: "Ages 13-17",
+    url: "https://www.ted.com/talks",
+    description: "Inspiring talks on ideas, innovation, and real-world problem solving.",
+    grades: ["High"],
+  },
+  {
+    category: "General Learning & Critical Thinking",
+    title: "TED-Ed Lessons",
+    ages: "Ages 10-17",
+    url: "https://ed.ted.com/lessons",
+    description: "Animated lessons with questions and discussion prompts across subjects.",
+    grades: ["Middle", "High"],
+  },
+  {
+    category: "General Learning & Critical Thinking",
+    title: "PBS - TED Talks Education Series",
+    ages: "Ages 12-17",
+    url: "https://www.pbs.org/wnet/ted-talks-education/video/",
+    description: "Focuses on learning, student voice, and education innovation.",
+    grades: ["Middle", "High"],
+  },
+  {
+    category: "Math & Core Skills",
+    title: "Khan Academy - Math Programs",
+    ages: "Ages 7-17",
+    url: "https://www.khanacademy.org/",
+    description: "Step-by-step math instruction from elementary through high school.",
+    grades: ["Elementary", "Middle", "High"],
+  },
+]
+
 export default function PodcastsPage() {
   const [podcasts, setPodcasts] = useState<Podcast[]>([])
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedGrade, setSelectedGrade] = useState("All")
 
   useEffect(() => {
     fetch("/api/podcasts")
@@ -43,6 +145,24 @@ export default function PodcastsPage() {
         p.category?.toLowerCase().includes(q)
     )
   }, [podcasts, query])
+
+  const learningCategories = useMemo(
+    () => ["All", ...new Set(learningResources.map((resource) => resource.category))],
+    []
+  )
+  const learningGrades = useMemo(
+    () => ["All", ...new Set(learningResources.flatMap((resource) => resource.grades))],
+    []
+  )
+
+  const filteredLearningResources = useMemo(() => {
+    return learningResources.filter((resource) => {
+      const matchesCategory =
+        selectedCategory === "All" || resource.category === selectedCategory
+      const matchesGrade = selectedGrade === "All" || resource.grades.includes(selectedGrade)
+      return matchesCategory && matchesGrade
+    })
+  }, [selectedCategory, selectedGrade])
 
   return (
     <main>
@@ -181,6 +301,101 @@ export default function PodcastsPage() {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="px-4 pb-20 sm:pb-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col gap-3 mb-10 text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Learning Video Resources</h2>
+            <p className="text-slate-600 max-w-3xl mx-auto">
+              Free, trusted resources for students and families. Explore by category and grade level.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-6 mb-10">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {learningCategories.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold border transition ${
+                    selectedCategory === category
+                      ? "bg-purple-600 text-white border-purple-600"
+                      : "bg-white text-slate-600 border-slate-200 hover:border-purple-300 hover:text-purple-700"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {learningGrades.map((grade) => (
+                <button
+                  key={grade}
+                  type="button"
+                  onClick={() => setSelectedGrade(grade)}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold border transition ${
+                    selectedGrade === grade
+                      ? "bg-slate-900 text-white border-slate-900"
+                      : "bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900"
+                  }`}
+                >
+                  {grade}
+                </button>
+              ))}
+            </div>
+
+            <div className="text-center text-xs text-slate-500">
+              Showing {filteredLearningResources.length} of {learningResources.length} resources
+            </div>
+          </div>
+
+          {filteredLearningResources.length === 0 ? (
+            <div className="text-center py-16">
+              <h3 className="text-xl font-semibold text-slate-700">No resources match those filters</h3>
+              <p className="text-slate-500 mt-2">Try a different category or grade level.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredLearningResources.map((resource) => (
+                <a
+                  key={`${resource.category}-${resource.title}`}
+                  href={resource.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group rounded-[1.5rem] border border-slate-100 bg-white p-6 shadow-lg shadow-slate-200/40 hover:shadow-2xl transition"
+                >
+                  <span className="inline-flex text-xs font-bold uppercase tracking-wide text-purple-600 bg-purple-50 px-3 py-1 rounded-full mb-3">
+                    {resource.category}
+                  </span>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-purple-700 transition-colors">
+                    {resource.title}
+                  </h3>
+                  <p className="text-sm text-slate-500 mb-4">{resource.description}</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-semibold">
+                      {resource.ages}
+                    </span>
+                    {resource.grades.map((grade) => (
+                      <span
+                        key={`${resource.title}-${grade}`}
+                        className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-semibold"
+                      >
+                        {grade}
+                      </span>
+                    ))}
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-10 text-center text-sm text-slate-500">
+            All resources are free and from trusted educational organizations.
+          </div>
         </div>
       </section>
 

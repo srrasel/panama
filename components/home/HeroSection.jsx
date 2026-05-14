@@ -55,7 +55,7 @@ export default function HeroSection() {
                   alt={`Slide ${index + 1}`}
                   fill
                   priority={index === 0}
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
 
                 <div className="absolute inset-0 bg-linear-to-r from-white/95 via-white/40 to-transparent" />
