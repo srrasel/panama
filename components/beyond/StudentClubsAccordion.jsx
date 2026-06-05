@@ -4,70 +4,27 @@ import { ChevronRight } from "lucide-react";
 const StudentClubs = () => {
   const clubData = [
     {
-      category: "Academic Clubs",
+      category: "Pamavambo School Clubs",
       clubs: [
         {
-          name: "20/20 Design Council",
-          desc: "The 20/20 Design Council works closely with Head of School Murray and the architects from the Sasaki Architecture Firm to provide student input on new construction projects on campus.",
+          name: "Dance",
+          desc: "Students express creativity and rhythm through coordinated dance performances at school events, competitions, and cultural celebrations.",
         },
         {
-          name: "Learning Leadership at Pamavambo",
-          desc: "Learning Leadership at Pamavambo teaches students how to establish positive leadership roles on campus and effectively create change within our community.",
+          name: "Drum Majorettes",
+          desc: "A proud tradition of precision, discipline, and teamwork — our drum majorettes represent Pamavambo at parades, sports days, and community gatherings.",
         },
         {
-          name: "3D Design Club",
-          desc: "We aim to foster design thinking skills through introducing 3D design and modeling software to those who would like to learn and explore more.",
+          name: "Scripture Union",
+          desc: "A faith-based club where students gather for Bible study, prayer, worship, and fellowship, growing in spiritual character and Christian values.",
         },
         {
-          name: "Linguistics Club",
-          desc: "The Linguistics Club aims to introduce and educate students on the syntaxes and semantics of various languages through hosting entertaining documentary sessions to solving logical problems.",
+          name: "Debate and Public Speaking",
+          desc: "Students build confidence, critical thinking, and eloquence through debates, speeches, and inter-school public speaking competitions.",
         },
         {
-          name: "Architecture Club",
-          desc: "Our goal is to focus on learning the basics of Architecture by studying buildings around campus as well as buildings around the world.",
-        },
-        {
-          name: "Making Philosophy Easy",
-          desc: "Our club has one mission: to make philosophy accessible to everybody and to provide new outlooks for our club member's lives.",
-        },
-      ],
-    },
-    {
-      category: "Game Clubs",
-      clubs: [
-        {
-          name: "Varsity E-Sports",
-          desc: "Focuses on competitive gaming and strategy development in a team-based environment.",
-        },
-        {
-          name: "Chess Strategy Group",
-          desc: "Dedicated to mastering opening theories and endgame tactics through weekly tournaments.",
-        },
-      ],
-    },
-    {
-      category: "Creative Clubs",
-      clubs: [
-        {
-          name: "Pamavambo Film Society",
-          desc: "A group dedicated to the appreciation of cinema and the production of student-led short films.",
-        },
-        {
-          name: "The Big Red Zine",
-          desc: "A creative writing and visual arts publication highlighting student voices.",
-        },
-      ],
-    },
-    {
-      category: "Religious Clubs",
-      clubs: [
-        {
-          name: "Multicultural Student Union",
-          desc: "Promotes awareness and celebration of the diverse backgrounds within our student body.",
-        },
-        {
-          name: "Interfaith Council",
-          desc: "A space for students of all spiritual backgrounds to discuss and share their traditions.",
+          name: "Chess",
+          desc: "Members develop strategic thinking, patience, and problem-solving skills through regular practice sessions and friendly tournaments.",
         },
       ],
     },
@@ -78,14 +35,13 @@ const StudentClubs = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <h2 className="font-['Playfair_Display'] text-3xl sm:text-4xl md:text-5xl text-[#1F2A44] font-bold mb-6 sm:mb-8 tracking-tight border-l-4 border-[#D4A437] pl-6">
-          Student Clubs and <span className="text-[#D4A437] italic font-medium">Organizations</span>
+          School Clubs <span className="text-[#D4A437] italic font-medium">Pamavambo</span>
         </h2>
 
         <p className="text-[#222222] font-light leading-relaxed mb-16 max-w-4xl text-sm sm:text-base md:text-lg opacity-90 border-b border-[#D4A437]/20 pb-8">
-          Student Clubs and Organizations offer the opportunity for students to
-          discover and pursue personal interests — from academic topics to
-          performance to community development and service — and to meet and
-          learn from like-minded Pamavambo students.
+          Beyond the classroom, Pamavambo students grow through clubs that build
+          talent, faith, leadership, and teamwork — from dance and drum majorettes
+          to debate, chess, and Scripture Union.
         </p>
 
         {/* Content */}
