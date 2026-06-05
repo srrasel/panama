@@ -26,7 +26,7 @@ const mainNavConfig = [
       { label: "News and Events", href: "/life/news" },
       { label: "Campus", href: "/life/campus" },
       { label: "Leadership", href: "/life/leadership" },
-      { label: "Careers", href: "/life/careers" },
+      { label: "Employment", href: "/life/employment" },
     ],
   },
   {
@@ -79,9 +79,9 @@ export default function Navbar() {
         <div className="max-w-400 mx-auto flex justify-between items-center gap-4">
           {/* 1. LOGO (Stacked text but vertically centered) */}
           <Link href="/" className="z-60 flex items-center gap-2 shrink-0">
-          <Image src="/new/logo.png" alt="Pamavambo School" width={80} height={80} />
+          <Image src="/new/logo.png" alt="Pamavambo Private School" width={80} height={80} />
             <h1 className="font-(--font-headline-serif) text-lg md:text-xl  text-(--deep-navy) leading-[1.1] uppercase">
-               Pamavambo <br /> School
+               Pamavambo Private<br /> School
             </h1>
           </Link>
 

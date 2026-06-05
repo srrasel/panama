@@ -7,7 +7,7 @@ import Link from "next/link";
 const mainNavLinks = [
   { name: "SCHOOL NEWS", href: "/life/news" },
 
-  { name: "CAREERS", href: "/life/careers" },
+  { name: "EMPLOYMENT", href: "/life/employment" },
 ];
 
 
@@ -22,7 +22,7 @@ export default function Footer() {
             <div className="relative w-28 h-28 opacity-60">
               <Image
                 src="/logo-school.png"
-                alt="The Pamavambo School Seal"
+                alt="The Pamavambo Private School Seal"
                 fill
                 className="object-contain grayscale brightness-200"
               />

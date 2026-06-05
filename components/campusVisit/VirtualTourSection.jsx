@@ -98,73 +98,7 @@ export default function VirtualTourSection() {
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-16 font-['Montserrat']">
-      <div className="mb-24">
-        <h2 className="text-3xl md:text-4xl font-['Playfair_Display'] font-bold text-[#1F2A44] mb-12 border-l-4 border-[#D4A437] pl-6 uppercase tracking-tight">
-          Too excited to wait? Take our virtual tour!
-        </h2>
-
-        <Accordion type="single" collapsible className="w-full space-y-2">
-          {tourData.map((section, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="border-none"
-            >
-              <AccordionTrigger className="bg-white hover:bg-[#F7F6F3] data-[state=open]:bg-[#1F2A44] data-[state=open]:text-[#F7F6F3] px-6 py-5 hover:no-underline group transition-all duration-300 rounded-none shadow-sm">
-                <div className="flex items-center gap-6">
-                  <ChevronRight
-                    size={18}
-                    className="text-[#D4A437] transition-all duration-300 group-data-[state=open]:rotate-90"
-                  />
-                  <span className="text-xs font-bold tracking-[0.25em] uppercase">
-                    {section.title}
-                  </span>
-                </div>
-              </AccordionTrigger>
-
-              <AccordionContent className="bg-white border-x border-b border-[#D4A437]/10 p-8 md:p-16">
-                <div className="space-y-12">
-                  {/* Introductory Text */}
-                  <div className="border-l-2 border-[#D4A437] pl-8">
-                    <p className="text-base leading-relaxed text-[#222222] font-light italic max-w-5xl opacity-80">
-                      {section.intro}
-                    </p>
-                  </div>
-
-                  {/* Video/Image Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-                    {section.videos.map((video, vIdx) => (
-                      <div key={vIdx} className="group cursor-pointer">
-                        <p className="text-[11px] font-bold tracking-[0.2em] text-[#1F2A44] uppercase mb-4 border-b border-[#D4A437]/20 pb-2">
-                          {video.label}
-                        </p>
-                        <div className="relative aspect-video w-full overflow-hidden shadow-xl">
-                          <Image
-                            src={video.image}
-                            alt={video.label}
-                            fill
-                            className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                          />
-                          {/* Play Button Overlay */}
-                          <div className="absolute inset-0 flex items-center justify-center bg-[#1F2A44]/10 group-hover:bg-[#1F2A44]/30 transition-all duration-500">
-                            <div className="w-14 h-10 bg-[#D4A437] rounded-none flex items-center justify-center shadow-2xl transition-transform duration-300 group-hover:scale-110">
-                              <Play
-                                size={20}
-                                className="text-[#0F1B2D] fill-[#0F1B2D] ml-1"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-
+   
       {/* Bottom Hero Section */}
       <div className="grid md:grid-cols-2 gap-16 items-center border-t border-[#D4A437]/20 pt-20">
         <div className="relative aspect-[4/5] w-full overflow-hidden shadow-2xl  group">

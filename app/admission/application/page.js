@@ -16,7 +16,7 @@ const subNavItems = [
   { label: "NEWS AND MEDIA", href: "/news" },
 ];
 const heroData = {
-  backgroundImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop",
+  backgroundImage: "/new/applicationprocess.jpeg",
   breadcrumbs: [
     { label: "Home", href: "/" },
     { label: "Admission", href: "/admission" },
@@ -46,7 +46,7 @@ export default function ApplicationProcessPage() {
     <div className="w-12 h-[1px] bg-[#D4A437] mt-2 shrink-0" />
     
     <p className="text-[10px] md:text-[11px] italic text-[#1F2A44] opacity-60 leading-relaxed max-w-5xl uppercase tracking-wider">
-      The Pamavambo School does not discriminate on the basis of race,
+      The Pamavambo Private School does not discriminate on the basis of race,
       color, national or ethnic origin, religion, gender, gender expression,
       sexual orientation, genetic information, or physical or mental
       disabilities in the administration of its admission and scholarship

@@ -19,7 +19,7 @@ const DualActionCards = ({
         "When participating in co-curriculars, students learn through shared experience, varying perspectives, and a mutual accountability that encourages tenacity, resilience, empathy, and compassionate objectivity.",
       buttonText: "Co-Curriculars",
       href: "/academics",
-      backgroundImage: "/new/Picture5.png",
+      backgroundImage: "/new/picture55.jpeg",
     },
   ] 
 }) => {

@@ -38,7 +38,8 @@ const SchoolNewsCarousel = ({
   }, [api]);
 
   return (
-    <section className="py-20 px-4 max-w-7xl mx-auto font-['Montserrat'] bg-[#F7F6F3]">
+    <section className="w-full bg-[#F7F6F3] font-['Montserrat']">
+      <div className="py-20 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
       {/* Header Area */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
         <div className="space-y-4 max-w-2xl">
@@ -129,6 +130,7 @@ const SchoolNewsCarousel = ({
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}
+      </div>
       </div>
     </section>
   );

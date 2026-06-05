@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const ApplicationMaterials = () => {
   return (
@@ -78,17 +78,6 @@ const ApplicationMaterials = () => {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
-
-              {/* Apply Button using Primary Gold (#D4A437) */}
-              <button className="w-full bg-[#D4A437] hover:bg-[#E6C26A] transition-all duration-300 py-6 px-8 flex justify-between items-center group shadow-xl">
-                <span className="text-[#0F1B2D] font-bold text-xs tracking-[0.3em] uppercase">
-                  Apply Here
-                </span>
-                <ArrowRight
-                  size={20}
-                  className="text-[#0F1B2D] group-hover:translate-x-2 transition-transform duration-300"
-                />
-              </button>
             </div>
           </div>
 

@@ -266,6 +266,7 @@ model Schedule {
   startTime DateTime
   endTime   DateTime
   type      String   // "Class", "Exam", "OfficeHours", "Event", "Deadline"
+  category  String?  // "Academics", "Athletics", "Arts", "Community"
   location  String?
   
   course    Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)

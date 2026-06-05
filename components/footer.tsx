@@ -6,13 +6,7 @@ import Link from "next/link";
 
 const mainNavLinks = [
   { name: "SCHOOL NEWS", href: "/life/news" },
-  { name: "CAREERS", href: "/life/careers" },
-];
-
-const secondaryLinks = [
-  { name: "PRIVACY POLICY", href: "/privacy" },
-  { name: "SITE MAP", href: "/sitemap" },
-  { name: "EMPLOYEE SELF-SERVICE PORTAL", href: "/portal" },
+  { name: "Employment", href: "/life/employment" },
 ];
 
 export default function Footer() {
@@ -26,7 +20,7 @@ export default function Footer() {
             <div className="relative w-44 h-44">
               <Image
                 src="/new/logo.png"
-                alt="The Pamavambo School Seal"
+                alt="The Pamavambo Private School Seal"
                 fill
                 className="object-contain"
               />
@@ -88,22 +82,6 @@ export default function Footer() {
               </Link>
             ))}
           </nav>
-        </div>
-
-        {/* Bottom Section: Legal Links and Branding */}
-        <div className="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <nav className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2">
-            {secondaryLinks.map((link) => (
-              <p
-                key={link.name}
-                className="text-[9px] font-bold tracking-[0.15em] text-[#D4A437] hover:text-[#E6C26A] transition-all uppercase cursor-pointer"
-              >
-                {link.name}
-              </p>
-            ))}
-          </nav>
-
-         
         </div>
       </div>
     </footer>

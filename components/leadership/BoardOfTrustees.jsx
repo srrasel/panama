@@ -70,7 +70,7 @@ const BoardOfTrustees = () => {
       <div className="">
         {/* Header Section */}
         <h2 className="font-serif text-3xl text-white mb-16">
-          The Pamavambo School Board of Trustees
+          The Pamavambo Private School Board of Trustees
         </h2>
 
         {/* Two-Column Grid */}

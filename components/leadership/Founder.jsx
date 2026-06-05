@@ -37,7 +37,7 @@ const Founder = () => {
           <div className="space-y-5 text-[#222222] leading-relaxed opacity-90 text-sm md:text-base">
             <p>
               Mrs. Joyce Raradza, <span className="text-[#1F2A44] font-bold">“a woman of legacy”</span>, a beloved soul that many
-              names Mai Rozario, Mama, Ambuya, Shamwari, director… among many
+              names Mai Raradza, Mama, Ambuya, Shamwari, director… among many
               more. What she was best known for in life was for being a generous
               person who gave her time, knowledge, energy, and money. She imparted
               the gift of knowledge to hundreds of children that went through

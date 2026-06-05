@@ -24,7 +24,7 @@ const ResearchInstitutes = () => {
         <div className="relative aspect-square w-full overflow-hidden order-1 md:order-2 group">
           <div className="relative w-full h-full border-[10px] border-white shadow-2xl overflow-hidden">
             <Image
-              src="/new/image8.jpeg"
+              src="/new/image181.jpeg"
               alt="Students in a creek conducting research"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"

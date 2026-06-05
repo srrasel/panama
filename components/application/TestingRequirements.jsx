@@ -45,7 +45,7 @@ const TestingRequirements = () => {
     },
     {
       id: "test-codes",
-      title: "Pamavambo School Test Codes",
+      title: "Pamavambo Private School Test Codes",
       isBold: false,
       content: "Content for Test Codes goes here.",
     },

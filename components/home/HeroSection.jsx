@@ -11,9 +11,9 @@ import {
 import { ArrowRight, GraduationCap } from "lucide-react";
 
 const carouselImages = [
-  "/new/image3.jpeg",
-  "/new/Picture5.png",
-  "/new/Picture2.jpg",
+  { src: "/new/image3.jpeg", objectPosition: "center top" },
+  { src: "/new/Picture5.png", objectPosition: "center top" },
+  { src: "/new/Picture2.jpg", objectPosition: "left 72%" },
 ];
 
 export default function HeroSection() {
@@ -45,17 +45,18 @@ export default function HeroSection() {
           }}
         >
           <CarouselContent className="ml-0">
-            {carouselImages.map((src, index) => (
+            {carouselImages.map((slide, index) => (
               <CarouselItem
                 key={index}
                 className="relative h-150 md:h-175 w-full pl-0"
               >
                 <Image
-                  src={src}
+                  src={slide.src}
                   alt={`Slide ${index + 1}`}
                   fill
                   priority={index === 0}
-                  className="object-cover object-top"
+                  className="object-cover"
+                  style={{ objectPosition: slide.objectPosition }}
                 />
 
                 <div className="absolute inset-0 bg-linear-to-r from-white/95 via-white/40 to-transparent" />

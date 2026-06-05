@@ -41,7 +41,7 @@ export default function AboutSection() {
             {/* Background Block with Brand Navy */}
             <div className="absolute top-0 right-0 w-full h-3/5 bg-[#1F2A44] overflow-hidden rounded-sm">
               <Image
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+                src="/new/image22.jpeg"
                 alt="Architectural pattern"
                 fill
                 className="object-cover opacity-30 mix-blend-luminosity"
@@ -50,7 +50,7 @@ export default function AboutSection() {
             {/* Foreground Main Image */}
             <div className="absolute bottom-0 left-4 md:left-12 w-[95%] md:w-[85%] aspect-video ">
               <Image
-                src="/new/image22.jpeg"
+                src="/new/build.jpeg"
                 alt="Students on porch"
                 fill
                 className="object-cover"

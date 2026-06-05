@@ -12,7 +12,7 @@ const gridItems = [
   {
     title: "Sports",
     image: "/new/image38.jpeg",
-    link: "/sports",
+    link: "",
   },
   {
     title: "Admissions",

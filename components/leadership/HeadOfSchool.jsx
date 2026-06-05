@@ -28,11 +28,7 @@ const HeadOfSchool = () => {
               The Shelby Cullom Davis, Class of 1926, Head of School
             </p>
           </div>
-          <div className="mt-8">
-            <button className="text-[10px] font-bold tracking-[0.25em] text-[#D4A437] uppercase border-b-2 border-[#D4A437] pb-1 hover:text-[#1F2A44] hover:border-[#1F2A44] transition-all duration-300">
-              Read Steve&apos;s Biography
-            </button>
-          </div>
+          
         </div>
 
         {/* Right Content Message */}

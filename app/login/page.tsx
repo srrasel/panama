@@ -151,7 +151,7 @@ export default function LoginPage() {
         <div className="hidden md:block relative group">
           <div className="absolute inset-0 bg-[#1F2A44] z-10 opacity-40 group-hover:opacity-20 transition-opacity duration-700"></div>
           <img 
-            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+            src="/new/login.jpeg" 
             className="h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" 
             alt="Pamavambo Campus" 
           />

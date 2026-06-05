@@ -11,7 +11,7 @@ const messages = [
     content: (
       <div className="space-y-4 sm:space-y-5 md:space-y-6 text-sm sm:text-base leading-relaxed text-[#222222] font-light">
         <p>
-          The Pamavambo School is best experienced through the lens of the
+          The Pamavambo Private School is best experienced through the lens of the
           House System. Having gone to boarding school and worked at three other
           boarding schools, I can attest that the differentiating factor of
           Pamavambo is the magic within the House System. Not Harry Potter

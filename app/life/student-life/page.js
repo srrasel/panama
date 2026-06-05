@@ -26,7 +26,7 @@ export default function StudentLife() {
       <SecondHero
         title="Student
 Life"
-        subtitle="Are you ready to become a Panamanian?"
+        subtitle="Are you ready to become a Pamavambo trailblazers?"
         backgroundImage="/new/image2.jpeg"
         breadcrumbs={[{ label: "Home", href: "/" }]}
       />

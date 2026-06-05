@@ -12,7 +12,7 @@ export default function ApplicationProcess() {
         {/* Description using Montserrat */}
         <p className="text-[#F7F6F3]/80 text-xs sm:text-sm md:text-base max-w-full sm:max-w-lg md:max-w-xl leading-relaxed italic">
           From inquiry through enrollment, this guide will let you know what to
-          expect when applying to The Pamavambo School, including key dates,
+          expect when applying to The Pamavambo Private School, including key dates,
           required submissions, and helpful links.
         </p>
         

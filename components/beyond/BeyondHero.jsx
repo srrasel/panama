@@ -24,7 +24,8 @@ const BeyondHero = () => {
 
         {/* Heading */}
         <h1 className="max-w-full sm:max-w-4xl font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-medium leading-[1.1] sm:leading-[1.1] text-white">
-          Beyond the <br /> Classroom
+        Pamavambo Trips Program
+
         </h1>
       </div>
     </section>

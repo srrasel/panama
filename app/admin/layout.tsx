@@ -38,6 +38,7 @@ export default function AdminLayout({
       items: [
         { href: "/admin/user-management", label: "User Management", Icon: Users },
         { href: "/admin/course-management/courses", label: "Course Management", Icon: BookOpen },
+        { href: "/admin/calendar", label: "Calendar", Icon: CalendarDays },
         { href: "/admin/attendance-management", label: "Attendance", Icon: CalendarDays },
       ],
     },

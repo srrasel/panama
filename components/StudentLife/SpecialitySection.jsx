@@ -60,12 +60,7 @@ export default function SpecialitySection() {
               </div>
 
               {/* Learn More Button */}
-              <Link
-                href={feature.href}
-                className="inline-block bg-[#1F2A44] text-[#F7F6F3] text-[10px] font-bold tracking-widest uppercase px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 hover:bg-[#D4A437] transition-colors duration-300 rounded-none"
-              >
-                Learn More
-              </Link>
+            
             </div>
           ))}
         </div>

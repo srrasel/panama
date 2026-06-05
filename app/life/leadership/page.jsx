@@ -22,7 +22,7 @@ export default function LeadershipPage() {
       "Develop leadership, creativity, and problem-solving skills for tomorrow’s challenges.",
     buttonText: "Student Life",
     href: "/life/student-life",
-    backgroundImage: "/new/Picture5.png",
+    backgroundImage: "/new/leadership.jpeg",
   },
 ];
   return (

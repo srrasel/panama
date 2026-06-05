@@ -36,12 +36,29 @@ const cardsData = [
   {
     title: "Photo Albums",
     description:
-      "When participating in co-curriculars, students learn through shared experience, varying perspectives, and a mutual accountability that encourages tenacity, resilience, empathy, and compassionate objectivity. The vibrant community at the Pamavambo School is documented in the albums on our Flickr account. Updated throughout the year, our photo albums are full of beautiful, high-resolution, professional photographs that are available for download.",
+      "When participating in co-curriculars, students learn through shared experience, varying perspectives, and a mutual accountability that encourages tenacity, resilience, empathy, and compassionate objectivity. The vibrant community at the Pamavambo Private School is documented in the albums on our Flickr account. Updated throughout the year, our photo albums are full of beautiful, high-resolution, professional photographs that are available for download.",
     buttonText: "Take a Look",
     href: "/life/campus",
     backgroundImage:
       "/new/image5.jpeg",
   },
+];
+
+const blogFallbackImages = [
+  "/new/image22.jpeg",
+  "/new/image18.jpeg",
+  "/new/image11.jpeg",
+  "/new/leadership.jpeg",
+  "/new/image10.jpeg",
+  "/new/image36.jpeg",
+  "/new/build.jpeg",
+  "/new/image15.jpeg",
+  "/new/Picture16.jpeg",
+  "/new/picture55.jpeg",
+  "/new/image38.jpeg",
+  "/new/image181.jpeg",
+  "/new/bgoutdoor.jpeg",
+  "/new/image5.jpeg",
 ];
 
 function formatDate(dateStr) {
@@ -60,13 +77,14 @@ export default function News() {
     fetch("/api/blogs")
       .then((r) => r.json())
       .then((data) => {
-        const posts = (data.posts || []).map((b) => ({
+        const posts = (data.posts || []).map((b, index) => ({
           id: b.id,
           title: b.title,
           date: formatDate(b.createdAt),
           image:
-            b.coverImage ||
-            "/new/image26.jpeg",
+            b.coverImage?.startsWith("/new/")
+              ? b.coverImage
+              : blogFallbackImages[index % blogFallbackImages.length],
           description: b.excerpt || "",
           href: `/news/${b.slug}`,
         }));
@@ -99,7 +117,7 @@ export default function News() {
        {blogPosts.length > 0 && (
         <SchoolNewsCarousel
           title="Latest Blog Posts"
-          description="Insights, reflections, and perspectives from across the Pamavambo School community."
+          description="Insights, reflections, and perspectives from across the Pamavambo Private School community."
           buttonText="View All Blog Posts"
           newsPosts={blogPosts}
           buttonLink="/news"
