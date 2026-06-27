@@ -20,15 +20,6 @@ const HeadOfSchool = () => {
               />
             </div>
           </div>
-          <div className="space-y-2">
-            <p className="font-bold text-[#1F2A44] text-sm tracking-wide">
-              Stephen Murray H’54 ’55 ’63 ’65 ’16 P’16 ’21
-            </p>
-            <p className="text-[11px] font-bold text-[#222222]/60 uppercase tracking-[0.15em] leading-relaxed max-w-xs mx-auto">
-              The Shelby Cullom Davis, Class of 1926, Head of School
-            </p>
-          </div>
-          
         </div>
 
         {/* Right Content Message */}

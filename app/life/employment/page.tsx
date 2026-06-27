@@ -4,7 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/footer";
 import SecondHero from "@/components/common/SecondHero";
 import Image from "next/image";
-import { ArrowRight, BookOpen, Users, Globe, Briefcase } from "lucide-react";
+import Link from "next/link";
+import { BookOpen, Users, Globe, Briefcase } from "lucide-react";
 
 export default function EmploymentPage() {
   const services = [
@@ -36,7 +37,7 @@ export default function EmploymentPage() {
       <SecondHero
         title="Employment"
         subtitle="Join the Pamavambo team and help us deliver exceptional education rooted in excellence, character, and purpose."
-        backgroundImage="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop"
+        backgroundImage="/employmentbg.jpeg"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Employment", href: "/life/employment" }]}
       />
 
@@ -51,11 +52,32 @@ export default function EmploymentPage() {
             </div>
             <div className="md:w-1/2 relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop"
+                src="/emt1.jpeg"
                 alt="Pamavambo staff at work"
                 fill
                 className="object-cover"
               />
+            </div>
+          </div>
+        </section>
+
+        <section id="open-positions" className="bg-gray-50 py-16 md:py-24 px-4 md:px-8 scroll-mt-24">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4">Current Opportunities</h2>
+              <p className="text-gray-600 text-lg">Explore roles across teaching, administration, and school support services.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {services.map((service, index) => (
+                <div key={index} className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow border border-gray-100 group">
+                  <div className="mb-6 bg-amber-50 w-16 h-16 rounded-full flex items-center justify-center group-hover:bg-amber-100 transition-colors">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{service.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -81,12 +103,18 @@ export default function EmploymentPage() {
                 <p className="text-white/80 text-lg mb-8">We seek educators and staff who embody our core values of integrity, accountability, spiritual development, and service, and who are committed to inspiring the best in each to seek the best for all.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <button className="bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-colors font-semibold">
+                  <Link
+                    href="#open-positions"
+                    className="bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-colors font-semibold"
+                  >
                     View Open Positions
-                  </button>
-                  <button className="bg-transparent border border-white/30 text-white px-6 py-3 rounded-full hover:bg-white/10 transition-colors font-semibold">
+                  </Link>
+                  <a
+                    href="mailto:communication@pamavambo.org?subject=Employment%20Application%20-%20Pamavambo%20Private%20School"
+                    className="bg-transparent border border-white/30 text-white px-6 py-3 rounded-full hover:bg-white/10 transition-colors font-semibold"
+                  >
                     Submit Application
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

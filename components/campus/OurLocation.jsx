@@ -44,8 +44,8 @@ const OurLocation = () => {
           
           <div className="relative w-full h-[400px] md:h-[500px] rounded-none overflow-hidden shadow-2xl z-10">
             <Image
-              src="/new/Picture11.png"
-              alt="Campus Location Map"
+              src="/admission/location.jpeg"
+              alt="Campus Location"
               fill
               priority
               className="object-cover transition-transform duration-1000 group-hover:scale-105"

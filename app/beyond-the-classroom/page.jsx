@@ -15,7 +15,7 @@ export default function Beyond() {
       <BeyondContent />
       <CallToActionButton
         title="Pamavambo Travel Program"
-        description="Embark on a transformative experience abroad with Pamavambo. From Bali to Brazil, our travel program offers an educational opportunity that will expand your view of the world and of yourself."
+        description="Embark on a transformative experience abroad with Pamavambo."
         buttonText="Learn More"
         imagePath="/new/travals.jpg"
         imageAlt="Students hiking"

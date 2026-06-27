@@ -55,13 +55,18 @@ export default function HarknessSection() {
         </div>
         
         {/* Video Container with Sharp Editorial Styling */}
-        <div className="w-full md:w-2/3 aspect-video relative bg-[#0F1B2D]  group">
-          <iframe
-            className="absolute inset-0 w-full h-full grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
-            src="/new/video.mp4"
-            title="Pamavambo: Why do we use Harkness?"
-            allowFullScreen
-          ></iframe>
+        <div className="w-full md:w-2/3 aspect-video relative bg-[#0F1B2D] group overflow-hidden">
+          <video
+            className="absolute inset-0 w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-500"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Pamavambo: Why do we use Harkness?"
+          >
+            <source src="/new/video.mp4" type="video/mp4" />
+          </video>
           {/* Subtle accent line below video */}
           <div className="absolute -bottom-4 right-0 h-1 w-32 bg-[#D4A437] opacity-60" />
         </div>
