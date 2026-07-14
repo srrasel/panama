@@ -10,24 +10,24 @@ import { ChevronRight } from "lucide-react";
 
 const ApplicationMaterials = () => {
   return (
-    <section className="bg-[#0F1B2D] max-w-7xl mx-auto py-12 sm:py-16 md:py-20 lg:py-24 mb-8 sm:mb-12 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 text-[#F7F6F3] font-['Montserrat']">
+    <section className="bg-[#0F1B2D] max-w-7xl mx-auto py-24 mb-12 px-6 md:px-20 lg:px-32 text-[#F7F6F3] font-['Montserrat']">
       <div className="">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Left Column: Application Info */}
-          <div className="lg:col-span-8 space-y-6 sm:space-y-8">
-            <h2 className="font-['Playfair_Display'] font-bold text-3xl sm:text-4xl md:text-5xl mb-4 sm:mb-6 text-[#F7F6F3]">
+          <div className="lg:col-span-8 space-y-8">
+            <h2 className="font-['Playfair_Display'] font-bold text-4xl md:text-5xl mb-6 text-[#F7F6F3]">
               Application
             </h2>
 
-            <div className="space-y-4 sm:space-y-6 text-[#F7F6F3]/80 font-light leading-relaxed border-l-2 border-[#D4A437] pl-4 sm:pl-6 italic text-sm sm:text-base">
+            <div className="space-y-6 text-[#F7F6F3]/80 font-light leading-relaxed border-l-2 border-[#D4A437] pl-6 italic">
               <p>
                 The Pamavambo application deadline is based on the school terms.
               </p>
             </div>
 
             {/* Supplemental Materials Accordion */}
-            <div className="pt-8 sm:pt-12 space-y-6 sm:space-y-8">
-              <h3 className="font-['Playfair_Display'] text-xl sm:text-2xl md:text-3xl italic text-[#D4A437]">
+            <div className="pt-12 space-y-8">
+              <h3 className="font-['Playfair_Display'] text-2xl md:text-3xl italic text-[#D4A437]">
                 Supplemental Application Materials
               </h3>
 

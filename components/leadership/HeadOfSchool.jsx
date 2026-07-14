@@ -4,16 +4,16 @@ import Image from "next/image";
 
 const HeadOfSchool = () => {
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 font-['Montserrat']">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-start">
+    <section className=" py-24 px-6 md:px-20 lg:px-32 font-['Montserrat']">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
         {/* Left Sidebar Profile */}
         <div className="lg:col-span-4 flex flex-col items-center text-center">
-          <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 mb-6 sm:mb-8">
+          <div className="relative w-64 h-64 mb-8">
             {/* Gold border accent (#D4A437) */}
             <div className="absolute inset-0 border-[3px] border-[#D4A437] rounded-full -m-2" />
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
               <Image
-                src="/logo.png"
+                src="/logo.png" // Replace with actual head of school image path
                 alt="Head of School"
                 fill
                 className="object-cover"
@@ -23,15 +23,15 @@ const HeadOfSchool = () => {
         </div>
 
         {/* Right Content Message */}
-        <div className="lg:col-span-8 space-y-5 sm:space-y-6 md:space-y-8">
-          <h2 className="font-['Playfair_Display'] text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#1F2A44] font-bold tracking-tight">
+        <div className="lg:col-span-8 space-y-8">
+          <h2 className="font-['Playfair_Display'] text-4xl md:text-5xl text-[#1F2A44] font-bold tracking-tight">
             From Board of school
           </h2>
-          <p className="text-[#D4A437] font-['Playfair_Display'] italic text-lg sm:text-xl md:text-2xl">
+          <p className="text-[#D4A437] font-['Playfair_Display'] italic text-2xl">
             Welcome to Pamavambo Private School
           </p>
 
-          <div className="space-y-4 sm:space-y-5 md:space-y-6 text-[#222222] font-light leading-relaxed text-sm sm:text-base md:text-lg opacity-90">
+          <div className="space-y-6 text-[#222222] font-light leading-relaxed text-lg opacity-90">
             <p>
               Welcome to a community built on purpose, rooted in values, and
               dedicated to excellence. At Pamavambo, we challenge a diverse
@@ -59,8 +59,8 @@ const HeadOfSchool = () => {
           </div>
 
           {/* Script Signature */}
-          <div className="pt-6 sm:pt-8 border-t border-[#D4A437]/20">
-            <p className="font-['Playfair_Display'] text-3xl sm:text-4xl md:text-5xl text-[#1F2A44] opacity-80 italic">
+          <div className="pt-8 border-t border-[#D4A437]/20">
+            <p className="font-['Playfair_Display'] text-5xl text-[#1F2A44] opacity-80 italic">
               Pamavambo Directors
             </p>
           </div>
