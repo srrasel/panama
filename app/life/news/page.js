@@ -44,23 +44,6 @@ const cardsData = [
   },
 ];
 
-const blogFallbackImages = [
-  "/new/image22.jpeg",
-  "/new/image18.jpeg",
-  "/new/image11.jpeg",
-  "/new/leadership.jpeg",
-  "/new/image10.jpeg",
-  "/new/image36.jpeg",
-  "/new/build.jpeg",
-  "/new/image15.jpeg",
-  "/new/Picture16.jpeg",
-  "/new/picture55.jpeg",
-  "/new/image38.jpeg",
-  "/new/image181.jpeg",
-  "/new/bgoutdoor.jpeg",
-  "/new/image5.jpeg",
-];
-
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString("en-US", {
     month: "long",
@@ -77,14 +60,11 @@ export default function News() {
     fetch("/api/blogs")
       .then((r) => r.json())
       .then((data) => {
-        const posts = (data.posts || []).map((b, index) => ({
+        const posts = (data.posts || []).map((b) => ({
           id: b.id,
           title: b.title,
           date: formatDate(b.createdAt),
-          image:
-            b.coverImage?.startsWith("/new/")
-              ? b.coverImage
-              : blogFallbackImages[index % blogFallbackImages.length],
+          image: b.coverImage || "/new/image26.jpeg",
           description: b.excerpt || "",
           href: `/news/${b.slug}`,
         }));

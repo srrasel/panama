@@ -9,8 +9,8 @@ services:
       - /app/node_modules
     ports:
       - '3000:3000'
+    env_file:
+      - .env
     environment:
       NODE_ENV: development
-      # Add any env vars you need here, e.g. DATABASE_URL
-      # DATABASE_URL: "postgresql://user:pass@host:5432/db"
     command: pnpm dev --hostname 0.0.0.0

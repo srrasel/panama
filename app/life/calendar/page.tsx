@@ -108,15 +108,15 @@ export default function CalendarPage() {
       />
 
       <main className="bg-[#F7F6F3] min-h-screen font-['Montserrat']">
-        <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-12 md:py-16 lg:py-20 max-w-7xl">
-          <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12">
-            <div className="lg:w-1/3 space-y-6 sm:space-y-8">
-              <div className="bg-white p-5 sm:p-6 md:p-8 rounded-none shadow-sm border border-[#E5E7EB] lg:sticky lg:top-24">
-                <h3 className="text-xl sm:text-2xl font-['Playfair_Display'] font-bold mb-4 sm:mb-6 text-[#1F2A44] border-b border-[#D4A437]/30 pb-3 sm:pb-4 uppercase tracking-tight">
+        <div className="container mx-auto px-4 py-12 md:py-20 max-w-7xl">
+          <div className="flex flex-col lg:flex-row gap-12">
+            <div className="lg:w-1/3 space-y-8">
+              <div className="bg-white p-8 rounded-none shadow-sm border border-[#E5E7EB] sticky top-24">
+                <h3 className="text-2xl font-['Playfair_Display'] font-bold mb-6 text-[#1F2A44] border-b border-[#D4A437]/30 pb-4 uppercase tracking-tight">
                   Select Date
                 </h3>
 
-                <div className="flex justify-center overflow-x-auto">
+                <div className="flex justify-center">
                   <Calendar
                     mode="single"
                     selected={selectedDate}
@@ -126,7 +126,7 @@ export default function CalendarPage() {
                     }}
                     modifiers={{ hasEvent: eventDates }}
                     modifiersClassNames={{ hasEvent: "font-bold text-[#D4A437]" }}
-                    className="rounded-none border border-[#E5E7EB] p-2 sm:p-4 shadow-sm"
+                    className="rounded-none border border-[#E5E7EB] p-4 shadow-sm"
                   />
                 </div>
 
@@ -184,8 +184,8 @@ export default function CalendarPage() {
             </div>
 
             <div className="lg:w-2/3">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-baseline mb-6 sm:mb-8 md:mb-10 border-b border-[#D4A437]/20 pb-4 sm:pb-6 gap-3 sm:gap-4">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Playfair_Display'] font-bold text-[#1F2A44]">
+              <div className="flex flex-col md:flex-row justify-between items-baseline mb-10 border-b border-[#D4A437]/20 pb-6 gap-4">
+                <h2 className="text-4xl md:text-5xl font-['Playfair_Display'] font-bold text-[#1F2A44]">
                   Upcoming <span className="text-[#D4A437] italic">Events</span>
                 </h2>
                 <div className="text-[#222222]/60 text-xs uppercase tracking-[0.2em] font-semibold">
