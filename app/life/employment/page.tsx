@@ -52,7 +52,7 @@ export default function EmploymentPage() {
             </div>
             <div className="md:w-1/2 relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/emt1.jpeg"
+                src="/school.jpg"
                 alt="Pamavambo staff at work"
                 fill
                 className="object-cover"
@@ -109,12 +109,12 @@ export default function EmploymentPage() {
                   >
                     View Open Positions
                   </Link>
-                  <a
-                    href="mailto:communication@pamavambo.org?subject=Employment%20Application%20-%20Pamavambo%20Private%20School"
+                  <Link
+                    href="/life/employment/apply"
                     className="bg-transparent border border-white/30 text-white px-6 py-3 rounded-full hover:bg-white/10 transition-colors font-semibold"
                   >
                     Submit Application
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
