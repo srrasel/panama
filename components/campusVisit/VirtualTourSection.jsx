@@ -97,10 +97,10 @@ export default function VirtualTourSection() {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16 font-['Montserrat']">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10 sm:py-12 md:py-16 font-['Montserrat']">
    
       {/* Bottom Hero Section */}
-      <div className="grid md:grid-cols-2 gap-16 items-center border-t border-[#D4A437]/20 pt-20">
+      <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center border-t border-[#D4A437]/20 pt-10 sm:pt-14 md:pt-20">
         <div className="relative aspect-[4/5] w-full overflow-hidden shadow-2xl  group">
           <Image
             src="/new/image16.jpeg"
@@ -111,12 +111,12 @@ export default function VirtualTourSection() {
           <div className="absolute inset-0 bg-[#1F2A44]/5 group-hover:bg-transparent transition-colors duration-500" />
         </div>
 
-        <div className="space-y-10">
-          <h2 className="text-5xl md:text-7xl font-['Playfair_Display'] font-bold text-[#1F2A44] leading-[1.1] tracking-tight">
+        <div className="space-y-6 sm:space-y-8 md:space-y-10">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-['Playfair_Display'] font-bold text-[#1F2A44] leading-[1.1] tracking-tight">
             Step Into <br /> <span className="text-[#D4A437] italic font-medium">Pamavambo</span>
           </h2>
-          <div className="w-20 h-1 bg-[#D4A437] mb-8" />
-          <p className="text-[#222222] text-lg md:text-xl leading-relaxed font-light opacity-90 italic">
+          <div className="w-16 sm:w-20 h-1 bg-[#D4A437] mb-4 sm:mb-6 md:mb-8" />
+          <p className="text-[#222222] text-base sm:text-lg md:text-xl leading-relaxed font-light opacity-90 italic">
             Visiting Pamavambo is just the beginning of discovering what&apos;s
             possible. Walking through campus, you&apos;ll start to imagine yourself
             diving into classes that challenge you, joining teammates on the

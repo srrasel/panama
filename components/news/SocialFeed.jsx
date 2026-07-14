@@ -32,9 +32,9 @@ const posts = [
 
 const SocialFeed = () => {
   return (
-    <section className="bg-[#f2eade] py-16 md:py-20 px-4 md:px-12 font-['Montserrat']">
+    <section className="bg-[#f2eade] py-10 sm:py-14 md:py-16 lg:py-20 px-4 sm:px-6 md:px-12 font-['Montserrat']">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1F2A44] mb-8 md:mb-12 font-['Playfair_Display'] font-bold leading-tight text-center md:text-left">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#1F2A44] mb-6 sm:mb-8 md:mb-12 font-['Playfair_Display'] font-bold leading-tight text-center md:text-left">
           Social Media{" "}
           <span className="text-[#D4A437] italic font-medium">
             @ Pamavambo Private School

@@ -18,7 +18,7 @@ const AdmissionDecisions = () => {
   ];
 
   return (
-    <section className="relative py-48 px-6 md:px-20 lg:px-32">
+    <section className="relative py-16 sm:py-24 md:py-32 lg:py-40 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
       {/* Background Image - NO OPACITY, LOCAL IMAGE */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
@@ -29,9 +29,9 @@ const AdmissionDecisions = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Three-Column Process Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12 text-center mb-12 sm:mb-16 md:mb-24">
           {processSteps.map((step, idx) => (
-            <div key={idx} className="flex flex-col items-center space-y-6">
+            <div key={idx} className="flex flex-col items-center space-y-4 sm:space-y-6">
               {/* Gold Decorative Icon */}
               <div className="w-8 h-8 flex items-center justify-center">
                 <svg
@@ -46,11 +46,11 @@ const AdmissionDecisions = () => {
                 </svg>
               </div>
 
-              <h3 className="font-serif text-2xl text-transparent leading-tight">
+              <h3 className="font-serif text-xl sm:text-2xl text-transparent leading-tight">
                 {step.title}
               </h3>
 
-              <p className="text-sm font-light text-transparent leading-relaxed px-4">
+              <p className="text-xs sm:text-sm font-light text-transparent leading-relaxed px-2 sm:px-4">
                 {step.content}
               </p>
             </div>

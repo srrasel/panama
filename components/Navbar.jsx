@@ -74,14 +74,14 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="absolute top-0 left-0 w-full z-50 bg-amber-50 px-4 md:px-8 py-2">
+      <header className="absolute top-0 left-0 w-full z-50 bg-amber-50/95 backdrop-blur-sm px-3 sm:px-4 md:px-8 py-2">
         {/* Main Wrapper: Logo, Nav, and Search all in one row */}
-        <div className="max-w-400 mx-auto flex justify-between items-center gap-4">
-          {/* 1. LOGO (Stacked text but vertically centered) */}
-          <Link href="/" className="z-60 flex items-center gap-2 shrink-0">
-          <Image src="/new/logo.png" alt="Pamavambo Private School" width={80} height={80} />
-            <h1 className="font-(--font-headline-serif) text-lg md:text-xl  text-(--deep-navy) leading-[1.1] uppercase">
-               Pamavambo Private<br /> School
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-2 sm:gap-4">
+          {/* 1. LOGO */}
+          <Link href="/" className="z-60 flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0">
+          <Image src="/new/logo.png" alt="Pamavambo Private School" width={64} height={64} className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain" />
+            <h1 className="font-(--font-headline-serif) text-sm sm:text-base md:text-xl text-(--deep-navy) leading-[1.1] uppercase truncate sm:whitespace-normal">
+               Pamavambo Private<br className="hidden xs:block sm:block" /> <span className="sm:inline">School</span>
             </h1>
           </Link>
 
@@ -125,7 +125,7 @@ export default function Navbar() {
           </nav>
 
           {/* 3. UTILITY AREA: Info For & Search */}
-          <div className="flex items-center gap-6 z-60">
+          <div className="flex items-center gap-3 sm:gap-6 z-60 shrink-0">
             {/* User Profile or "Information For" Dropdown */}
             {user ? (
                <div
@@ -173,7 +173,7 @@ export default function Navbar() {
               </div>
             ) : (
             <div
-              className="hidden lg:flex text-(--deep-navy)items-center gap-1 cursor-pointer relative text-[10px] lg:text-xs tracking-widest font-bold"
+              className="hidden lg:flex text-(--deep-navy) items-center gap-1 cursor-pointer relative text-[10px] lg:text-xs tracking-widest font-bold"
               onMouseEnter={() => setIsInfoOpen(true)}
               onMouseLeave={() => setIsInfoOpen(false)}
             >
@@ -200,16 +200,17 @@ export default function Navbar() {
             )}
 
             {/* Search Icon */}
-            <button className="text-(--deep-navy) hover:text-amber-500 transition-colors">
-              <Search size={22} strokeWidth={2.5} />
+            <button className="text-(--deep-navy) hover:text-amber-500 transition-colors hidden sm:block" aria-label="Search">
+              <Search size={20} strokeWidth={2.5} />
             </button>
 
-            {/* Mobile Hamburger (Only visible on small screens) */}
+            {/* Mobile Hamburger */}
             <button
-              className="text-(--deep-navy) xl:hidden"
+              className="text-(--deep-navy) xl:hidden p-1"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
         </div>
@@ -222,25 +223,50 @@ export default function Navbar() {
           xl:hidden
         `}
         >
-          <div className="flex-1 overflow-y-auto mt-24 p-6">
-            <nav className="flex flex-col gap-8">
+          <div className="flex items-center justify-between px-4 py-4 border-b border-white/10">
+            <span className="text-white font-bold tracking-widest text-sm uppercase">Menu</span>
+            <button
+              className="text-white p-1"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={28} />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto p-5 sm:p-6">
+            <nav className="flex flex-col gap-6 sm:gap-8">
+              {!user && (
+                <div className="flex flex-col gap-2 pb-4 border-b border-amber-500/20">
+                  <p className="text-amber-400 text-[10px] font-bold tracking-widest uppercase">Information For</p>
+                  {dropdownData.items.map((item, index) => (
+                    <Link
+                      key={index}
+                      href={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-white/90 text-sm uppercase tracking-widest py-1"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
               {mainNavConfig.map((menu, index) => (
-                <div key={index} className="flex flex-col gap-3">
+                <div key={index} className="flex flex-col gap-2 sm:gap-3">
                   <Link
                     href={menu.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-white text-lg font-serif border-b border-amber-500/30 pb-2"
+                    className="text-white text-base sm:text-lg font-serif border-b border-amber-500/30 pb-2"
                   >
                     {menu.title}
                   </Link>
                   {menu.links.length > 0 && (
-                    <div className="flex flex-col gap-2 pl-3">
+                    <div className="flex flex-col gap-1.5 pl-2 sm:pl-3">
                       {menu.links.map((link, i) => (
                         <Link
                           key={i}
                           href={link.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-white/80 text-sm hover:text-amber-400 py-1 uppercase tracking-widest"
+                          className="text-white/80 text-xs sm:text-sm hover:text-amber-400 py-1.5 uppercase tracking-widest"
                         >
                           {link.label}
                         </Link>

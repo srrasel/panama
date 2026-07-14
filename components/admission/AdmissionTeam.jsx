@@ -55,21 +55,21 @@ const teamMembers = [
 
 export default function AdmissionTeam() {
   return (
-    <section className="w-full bg-[#F7F6F3] py-24 px-6 md:px-20 font-['Montserrat']">
+    <section className="w-full bg-[#F7F6F3] py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 font-['Montserrat']">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <h2 className="text-4xl md:text-6xl font-['Playfair_Display'] font-bold text-[#1F2A44] mb-20 border-b border-[#D4A437]/20 pb-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-['Playfair_Display'] font-bold text-[#1F2A44] mb-10 sm:mb-14 md:mb-20 border-b border-[#D4A437]/20 pb-4 sm:pb-6">
           Meet the <span className="text-[#D4A437] italic font-medium">Admission Team</span>
         </h2>
 
         {/* Team Container using Flex Wrap */}
-        <div className="flex flex-wrap -mx-4">
+        <div className="flex flex-wrap -mx-2 sm:-mx-4">
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="w-full sm:w-1/2 lg:w-1/4 px-4 mb-12 flex flex-col items-center text-center group"
+              className="w-full sm:w-1/2 lg:w-1/4 px-2 sm:px-4 mb-8 sm:mb-10 md:mb-12 flex flex-col items-center text-center group"
             >
-              <div className="relative w-48 aspect-square mb-6">
+              <div className="relative w-36 sm:w-40 md:w-48 aspect-square mb-4 sm:mb-6">
                 {/* Gold border ring (#D4A437) */}
                 <div className="absolute inset-0 rounded-full border-4 border-[#D4A437] pointer-events-none z-20 group-hover:scale-105 transition-transform duration-500" />
 

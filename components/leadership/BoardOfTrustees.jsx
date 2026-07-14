@@ -66,15 +66,15 @@ const BoardOfTrustees = () => {
   ];
 
   return (
-    <section className="bg-[#141415] max-w-7xl mx-auto  py-24 px-6 md:px-20 lg:px-32">
+    <section className="bg-[#141415] max-w-7xl mx-auto py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
       <div className="">
         {/* Header Section */}
-        <h2 className="font-serif text-3xl text-white mb-16">
+        <h2 className="font-serif text-2xl sm:text-3xl text-white mb-8 sm:mb-12 md:mb-16">
           The Pamavambo Private School Board of Trustees
         </h2>
 
         {/* Two-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-12 md:gap-x-16 lg:gap-x-24 gap-y-6 sm:gap-y-8 md:gap-y-10">
           {trustees.map((trustee, idx) => (
             <div key={idx} className="space-y-1">
               {/* Trustee Name */}

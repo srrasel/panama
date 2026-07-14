@@ -10,12 +10,12 @@ import Image from "next/image";
 
 const CampusMapSection = () => {
   return (
-    <section className="bg-white py-24 px-6 md:px-20 lg:px-32">
+    <section className="bg-white py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
-        <h2 className="font-serif text-5xl text-gray-900 mb-16">Campus Map</h2>
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gray-900 mb-8 sm:mb-12 md:mb-16">Campus Map</h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-16 md:mb-20">
           {/* Main Campus Map Illustration */}
           <div className="lg:col-span-8 border-4 border-[#C5A059]/30 p-2 relative aspect-4/3 shadow-md">
             <Image
@@ -27,7 +27,7 @@ const CampusMapSection = () => {
           </div>
 
           {/* Right Sidebar: Download & Google Maps */}
-          <div className="lg:col-span-4 space-y-8">
+          <div className="lg:col-span-4 space-y-6 sm:space-y-8">
             <div className="bg-[#D9F2F1] p-1 border-2 border-[#4A6FA5]">
               <button className="w-full flex items-center justify-center gap-3 py-4 bg-white text-[#4A6FA5] font-bold text-xs tracking-widest uppercase hover:bg-gray-50 transition-colors">
                 <Download size={18} />

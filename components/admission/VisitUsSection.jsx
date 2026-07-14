@@ -6,11 +6,11 @@ import Link from "next/link";
 
 export default function VisitUsSection() {
   return (
-    <section className="w-full bg-[#F7F6F3] py-16 md:py-24 px-6 md:px-20 lg:px-32 font-['Montserrat']">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+    <section className="w-full bg-[#F7F6F3] py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 font-['Montserrat']">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 sm:gap-10 md:gap-12 lg:gap-24">
         {/* Left Column: Text Content */}
-        <div className="w-full lg:w-1/3 space-y-8">
-          <h2 className="text-4xl md:text-6xl font-['Playfair_Display'] font-bold text-[#1F2A44] leading-tight">
+        <div className="w-full lg:w-1/3 space-y-5 sm:space-y-6 md:space-y-8">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-['Playfair_Display'] font-bold text-[#1F2A44] leading-tight">
             Visit Us
           </h2>
 

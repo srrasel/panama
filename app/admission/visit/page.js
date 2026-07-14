@@ -38,10 +38,10 @@ export default function VisitPage() {
       {/* <CampusToursSection /> */}
       <VirtualTourSection />
 
-      <div className="w-full bg-[#F7F6F3] py-16 px-6 md:px-20 lg:px-32 font-['Montserrat']">
-  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-baseline gap-6">
+      <div className="w-full bg-[#F7F6F3] py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 font-['Montserrat']">
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-baseline gap-4 sm:gap-6">
     {/* Heading using Playfair Display */}
-    <h1 className="text-2xl md:text-3xl font-['Playfair_Display'] font-bold text-[#1F2A44] border-l-4 border-[#D4A437] pl-6 tracking-tight uppercase">
+    <h1 className="text-xl sm:text-2xl md:text-3xl font-['Playfair_Display'] font-bold text-[#1F2A44] border-l-4 border-[#D4A437] pl-4 sm:pl-6 tracking-tight uppercase">
       Meet us on the <span className="italic font-medium">Road</span>
     </h1>
     

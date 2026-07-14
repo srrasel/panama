@@ -11,13 +11,13 @@ const mainNavLinks = [
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#0F1B2D] text-[#F7F6F3] py-16 px-6 md:px-20 border-t border-[#D4A437]/30 font-['Montserrat']">
+    <footer className="w-full bg-[#0F1B2D] text-[#F7F6F3] py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 border-t border-[#D4A437]/30 font-['Montserrat']">
       <div className="max-w-7xl mx-auto">
         {/* Top Section: Seal, Address, and Action Buttons */}
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-12 pb-16">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 sm:gap-10 md:gap-12 pb-10 sm:pb-12 md:pb-16">
           {/* Left Group: Seal and Address */}
-          <div className="flex flex-col md:flex-row items-center gap-3">
-            <div className="relative w-44 h-44">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44">
               <Image
                 src="/new/logo.png"
                 alt="The Pamavambo Private School Seal"

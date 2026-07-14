@@ -61,14 +61,14 @@ const TestingRequirements = () => {
   const rightColumnItems = accordionItems.slice(2);
 
   return (
-    <section className="bg-[#2d2e33] max-w-7xl mx-auto py-24 px-6 md:px-20 lg:px-32 text-white">
+    <section className="bg-[#2d2e33] max-w-7xl mx-auto py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 text-white">
       <div className="">
-        <h2 className="font-serif text-4xl mb-4">Testing</h2>
-        <p className="text-sm font-light text-gray-300 mb-12 italic">
+        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl mb-3 sm:mb-4">Testing</h2>
+        <p className="text-sm font-light text-gray-300 mb-8 sm:mb-10 md:mb-12 italic">
           Required testing must be completed by January 15.
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 sm:gap-x-12 gap-y-4 sm:gap-y-6 items-start">
           {/* Left Column */}
           <div className="space-y-4">
             <Accordion type="single" collapsible className="space-y-4">

@@ -85,15 +85,15 @@ const TrusteesEmeriti = () => {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto py-24 px-6 md:px-20 lg:px-32">
+    <section className="max-w-7xl mx-auto py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
       <div className="">
         {/* Section Title */}
-        <h2 className="font-serif text-3xl text-gray-900 mb-16">
+        <h2 className="font-serif text-2xl sm:text-3xl text-gray-900 mb-8 sm:mb-12 md:mb-16">
           Trustees Emeriti
         </h2>
 
         {/* Two-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-12 md:gap-x-16 lg:gap-x-24 gap-y-6 sm:gap-y-8 md:gap-y-10">
           {emeriti.map((trustee, idx) => (
             <div key={idx} className="space-y-1">
               {/* Emeriti Name */}

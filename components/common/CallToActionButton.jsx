@@ -12,7 +12,7 @@ export default function CallToActionButton({
   imageAlt,
 }) {
   return (
-    <section className="relative w-full min-h-100 sm:min-h-120 md:min-h-135 lg:min-h-150 flex items-center px-4 sm:px-5 md:px-6 py-12 sm:py-16 md:py-18 lg:py-20 overflow-hidden font-['Montserrat']">
+    <section className="relative w-full min-h-[55vh] sm:min-h-[60vh] md:min-h-[65vh] lg:min-h-[70vh] flex items-center px-4 sm:px-5 md:px-6 py-10 sm:py-14 md:py-16 lg:py-20 overflow-hidden font-['Montserrat']">
       {/* Background Image with Brand Navy Overlay */}
       <div className="absolute inset-0 -z-10">
         <Image

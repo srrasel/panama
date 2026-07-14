@@ -29,20 +29,20 @@ const gridItems = [
 export default function ImageSection() {
   return (
     <section
-      className="relative w-full py-24 overflow-hidden"
+      className="relative w-full py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden"
       style={{
         backgroundImage: 'linear-gradient(rgba(247, 246, 243, 0.9), rgba(247, 246, 243, 0.9)), url("https://images.unsplash.com/photo-1453749024868-697480531b72?q=80&w=2007&auto=format&fit=crop")',
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         {/* The 2x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 shadow-[0_20px_50px_rgba(31,42,68,0.15)] relative ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 shadow-[0_20px_50px_rgba(31,42,68,0.15)] relative ">
           
           {/* Central Logo Overlay */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 hidden md:block">
-            <div className="relative w-48 h-48 md:w-60 md:h-60 flex items-center justify-center">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 hidden sm:block">
+            <div className="relative w-32 h-32 md:w-48 md:h-48 lg:w-60 lg:h-60 flex items-center justify-center">
               {/* Radiating circles with Brand Gold (#D4A437) */}
               <div
                 className="absolute inset-0 w-full h-full opacity-20 animate-pulse"
@@ -86,9 +86,9 @@ export default function ImageSection() {
               <div className="absolute inset-0 bg-[#1F2A44]/30 group-hover:bg-[#1F2A44]/70 transition-all duration-500" />
 
               {/* Text Content */}
-              <div className="absolute inset-0 flex flex-col justify-start p-10">
+              <div className="absolute inset-0 flex flex-col justify-start p-5 sm:p-8 md:p-10">
                 <div className="overflow-hidden">
-                  <h3 className="text-white text-2xl md:text-3xl font-['Playfair_Display'] font-bold tracking-wide uppercase transition-transform duration-500 group-hover:-translate-y-2">
+                  <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-['Playfair_Display'] font-bold tracking-wide uppercase transition-transform duration-500 group-hover:-translate-y-2">
                     {item.title}
                   </h3>
                   {/* Decorative underline that expands on hover */}
@@ -107,9 +107,9 @@ export default function ImageSection() {
         </div>
 
         {/* Bottom Decorative Crest */}
-        <div className="flex flex-col items-center mt-20">
-          <div className="w-px h-16 bg-linear-to-b from-[#D4A437] to-transparent mb-8" />
-          <div className="relative w-40 h-40">
+        <div className="flex flex-col items-center mt-12 sm:mt-16 md:mt-20">
+          <div className="w-px h-10 sm:h-16 bg-linear-to-b from-[#D4A437] to-transparent mb-6 sm:mb-8" />
+          <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40">
             <Image
               src="/texture-02.svg"
               alt="crest"

@@ -57,18 +57,18 @@ const ToursAccordion = ({
   };
 
   return (
-    <section className={`${sectionBgColor} px-6 md:px-20 lg:px-32 pb-20`}>
+    <section className={`${sectionBgColor} px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 pb-12 sm:pb-16 md:pb-20`}>
       <div className="max-w-7xl mx-auto">
         {/* Shadcn Accordion */}
         <Accordion type="single" collapsible className="w-full  ">
           <AccordionItem value="virtual-tours" className="border-none">
-            <AccordionTrigger className="px-8 py-4 bg-gray-100 rounded text-gray-700 hover:no-underline font-medium ">
-              <span className="flex items-center gap-4">{accordionTitle}</span>
+            <AccordionTrigger className="px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-gray-100 rounded text-gray-700 hover:no-underline font-medium ">
+              <span className="flex items-center gap-3 sm:gap-4 text-sm sm:text-base">{accordionTitle}</span>
             </AccordionTrigger>
 
             <AccordionContent className={`${sectionBgColor} p-0`}>
-              <h3 className="font-bold text-xl mt-2 p-4">{accordionTitle}</h3>
-              <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+              <h3 className="font-bold text-lg sm:text-xl mt-2 p-3 sm:p-4">{accordionTitle}</h3>
+              <div className="p-4 sm:p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-12 gap-y-8 sm:gap-y-12 md:gap-y-16">
                 {virtualTours.map((tour, idx) => (
                   <div key={idx} className="space-y-4">
                     {/* Header Text */}

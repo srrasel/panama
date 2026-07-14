@@ -22,19 +22,19 @@ const FeaturedSpaces = () => {
   ];
 
   return (
-    <section className="bg-[#F7F6F3] py-24 px-6 md:px-20 lg:px-32 font-['Montserrat']">
+    <section className="bg-[#F7F6F3] py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 font-['Montserrat']">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center gap-4 mb-12">
-          <div className="w-12 h-[2px] bg-[#D4A437]" />
-          <h2 className="text-3xl md:text-5xl font-['Playfair_Display'] font-bold text-[#1F2A44] tracking-tight uppercase">
+        <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12">
+          <div className="w-8 sm:w-12 h-[2px] bg-[#D4A437] shrink-0" />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Playfair_Display'] font-bold text-[#1F2A44] tracking-tight uppercase">
             Featured <span className="text-[#D4A437] italic font-medium">Spaces</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 items-stretch">
           {spaces.map((space, index) => (
             <div key={index} className="group cursor-pointer flex flex-col h-full">
-              <div className="relative aspect-[4/5] mb-6 overflow-hidden bg-[#F7F6F3] border border-[#E5E7EB] shadow-sm group-hover:shadow-xl transition-all duration-500">
+              <div className="relative aspect-[4/5] mb-4 sm:mb-6 overflow-hidden bg-[#F7F6F3] border border-[#E5E7EB] shadow-sm group-hover:shadow-xl transition-all duration-500">
                 <Image
                   src={space.image}
                   alt={space.title}

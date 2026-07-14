@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function CampusToursSection() {
   return (
-    <section className="relative min-h-125 flex items-center py-24 px-6 md:px-20 lg:px-32">
+    <section className="relative min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] flex items-center py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -17,12 +17,12 @@ export default function CampusToursSection() {
 
       {/* Content */}
       <div className="relative max-w-4xl mx-auto">
-        <h2 className="font-serif text-3xl text-gray-900 mb-10">
+        <h2 className="font-serif text-2xl sm:text-3xl text-gray-900 mb-6 sm:mb-8 md:mb-10">
           Scholarship Aid
         </h2>
 
-        <div className="space-y-8">
-          <p className="text-gray-800 font-light leading-relaxed text-lg">
+        <div className="space-y-5 sm:space-y-6 md:space-y-8">
+          <p className="text-gray-800 font-light leading-relaxed text-base sm:text-lg">
             A family's eligibility for aid is determined through careful
             analysis of information provided on the scholarship aid application,{" "}
             <span className="font-bold border-b border-gray-900">Clarity</span>,
@@ -31,7 +31,7 @@ export default function CampusToursSection() {
             discretionary income that is available for tuition and fees.
           </p>
 
-          <p className="text-gray-700 font-light leading-relaxed">
+          <p className="text-gray-700 font-light leading-relaxed text-sm sm:text-base">
             We strongly encourage families to apply for aid during the
             application process if they believe that, at any time during their
             child's tenure, they will need scholarship aid. Families who come as
@@ -39,14 +39,14 @@ export default function CampusToursSection() {
             event occurs.
           </p>
 
-          <p className="text-gray-900 font-medium">
+          <p className="text-gray-900 font-medium text-sm sm:text-base">
             The deadline to apply for scholarship aid is{" "}
             <span className="font-bold">January 15</span>.
           </p>
 
           <Link
             href="/scholarship-aid"
-            className="inline-block text-[#4A6FA5] font-bold text-sm tracking-widest uppercase border-b-2 border-[#4A6FA5] pb-1 hover:text-[#4A6FA5] hover:border-[#4A6FA5] transition-all"
+            className="inline-block text-[#4A6FA5] font-bold text-xs sm:text-sm tracking-widest uppercase border-b-2 border-[#4A6FA5] pb-1 hover:text-[#4A6FA5] hover:border-[#4A6FA5] transition-all"
           >
             Learn More About Scholarship Aid
           </Link>

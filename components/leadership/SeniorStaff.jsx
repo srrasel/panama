@@ -54,14 +54,14 @@ const staffMembers = [
 
 const SeniorStaff = () => {
   return (
-    <section className="bg-white py-24 px-6 md:px-20 lg:px-32">
+    <section className="bg-white py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-16 max-w-4xl">
-          <h2 className="font-serif text-5xl text-gray-900 mb-8">
+        <div className="mb-8 sm:mb-12 md:mb-16 max-w-4xl">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gray-900 mb-4 sm:mb-6 md:mb-8">
             Senior Staff
           </h2>
-          <p className="text-gray-700 font-light leading-relaxed text-lg">
+          <p className="text-gray-700 font-light leading-relaxed text-base sm:text-lg">
             The Senior Staff group is the principal administrative committee
             representing all the major school departments. The group helps
             advise the Head of School and works on long-term planning for the
@@ -71,7 +71,7 @@ const SeniorStaff = () => {
         </div>
 
         {/* Staff Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-10 sm:gap-y-14 md:gap-y-20">
           {staffMembers.map((member, idx) => (
             <div
               key={idx}

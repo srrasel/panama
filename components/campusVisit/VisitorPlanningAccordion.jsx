@@ -9,28 +9,28 @@ import { ChevronRight } from "lucide-react";
 
 const VisitorPlanningAccordion = () => {
   return (
-    <div className="max-w-7xl mx-auto py-12 px-6">
-      <h2 className="font-serif text-3xl mb-8">Planning Your Visit</h2>
+    <div className="max-w-7xl mx-auto py-8 sm:py-10 md:py-12 px-4 sm:px-6 md:px-8">
+      <h2 className="font-serif text-2xl sm:text-3xl mb-6 sm:mb-8">Planning Your Visit</h2>
 
       <Accordion type="single" collapsible className="space-y-1">
         {/* Transportation Section */}
         <AccordionItem value="transportation" className="border-none">
-          <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white px-6 py-4 hover:no-underline group transition-all duration-200">
-            <div className="flex items-center gap-6">
+          <AccordionTrigger className="bg-[#f4f4f4] hover:bg-[#ececec] data-[state=open]:bg-[#4a6fa5] data-[state=open]:text-white px-4 sm:px-6 py-3 sm:py-4 hover:no-underline group transition-all duration-200">
+            <div className="flex items-center gap-3 sm:gap-6">
               <ChevronRight
                 size={16}
-                className="text-gray-400 transition-all duration-200 group-data-[state=open]:rotate-90 group-data-[state=open]:text-white"
+                className="text-gray-400 transition-all duration-200 group-data-[state=open]:rotate-90 group-data-[state=open]:text-white shrink-0"
               />
-              <span className="text-xs font-medium tracking-widest text-gray-600 uppercase group-data-[state=open]:text-white">
+              <span className="text-[10px] sm:text-xs font-medium tracking-widest text-gray-600 uppercase group-data-[state=open]:text-white text-left">
                 Transportation
               </span>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="bg-white border border-[#f4f4f4] p-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <AccordionContent className="bg-white border border-[#f4f4f4] p-5 sm:p-8 md:p-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
               {/* Column 1: Airports */}
               <div>
-                <h4 className="font-bold text-lg mb-6">Airports</h4>
+                <h4 className="font-bold text-base sm:text-lg mb-4 sm:mb-6">Airports</h4>
                 <ul className="space-y-4 text-sm text-gray-700 font-light">
                   <li>
                     Philadelphia International Airport (

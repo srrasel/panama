@@ -19,7 +19,7 @@ const ScholarshipAidSection = ({
   buttonLink = "/scholarship-aid",
 }) => {
   return (
-    <section className="relative min-h-[500px] flex items-center py-24 px-6 md:px-20 lg:px-32">
+    <section className="relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px] flex items-center py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
       {/* Background Image */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
@@ -34,9 +34,9 @@ const ScholarshipAidSection = ({
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto">
         {/* Title */}
-        <h2 className="font-serif text-3xl text-gray-900 mb-10">{title}</h2>
+        <h2 className="font-serif text-2xl sm:text-3xl text-gray-900 mb-6 sm:mb-8 md:mb-10">{title}</h2>
 
-        <div className="space-y-8">
+        <div className="space-y-5 sm:space-y-6 md:space-y-8">
           {/* Eligibility text with bold Clarity */}
           <p className="text-gray-800 font-light leading-relaxed text-lg">
             {eligibilityText.split(clarityText).map((part, index, array) => (

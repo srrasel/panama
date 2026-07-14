@@ -49,15 +49,15 @@ const SliderSection = ({
   };
 
   return (
-    <section className={`${sectionBgColor} py-20 mt-10 px-6 md:px-20 lg:px-32`}>
+    <section className={`${sectionBgColor} py-12 sm:py-16 md:py-20 mt-6 sm:mt-8 md:mt-10 px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32`}>
       <div className="max-w-7xl mx-auto">
         {/* Header & Slider Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <div className="space-y-8">
-            <h2 className="font-serif text-5xl text-gray-900 font-bold">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-start">
+          <div className="space-y-5 sm:space-y-6 md:space-y-8">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gray-900 font-bold">
               {title}
             </h2>
-            <div className="space-y-6 text-gray-800 font-light leading-relaxed text-lg">
+            <div className="space-y-4 sm:space-y-5 md:space-y-6 text-gray-800 font-light leading-relaxed text-base sm:text-lg">
               {descriptionParagraphs.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}

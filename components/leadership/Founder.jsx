@@ -4,15 +4,15 @@ import Image from "next/image";
 
 const Founder = () => {
   return (
-    <section className="bg-[#F7F6F3] py-20 px-6 md:px-16 lg:px-24 font-['Montserrat']">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section className="bg-[#F7F6F3] py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 font-['Montserrat']">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center">
         
         {/* Left: Founder Image with Brand Frame Styling */}
         <div className="relative group">
           {/* Decorative Background Frame (#D4A437) */}
-          <div className="absolute -inset-4  z-0 pointer-events-none translate-x-3 translate-y-3" />
+          <div className="absolute -inset-4  z-0 pointer-events-none translate-x-3 translate-y-3 hidden sm:block" />
           
-          <div className="relative w-full h-[350px] md:h-[450px] lg:h-[500px] rounded-none overflow-hidden  z-10">
+          <div className="relative w-full h-[280px] sm:h-[350px] md:h-[450px] lg:h-[500px] rounded-none overflow-hidden  z-10">
             <Image
               src="/admission/Founder.jpeg"
               alt="Founder Mrs. Joyce Raradza"

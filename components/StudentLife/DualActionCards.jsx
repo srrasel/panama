@@ -24,12 +24,12 @@ const cardData = [
 
 export default function DualActionCards() {
   return (
-    <section className="w-full bg-[#F7F6F3] py-16 md:py-24 px-6 md:px-12 lg:px-20 font-['Montserrat']">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+    <section className="w-full bg-[#F7F6F3] py-10 sm:py-14 md:py-20 px-4 sm:px-6 md:px-12 lg:px-20 font-['Montserrat']">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-8 lg:gap-12">
         {cardData.map((card, index) => (
           <div
             key={index}
-            className="relative aspect-square w-full overflow-hidden flex items-center justify-center p-8 md:p-12 group"
+            className="relative aspect-[4/5] sm:aspect-[5/4] md:aspect-square w-full overflow-hidden flex items-center justify-center p-5 sm:p-8 md:p-10 lg:p-12 group"
           >
             {/* Background Image with Navy Overlay (#0F1B2D) */}
             <div className="absolute inset-0 z-0">
@@ -46,12 +46,12 @@ export default function DualActionCards() {
             <div className="absolute inset-4 md:inset-10 border-2 border-[#D4A437] z-10 pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
 
             {/* Content Container */}
-            <div className="relative z-20 flex flex-col items-start text-left space-y-4 md:space-y-6 max-w-sm md:max-w-md">
-              <h2 className="text-3xl md:text-5xl font-['Playfair_Display'] font-bold text-white leading-tight">
+            <div className="relative z-20 flex flex-col items-start text-left space-y-3 sm:space-y-4 md:space-y-6 max-w-sm md:max-w-md">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Playfair_Display'] font-bold text-white leading-tight">
                 {card.title}
               </h2>
 
-              <p className="text-[#F7F6F3] text-xs md:text-sm font-light leading-relaxed opacity-90 italic">
+              <p className="text-[#F7F6F3] text-xs sm:text-sm font-light leading-relaxed opacity-90 italic line-clamp-5 md:line-clamp-none">
                 {card.description}
               </p>
 
