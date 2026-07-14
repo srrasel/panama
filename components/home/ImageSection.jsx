@@ -17,7 +17,7 @@ const gridItems = [
   {
     title: "Admissions",
     image: "/new/image39.jpeg",
-    link: "/arts",
+    link: "/admission",
   },
   {
     title: "Beyond the Classroom",
