@@ -38,7 +38,7 @@ const ExploreSection = () => {
         {/* Next.js Image Column */}
         <div className="order-1 md:order-2 relative aspect-[4/3] w-full overflow-hidden shadow-2xl group">
           <Image
-            src="/new/picture14.png"
+            src="/image18.webp"
             alt="The Pamavambo Private School Campus Architecture"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
